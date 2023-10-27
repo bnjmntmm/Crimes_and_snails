@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://bcvjnq3veqxgr"
+path="res://.godot/imported/Grass001_4K-JPG_Color.jpg-64e4be6080787d13dd4cab09241f1041.image"
+
+[deps]
+
+source_file="res://assets/terrain3d/grass/albedo/Grass001_4K-JPG_Color.jpg"
+dest_files=["res://.godot/imported/Grass001_4K-JPG_Color.jpg-64e4be6080787d13dd4cab09241f1041.image"]
+
+[params]
+

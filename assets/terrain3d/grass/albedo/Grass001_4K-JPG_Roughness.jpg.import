@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://bchsdkx8p0o6u"
+path="res://.godot/imported/Grass001_4K-JPG_Roughness.jpg-45b2d5b920e53cd0e9d2edf8f58ceb8b.image"
+
+[deps]
+
+source_file="res://assets/terrain3d/grass/albedo/Grass001_4K-JPG_Roughness.jpg"
+dest_files=["res://.godot/imported/Grass001_4K-JPG_Roughness.jpg-45b2d5b920e53cd0e9d2edf8f58ceb8b.image"]
+
+[params]
+
