@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://xtd05ou35b75"]
+
+[ext_resource type="PackedScene" uid="uid://clamssiru4wpc" path="res://world/world_scene/model/world1.glb" id="1_griki"]
+[ext_resource type="Shader" uid="uid://dpcfmetq1cfxa" path="res://world/world_scene/shader/world.tres" id="2_4e886"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m2ck5"]
+render_priority = 0
+shader = ExtResource("2_4e886")
+
+[node name="world1" instance=ExtResource("1_griki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.283836, -0.237381, -0.0971375)
+
+[node name="Cube" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0921555, -0.392792, 0.772736)
+surface_material_override/0 = SubResource("ShaderMaterial_m2ck5")
