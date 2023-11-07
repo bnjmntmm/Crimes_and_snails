@@ -114,7 +114,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-389.463, -272.141)
 nodes/fragment/0/position = Vector2(1180, 140)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_wavye")
 nodes/fragment/2/position = Vector2(0, -460)

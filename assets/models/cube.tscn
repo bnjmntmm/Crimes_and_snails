@@ -1,0 +1,33 @@
+[gd_scene load_steps=11 format=3 uid="uid://c4chuf3xuq0qa"]
+
+[ext_resource type="PackedScene" uid="uid://b7g5wxvoyk7yf" path="res://world/world_scene/model/Cube.glb" id="1_3w62s"]
+[ext_resource type="Shader" uid="uid://b44stcxnmyp11" path="res://world/world_scene/model/colorTransferShader.tres" id="2_1o8qc"]
+[ext_resource type="Texture2D" uid="uid://dcrj6t5t5gicp" path="res://world/world_scene/model/Cube_Material Base Color.png" id="3_272u8"]
+[ext_resource type="Texture2D" uid="uid://c6kmmgmewlqhc" path="res://world/world_scene/model/Grass004_4K-JPG_Color.jpg" id="4_ac8f2"]
+[ext_resource type="Texture2D" uid="uid://gj4swckxl2gd" path="res://world/world_scene/model/Ground071_4K-JPG_Color.jpg" id="5_a4vhj"]
+[ext_resource type="Texture2D" uid="uid://b5gjn15t12nkj" path="res://world/world_scene/model/Grass004_4K-JPG_NormalGL.jpg" id="5_nkoqm"]
+[ext_resource type="Texture2D" uid="uid://bf3pqhk31oahe" path="res://world/world_scene/model/Grass004_4K-JPG_Roughness.jpg" id="6_eokrn"]
+[ext_resource type="Texture2D" uid="uid://c8j5yabsrkuhp" path="res://world/world_scene/model/Ground071_4K-JPG_NormalGL.jpg" id="8_g3wi6"]
+[ext_resource type="Texture2D" uid="uid://cho7nkgdyedfx" path="res://world/world_scene/model/Ground071_4K-JPG_Roughness.jpg" id="9_egms6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8oqyk"]
+render_priority = 1
+shader = ExtResource("2_1o8qc")
+shader_parameter/Specular = 0.1
+shader_parameter/Texture1_Albedo_Rot = ExtResource("4_ac8f2")
+shader_parameter/Texture2_Albedo_Gruen = ExtResource("5_a4vhj")
+shader_parameter/RGB__Colored_Image = ExtResource("3_272u8")
+shader_parameter/Texture3_Albedo_Blau = ExtResource("5_a4vhj")
+shader_parameter/Texture1_Roughness_Rot = ExtResource("6_eokrn")
+shader_parameter/Texture2_Roughness_Gruen = ExtResource("9_egms6")
+shader_parameter/Texture3_Roughness_Blau = ExtResource("9_egms6")
+shader_parameter/Texture1_Normal_Rot = ExtResource("5_nkoqm")
+shader_parameter/Texture2_Normal_Gruen = ExtResource("8_g3wi6")
+shader_parameter/Texture3_Normal_Blau = ExtResource("8_g3wi6")
+
+[node name="Cube" instance=ExtResource("1_3w62s")]
+transform = Transform3D(0.373036, -0.927817, 0, 0.927817, 0.373036, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Cube2" parent="." index="0"]
+transform = Transform3D(0.264883, 0.959759, 0.0932765, -0.964281, 0.263641, 0.0256226, 1.86265e-09, -0.0967318, 0.99531, 0, 0, 0)
+material_overlay = SubResource("ShaderMaterial_8oqyk")
