@@ -87,7 +87,6 @@ default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5
 op_type = 3
 
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_3fkep"]
-constant = Color(0, 0, 0, 1)
 
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_aik6k"]
 parameter_name = "Texture2_Roughness_Gruen"
@@ -268,7 +267,7 @@ void fragment() {
 
 
 // ColorConstant:39
-	vec4 n_out39p0 = vec4(0.000000, 0.000000, 0.000000, 1.000000);
+	vec4 n_out39p0 = vec4(1.000000, 1.000000, 1.000000, 1.000000);
 
 
 // Mix:38
@@ -284,7 +283,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-584.808, -74.3276)
 nodes/fragment/0/position = Vector2(1260, 180)
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_em6dk")
 nodes/fragment/2/position = Vector2(-1260, -600)
@@ -309,7 +307,7 @@ nodes/fragment/24/position = Vector2(-140, -580)
 nodes/fragment/25/node = SubResource("VisualShaderNodeTexture2DParameter_ub27x")
 nodes/fragment/25/position = Vector2(-1840, -660)
 nodes/fragment/26/node = SubResource("VisualShaderNodeTexture2DParameter_2axpp")
-nodes/fragment/26/position = Vector2(-1600, -340)
+nodes/fragment/26/position = Vector2(-1840, -240)
 nodes/fragment/27/node = SubResource("VisualShaderNodeTexture2DParameter_v5mx8")
 nodes/fragment/27/position = Vector2(-1320, 680)
 nodes/fragment/28/node = SubResource("VisualShaderNodeTexture2DParameter_6pdfq")
@@ -360,4 +358,4 @@ nodes/fragment/50/node = SubResource("VisualShaderNodeUVFunc_lru18")
 nodes/fragment/50/position = Vector2(-1220, -320)
 nodes/fragment/51/node = SubResource("VisualShaderNodeVec2Constant_iy1k2")
 nodes/fragment/51/position = Vector2(-1380, -420)
-nodes/fragment/connections = PackedInt32Array(11, 0, 16, 0, 16, 0, 18, 0, 19, 0, 18, 1, 22, 0, 11, 1, 18, 0, 0, 0, 6, 2, 16, 2, 24, 0, 18, 2, 6, 0, 24, 0, 6, 1, 24, 1, 6, 1, 11, 2, 21, 0, 11, 0, 23, 0, 16, 1, 2, 0, 6, 0, 25, 0, 2, 2, 26, 0, 21, 2, 29, 0, 22, 2, 30, 0, 23, 2, 27, 0, 33, 2, 31, 0, 34, 2, 32, 0, 35, 2, 33, 0, 36, 0, 34, 0, 36, 1, 6, 1, 36, 2, 36, 0, 37, 0, 35, 0, 37, 1, 6, 2, 37, 2, 37, 0, 38, 0, 38, 0, 0, 8, 24, 0, 38, 2, 39, 0, 38, 1, 28, 0, 42, 2, 40, 0, 43, 2, 41, 0, 44, 2, 42, 0, 45, 0, 43, 0, 45, 1, 45, 0, 46, 0, 44, 0, 46, 1, 6, 1, 45, 2, 6, 2, 46, 2, 46, 0, 47, 0, 48, 0, 47, 1, 24, 0, 47, 2, 47, 0, 0, 3, 49, 0, 0, 4, 50, 0, 21, 0, 51, 0, 50, 1, 50, 0, 22, 0, 50, 0, 23, 0, 50, 0, 33, 0, 50, 0, 34, 0, 50, 0, 35, 0, 50, 0, 42, 0, 50, 0, 43, 0, 50, 0, 44, 0)
+nodes/fragment/connections = PackedInt32Array(11, 0, 16, 0, 16, 0, 18, 0, 19, 0, 18, 1, 22, 0, 11, 1, 18, 0, 0, 0, 6, 2, 16, 2, 24, 0, 18, 2, 6, 0, 24, 0, 6, 1, 24, 1, 6, 1, 11, 2, 21, 0, 11, 0, 23, 0, 16, 1, 2, 0, 6, 0, 25, 0, 2, 2, 26, 0, 21, 2, 29, 0, 22, 2, 30, 0, 23, 2, 27, 0, 33, 2, 31, 0, 34, 2, 32, 0, 35, 2, 33, 0, 36, 0, 34, 0, 36, 1, 6, 1, 36, 2, 36, 0, 37, 0, 35, 0, 37, 1, 6, 2, 37, 2, 37, 0, 38, 0, 24, 0, 38, 2, 39, 0, 38, 1, 28, 0, 42, 2, 40, 0, 43, 2, 41, 0, 44, 2, 42, 0, 45, 0, 43, 0, 45, 1, 45, 0, 46, 0, 44, 0, 46, 1, 6, 1, 45, 2, 6, 2, 46, 2, 46, 0, 47, 0, 48, 0, 47, 1, 24, 0, 47, 2, 47, 0, 0, 3, 49, 0, 0, 4, 50, 0, 21, 0, 51, 0, 50, 1, 50, 0, 22, 0, 50, 0, 23, 0, 50, 0, 33, 0, 50, 0, 34, 0, 50, 0, 35, 0, 50, 0, 42, 0, 50, 0, 43, 0, 50, 0, 44, 0, 38, 0, 0, 8)

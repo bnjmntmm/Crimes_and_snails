@@ -12,9 +12,11 @@ var t_bob = 0.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
 var check = false
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
+@onready var grassFloor = $"../ScatteredObjects/MultiMeshInstance3D"
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -51,7 +53,6 @@ func _physics_process(delta):
 		velocity.z = 0.0
 
 	t_bob += delta * velocity.length() * float(is_on_floor())
-	camera.transform.origin = _headbob(t_bob)
 
 
 	move_and_slide()

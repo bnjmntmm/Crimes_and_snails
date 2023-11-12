@@ -13,7 +13,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rwfqj"]
 render_priority = 0
 shader = ExtResource("2_yphnw")
-shader_parameter/Specular = 0.04
+shader_parameter/Specular = 0.0
 shader_parameter/Texture1_Albedo_Rot = ExtResource("4_vo3xx")
 shader_parameter/Texture2_Albedo_Gruen = ExtResource("5_ehiup")
 shader_parameter/RGB__Colored_Image = ExtResource("3_5yp5u")
