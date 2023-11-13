@@ -1,19 +1,7 @@
-[gd_scene load_steps=37 format=3 uid="uid://byy4ju0a5hecp"]
+[gd_scene load_steps=9 format=3 uid="uid://byy4ju0a5hecp"]
 
 [ext_resource type="PackedScene" uid="uid://xtd05ou35b75" path="res://world/world_scene/world_body.tscn" id="1_7cj12"]
 [ext_resource type="Texture2D" uid="uid://cnwkqmsedv0c2" path="res://assets/sky/belfast_sunset_puresky_4k.exr" id="1_xlilu"]
-[ext_resource type="Script" path="res://scripts/Player.gd" id="2_vgjmi"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="5_1tnwh"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="6_4gddv"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="7_kkjrf"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="8_nnxp6"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/relax.gd" id="9_vdo7a"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/project_on_geometry.gd" id="10_tdexu"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_item.gd" id="11_dvx4y"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="12_ahly4"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="13_i0i1m"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/cache/scatter_cache.gd" id="15_1g30l"]
-[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/path_shape.gd" id="15_j1sim"]
 [ext_resource type="Material" uid="uid://c7mw5tryqfggw" path="res://addons/proton_scatter/demos/assets/materials/m_water.tres" id="16_7ncx0"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_crbiv"]
@@ -35,13 +23,6 @@ ssao_intensity = 1.0
 ssao_light_affect = 0.48
 adjustment_enabled = true
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4mw4b"]
-radius = 0.673558
-height = 3.14977
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_st0e3"]
-height = 3.0
-
 [sub_resource type="BoxMesh" id="BoxMesh_m1sbd"]
 material = ExtResource("16_7ncx0")
 size = Vector3(479, 50, 200)
@@ -49,131 +30,6 @@ size = Vector3(479, 50, 200)
 [sub_resource type="BoxMesh" id="BoxMesh_114iq"]
 material = ExtResource("16_7ncx0")
 size = Vector3(400, 1, 80)
-
-[sub_resource type="Resource" id="Resource_qy37b"]
-script = ExtResource("7_kkjrf")
-amount = 1000
-enabled = true
-override_global_seed = false
-custom_seed = 10
-restrict_height = false
-reference_frame = 1
-
-[sub_resource type="Resource" id="Resource_v4rqk"]
-script = ExtResource("8_nnxp6")
-position = Vector3(0, 0, 0)
-rotation = Vector3(0, 360, 0)
-scale = Vector3(0, 0, 0)
-enabled = true
-override_global_seed = false
-custom_seed = 0
-restrict_height = false
-reference_frame = 2
-
-[sub_resource type="Resource" id="Resource_bkg2w"]
-script = ExtResource("9_vdo7a")
-iterations = 1
-offset_step = 0.1
-consecutive_step_multiplier = 0.01
-use_computeshader = true
-enabled = true
-override_global_seed = false
-custom_seed = 0
-restrict_height = true
-reference_frame = 0
-
-[sub_resource type="Resource" id="Resource_8uooe"]
-script = ExtResource("10_tdexu")
-ray_direction = Vector3(0, -1, 0)
-ray_length = 2.0
-ray_offset = 1.0
-remove_points_on_miss = true
-align_with_collision_normal = false
-max_slope = 90.0
-collision_mask = 1
-exclude_mask = 2
-enabled = true
-override_global_seed = false
-custom_seed = 0
-restrict_height = false
-reference_frame = 0
-
-[sub_resource type="Resource" id="Resource_qsmac"]
-script = ExtResource("6_4gddv")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_qy37b"), SubResource("Resource_v4rqk"), SubResource("Resource_bkg2w"), SubResource("Resource_8uooe")])
-
-[sub_resource type="Resource" id="Resource_rfemu"]
-script = ExtResource("13_i0i1m")
-size = Vector3(482.033, 1, 479.928)
-
-[sub_resource type="Curve3D" id="Curve3D_bnvna"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -124.754, -9.05991e-06, 16.9641, 0, 0, 0, 0, 0, 0, -104.467, -9.05991e-06, 7.70264, 0, 0, 0, 0, 0, 0, -63.4516, -9.05991e-06, 6.37956, 0, 0, 0, 0, 0, 0, -41.18, -9.05991e-06, -2.66136, 0, 0, 0, 0, 0, 0, 1.37849, -9.05991e-06, -6.63055, 0, 0, 0, 0, 0, 0, 129.292, -9.05991e-06, -6.21136, 0, 0, 0, 0, 0, 0, 149.799, -9.05991e-06, -39.0674, 0, 0, 0, 0, 0, 0, 184.64, -9.05991e-06, -48.3289, 0, 0, 0, 0, 0, 0, 216.173, -9.05991e-06, -42.8161, 0, 0, 0, 0, 0, 0, 224.332, -9.05991e-06, -22.9702, 0, 0, 0, 0, 0, 0, 219.701, -9.05991e-06, -5.10881, 0, 0, 0, 0, 0, 0, 209.337, -9.05991e-06, 9.22437, 0, 0, 0, 0, 0, 0, 163.03, -9.05991e-06, 16.2807, 0, 0, 0, 0, 0, 0, 110.989, -9.05991e-06, 16.2807, 0, 0, 0, 0, 0, 0, 56.5521, -9.05991e-06, 16.737, 0, 0, 0, 0, 0, 0, 3.55443, -9.05991e-06, 17.8275, 0, 0, 0, 0, 0, 0, -16.6436, -9.05991e-06, 22.6357, 0, 0, 0, 0, 0, 0, -35.1819, -9.05991e-06, 22.1995, 0, 0, 0, 0, 0, 0, -45.2144, -9.05991e-06, 32.4501, 0, 0, 0, 0, 0, 0, -82.509, -9.05991e-06, 33.9768, 0, 0, 0, 0, 0, 0, -92.7189, -9.05991e-06, 40.0859, 0, 0, 0, 0, 0, 0, -123.017, -9.05991e-06, 43.9333, 0, 0, 0, 0, 0, 0, -134.239, -9.05991e-06, 38.9637, 0, 0, 0, 0, 0, 0, -142.094, -9.05991e-06, 33.1926, 0, 0, 0, 0, 0, 0, -134.559, -9.05991e-06, 17.6427, 0, 0, 0, 0, 0, 0, -124.62, -9.05991e-06, 16.6809),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-}
-point_count = 26
-
-[sub_resource type="Resource" id="Resource_h3b3u"]
-script = ExtResource("15_j1sim")
-closed = true
-thickness = 0.0
-curve = SubResource("Curve3D_bnvna")
-
-[sub_resource type="Resource" id="Resource_xm485"]
-script = ExtResource("7_kkjrf")
-amount = 20000
-enabled = true
-override_global_seed = false
-custom_seed = 0
-restrict_height = true
-reference_frame = 1
-
-[sub_resource type="Resource" id="Resource_0wc4t"]
-script = ExtResource("8_nnxp6")
-position = Vector3(0.15, 0.15, 0.15)
-rotation = Vector3(20, 360, 20)
-scale = Vector3(0.1, 0.1, 0.1)
-enabled = true
-override_global_seed = false
-custom_seed = 0
-restrict_height = false
-reference_frame = 2
-
-[sub_resource type="Resource" id="Resource_q7h5e"]
-script = ExtResource("9_vdo7a")
-iterations = 3
-offset_step = 0.2
-consecutive_step_multiplier = 0.75
-use_computeshader = true
-enabled = true
-override_global_seed = false
-custom_seed = 0
-restrict_height = true
-reference_frame = 0
-
-[sub_resource type="Resource" id="Resource_18ym0"]
-script = ExtResource("10_tdexu")
-ray_direction = Vector3(0, -1, 0)
-ray_length = 5.0
-ray_offset = 1.0
-remove_points_on_miss = true
-align_with_collision_normal = false
-max_slope = 90.0
-collision_mask = 1
-exclude_mask = 2
-enabled = true
-override_global_seed = false
-custom_seed = 0
-restrict_height = false
-reference_frame = 0
-
-[sub_resource type="Resource" id="Resource_l1mbe"]
-script = ExtResource("6_4gddv")
-stack = Array[Resource("res://addons/proton_scatter/src/modifiers/base_modifier.gd")]([SubResource("Resource_xm485"), SubResource("Resource_0wc4t"), SubResource("Resource_q7h5e"), SubResource("Resource_18ym0")])
-
-[sub_resource type="Resource" id="Resource_ps80p"]
-script = ExtResource("13_i0i1m")
-size = Vector3(479.818, 1, 476.316)
 
 [node name="World" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75024, -1.59027, -3.40131)
@@ -183,21 +39,6 @@ transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 3.6, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_q1ou2")
-
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.074517, 8.2846, -0.248592)
-script = ExtResource("2_vgjmi")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-shape = SubResource("CapsuleShape3D_4mw4b")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
-mesh = SubResource("CapsuleMesh_st0e3")
-
-[node name="Head" type="Node3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.721946, 0)
-
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Head"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.161104, 0.986937, 0, -0.986937, -0.161104, 0, 39.2091, -19.0974)
@@ -216,58 +57,3 @@ skeleton = NodePath("../..")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WaterParent"]
 transform = Transform3D(0.990497, 0, 0.137531, 0, 1, 0, -0.137531, 0, 0.990497, 33.9884, 3.9976, 136.381)
 mesh = SubResource("BoxMesh_114iq")
-
-[node name="ScatteredObjects" type="Node3D" parent="."]
-
-[node name="ScatterCache" type="Node3D" parent="ScatteredObjects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.12779, 0)
-script = ExtResource("15_1g30l")
-cache_file = "res://addons/proton_scatter/cache/world_3544870000_scatter_cache.res"
-
-[node name="Rocks_n_Bushes" type="Node3D" parent="ScatteredObjects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.12779, 0)
-script = ExtResource("5_1tnwh")
-force_rebuild_on_load = false
-modifier_stack = SubResource("Resource_qsmac")
-Performance/use_chunks = true
-Performance/chunk_dimensions = Vector3(15, 15, 15)
-
-[node name="ScatterItem" type="Node3D" parent="ScatteredObjects/Rocks_n_Bushes"]
-script = ExtResource("11_dvx4y")
-proportion = 10
-source_scale_multiplier = 0.8
-path = "res://assets/models/Bushes/bush1blank.glb"
-
-[node name="ScatterItem2" type="Node3D" parent="ScatteredObjects/Rocks_n_Bushes"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.528, 0)
-script = ExtResource("11_dvx4y")
-proportion = 10
-path = "res://assets/models/Rocks/stone2.glb"
-
-[node name="ScatterShape" type="Node3D" parent="ScatteredObjects/Rocks_n_Bushes"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0.836124, 0)
-script = ExtResource("12_ahly4")
-shape = SubResource("Resource_rfemu")
-
-[node name="ScatterShape2" type="Node3D" parent="ScatteredObjects/Rocks_n_Bushes"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 129.715)
-script = ExtResource("12_ahly4")
-negative = true
-shape = SubResource("Resource_h3b3u")
-
-[node name="Grass" type="Node3D" parent="ScatteredObjects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.98249, 0)
-script = ExtResource("5_1tnwh")
-force_rebuild_on_load = false
-modifier_stack = SubResource("Resource_l1mbe")
-Performance/use_chunks = true
-Performance/chunk_dimensions = Vector3(15, 15, 15)
-
-[node name="ScatterItem" type="Node3D" parent="ScatteredObjects/Grass"]
-script = ExtResource("11_dvx4y")
-path = "res://assets/models/grass_patches/grass.glb"
-
-[node name="ScatterShape" type="Node3D" parent="ScatteredObjects/Grass"]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, -0.259434, 0)
-script = ExtResource("12_ahly4")
-shape = SubResource("Resource_ps80p")
