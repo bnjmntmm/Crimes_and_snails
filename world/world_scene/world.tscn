@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://byy4ju0a5hecp"]
+[gd_scene load_steps=8 format=3 uid="uid://byy4ju0a5hecp"]
 
-[ext_resource type="PackedScene" uid="uid://xtd05ou35b75" path="res://world/world_scene/world_body.tscn" id="1_7cj12"]
+[ext_resource type="PackedScene" uid="uid://c1bo6wj3s6fg7" path="res://assets/models/3d_tilemap/scenes/grid_one.tscn" id="1_brarf"]
 [ext_resource type="Texture2D" uid="uid://cnwkqmsedv0c2" path="res://assets/sky/belfast_sunset_puresky_4k.exr" id="1_xlilu"]
 [ext_resource type="Material" uid="uid://c7mw5tryqfggw" path="res://addons/proton_scatter/demos/assets/materials/m_water.tres" id="16_7ncx0"]
 
@@ -23,19 +23,15 @@ ssao_intensity = 1.0
 ssao_light_affect = 0.48
 adjustment_enabled = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_m1sbd"]
-material = ExtResource("16_7ncx0")
-size = Vector3(479, 50, 200)
-
 [sub_resource type="BoxMesh" id="BoxMesh_114iq"]
 material = ExtResource("16_7ncx0")
-size = Vector3(400, 1, 80)
+size = Vector3(100, 1, 100)
 
 [node name="World" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75024, -1.59027, -3.40131)
 
-[node name="WorldFloor" parent="." instance=ExtResource("1_7cj12")]
-transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 3.6, 0)
+[node name="GridOne" parent="." instance=ExtResource("1_brarf")]
+noise_active = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_q1ou2")
@@ -43,17 +39,15 @@ environment = SubResource("Environment_q1ou2")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.161104, 0.986937, 0, -0.986937, -0.161104, 0, 39.2091, -19.0974)
 light_color = Color(0.835294, 0.823529, 0.505882, 1)
-light_energy = 0.779
+light_energy = 0.4
 shadow_enabled = true
 
 [node name="WaterParent" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.789913, 0)
 
-[node name="Water" type="MeshInstance3D" parent="WaterParent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08918, -22.5672, -157.369)
-mesh = SubResource("BoxMesh_m1sbd")
-skeleton = NodePath("../..")
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="WaterParent"]
-transform = Transform3D(0.990497, 0, 0.137531, 0, 1, 0, -0.137531, 0, 0.990497, 33.9884, 3.9976, 136.381)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.503, 2.31964, -2.13324)
 mesh = SubResource("BoxMesh_114iq")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.950808, 0.30978, 0, -0.30978, 0.950808, 0.715143, 16.9325, 28.5219)
