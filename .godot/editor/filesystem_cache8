@@ -1,7 +1,7 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1700123229
+::res://::1700137766
 icon.svg::CompressedTexture2D::2244009114959878040::1698057050::1698057056::1::::<><>::
-::res://addons/::1699264947
+::res://addons/::1700125608
 ::res://addons/godot-jolt/::1698057177
 godot-jolt.gdextension::GDExtension::-1::1698057177::0::1::::<><>::
 LICENSE.txt::TextFile::-1::1698057177::0::1::::<><>::
@@ -35,7 +35,7 @@ large_rock.tscn::PackedScene::2317743532388290159::1698146915::0::1::::<><>::uid
 mushroom.tscn::PackedScene::3375880312242836590::1698399662::0::1::::<><>::uid://c38uugpgw7hjm
 pine_tree.tscn::PackedScene::4807277703298363136::1698659165::0::1::::<><>::uid://bhums0j31gm5n
 small_rock.tscn::PackedScene::3198481557407108502::1698146915::0::1::::<><>::uid://b81l25tbebki4
-::res://addons/proton_scatter/demos/assets/materials/::1700044333
+::res://addons/proton_scatter/demos/assets/materials/::1700135757
 grass.gdshader::Shader::-1::1698146915::0::1::::<><>::
 leaves.gdshader::Shader::-1::1698146915::0::1::::<><>::
 m_bush.tres::ShaderMaterial::3357013662033530693::1698146915::0::1::::<><>::res://addons/proton_scatter/demos/assets/materials/grass.gdshader<>uid://b2a6ylo2enm4g
@@ -47,7 +47,7 @@ m_pine_leaves.tres::ShaderMaterial::9123183198531821132::1699363583::0::1::::<><
 m_rock.tres::StandardMaterial3D::613677851949121066::1698146915::0::1::::<><>::uid://drdh36j6mu3ah
 m_trunk.tres::StandardMaterial3D::8967884167259866665::1698146915::0::1::::<><>::uid://c7pop5xgpxtiv
 m_water.gdshader::Shader::-1::1698146915::0::1::::<><>::
-m_water.tres::ShaderMaterial::7045047269827327842::1700044333::0::1::::<><>::res://addons/proton_scatter/demos/assets/materials/m_water.gdshader
+m_water.tres::ShaderMaterial::7045047269827327842::1700135757::0::1::::<><>::res://addons/proton_scatter/demos/assets/materials/m_water.gdshader
 ::res://addons/proton_scatter/demos/assets/models/::1698146932
 brick.glb::PackedScene::8991952700133542094::1698146915::1698146927::1::::<><>::
 bush.glb::PackedScene::7233280704677990976::1698146915::1698146927::1::::<><>::
@@ -284,7 +284,7 @@ unit_testing.tscn::PackedScene::155225341127764101::1698146946::0::1::::<><>::re
 ::res://assets/models/::1700123267
 cube.tscn::PackedScene::6812907630168398116::1699363097::0::1::::<><>::uid://b7g5wxvoyk7yf
 noise.jpg::CompressedTexture2D::2078661648091633871::1699911120::1699948894::1::::<><>::
-::res://assets/models/3d_tilemap/::1700123282
+::res://assets/models/3d_tilemap/::1700135757
 arrow.glb::PackedScene::887582474836989507::1670238691::1700123315::1::::<><>::
 arrows.glb::PackedScene::1476981626658272475::1670238691::1700123314::1::::<><>::
 barrel.glb::PackedScene::4267123417646834558::1670238691::1700123314::1::::<><>::
@@ -393,19 +393,23 @@ spikes.glb::PackedScene::7680474258336995179::1670238697::1700123296::1::::<><>:
 spikesHidden.glb::PackedScene::9169401349537954052::1670238697::1700123296::1::::<><>::
 spikesLarge.glb::PackedScene::8796384234138753366::1670238697::1700123295::1::::<><>::
 stones.glb::PackedScene::6075773542099277307::1670238697::1700123295::1::::<><>::
+tileMap.tres::MeshLibrary::6008072412288693354::1700135757::0::1::::<><>::
 tree.glb::PackedScene::6783938390923898980::1670238697::1700123294::1::::<><>::
 treePine.glb::PackedScene::1324475050747673168::1670238697::1700123294::1::::<><>::
 treePineSmall.glb::PackedScene::3282843680504000772::1670238698::1700123294::1::::<><>::
 treePineSmallSnow.glb::PackedScene::1929851258740401802::1670238698::1700123293::1::::<><>::
 treePineSnow.glb::PackedScene::1134189888866202820::1670238698::1700123293::1::::<><>::
 treeSnow.glb::PackedScene::1478603971145341513::1670238698::1700123293::1::::<><>::
+::res://assets/models/3d_tilemap/scenes/::1700135850
+grid_one.tscn::PackedScene::6600722247953299416::1700135850::0::1::::<><>::res://assets/models/3d_tilemap/scenes/testGrid.gd<>uid://crumcsrroqrv3::::res://assets/models/3d_tilemap/tileMap.tres
+testGrid.gd::GDScript::-1::1700135834::0::1::::<>Node3D<>::
 ::res://assets/models/Bushes/::1699948899
 bush1blank.glb::PackedScene::6718244201597466498::1699911120::1699948899::1::::<><>::
 bush2blank.glb::PackedScene::3597142649882620867::1699911120::1699948899::1::::<><>::
 bush3blank.glb::PackedScene::198824086602030886::1699911120::1699948899::1::::<><>::
 bush4blank.glb::PackedScene::6951295980585940856::1699911120::1699948898::1::::<><>::
-::res://assets/models/grass_patches/::1700044333
-grass.gdshader::Shader::-1::1700044333::0::1::::<><>::
+::res://assets/models/grass_patches/::1700137630
+grass.gdshader::Shader::-1::1700137630::0::1::::<><>::
 grass.glb::PackedScene::8488184866710563423::1699911120::1699948898::1::::<><>::uid://c7jxe3qrgxxdr
 grass.res::ArrayMesh::7038868893751050251::1699948897::0::1::::<><>::
 grass_patches.glb::PackedScene::5788654251354924988::1698396356::1699264978::1::::<><>::
@@ -429,8 +433,8 @@ Lowpoly_tree_sample.dae::PackedScene::5479176775396829725::1529920394::169839820
 Lowpoly_tree_sample.obj::Mesh::7939000267001144266::1529920417::1698398203::1::::<><>::
 sampleTree.glb::PackedScene::4916582948210028243::1698399211::1698399214::1::::<><>::
 teee_sample.glb::PackedScene::3827771987678037114::1698398589::1698398603::1::::<><>::
-::res://assets/shader/::1700044333
-vfx_fire.tres::VisualShader::1348231192459379295::1700044333::0::1::::<><>::
+::res://assets/shader/::1700135757
+vfx_fire.tres::VisualShader::1348231192459379295::1700135757::0::1::::<><>::
 vfx_fire.tscn::PackedScene::2329940265508975094::1699269758::0::1::::<><>::uid://thdf2nt0xvt4
 vfx_fire_bloom.tscn::PackedScene::7225871287458964355::1699269758::0::1::::<><>::
 ::res://assets/shader/shader_textures/::1699003344
@@ -441,14 +445,14 @@ Voronoi01.png::CompressedTexture2D::7676013357107708250::1691341465::1699002970:
 ::res://assets/sky/::1698652689
 kloofendal_overcast_puresky_4k.exr::CompressedTexture2D::7093094585753803530::1698136689::1698136703::1::::<><>::
 ::res://world/::1698304871
-::res://world/world_scene/::1699981138
-world.tscn::PackedScene::4122275951166167611::1699981115::0::1::::<><>::uid://xtd05ou35b75
+::res://world/world_scene/::1700135850
+world.tscn::PackedScene::4122275951166167611::1700135850::0::1::::<><>::uid://c1bo6wj3s6fg7::::res://assets/models/3d_tilemap/scenes/grid_one.tscn<>uid://cnwkqmsedv0c2::::res://assets/sky/belfast_sunset_puresky_4k.exr<>uid://c7mw5tryqfggw::::res://addons/proton_scatter/demos/assets/materials/m_water.tres
 world_body.tscn::PackedScene::1653794975102875794::1699981115::0::1::::<><>::uid://wposiml058cw
-::res://world/world_scene/model/::1700044333
+::res://world/world_scene/model/::1700135757
 BlendImage.png::CompressedTexture2D::4870903081087961239::1699911120::1699948895::1::::<><>::
-colorTransferShader.tres::VisualShader::4482891081202623018::1700044333::0::1::::<><>::uid://dcrj6t5t5gicp::::res://world/world_scene/model/Cube_Material Base Color.png<>uid://c6kmmgmewlqhc::::res://world/world_scene/model/Grass004_4K-JPG_Color.jpg<>uid://gj4swckxl2gd::::res://world/world_scene/model/Ground071_4K-JPG_Color.jpg
+colorTransferShader.tres::VisualShader::4482891081202623018::1700135757::0::1::::<><>::uid://dcrj6t5t5gicp::::res://world/world_scene/model/Cube_Material Base Color.png<>uid://c6kmmgmewlqhc::::res://world/world_scene/model/Grass004_4K-JPG_Color.jpg<>uid://gj4swckxl2gd::::res://world/world_scene/model/Ground071_4K-JPG_Color.jpg
 Cube.glb::PackedScene::4646711985029942533::1699271952::1699271956::1::::<><>::
-cube.tres::VisualShader::6505099481839193093::1700044333::0::1::::<><>::uid://c6kmmgmewlqhc::::res://world/world_scene/model/Grass004_4K-JPG_Color.jpg<>uid://gj4swckxl2gd::::res://world/world_scene/model/Ground071_4K-JPG_Color.jpg<>uid://dcrj6t5t5gicp::::res://world/world_scene/model/Cube_Material Base Color.png
+cube.tres::VisualShader::6505099481839193093::1700135757::0::1::::<><>::uid://c6kmmgmewlqhc::::res://world/world_scene/model/Grass004_4K-JPG_Color.jpg<>uid://gj4swckxl2gd::::res://world/world_scene/model/Ground071_4K-JPG_Color.jpg<>uid://dcrj6t5t5gicp::::res://world/world_scene/model/Cube_Material Base Color.png
 Cube_Material Base Color.png::CompressedTexture2D::7335337017911727587::1699277669::1699277669::1::::<><>::
 Grass004_4K-JPG_Color.jpg::CompressedTexture2D::6970089665035206120::1698749458::1698753338::1::::<><>::
 Grass004_4K-JPG_Displacement.jpg::CompressedTexture2D::4879941341514132303::1691917578::1699353347::1::::<><>::
@@ -459,7 +463,7 @@ Ground071_4K-JPG_Displacement.jpg::CompressedTexture2D::3334844771030443743::169
 Ground071_4K-JPG_NormalGL.jpg::CompressedTexture2D::7109516978450296365::1696948726::1698756428::1::::<><>::
 Ground071_4K-JPG_Roughness.jpg::CompressedTexture2D::5295031255169423309::1696948768::1698756392::1::::<><>::
 world1.glb::PackedScene::1576002847795497278::1699269558::1699269561::1::::<><>::
-::res://world/world_scene/shader/::1700044333
+::res://world/world_scene/shader/::1700137630
 Grass001_4K-JPG_Displacement.jpg::CompressedTexture2D::2064682519603939678::1698331593::1698331596::1::::<><>::
-water.gdshader::Shader::-1::1700044333::0::1::::<><>::
-world.tres::VisualShader::8216548715855080722::1700044333::0::1::::<><>::uid://c6kmmgmewlqhc::::res://world/world_scene/model/Grass004_4K-JPG_Color.jpg<>uid://cho7nkgdyedfx::::res://world/world_scene/model/Ground071_4K-JPG_Roughness.jpg<>uid://b5gjn15t12nkj::::res://world/world_scene/model/Grass004_4K-JPG_NormalGL.jpg<>uid://bf3pqhk31oahe::::res://world/world_scene/model/Grass004_4K-JPG_Roughness.jpg<>uid://c8j5yabsrkuhp::::res://world/world_scene/model/Ground071_4K-JPG_NormalGL.jpg<>uid://cbnrcd1xmcnjb::::res://world/world_scene/model/BlendImage.png<>uid://gj4swckxl2gd::::res://world/world_scene/model/Ground071_4K-JPG_Color.jpg
+water.gdshader::Shader::-1::1700137630::0::1::::<><>::
+world.tres::VisualShader::8216548715855080722::1700135757::0::1::::<><>::uid://c6kmmgmewlqhc::::res://world/world_scene/model/Grass004_4K-JPG_Color.jpg<>uid://cho7nkgdyedfx::::res://world/world_scene/model/Ground071_4K-JPG_Roughness.jpg<>uid://b5gjn15t12nkj::::res://world/world_scene/model/Grass004_4K-JPG_NormalGL.jpg<>uid://bf3pqhk31oahe::::res://world/world_scene/model/Grass004_4K-JPG_Roughness.jpg<>uid://c8j5yabsrkuhp::::res://world/world_scene/model/Ground071_4K-JPG_NormalGL.jpg<>uid://cbnrcd1xmcnjb::::res://world/world_scene/model/BlendImage.png<>uid://gj4swckxl2gd::::res://world/world_scene/model/Ground071_4K-JPG_Color.jpg
