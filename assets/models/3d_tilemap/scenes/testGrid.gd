@@ -24,9 +24,6 @@ func _ready():
 			var waterNoiseAtPos = abs(waterDip.get_noise_2d(cell.x, cell.z))*10
 			if waterNoiseAtPos < 0.3:
 				grid_map.set_cell_item(Vector3i(cell),-1)
-	
-	GameManager.WorldGenerated = true
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

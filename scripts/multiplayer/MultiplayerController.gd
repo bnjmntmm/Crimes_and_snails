@@ -43,7 +43,6 @@ func SendPlayerInformation(name, id):
 	if multiplayer.is_server():
 		for i in GameManager.Players:
 			SendPlayerInformation.rpc(GameManager.Players[i].name, i)
-			allPlayersLabel.text += GameManager.Players[i].name
 			
 
 func _on_host_button_down():
@@ -70,11 +69,6 @@ func StartGame():
 	var scene = load("res://world/world_scene/world.tscn").instantiate()
 	get_tree().root.add_child(scene)
 	self.hide()
-
-func add_player(peer_id):
-	var player = Player.instantiate()
-	player.name = str(peer_id)
-	add_child(player)
 
 func _on_start_game_button_down():
 	StartGame.rpc()
