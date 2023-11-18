@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://byy4ju0a5hecp"]
+[gd_scene load_steps=10 format=3 uid="uid://byy4ju0a5hecp"]
 
+[ext_resource type="Script" path="res://scripts/multiplayer/Scene_Manager.gd" id="1_8pm4h"]
 [ext_resource type="PackedScene" uid="uid://c1bo6wj3s6fg7" path="res://assets/models/3d_tilemap/scenes/grid_one.tscn" id="1_brarf"]
 [ext_resource type="Texture2D" uid="uid://cnwkqmsedv0c2" path="res://assets/sky/belfast_sunset_puresky_4k.exr" id="1_xlilu"]
+[ext_resource type="PackedScene" uid="uid://df3npag23y0yb" path="res://world/player/Player.tscn" id="4_drrgv"]
 [ext_resource type="Material" uid="uid://c7mw5tryqfggw" path="res://addons/proton_scatter/demos/assets/materials/m_water.tres" id="16_7ncx0"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_crbiv"]
@@ -29,6 +31,8 @@ size = Vector3(150, 1, 150)
 
 [node name="World" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75024, -1.59027, -3.40131)
+script = ExtResource("1_8pm4h")
+PlayerScene = ExtResource("4_drrgv")
 
 [node name="GridOne" parent="." instance=ExtResource("1_brarf")]
 
@@ -48,5 +52,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.789913, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.503, 2.31964, -2.13324)
 mesh = SubResource("BoxMesh_114iq")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 2.89393, 88.4161, 5.30708)
+[node name="SpawnLocation" type="Node3D" parent="."]
+
+[node name="0" type="Node3D" parent="SpawnLocation" groups=["PlayerSpawnPoint"]]
+
+[node name="1" type="Node3D" parent="SpawnLocation" groups=["PlayerSpawnPoint"]]
