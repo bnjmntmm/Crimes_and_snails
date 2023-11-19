@@ -26,6 +26,10 @@ func peer_connected(id):
 	
 func peer_disconnected(id):
 	print("Player disonnected: " + str(id))
+	if GameManager.Players[id].name in allPlayersLabel.text:
+		var txt = allPlayersLabel.text
+		txt = txt.replace(GameManager.Players[id].name, "")
+		allPlayersLabel.text = txt
 func connected_to_server():
 	print("Connected!")
 	SendPlayerInformation.rpc_id(1, $LineEdit.text, multiplayer.get_unique_id())
@@ -43,7 +47,14 @@ func SendPlayerInformation(name, id):
 	if multiplayer.is_server():
 		for i in GameManager.Players:
 			SendPlayerInformation.rpc(GameManager.Players[i].name, i)
+			lobbyNames.rpc()
 			
+
+@rpc("any_peer", "call_local")
+func lobbyNames():
+	allPlayersLabel.text = ""
+	for i in GameManager.Players:
+		allPlayersLabel.text +=  GameManager.Players[i].name +"\n"
 
 func _on_host_button_down():
 	var error = enet_peer.create_server(port,4)

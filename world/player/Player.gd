@@ -1,15 +1,11 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 
-signal health_changed(health_value)
 
 @onready var camera = $Camera3D
 @onready var anim_player = $AnimationPlayer
-@onready var muzzle_flash = $Camera3D/Pistol/MuzzleFlash
-@onready var raycast = $Camera3D/RayCast3D
 @onready var name_value = $Control/VBoxContainer/HBoxContainer/NameValue
 @onready var connected_value = $Control/VBoxContainer/HBoxContainer2/ConnectedValue
 
-var health = 3
 
 const SPEED = 10.0
 const JUMP_VELOCITY = 10.0
