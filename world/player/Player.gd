@@ -2,10 +2,8 @@ class_name Player extends CharacterBody3D
 
 
 @onready var camera = $Camera3D
-@onready var anim_player = $AnimationPlayer
-@onready var name_value = $Control/VBoxContainer/HBoxContainer/NameValue
-@onready var connected_value = $Control/VBoxContainer/HBoxContainer2/ConnectedValue
 
+var gold = 0
 
 const SPEED = 10.0
 const JUMP_VELOCITY = 10.0
@@ -18,7 +16,6 @@ func _enter_tree():
 
 func _ready():
 	if not is_multiplayer_authority(): return
-	name_value.text = GameManager.Players[multiplayer.get_unique_id()].name
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = true
@@ -44,7 +41,11 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 	if Input.is_action_just_pressed("exit"):
 		get_tree().quit()
+		
+	if Input.is_action_just_pressed("spawnGold"):
+		GameManager.Players[multiplayer.get_unique_id()].gold +=1
 
+		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
@@ -55,6 +56,4 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-
-	connected_value.text = str(GameManager.Players.size())
 	move_and_slide()

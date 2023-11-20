@@ -24,36 +24,5 @@ shape = SubResource("CapsuleShape3D_0s4cm")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
-layout_mode = 2
-
-[node name="Name" type="Label" parent="Control/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Name:"
-
-[node name="NameValue" type="Label" parent="Control/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer"]
-layout_mode = 2
-
-[node name="ConnectedPlayer" type="Label" parent="Control/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-text = "ConnectedPlayer"
-
-[node name="ConnectedValue" type="Label" parent="Control/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ctffc")

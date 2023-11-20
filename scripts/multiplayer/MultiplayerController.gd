@@ -30,6 +30,7 @@ func peer_disconnected(id):
 		var txt = allPlayersLabel.text
 		txt = txt.replace(GameManager.Players[id].name, "")
 		allPlayersLabel.text = txt
+	GameManager.Players.erase(GameManager.Players[id])
 func connected_to_server():
 	print("Connected!")
 	SendPlayerInformation.rpc_id(1, $LineEdit.text, multiplayer.get_unique_id())
@@ -41,7 +42,8 @@ func SendPlayerInformation(name, id):
 	if !GameManager.Players.has(id):
 		GameManager.Players[id] = {
 			"name": name,
-			"id": id
+			"id": id,
+			"gold": 0
 		}
 		
 	if multiplayer.is_server():
