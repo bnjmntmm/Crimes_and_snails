@@ -29,7 +29,11 @@ func _ready():
 		
 		var hud_item = hud.instantiate()
 		hud_item.name = "Hud_For_" + str(GameManager.Players[i].id)
+		hud_item.visible = false
 		changeVisibilityLayers(hud_item, index)
+		print(currentPlayer.is_multiplayer_authority())
+#		if currentPlayer.is_multiplayer_authority():
+#			hud_item.visible = true
 		setHud(hud_item, GameManager.Players[i])
 		add_child(hud_item)
 		index +=1
