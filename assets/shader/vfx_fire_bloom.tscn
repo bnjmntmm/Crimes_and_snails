@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://da7jbrk048kv0"]
+
+[sub_resource type="Gradient" id="Gradient_hg263"]
+offsets = PackedFloat32Array(0, 0.530259)
+colors = PackedColorArray(0.784314, 0, 0, 1, 0.972428, 0.450779, 0.16121, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8ui3e"]
+gradient = SubResource("Gradient_hg263")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_chbuy"]
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_box_extents = Vector3(0.05, 0.05, 0.05)
+direction = Vector3(0, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 0.7
+tangential_accel_min = 0.3
+tangential_accel_max = 0.5
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_8ui3e")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45uax"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(1, 1, 1, 0.329412)
+
+[sub_resource type="SphereMesh" id="SphereMesh_7031p"]
+material = SubResource("StandardMaterial3D_45uax")
+radius = 0.05
+height = 0.1
+
+[node name="vfx_fire_bloom" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.999314, 0.0370223, 0.000369197, -0.0369963, 0.998901, -0.028778, -0.00143422, 0.0287446, 0.999586, 0, 0, 0)
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_chbuy")
+draw_pass_1 = SubResource("SphereMesh_7031p")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bb63g2xt0t6tt"]
+
+[ext_resource type="Material" uid="uid://c7mw5tryqfggw" path="res://addons/proton_scatter/demos/assets/materials/m_water.tres" id="1_5usrc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_114iq"]
+material = ExtResource("1_5usrc")
+size = Vector3(150, 1, 150)
+
+[node name="WaterParent" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.789913, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.503, 2.31964, -2.13324)
+mesh = SubResource("BoxMesh_114iq")
