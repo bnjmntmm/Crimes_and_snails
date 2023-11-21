@@ -10,11 +10,13 @@ properties/0/watch = false
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_xrbsi")
+sense = null
+locked_cam = null
 
 [node name="CameraMount" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraMount"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 10)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ctffc")

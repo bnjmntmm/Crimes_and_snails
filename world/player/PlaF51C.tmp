@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://df3npag23y0yb"]
+[gd_scene load_steps=4 format=3 uid="uid://df3npag23y0yb"]
 
 [ext_resource type="Script" path="res://world/player/Player.gd" id="1_xrbsi"]
 
@@ -8,13 +8,19 @@ properties/0/spawn = true
 properties/0/sync = false
 properties/0/watch = false
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_xpxn3"]
+size = Vector2(100, 100)
+
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_xrbsi")
 
 [node name="CameraMount" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraMount"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 10)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ctffc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_xpxn3")
