@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://byy4ju0a5hecp"]
 
 [ext_resource type="Script" path="res://scripts/multiplayer/Scene_Manager.gd" id="1_8pm4h"]
-[ext_resource type="Texture2D" uid="uid://cnwkqmsedv0c2" path="res://assets/sky/belfast_sunset_puresky_4k.exr" id="1_xlilu"]
+[ext_resource type="Texture2D" uid="uid://c8b7h4vnr5gtm" path="res://assets/sky/kloofendal_overcast_puresky_4k.exr" id="3_h26a0"]
 [ext_resource type="PackedScene" uid="uid://df3npag23y0yb" path="res://world/player/Player.tscn" id="4_drrgv"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_crbiv"]
-panorama = ExtResource("1_xlilu")
+panorama = ExtResource("3_h26a0")
 
 [sub_resource type="Sky" id="Sky_dnxpq"]
 sky_material = SubResource("PanoramaSkyMaterial_crbiv")
