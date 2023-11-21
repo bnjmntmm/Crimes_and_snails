@@ -70,6 +70,18 @@ spawnGold={
 ]
 }
 
+[layer_names]
+
+3d_render/layer_1="Player"
+2d_render/layer_2="World1"
+3d_render/layer_2="World1"
+2d_render/layer_3="World2"
+3d_render/layer_3="World2"
+2d_render/layer_4="World3"
+3d_render/layer_4="World3"
+2d_render/layer_5="World4"
+3d_render/layer_5="World4"
+
 [physics]
 
 3d/physics_engine="JoltPhysics3D"

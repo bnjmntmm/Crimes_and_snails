@@ -2,10 +2,9 @@ extends Node3D
 
 @export var PlayerScene : PackedScene
 var grid = preload("res://assets/models/3d_tilemap/scenes/grid_one.tscn")
+var hud = preload("res://world/player/hud/hud.tscn")
+
 var positions = [Vector3(-400,-1,-400), Vector3(-400, -1, 400), Vector3(400,-1,-400), Vector3(400,-1,400)]
-@onready var name_value = $Control/VBoxContainer/HBoxContainer/NameValue
-@onready var connected_value = $Control/VBoxContainer/HBoxContainer2/ConnectedValue
-@onready var gold_user = $Control/VBoxContainer/HBoxContainer3/Gold_User
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,17 +16,56 @@ func _ready():
 		add_child(gridMap)
 		gridMap.global_position = positions[index]
 		#print(gridMap.global_position)
-		
-		
 		var currentPlayer = PlayerScene.instantiate()
 		currentPlayer.name = str(GameManager.Players[i].id)
+		
+		disableAllLayersForCamera(currentPlayer)
+		
+		if currentPlayer.get_child(2).name == "Camera3D":
+			currentPlayer.get_child(2).set_cull_mask_value(index+2, true)
+		#currentPlayer.camera.set_cull_mask_value()
 		add_child(currentPlayer)
 		currentPlayer.global_position = gridMap.global_position + Vector3(0,4,0)
+		
+		var hud_item = hud.instantiate()
+		hud_item.name = "Hud_For_" + str(GameManager.Players[i].id)
+		changeVisibilityLayers(hud_item, index)
+		setHud(hud_item, GameManager.Players[i])
+		add_child(hud_item)
 		index +=1
-	connected_value.text = str(index)
 #	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+func disableAllLayersForCamera(currentplayer):
+	if currentplayer.get_child(2).name == 'Camera3D':
+		for i in range(1,21):
+			currentplayer.get_child(2).set_cull_mask_value(i,false)
+		currentplayer.get_child(2).set_cull_mask_value(1,true)
+
+func changeVisibilityLayers(hud: SubViewportContainer, index):
+	hud.set_visibility_layer_bit(index+1,true)
+	
+#	#VBoxContainer
+#	hud.get_child(0).get_child(0).set_visibility_layer_bit(index-1,true)
+#	#HBoxContainer1
+#	hud.get_child(0).get_child(0).get_child(0).set_visibility_layer_bit(index-1,true)
+#	hud.get_child(0).get_child(0).get_child(0).get_child(0).set_visibility_layer_bit(index-1,true)
+#	hud.get_child(0).get_child(0).get_child(0).get_child(1).set_visibility_layer_bit(index-1,true)
+#	#HBoxContainer2
+#	hud.get_child(0).get_child(0).get_child(1).set_visibility_layer_bit(index-1,true)
+#	hud.get_child(0).get_child(0).get_child(1).get_child(0).set_visibility_layer_bit(index-1,true)
+#	hud.get_child(0).get_child(0).get_child(1).get_child(1).set_visibility_layer_bit(index-1,true)
+#	#HBoxContainer3
+#	hud.get_child(0).get_child(0).get_child(2).set_visibility_layer_bit(index-1,true)
+#	hud.get_child(0).get_child(0).get_child(2).get_child(0).set_visibility_layer_bit(index-1,true)
+#	hud.get_child(0).get_child(0).get_child(2).get_child(1).set_visibility_layer_bit(index-1,true)
+#	hud.get_child(0).get_child(0).get_child(2).get_child(2).set_visibility_layer_bit(index-1,true)
+
+func setHud(hud: SubViewportContainer,playerId):
+	hud.get_child(0).get_child(0).get_child(0).get_child(1).text = playerId.name
+	#hud.get_child(0).get_child(0).get_child(1).text = playerId.name
+	#hud.get_child(0).get_child(1).get_child(1).text = str(GameManager.Players.size())
