@@ -2,9 +2,11 @@ class_name Player extends CharacterBody3D
 
 
 @onready var camera = $Camera3D
-@onready var control = $Control
+@onready var hud_pos_value=get_parent().get_child(0).get_child(0).get_child(2).get_child(3)
+
 
 var gold = 0
+var own_position
 
 const SPEED = 10.0
 const JUMP_VELOCITY = 10.0
@@ -16,11 +18,14 @@ func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 
 func _ready():
+	
+	#print(hud_pos_value)
 	if not is_multiplayer_authority(): return
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = true
-
+	
+	
 func _unhandled_input(event):
 	if not is_multiplayer_authority(): return
 	
@@ -31,6 +36,11 @@ func _unhandled_input(event):
 	
 
 func _physics_process(delta):
+	if self.is_multiplayer_authority():
+		hud_pos_value.text=str(global_position)
+		
+		
+		
 	if not is_multiplayer_authority(): return
 	
 	# Add the gravity.
@@ -58,3 +68,4 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 	move_and_slide()
+	
