@@ -3,8 +3,8 @@ class_name Player extends CharacterBody3D
 
 @onready var camera = $CameraMount/Camera3D
 @onready var camera_mount = $CameraMount
+@onready var house_button:Button=get_tree().root.get_node("World").get_node("Control/HBoxContainer/House")
 
-@onready var hud_pos_value=get_parent().get_child(0).get_child(0).get_child(2).get_child(3)
 
 
 var gold = 0
@@ -22,7 +22,7 @@ func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
 
 func _ready():
-	
+	house_button.button_down.connect(_on_house_button_down)
 	
 	#print(hud_pos_value)
 	if not is_multiplayer_authority(): return
@@ -34,16 +34,13 @@ func _ready():
 func _unhandled_input(event):
 	if not is_multiplayer_authority(): return
 	
-	if event is InputEventMouseMotion:
-		rotate_y(-event.relative.x * .005)
-		camera.rotate_x(-event.relative.y * .005)
-		camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
+	
 	
 
 func _physics_process(delta):
 	
-	if self.is_multiplayer_authority():
-		hud_pos_value.text=str(global_position)
+	
+		
 	if not is_multiplayer_authority(): return
 	
 	# Add the gravity.
@@ -53,8 +50,7 @@ func _physics_process(delta):
 	# Handle Jump.
 #	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 #		velocity.y = JUMP_VELOCITY
-	if Input.is_action_just_pressed("exit"):
-		get_tree().quit()
+
 	
 	var viewport_size = get_viewport().size
 
@@ -93,3 +89,6 @@ func _physics_process(delta):
 #		velocity.z = move_toward(velocity.z, 0, SPEED)
 #	move_and_slide()
 	
+func _on_house_button_down():
+	if is_multiplayer_authority():
+		BuildManager.spawn_house()

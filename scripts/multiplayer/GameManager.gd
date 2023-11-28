@@ -1,5 +1,13 @@
-extends Node
-	
+extends Node3D
+
+enum State{
+	PLAY,
+	BUILDING,
+	POV_MODE
+}
+
+var current_state=State.PLAY
+
 var Players = {}
 
 var WorldGenerated = false

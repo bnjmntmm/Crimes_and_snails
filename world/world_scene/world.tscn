@@ -229,3 +229,7 @@ text = "Wonder"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Area2D"]
 position = Vector2(576, 72)
 shape = SubResource("RectangleShape2D_hxuef")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://assets/buildings/house.tscn")
+spawn_path = NodePath("..")

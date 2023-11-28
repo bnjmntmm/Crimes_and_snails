@@ -3,7 +3,7 @@ extends Node3D
 @export var PlayerScene : PackedScene
 var grid = preload("res://assets/models/3d_tilemap/scenes/grid_one.tscn")
 var hud = preload("res://world/player/hud/hud.tscn")
-@onready var name_value = $Control/VBoxContainer/HBoxContainer/NameValue
+
 
 
 
@@ -35,8 +35,9 @@ func _ready():
 #		hud_item.name = "Hud_For_" + str(GameManager.Players[i].id)
 #		hud_item.visible = true
 		if currentPlayer.is_multiplayer_authority():
+			pass
 			
-			name_value.text=GameManager.Players[i].name
+			#name_value.text=GameManager.Players[i].name
 			#hud_item.get_child(0).get_child(0).get_child(1).text=GameManager.Players[i].name
 		#changeVisibilityLayers(hud_item, index)
 		#print(currentPlayer.is_multiplayer_authority())
@@ -82,3 +83,6 @@ func _process(delta):
 #	hud.get_child(0).get_child(0).get_child(0).get_child(1).text = playerId.name
 	#hud.get_child(0).get_child(0).get_child(1).text = playerId.name
 	#hud.get_child(0).get_child(1).get_child(1).text = str(GameManager.Players.size())
+
+
+
