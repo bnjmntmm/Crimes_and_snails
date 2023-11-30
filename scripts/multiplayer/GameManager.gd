@@ -10,7 +10,7 @@ var current_state=State.PLAY
 
 var Players = {}
 
-var WorldGenerated = false
+var GridMaps = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

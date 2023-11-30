@@ -39,13 +39,14 @@ func connection_failed(id):
 
 @rpc("any_peer")
 func SendPlayerInformation(name, id):
+	randomize()
 	if !GameManager.Players.has(id):
 		GameManager.Players[id] = {
 			"name": name,
 			"id": id,
-			"gold": 0
+			"gold": 0,
+			"worldSeed": randi()
 		}
-		
 	if multiplayer.is_server():
 		for i in GameManager.Players:
 			SendPlayerInformation.rpc(GameManager.Players[i].name, i)

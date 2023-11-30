@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1bo6wj3s6fg7"]
+[gd_scene load_steps=6 format=3 uid="uid://c1bo6wj3s6fg7"]
 
 [ext_resource type="Script" path="res://assets/models/3d_tilemap/scenes/testGrid.gd" id="1_dklvk"]
 [ext_resource type="PackedScene" uid="uid://bb63g2xt0t6tt" path="res://world/world_scene/water_parent.tscn" id="2_1ylk5"]
 [ext_resource type="MeshLibrary" uid="uid://crumcsrroqrv3" path="res://assets/models/3d_tilemap/tileMap.tres" id="2_h88bj"]
-[ext_resource type="Script" path="res://scripts/multiplayer/GridSynchronizer.gd" id="4_majky"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ctwrr"]
 properties/0/path = NodePath(".:position")
@@ -14,6 +13,10 @@ properties/1/path = NodePath("GridMap:position")
 properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = false
+properties/2/path = NodePath(".:grid_map")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8mxgk"]
 size = Vector3(47.9236, 14.8021, 52.2535)
@@ -25,7 +28,6 @@ noise_active = true
 [node name="GridSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_ctwrr")
 public_visibility = false
-script = ExtResource("4_majky")
 
 [node name="WaterParent" parent="." instance=ExtResource("2_1ylk5")]
 
@@ -42,6 +44,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.03072, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_8mxgk")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)
+billboard = 1
+font_size = 1237
 
 [connection signal="body_entered" from="Area3D" to="GridSynchronizer" method="_on_area_detection_body_entered"]
 [connection signal="body_exited" from="Area3D" to="GridSynchronizer" method="_on_area_detection_body_exited"]
