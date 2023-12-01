@@ -1,4 +1,5 @@
 extends Node3D
+@onready var grid_one = $"."
 
 @onready var grid_map = $GridMap
 @onready var label_3d = $Label3D
@@ -7,7 +8,7 @@ var waterDip = FastNoiseLite.new()
 var gridTopLayer = []
 
 var spawnedbyID = null
-var generatedSeed = 0
+var edited = false
 
 @export var noise_active = false
 # Called when the node enters the scene tree for the first time.
@@ -45,6 +46,7 @@ func generate_world(generatedSeed):
 		
 		if !GameManager.GridMaps.has(spawnedbyID):
 			GameManager.GridMaps[spawnedbyID] = {
-				"grid" : grid_map
+				"grid" : grid_one
 			}
+		edited = true
 			

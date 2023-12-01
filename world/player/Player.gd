@@ -6,7 +6,6 @@ class_name Player extends CharacterBody3D
 @onready var house_button:Button=get_tree().root.get_node("World").get_node("Control/HBoxContainer/House")
 
 
-
 var gold = 0
 var own_position
 @export var sense=1.0
@@ -29,6 +28,8 @@ func _ready():
 	
 	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = true
+
+	
 	
 	
 func _unhandled_input(event):
@@ -42,16 +43,7 @@ func _physics_process(delta):
 	
 		
 	if not is_multiplayer_authority(): return
-	
-	# Add the gravity.
-#	if not is_on_floor():
-#		velocity.y -= gravity * delta
 
-	# Handle Jump.
-#	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-#		velocity.y = JUMP_VELOCITY
-
-	
 	var viewport_size = get_viewport().size
 
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -72,23 +64,6 @@ func _physics_process(delta):
 			global_position -= transform.basis.z * sense
 		elif mouse_pos.y > viewport_size.y - 10:
 			global_position += transform.basis.z * sense
-		
-#	if Input.is_action_just_pressed("spawnGold"):
-#		GameManager.Players[multiplayer.get_unique_id()].gold +=1
-
-		
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-#	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-#	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-#	if direction:
-#		velocity.x = direction.x * SPEED
-#		velocity.z = direction.z * SPEED
-#	else:
-#		velocity.x = move_toward(velocity.x, 0, SPEED)
-#		velocity.z = move_toward(velocity.z, 0, SPEED)
-#	move_and_slide()
-	
 func _on_house_button_down():
 	if is_multiplayer_authority():
 		BuildManager.spawn_house()

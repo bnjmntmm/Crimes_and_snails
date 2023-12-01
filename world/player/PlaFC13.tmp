@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://df3npag23y0yb"]
+
+[ext_resource type="Script" path="res://world/player/Player.gd" id="1_xrbsi"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ctffc"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = false
+properties/0/watch = false
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_xrbsi")
+
+[node name="CameraMount" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraMount"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 10)
+near = 2.0
+far = 400.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ctffc")

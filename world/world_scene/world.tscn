@@ -1,8 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://byy4ju0a5hecp"]
+[gd_scene load_steps=14 format=3 uid="uid://byy4ju0a5hecp"]
 
 [ext_resource type="Script" path="res://scripts/multiplayer/Scene_Manager.gd" id="1_8pm4h"]
+[ext_resource type="PackedScene" uid="uid://2d2afrdgp6i1" path="res://assets/models/3d_tilemap/scenes/grid01.tscn" id="3_0wqlq"]
 [ext_resource type="Texture2D" uid="uid://c8b7h4vnr5gtm" path="res://assets/sky/kloofendal_overcast_puresky_4k.exr" id="3_h26a0"]
+[ext_resource type="PackedScene" uid="uid://6hgf2hma06v1" path="res://assets/models/3d_tilemap/scenes/grid02.tscn" id="4_4ly5g"]
 [ext_resource type="PackedScene" uid="uid://df3npag23y0yb" path="res://world/player/Player.tscn" id="4_drrgv"]
+[ext_resource type="PackedScene" uid="uid://ucc7xy4r1oi2" path="res://assets/models/3d_tilemap/scenes/grid03.tscn" id="5_mrs4h"]
+[ext_resource type="PackedScene" uid="uid://ij77am7ds0hb" path="res://assets/models/3d_tilemap/scenes/grid04.tscn" id="6_uvgh8"]
+[ext_resource type="PackedScene" uid="uid://dhnxu22e6n6st" path="res://assets/models/3d_tilemap/scenes/grid05.tscn" id="7_05cmk"]
+[ext_resource type="PackedScene" uid="uid://ch73vdlgc4552" path="res://assets/models/3d_tilemap/scenes/grid06.tscn" id="8_njjb8"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_crbiv"]
 panorama = ExtResource("3_h26a0")
@@ -30,6 +36,7 @@ size = Vector2(1152, 144)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75024, -1.59027, -3.40131)
 script = ExtResource("1_8pm4h")
 PlayerScene = ExtResource("4_drrgv")
+Grid_scenes = Array[PackedScene]([ExtResource("3_0wqlq"), ExtResource("4_4ly5g"), ExtResource("5_mrs4h"), ExtResource("6_uvgh8"), ExtResource("7_05cmk"), ExtResource("8_njjb8")])
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_q1ou2")
@@ -232,4 +239,8 @@ shape = SubResource("RectangleShape2D_hxuef")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://assets/buildings/house.tscn")
+spawn_path = NodePath("..")
+
+[node name="MultiplayerSpawner2" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://assets/models/3d_tilemap/scenes/grid01.tscn", "res://assets/models/3d_tilemap/scenes/grid02.tscn", "res://assets/models/3d_tilemap/scenes/grid03.tscn", "res://assets/models/3d_tilemap/scenes/grid04.tscn", "res://assets/models/3d_tilemap/scenes/grid05.tscn", "res://assets/models/3d_tilemap/scenes/grid06.tscn")
 spawn_path = NodePath("..")
