@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dk5k8jgpji6xc"]
+
+[ext_resource type="Script" path="res://scenes/CameraMount.gd" id="1_85q8j"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8ht3t"]
+size = Vector2(100, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jxn2u"]
+size = Vector3(100, 1, 100)
+
+[node name="main" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.999123, -0.0418757, -1.83044e-09, 0, -4.37114e-08, 1, -0.0418757, 0.999123, 4.3673e-08, 0, 0, 0)
+shadow_enabled = true
+
+[node name="FloorWIP" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FloorWIP"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("PlaneMesh_8ht3t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FloorWIP"]
+shape = SubResource("BoxShape3D_jxn2u")
+
+[node name="CameraMount" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00121784, 0.0692291)
+script = ExtResource("1_85q8j")
+
+[node name="Camera" type="Camera3D" parent="CameraMount"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 7, 13, 9)
