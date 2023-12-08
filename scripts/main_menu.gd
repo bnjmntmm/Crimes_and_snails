@@ -1,7 +1,7 @@
 extends Control
 
 
-const loading_scene_path = "res://scenes/loading_screen.tscn"
+const loading_scene_path = "res://scenes/game_scenes/loading_screen.tscn"
 
 
 

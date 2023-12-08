@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://dct5x8hk5x2os"]
+
+[ext_resource type="Script" path="res://scripts/loading_screen.gd" id="1_3oxl3"]
+[ext_resource type="Texture2D" uid="uid://bfrfvlvh4whf3" path="res://assets/textures/loading_screen.png" id="2_bicth"]
+
+[node name="LoadingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3oxl3")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bicth")
+expand_mode = 3
