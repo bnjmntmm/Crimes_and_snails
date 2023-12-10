@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cuy5ydshqlq1h"]
+[gd_scene load_steps=13 format=3 uid="uid://cuy5ydshqlq1h"]
 
 [ext_resource type="PackedScene" uid="uid://b5s3s5eubnut4" path="res://scenes/game_scenes/grid.tscn" id="1_e65h0"]
 [ext_resource type="PackedScene" uid="uid://dtm7el2ruwgna" path="res://assets/buildings/townhall.glb" id="1_jemd5"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cammbwgus5hb4" path="res://scenes/game_scenes/water.tscn" id="2_slo8a"]
 [ext_resource type="Script" path="res://scripts/InterfaceManager.gd" id="3_m2s01"]
 [ext_resource type="Script" path="res://scripts/MouseArea2D.gd" id="4_m8b8x"]
+[ext_resource type="Texture2D" uid="uid://cj0h6a2fiit5t" path="res://assets/textures/HUD/snail.png" id="6_e11ib"]
+[ext_resource type="Texture2D" uid="uid://dndgyduqfdewp" path="res://assets/textures/HUD/mikulka-smile-smile.png" id="7_pxlos"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_72wta"]
 transparency = 1
@@ -77,9 +79,13 @@ offset_right = 192.0
 offset_bottom = 1.0
 grow_vertical = 2
 
-[node name="Snails" type="Label" parent="HUD/VBoxContainer"]
+[node name="Snails" type="TextureRect" parent="HUD/VBoxContainer"]
 layout_mode = 2
-text = "Snails:"
+tooltip_text = "Snails:
+Snails are used as currency to buy buildings or resources."
+mouse_filter = 0
+texture = ExtResource("6_e11ib")
+stretch_mode = 2
 
 [node name="SnailsValue" type="Label" parent="HUD/VBoxContainer/Snails"]
 layout_mode = 1
@@ -95,9 +101,12 @@ grow_horizontal = 0
 grow_vertical = 2
 text = "100"
 
-[node name="Happiness" type="Label" parent="HUD/VBoxContainer"]
+[node name="Happiness" type="TextureRect" parent="HUD/VBoxContainer"]
 layout_mode = 2
-text = "Happiness:"
+tooltip_text = "Happiness:
+Happiness shows how satisfied the villagers are with the amount of food."
+texture = ExtResource("7_pxlos")
+stretch_mode = 2
 
 [node name="HappinessValue" type="Label" parent="HUD/VBoxContainer/Happiness"]
 layout_mode = 1

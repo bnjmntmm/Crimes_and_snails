@@ -19,6 +19,10 @@ config/features=PackedStringArray("4.1", "Forward Plus")
 GameManager="*res://scripts/GameManager.gd"
 BuildManager="*res://scripts/BuildManager.gd"
 
+[display]
+
+mouse_cursor/tooltip_position_offset=Vector2(10, -50)
+
 [input]
 
 mouse_wheel_up={
