@@ -41,9 +41,7 @@ shader_parameter/distortNoise = SubResource("NoiseTexture2D_vbiuo")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_d4e6r"]
 material = SubResource("ShaderMaterial_6d5vg")
-size = Vector2(150, 150)
+size = Vector2(1000, 1000)
 
-[node name="Water" type="Node3D"]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D"]
 mesh = SubResource("PlaneMesh_d4e6r")

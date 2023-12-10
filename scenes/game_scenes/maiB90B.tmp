@@ -9,7 +9,7 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_72wta"]
 transparency = 1
-albedo_color = Color(0.733333, 0.572549, 0.172549, 0.627451)
+albedo_color = Color(0.733333, 0.572549, 0.172549, 0.454902)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_o7iwh"]
 material = SubResource("StandardMaterial3D_72wta")
@@ -42,8 +42,8 @@ script = ExtResource("2_0oeih")
 [node name="Camera" type="Camera3D" parent="CameraMount"]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866026, 0, -0.866026, 0.5, 0, 20, 5)
 current = true
-near = 2.0
-far = 1000.0
+near = 3.0
+far = 2000.0
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.999123, -0.0418757, -1.83044e-09, 0, -4.37114e-08, 1, -0.0418757, 0.999123, 4.3673e-08, 0, 0, 0)
