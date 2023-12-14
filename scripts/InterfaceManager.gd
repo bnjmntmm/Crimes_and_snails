@@ -8,11 +8,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$VBoxContainer/Snails/SnailsValue.text=str(GameManager.snails)
-	$VBoxContainer/Happiness/HappinessValue.text=str(GameManager.happiness)
-	$VBoxContainer/Food/FoodValue.text=str(GameManager.food)
-	$VBoxContainer/Wood/WoodValue.text=str(GameManager.wood)
-	$VBoxContainer/Planks/PlanksValue.text=str(GameManager.planks)
+	$HBoxContainer2/RessourceValues/SnailsValue.text=str(GameManager.snails)
+	$HBoxContainer2/RessourceValues/HappinessValue.text=str(GameManager.happiness)
+	$HBoxContainer2/RessourceValues/FoodValue.text=str(GameManager.food)
+	$HBoxContainer2/RessourceValues/WoodValue.text=str(GameManager.wood)
+	$HBoxContainer2/RessourceValues/PlanksValue.text=str(GameManager.planks)
 	
 func _on_area_2d_area_entered(area):
 	BuildManager.able_to_build=false

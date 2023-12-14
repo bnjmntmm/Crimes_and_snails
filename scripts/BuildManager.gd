@@ -1,7 +1,7 @@
 extends Node3D
 
-var House: PackedScene =ResourceLoader.load("res://scenes/house.tscn")
-var Stock: PackedScene=ResourceLoader.load("res://scenes/stock.tscn")
+var House: PackedScene =ResourceLoader.load("res://scenes/building_scenes/house.tscn")
+var Stock: PackedScene=ResourceLoader.load("res://scenes/building_scenes/stock.tscn")
 
 var able_to_build := true
 var current_spawnable: StaticBody3D
