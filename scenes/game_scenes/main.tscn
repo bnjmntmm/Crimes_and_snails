@@ -8,8 +8,7 @@
 [ext_resource type="Script" path="res://scripts/MouseArea2D.gd" id="4_m8b8x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_72wta"]
-transparency = 1
-albedo_color = Color(0.733333, 0.572549, 0.172549, 0.627451)
+albedo_color = Color(0.745098, 0.568627, 0, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_o7iwh"]
 material = SubResource("StandardMaterial3D_72wta")
@@ -31,6 +30,8 @@ visible = false
 
 [node name="MeshCube" type="MeshInstance3D" parent="Grid/SelectionCube"]
 mesh = SubResource("PlaneMesh_o7iwh")
+
+[node name="MultiMeshes" type="Node3D" parent="Grid"]
 
 [node name="townhall" parent="." instance=ExtResource("1_jemd5")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, 0)
@@ -247,6 +248,8 @@ shape = SubResource("CircleShape2D_pwr7s")
 position = Vector2(576, 72)
 shape = SubResource("RectangleShape2D_hxuef")
 
+[connection signal="grid_generated" from="Grid" to="CameraMount" method="_on_grid_grid_generated"]
+[connection signal="newGridAdded" from="CameraMount" to="CameraMount" method="_on_new_grid_added"]
 [connection signal="button_down" from="HUD/HBoxContainer/House" to="HUD" method="_on_house_button_down"]
 [connection signal="button_down" from="HUD/HBoxContainer/Stock" to="HUD" method="_on_stock_button_down"]
 [connection signal="area_entered" from="HUD/Area2D" to="HUD" method="_on_area_2d_area_entered"]

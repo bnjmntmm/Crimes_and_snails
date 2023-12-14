@@ -3,6 +3,9 @@ extends Node3D
 var mesh_lib_src : MeshLibrary= preload("res://assets/grid_blocks/tileMap.tres")
 # Called when the node enters the scene tree for the first time.
 
+signal grid_generated(size)
+
+
 var chunk_size = 64
 var preGenSize = 128
 func _ready():
@@ -24,7 +27,8 @@ func _ready():
 			var dirt_pos = Vector3i(x,0,z)
 			gridmap.set_cell_item(grass_pos, 0)
 			gridmap.set_cell_item(dirt_pos, 8)
-		
+	
+	grid_generated.emit(preGenSize)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

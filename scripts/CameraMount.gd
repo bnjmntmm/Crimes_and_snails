@@ -19,10 +19,13 @@ var minXGrid
 var maxZGrid
 var minZGrid
 
+signal newGridAdded(area_position)
+
+var multi_mesh
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	grid_map = get_parent().find_child("Grid").get_child(1)
+	grid_map = get_parent().get_node("Grid/BaseGrid")
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -100,6 +103,7 @@ func _process(delta):
 							
 						else:
 							pass
+				newGridAdded.emit(area_position)
 	#			updateMinMaxValuesGrid(grid_map)
 			else:
 				print("cannot place new area. must be next to exisitng area")
@@ -118,3 +122,49 @@ func can_place_chunk(area_position: Vector3, chunk_size: int) -> bool:
 	
 func area_exists(position: Vector3) -> bool:
 	return grid_map.get_cell_item(position) != -1
+
+
+
+## TODO:
+# Mehrere Meshes -> Bäume etc
+# Korrekte Location (also Höhe)
+# Wenn Noise drin ist -> nicht in Luft Spawnbar
+# Für die NPC's Angehbar?
+	# -> Bereich dann invisible und nach zeit wieder visible?
+
+func _on_new_grid_added(area_position):
+	multi_mesh = MultiMesh.new()
+	multi_mesh.transform_format = MultiMesh.TRANSFORM_3D
+	multi_mesh.mesh = preload("res://assets/nature/bush_mesh.res")
+	multi_mesh.instance_count = 5
+	
+	var multi_mesh_instance = MultiMeshInstance3D.new()
+	multi_mesh_instance.multimesh = multi_mesh
+	get_parent().get_node("Grid/MultiMeshes").add_child(multi_mesh_instance)
+	
+	for i in range(multi_mesh.instance_count):
+		randomize()
+		var transform = Transform3D()
+		transform = transform.scaled(Vector3(0.1,0.1,0.1))
+		transform.origin = area_position + Vector3(randi_range(-31, 31), 4, randi_range(-31,31))
+		multi_mesh.set_instance_transform(i,transform)
+
+	
+
+
+func _on_grid_grid_generated(size):
+	multi_mesh = MultiMesh.new()
+	multi_mesh.transform_format = MultiMesh.TRANSFORM_3D
+	multi_mesh.mesh = preload("res://assets/nature/bush_mesh.res")
+	multi_mesh.instance_count = 50
+
+	var multi_mesh_instance = MultiMeshInstance3D.new()
+	multi_mesh_instance.multimesh = multi_mesh
+	get_parent().get_node("Grid/MultiMeshes").add_child(multi_mesh_instance)		
+	for i in range(multi_mesh.instance_count):
+		randomize()
+		var transform = Transform3D()
+		transform = transform.scaled(Vector3(0.1,0.1,0.1))
+		transform.origin = Vector3(randi_range(-size, size), 4, randi_range(-size,size))
+		multi_mesh.set_instance_transform(i,transform)
+		multi_mesh_instance.add_to_group("food")
