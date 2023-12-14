@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cuy5ydshqlq1h"]
+[gd_scene load_steps=18 format=3 uid="uid://cuy5ydshqlq1h"]
 
 [ext_resource type="PackedScene" uid="uid://b5s3s5eubnut4" path="res://scenes/game_scenes/grid.tscn" id="1_e65h0"]
 [ext_resource type="PackedScene" uid="uid://dtm7el2ruwgna" path="res://assets/buildings/townhall.glb" id="1_jemd5"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://m7fmmqm1onun" path="res://assets/textures/HUD/Food.PNG" id="8_jjuww"]
 [ext_resource type="Texture2D" uid="uid://boqdfkwieimai" path="res://assets/textures/HUD/Wood.PNG" id="9_sdah1"]
 [ext_resource type="Texture2D" uid="uid://d3s2kpit3ctey" path="res://assets/textures/HUD/Wood Planks.PNG" id="10_560qh"]
+[ext_resource type="Script" path="res://scripts/Tooltip_buildings.gd" id="12_3v2up"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_72wta"]
 transparency = 1
@@ -173,57 +174,72 @@ grow_vertical = 2
 [node name="House" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "House:
+Houses are needed so that the villagers have a place to live and thus generate happiness."
 text = "House"
+script = ExtResource("12_3v2up")
 
 [node name="Stock" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Stock:
+A Stock is used so that villagers have a shorter route to store their resources."
 text = "Stock"
+script = ExtResource("12_3v2up")
 
 [node name="Lab" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Lab"
+script = ExtResource("12_3v2up")
 
 [node name="Terrarium" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Terrarium"
+script = ExtResource("12_3v2up")
 
 [node name="Farm" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Farm"
+script = ExtResource("12_3v2up")
 
 [node name="Bakery" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Bakery"
+script = ExtResource("12_3v2up")
 
 [node name="Incubator" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Incubator"
+script = ExtResource("12_3v2up")
 
 [node name="Watch" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Watch"
+script = ExtResource("12_3v2up")
 
 [node name="Tempel" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Tempel"
+script = ExtResource("12_3v2up")
 
 [node name="Carpentry" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Carpentry"
+script = ExtResource("12_3v2up")
 
 [node name="Wonder" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Wonder"
+script = ExtResource("12_3v2up")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/HBoxContainer"]
 layout_mode = 2
@@ -276,6 +292,7 @@ shape = SubResource("RectangleShape2D_hxuef")
 [connection signal="mouse_entered" from="HUD/HBoxContainer2/RessourceIcons/Wood" to="HUD/HBoxContainer2/RessourceIcons/Wood" method="_on_mouse_entered_wood"]
 [connection signal="mouse_entered" from="HUD/HBoxContainer2/RessourceIcons/Planks" to="HUD/HBoxContainer2/RessourceIcons/Planks" method="_on_mouse_entered_planks"]
 [connection signal="button_down" from="HUD/HBoxContainer/House" to="HUD" method="_on_house_button_down"]
+[connection signal="mouse_entered" from="HUD/HBoxContainer/House" to="HUD/HBoxContainer/House" method="_on_mouse_entered_house"]
 [connection signal="button_down" from="HUD/HBoxContainer/Stock" to="HUD" method="_on_stock_button_down"]
 [connection signal="area_entered" from="HUD/Area2D" to="HUD" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="HUD/Area2D" to="HUD" method="_on_area_2d_area_exited"]
