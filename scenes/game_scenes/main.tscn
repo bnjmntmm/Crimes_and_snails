@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cuy5ydshqlq1h"]
+[gd_scene load_steps=11 format=3 uid="uid://cuy5ydshqlq1h"]
 
 [ext_resource type="PackedScene" uid="uid://b5s3s5eubnut4" path="res://scenes/game_scenes/grid.tscn" id="1_e65h0"]
 [ext_resource type="PackedScene" uid="uid://dtm7el2ruwgna" path="res://assets/buildings/townhall.glb" id="1_jemd5"]
@@ -6,17 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cammbwgus5hb4" path="res://scenes/game_scenes/water.tscn" id="2_slo8a"]
 [ext_resource type="Script" path="res://scripts/InterfaceManager.gd" id="3_m2s01"]
 [ext_resource type="Script" path="res://scripts/MouseArea2D.gd" id="4_m8b8x"]
-[ext_resource type="Texture2D" uid="uid://cj0h6a2fiit5t" path="res://assets/textures/HUD/Snail.PNG" id="6_h2gkb"]
-[ext_resource type="Script" path="res://scripts/Tooltip.gd" id="7_rbh8w"]
-[ext_resource type="Texture2D" uid="uid://dgtavymir4ldk" path="res://assets/textures/HUD/Happiness.png" id="7_u72ri"]
-[ext_resource type="Texture2D" uid="uid://m7fmmqm1onun" path="res://assets/textures/HUD/Food.PNG" id="8_jjuww"]
-[ext_resource type="Texture2D" uid="uid://boqdfkwieimai" path="res://assets/textures/HUD/Wood.PNG" id="9_sdah1"]
-[ext_resource type="Texture2D" uid="uid://d3s2kpit3ctey" path="res://assets/textures/HUD/Wood Planks.PNG" id="10_560qh"]
-[ext_resource type="Script" path="res://scripts/Tooltip_buildings.gd" id="12_3v2up"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_72wta"]
-transparency = 1
-albedo_color = Color(0.733333, 0.572549, 0.172549, 0.454902)
+albedo_color = Color(0.745098, 0.568627, 0, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_o7iwh"]
 material = SubResource("StandardMaterial3D_72wta")
@@ -39,6 +31,8 @@ visible = false
 [node name="MeshCube" type="MeshInstance3D" parent="Grid/SelectionCube"]
 mesh = SubResource("PlaneMesh_o7iwh")
 
+[node name="MultiMeshes" type="Node3D" parent="Grid"]
+
 [node name="townhall" parent="." instance=ExtResource("1_jemd5")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, 0)
 
@@ -49,8 +43,8 @@ script = ExtResource("2_0oeih")
 [node name="Camera" type="Camera3D" parent="CameraMount"]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866026, 0, -0.866026, 0.5, 0, 20, 5)
 current = true
-near = 3.0
-far = 2000.0
+near = 2.0
+far = 1000.0
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.999123, -0.0418757, -1.83044e-09, 0, -4.37114e-08, 1, -0.0418757, 0.999123, 4.3673e-08, 0, 0, 0)
@@ -75,88 +69,103 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HUD"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_top = -1.0
-offset_right = 65.0
+offset_right = 192.0
 offset_bottom = 1.0
 grow_vertical = 2
 
-[node name="RessourceIcons" type="VBoxContainer" parent="HUD/HBoxContainer2"]
-custom_minimum_size = Vector2(26, 0)
+[node name="Snails" type="Label" parent="HUD/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 4
+text = "Snails:"
 
-[node name="Snails" type="TextureRect" parent="HUD/HBoxContainer2/RessourceIcons"]
-layout_mode = 2
-size_flags_vertical = 6
-tooltip_text = "Snails:
-Snails are used as currency to buy buildings or resources."
-mouse_filter = 0
-texture = ExtResource("6_h2gkb")
-expand_mode = 4
-script = ExtResource("7_rbh8w")
-
-[node name="Happiness" type="TextureRect" parent="HUD/HBoxContainer2/RessourceIcons"]
-layout_mode = 2
-size_flags_vertical = 6
-tooltip_text = "Happiness:
-Happiness shows how satisfied the villagers are with the amount of food."
-texture = ExtResource("7_u72ri")
-expand_mode = 4
-script = ExtResource("7_rbh8w")
-
-[node name="Food" type="TextureRect" parent="HUD/HBoxContainer2/RessourceIcons"]
-layout_mode = 2
-size_flags_vertical = 6
-tooltip_text = "Food:
-Food is consumed by the villager."
-texture = ExtResource("8_jjuww")
-expand_mode = 4
-script = ExtResource("7_rbh8w")
-
-[node name="Wood" type="TextureRect" parent="HUD/HBoxContainer2/RessourceIcons"]
-layout_mode = 2
-size_flags_vertical = 6
-tooltip_text = "Wood:
-Wood is used for building structures."
-texture = ExtResource("9_sdah1")
-expand_mode = 4
-script = ExtResource("7_rbh8w")
-
-[node name="Planks" type="TextureRect" parent="HUD/HBoxContainer2/RessourceIcons"]
-layout_mode = 2
-size_flags_vertical = 6
-tooltip_text = "Planks:
-Planks are used for upgrading/building structures."
-texture = ExtResource("10_560qh")
-expand_mode = 4
-script = ExtResource("7_rbh8w")
-
-[node name="RessourceValues" type="VBoxContainer" parent="HUD/HBoxContainer2"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="SnailsValue" type="Label" parent="HUD/HBoxContainer2/RessourceValues"]
-layout_mode = 2
+[node name="SnailsValue" type="Label" parent="HUD/VBoxContainer/Snails"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -13.0
+offset_bottom = 13.0
+grow_horizontal = 0
+grow_vertical = 2
 text = "100"
 
-[node name="HappinessValue" type="Label" parent="HUD/HBoxContainer2/RessourceValues"]
+[node name="Happiness" type="Label" parent="HUD/VBoxContainer"]
 layout_mode = 2
+text = "Happiness:"
+
+[node name="HappinessValue" type="Label" parent="HUD/VBoxContainer/Happiness"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -13.0
+offset_bottom = 13.0
+grow_horizontal = 0
+grow_vertical = 2
 text = "100"
 
-[node name="FoodValue" type="Label" parent="HUD/HBoxContainer2/RessourceValues"]
+[node name="Food" type="Label" parent="HUD/VBoxContainer"]
 layout_mode = 2
+text = "Food:"
+
+[node name="FoodValue" type="Label" parent="HUD/VBoxContainer/Food"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -13.0
+offset_bottom = 13.0
+grow_horizontal = 0
+grow_vertical = 2
 text = "100"
 
-[node name="WoodValue" type="Label" parent="HUD/HBoxContainer2/RessourceValues"]
+[node name="Wood" type="Label" parent="HUD/VBoxContainer"]
 layout_mode = 2
+text = "Wood:"
+
+[node name="WoodValue" type="Label" parent="HUD/VBoxContainer/Wood"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -13.0
+offset_bottom = 13.0
+grow_horizontal = 0
+grow_vertical = 2
 text = "100"
 
-[node name="PlanksValue" type="Label" parent="HUD/HBoxContainer2/RessourceValues"]
+[node name="Planks" type="Label" parent="HUD/VBoxContainer"]
 layout_mode = 2
+text = "Planks:"
+
+[node name="PlanksValue" type="Label" parent="HUD/VBoxContainer/Planks"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -13.0
+offset_bottom = 13.0
+grow_horizontal = 0
+grow_vertical = 2
 text = "100"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
@@ -164,9 +173,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 80.0
+offset_left = 224.0
 offset_top = 16.0
-offset_right = -18.0
+offset_right = -16.0
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -174,104 +183,57 @@ grow_vertical = 2
 [node name="House" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "House:
-Houses are needed so that the villagers have a place to live and thus generate happiness."
 text = "House"
-script = ExtResource("12_3v2up")
 
 [node name="Stock" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Stock:
-A Stock is used so that villagers have a shorter route to store their resources."
 text = "Stock"
-script = ExtResource("12_3v2up")
 
 [node name="Lab" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Lab"
-script = ExtResource("12_3v2up")
 
 [node name="Terrarium" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Terrarium"
-script = ExtResource("12_3v2up")
 
 [node name="Farm" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Farm"
-script = ExtResource("12_3v2up")
 
 [node name="Bakery" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Bakery"
-script = ExtResource("12_3v2up")
 
 [node name="Incubator" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Incubator"
-script = ExtResource("12_3v2up")
 
 [node name="Watch" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Watch"
-script = ExtResource("12_3v2up")
 
 [node name="Tempel" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Tempel"
-script = ExtResource("12_3v2up")
 
 [node name="Carpentry" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Carpentry"
-script = ExtResource("12_3v2up")
 
 [node name="Wonder" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Wonder"
-script = ExtResource("12_3v2up")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Delete" type="Button" parent="HUD/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Delete"
-
-[node name="ColorRect" type="ColorRect" parent="HUD/HBoxContainer/VBoxContainer/Delete"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.745098, 0, 0, 0.419608)
-
-[node name="Move" type="Button" parent="HUD/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Move"
-
-[node name="ColorRect" type="ColorRect" parent="HUD/HBoxContainer/VBoxContainer/Move"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0.643137, 0, 0.541176)
 
 [node name="MouseArea2D" type="Area2D" parent="HUD"]
 position = Vector2(0, -504)
@@ -286,13 +248,9 @@ shape = SubResource("CircleShape2D_pwr7s")
 position = Vector2(576, 72)
 shape = SubResource("RectangleShape2D_hxuef")
 
-[connection signal="mouse_entered" from="HUD/HBoxContainer2/RessourceIcons/Snails" to="HUD/HBoxContainer2/RessourceIcons/Snails" method="_on_mouse_entered_snails"]
-[connection signal="mouse_entered" from="HUD/HBoxContainer2/RessourceIcons/Happiness" to="HUD/HBoxContainer2/RessourceIcons/Happiness" method="_on_mouse_entered_happiness"]
-[connection signal="mouse_entered" from="HUD/HBoxContainer2/RessourceIcons/Food" to="HUD/HBoxContainer2/RessourceIcons/Food" method="_on_mouse_entered_food"]
-[connection signal="mouse_entered" from="HUD/HBoxContainer2/RessourceIcons/Wood" to="HUD/HBoxContainer2/RessourceIcons/Wood" method="_on_mouse_entered_wood"]
-[connection signal="mouse_entered" from="HUD/HBoxContainer2/RessourceIcons/Planks" to="HUD/HBoxContainer2/RessourceIcons/Planks" method="_on_mouse_entered_planks"]
+[connection signal="grid_generated" from="Grid" to="CameraMount" method="_on_grid_grid_generated"]
+[connection signal="newGridAdded" from="CameraMount" to="CameraMount" method="_on_new_grid_added"]
 [connection signal="button_down" from="HUD/HBoxContainer/House" to="HUD" method="_on_house_button_down"]
-[connection signal="mouse_entered" from="HUD/HBoxContainer/House" to="HUD/HBoxContainer/House" method="_on_mouse_entered_house"]
 [connection signal="button_down" from="HUD/HBoxContainer/Stock" to="HUD" method="_on_stock_button_down"]
 [connection signal="area_entered" from="HUD/Area2D" to="HUD" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="HUD/Area2D" to="HUD" method="_on_area_2d_area_exited"]
