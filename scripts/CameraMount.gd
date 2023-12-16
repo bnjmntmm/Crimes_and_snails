@@ -106,7 +106,7 @@ func _process(delta):
 				newGridAdded.emit(area_position)
 	#			updateMinMaxValuesGrid(grid_map)
 			else:
-				print("cannot place new area. must be next to exisitng area")
+				print("cannot place new area. must be next to exisitng new area")
 	
 func can_place_chunk(area_position: Vector3, chunk_size: int) -> bool:
 	var neighbor_positions = [
@@ -117,7 +117,8 @@ func can_place_chunk(area_position: Vector3, chunk_size: int) -> bool:
 	]
 	for neighbor_pos in neighbor_positions:
 		if area_exists(neighbor_pos):
-			return true
+			if grid_map.get_cell_item(Vector3(area_position.x, 1,area_position.z)) == -1:
+				return true
 	return false
 	
 func area_exists(position: Vector3) -> bool:
@@ -133,38 +134,69 @@ func area_exists(position: Vector3) -> bool:
 	# -> Bereich dann invisible und nach zeit wieder visible?
 
 func _on_new_grid_added(area_position):
-	multi_mesh = MultiMesh.new()
-	multi_mesh.transform_format = MultiMesh.TRANSFORM_3D
-	multi_mesh.mesh = preload("res://assets/nature/bush_mesh.res")
-	multi_mesh.instance_count = 5
+	var instance_count = 5
+	var bush_mesh = preload("res://assets/nature/bush1berries.glb")
 	
-	var multi_mesh_instance = MultiMeshInstance3D.new()
-	multi_mesh_instance.multimesh = multi_mesh
-	get_parent().get_node("Grid/MultiMeshes").add_child(multi_mesh_instance)
-	
-	for i in range(multi_mesh.instance_count):
+	for i in range(instance_count):
+		var bush_instance = bush_mesh.instantiate()
+		bush_instance.add_to_group("food")
+		get_parent().get_node("Grid/MultiMeshes/Bushes").add_child(bush_instance,true)
 		randomize()
-		var transform = Transform3D()
-		transform = transform.scaled(Vector3(0.1,0.1,0.1))
-		transform.origin = area_position + Vector3(randi_range(-31, 31), 4, randi_range(-31,31))
-		multi_mesh.set_instance_transform(i,transform)
+		bush_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 2, randi_range(-31,31))
+		
+	
+#	multi_mesh = MultiMesh.new()
+#	multi_mesh.transform_format = MultiMesh.TRANSFORM_3D
+#	multi_mesh.mesh = preload("res://assets/nature/bush_mesh.res")
+#	multi_mesh.instance_count = 5
+#
+#	var multi_mesh_instance = MultiMeshInstance3D.new()
+#	multi_mesh_instance.multimesh = multi_mesh
+#	get_parent().get_node("Grid/MultiMeshes").add_child(multi_mesh_instance)
+#
+#	for i in range(multi_mesh.instance_count):
+#		randomize()
+#		var transform = Transform3D()
+#		transform = transform.scaled(Vector3(0.1,0.1,0.1))
+#		transform.origin = area_position + Vector3(randi_range(-31, 31), 4, randi_range(-31,31))
+#		multi_mesh.set_instance_transform(i,transform)
+
+		
+
+
+func _on_grid_grid_generated(size):	
+	
+	var instance_count = 50
+	var bush_mesh = preload("res://assets/nature/bush1berries.glb")
+	
+	for i in range(instance_count):
+		var bush_instance = bush_mesh.instantiate()
+		bush_instance.add_to_group("food")
+		get_parent().get_node("Grid/MultiMeshes/Bushes").add_child(bush_instance, true)
+		randomize()
+		bush_instance.transform.origin =  Vector3(randi_range(-size, size), 2, randi_range(-size,size))
 
 	
+	
+#	multi_mesh = MultiMesh.new()
+#	multi_mesh.transform_format = MultiMesh.TRANSFORM_3D
+#	multi_mesh.mesh = preload("res://assets/nature/bush_mesh.res")
+#	multi_mesh.instance_count = 50
+#
+#	var multi_mesh_instance = MultiMeshInstance3D.new()
+#	multi_mesh_instance.multimesh = multi_mesh
+#	get_parent().get_node("Grid/MultiMeshes").add_child(multi_mesh_instance)		
+#	for i in range(multi_mesh.instance_count):
+#		var meshLabel = Label3D.new()
+#		meshLabel.billboard = true
+#		meshLabel.font_size = 40
+#		multi_mesh_instance.add_child(meshLabel)
+#		randomize()
+#		var transform = Transform3D()
+#		transform = transform.scaled(Vector3(0.1,0.1,0.1))
+#		transform.origin = Vector3(randi_range(-size, size), 4, randi_range(-size,size))
+#		meshLabel.global_position = transform.origin + Vector3(0,2,0)
+#		multi_mesh_instance.add_to_group("food")
+#		multi_mesh.set_instance_transform(i,transform)
+#		meshLabel.text = str(multi_mesh_instance.get_groups())
 
-
-func _on_grid_grid_generated(size):
-	multi_mesh = MultiMesh.new()
-	multi_mesh.transform_format = MultiMesh.TRANSFORM_3D
-	multi_mesh.mesh = preload("res://assets/nature/bush_mesh.res")
-	multi_mesh.instance_count = 50
-
-	var multi_mesh_instance = MultiMeshInstance3D.new()
-	multi_mesh_instance.multimesh = multi_mesh
-	get_parent().get_node("Grid/MultiMeshes").add_child(multi_mesh_instance)		
-	for i in range(multi_mesh.instance_count):
-		randomize()
-		var transform = Transform3D()
-		transform = transform.scaled(Vector3(0.1,0.1,0.1))
-		transform.origin = Vector3(randi_range(-size, size), 4, randi_range(-size,size))
-		multi_mesh.set_instance_transform(i,transform)
-		multi_mesh_instance.add_to_group("food")

@@ -33,6 +33,8 @@ mesh = SubResource("PlaneMesh_o7iwh")
 
 [node name="MultiMeshes" type="Node3D" parent="Grid"]
 
+[node name="Bushes" type="Node3D" parent="Grid/MultiMeshes"]
+
 [node name="townhall" parent="." instance=ExtResource("1_jemd5")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, 0)
 
