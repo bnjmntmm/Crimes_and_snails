@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpnpmmv5fil5h"]
+
+[ext_resource type="ArrayMesh" uid="uid://8un68pqrni0o" path="res://assets/nature/bush_mesh.res" id="1_c6qkh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lgafk"]
+radius = 0.828389
+
+[node name="Bush" type="StaticBody3D" groups=["food"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.951771, -0.306808, 0, 0.306808, 0.951771, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_lgafk")
+
+[node name="bush1berries" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="berry" type="MeshInstance3D" parent="bush1berries"]
+transform = Transform3D(0.0473349, 0, 0, 0, 0.0473349, 0, 0, 0, 0.0473349, 0, 0.912118, 0.174693)
+mesh = ExtResource("1_c6qkh")
+skeleton = NodePath("")

@@ -11,6 +11,7 @@ var old_pos_mount : Vector3
 @onready var water = $"../Water"
 
 
+
 var grid_map : GridMap
 var chunk_size = 64
 
@@ -167,4 +168,5 @@ func _on_grid_grid_generated(size):
 		transform = transform.scaled(Vector3(0.1,0.1,0.1))
 		transform.origin = Vector3(randi_range(-size, size), 4, randi_range(-size,size))
 		multi_mesh.set_instance_transform(i,transform)
-		multi_mesh_instance.add_to_group("food")
+		#multi_mesh_instance.add_to_group("food")
+	
