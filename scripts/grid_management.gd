@@ -1,8 +1,10 @@
 extends Node3D
 @export var Grid_scenes: Array[PackedScene] 
 var mesh_lib_src : MeshLibrary= preload("res://assets/grid_blocks/tileMap.tres")
-
 @onready var navigation_region_3d = $NavigationRegion3D
+
+
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -13,9 +15,10 @@ signal grid_generated(size)
 var chunk_size = 64
 var preGenSize = 128
 func _ready():
+	
 	var gridmap : GridMap = GridMap.new()
 	add_child(gridmap)
-	gridmap.set_bake_navigation(true)
+	#gridmap.set_bake_navigation(true)
 	#addNav()
 	gridmap.set_cell_size(Vector3(1,1,1))
 	gridmap.set_cell_scale(1)
@@ -27,15 +30,15 @@ func _ready():
 	
 	gridmap.global_position = gridmap.global_position - Vector3(0,1,0)
 	
-	for x in range(-preGenSize, preGenSize+1):
-		for z in range(-preGenSize, preGenSize+1):
+	for x in range(-preGenSize, preGenSize):
+		for z in range(-preGenSize, preGenSize):
 			var grass_pos = Vector3i(x,1,z)
 			var dirt_pos = Vector3i(x,0,z)
 			gridmap.set_cell_item(grass_pos, 0)
 			gridmap.set_cell_item(dirt_pos, 8)
 	
 	grid_generated.emit(preGenSize)
-
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -54,3 +57,9 @@ func addNav():
 		new_item_navigation_mesh.add_polygon(PackedInt32Array([0, 1, 2, 3]))
 		mesh_lib_src.set_item_navigation_mesh(item, new_item_navigation_mesh)
 	
+
+		
+
+
+func _on_camera_mount_ready_to_bake():
+	navigation_region_3d.bake_navigation_mesh()

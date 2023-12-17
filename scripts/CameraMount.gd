@@ -4,6 +4,9 @@ extends Node3D
 
 @export var sense=1.0
 @export var locked_cam:=false
+@onready var navigation_region_3d = $"../Grid/NavigationRegion3D"
+
+@onready var bought_grid_nav_plane=ResourceLoader.load("res://scenes/game_scenes/bought_grid_nav_plane.tscn")
 
 var old_pos_mount : Vector3
 @onready var selection_cube = $"../Grid/SelectionCube"
@@ -20,6 +23,7 @@ var maxZGrid
 var minZGrid
 
 signal newGridAdded(area_position)
+signal ready_to_bake
 
 var multi_mesh
 
@@ -92,8 +96,8 @@ func _process(delta):
 			
 			# TODO: NOT CORRECT POSITION AT THE MOMENT
 			if can_place:
-				for x in range(grid_size+1):
-					for z in range(grid_size+1):
+				for x in range(grid_size):
+					for z in range(grid_size):
 						var cell_position_grass = Vector3(area_position.x - grid_size / 2 + x, 1, area_position.z - grid_size / 2 + z)
 						var cell_position_dirt = Vector3(area_position.x - grid_size / 2 + x, 0, area_position.z - grid_size / 2 + z)
 
@@ -103,6 +107,11 @@ func _process(delta):
 							
 						else:
 							pass
+				var new_area_nav_plane=bought_grid_nav_plane.instantiate()
+				navigation_region_3d.add_child(new_area_nav_plane,true)
+				new_area_nav_plane.global_position=area_position
+				new_area_nav_plane.global_position+=Vector3(0,1,0)
+		
 				newGridAdded.emit(area_position)
 	#			updateMinMaxValuesGrid(grid_map)
 			else:
@@ -140,9 +149,11 @@ func _on_new_grid_added(area_position):
 	for i in range(instance_count):
 		var bush_instance = bush_mesh.instantiate()
 		bush_instance.add_to_group("food")
-		get_parent().get_node("Grid/MultiMeshes/Bushes").add_child(bush_instance,true)
+		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").add_child(bush_instance,true)
 		randomize()
 		bush_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 2, randi_range(-31,31))
+		
+	ready_to_bake.emit()
 		
 	
 #	multi_mesh = MultiMesh.new()
@@ -172,11 +183,11 @@ func _on_grid_grid_generated(size):
 	for i in range(instance_count):
 		var bush_instance = bush_mesh.instantiate()
 		bush_instance.add_to_group("food")
-		get_parent().get_node("Grid/MultiMeshes/Bushes").add_child(bush_instance, true)
+		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").add_child(bush_instance, true)
 		randomize()
 		bush_instance.transform.origin =  Vector3(randi_range(-size, size), 2, randi_range(-size,size))
-
 	
+	ready_to_bake.emit()
 	
 #	multi_mesh = MultiMesh.new()
 #	multi_mesh.transform_format = MultiMesh.TRANSFORM_3D

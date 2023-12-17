@@ -21,12 +21,12 @@ var current_actor
 func _ready():
 	$Area.area_entered.connect(_on_area_entered)
 	$Area.area_exited.connect(_on_area_exited)
-func run_spawn():
-	if can_spawn_actor:
-		pass
-func run_despawn():
-	if can_spawn_actor:
-		pass
+#func run_spawn():
+#	if can_spawn_actor:
+#		pass
+#func run_despawn():
+#	if can_spawn_actor:
+#		pass
 
 func _on_area_entered(area):
 	
