@@ -42,7 +42,7 @@ func _physics_process(delta):
 				var obj:=current_spawnable.duplicate()
 				get_tree().root.add_child(obj)
 				obj.active_buildable_object=false
-				obj.run_spawn()
+				#obj.run_spawn()
 				obj.spawned=true
 				obj.set_disabled(false)
 				
