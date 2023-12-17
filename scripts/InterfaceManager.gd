@@ -26,3 +26,7 @@ func _on_house_button_down():
 
 func _on_stock_button_down():
 	BuildManager.spawn_stock()
+
+
+func _on_terrarium_button_down():
+	BuildManager.spawn_terrarium()
