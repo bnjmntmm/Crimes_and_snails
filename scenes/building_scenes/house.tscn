@@ -3981,7 +3981,6 @@ shadow_mesh = SubResource("ArrayMesh_0jlb3")
 size = Vector3(15, 15, 20)
 
 [node name="House" type="StaticBody3D" groups=["building"]]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 script = ExtResource("1_4gyj0")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="."]

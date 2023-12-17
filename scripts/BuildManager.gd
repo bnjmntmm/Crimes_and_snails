@@ -2,7 +2,7 @@ extends Node3D
 
 var House: PackedScene =ResourceLoader.load("res://scenes/building_scenes/house.tscn")
 var Stock: PackedScene=ResourceLoader.load("res://scenes/building_scenes/stock.tscn")
-
+var Terrarium: PackedScene = ResourceLoader.load("res://scenes/building_scenes/terrarium.tscn")
 var able_to_build := true
 var current_spawnable: StaticBody3D
 
@@ -34,7 +34,7 @@ func _physics_process(delta):
 		var cursor_pos = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
 		
 		# Set the position of the current spawnable to the intersection point, with adjustments to x and z for snapping to a grid.
-		current_spawnable.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z))
+		current_spawnable.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z)) + Vector3(0,1.5,0)
 		current_spawnable.active_buildable_object=true
 		
 		if able_to_build:
@@ -54,6 +54,8 @@ func spawn_house():
 	spawn_object(House)
 func spawn_stock():
 	spawn_object(Stock)
+func spawn_terrarium():
+	spawn_object(Terrarium)
 	
 	
 func spawn_object(obj):
