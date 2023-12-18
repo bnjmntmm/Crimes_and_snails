@@ -10,6 +10,7 @@ extends Node3D
 
 var old_pos_mount : Vector3
 @onready var selection_cube = $"../Grid/SelectionCube"
+
 @onready var hud = $"../HUD"
 @onready var water = $"../Water"
 
@@ -76,46 +77,49 @@ func _process(delta):
 	
 	if GameManager.current_state == GameManager.State.BUY_LAND:
 		selection_cube.visible = true
-		var ray_origin = $Camera.project_ray_origin(get_viewport().get_mouse_position())
-		var ray_direction = $Camera.project_ray_normal(get_viewport().get_mouse_position()).normalized()
 		var ray_length = 1000
-		var cursor_pos = ray_origin + ray_direction * ray_length
 		var grid_size = 64
-		var grid_cell_position = Vector3(floor(cursor_pos.x / grid_size) * grid_size, 0, floor(cursor_pos.z / grid_size) * grid_size)
 
-		#AREA POSITION IS NOT ACCURATE @MIKA MACH MAL
-
-		#var area_position = grid_cell_position - Vector3(grid_size / 2, 0, grid_size / 2)
-		var area_position = grid_cell_position + Vector3(grid_size / 2,	 0, grid_size / 2)
-		selection_cube.global_transform.origin = area_position
-		
+		var from = $Camera.project_ray_origin(mouse_pos)
+		var to = from + $Camera.project_ray_normal(mouse_pos) * ray_length
+		var space = get_world_3d().direct_space_state
+		var ray_query = PhysicsRayQueryParameters3D.new()
+		ray_query.from = from
+		ray_query.to = to
+		ray_query.collide_with_areas = true
+		ray_query.collide_with_bodies = true
+	
+		var raycast_result = space.intersect_ray(ray_query)
+		var grid_cell_pos
+		if raycast_result.size() > 0:
+			grid_cell_pos = Vector3(floor(raycast_result.position.x / grid_size) * grid_size, 0, floor(raycast_result.position.z / grid_size) * grid_size)  + Vector3(grid_size / 2,	 0, grid_size / 2)
+			selection_cube.global_transform.origin = grid_cell_pos
 		
 		if Input.is_action_just_released("left_mouse_down"):
 			
-			var can_place = can_place_chunk(area_position, grid_size)
-			
-			# TODO: NOT CORRECT POSITION AT THE MOMENT
-			if can_place:
-				for x in range(grid_size):
-					for z in range(grid_size):
-						var cell_position_grass = Vector3(area_position.x - grid_size / 2 + x, 1, area_position.z - grid_size / 2 + z)
-						var cell_position_dirt = Vector3(area_position.x - grid_size / 2 + x, 0, area_position.z - grid_size / 2 + z)
+			if typeof(grid_cell_pos)== TYPE_VECTOR3:
+				var can_place = can_place_chunk(grid_cell_pos, grid_size)
+				if can_place:
+					for x in range(grid_size):
+						for z in range(grid_size):
+							var cell_position_grass = Vector3(grid_cell_pos.x - grid_size / 2 + x, 1, grid_cell_pos.z - grid_size / 2 + z)
+							var cell_position_dirt = Vector3(grid_cell_pos.x - grid_size / 2 + x, 0, grid_cell_pos.z - grid_size / 2 + z)
 
-						if grid_map.get_cell_item(cell_position_dirt) == -1 and grid_map.get_cell_item(cell_position_grass) == -1:
-							grid_map.set_cell_item(cell_position_grass, 0)
-							grid_map.set_cell_item(cell_position_dirt, 8)
-							
-						else:
-							pass
-				var new_area_nav_plane=bought_grid_nav_plane.instantiate()
-				navigation_region_3d.add_child(new_area_nav_plane,true)
-				new_area_nav_plane.global_position=area_position
-				new_area_nav_plane.global_position+=Vector3(0,1,0)
-		
-				newGridAdded.emit(area_position)
-	#			updateMinMaxValuesGrid(grid_map)
-			else:
-				print("cannot place new area. must be next to exisitng new area")
+							if grid_map.get_cell_item(cell_position_dirt) == -1 and grid_map.get_cell_item(cell_position_grass) == -1:
+								grid_map.set_cell_item(cell_position_grass, 0)
+								grid_map.set_cell_item(cell_position_dirt, 8)
+								
+							else:
+								pass
+					var new_area_nav_plane=bought_grid_nav_plane.instantiate()
+					navigation_region_3d.add_child(new_area_nav_plane,true)
+					new_area_nav_plane.global_position=grid_cell_pos
+					new_area_nav_plane.global_position+=Vector3(0,1,0)
+			
+					newGridAdded.emit(grid_cell_pos)
+		#			updateMinMaxValuesGrid(grid_map)
+				else:
+					print("cannot place new area. must be next to exisitng new area")
 	
 func can_place_chunk(area_position: Vector3, chunk_size: int) -> bool:
 	var neighbor_positions = [

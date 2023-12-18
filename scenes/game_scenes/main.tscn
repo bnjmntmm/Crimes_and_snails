@@ -38,6 +38,7 @@ size = Vector2(257, 257)
 environment = SubResource("Environment_vskdb")
 
 [node name="Water" parent="." instance=ExtResource("2_slo8a")]
+collision_layer = 2147483648
 
 [node name="Grid" parent="." instance=ExtResource("1_e65h0")]
 
