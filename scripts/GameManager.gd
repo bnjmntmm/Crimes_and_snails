@@ -21,3 +21,6 @@ var max_population
 var available_population
 var citizen: PackedScene
 
+var current_price_for_land:= 10
+var BasePrice := 10
+var numberOfBoughtLands := 0

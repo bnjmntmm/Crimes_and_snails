@@ -19,7 +19,8 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_72wta"]
-albedo_color = Color(0.745098, 0.568627, 0, 1)
+shading_mode = 0
+albedo_color = Color(0.745098, 0.619608, 0, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_o7iwh"]
 material = SubResource("StandardMaterial3D_72wta")
@@ -43,9 +44,9 @@ collision_layer = 2147483648
 [node name="Grid" parent="." instance=ExtResource("1_e65h0")]
 
 [node name="SelectionCube" type="Node3D" parent="Grid"]
-visible = false
 
 [node name="MeshCube" type="MeshInstance3D" parent="Grid/SelectionCube"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13162, 0)
 mesh = SubResource("PlaneMesh_o7iwh")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Grid"]
