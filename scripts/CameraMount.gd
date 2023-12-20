@@ -27,10 +27,18 @@ signal newGridAdded(area_position)
 signal ready_to_bake
 
 var multi_mesh
-
+var buy_label : Label3D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	grid_map = get_parent().get_node("Grid/BaseGrid")
+	buy_label = Label3D.new()
+	buy_label.font_size = 2000
+	buy_label.outline_size = 800
+	buy_label.modulate = Color(255, 255, 255,1)
+	buy_label.billboard = 1
+	buy_label.position = Vector3(0,4,0)
+	selection_cube.add_child(buy_label)
+	buy_label.visible = false
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -48,7 +56,8 @@ func _process(delta):
 		elif mouse_pos.y > viewport_size.y - 10:
 			global_position += transform.basis.z * sense
 
-	
+	if Input.is_action_just_pressed("add_snails_command"):
+		GameManager.snails = GameManager.snails +10
 
 	if Input.is_action_just_released("mouse_wheel_up"):
 		if $Camera.global_position.distance_to(global_position) > 15:
@@ -57,7 +66,7 @@ func _process(delta):
 		if $Camera.global_position.distance_to(global_position) < 50:
 			$Camera.global_position += $Camera.global_position * 0.1 * sense
 	
-	if Input.is_action_just_pressed("test") and GameManager.current_state != GameManager.State.BUY_LAND:
+	if Input.is_action_just_pressed("buy_land") and GameManager.current_state != GameManager.State.BUY_LAND:
 		old_pos_mount = $Camera.global_position
 		locked_cam = true
 		hud.visible = false
@@ -66,12 +75,13 @@ func _process(delta):
 		$Camera.set_fov(60)
 		
 		GameManager.current_state = GameManager.State.BUY_LAND
-	elif Input.is_action_just_pressed("test") and GameManager.current_state == GameManager.State.BUY_LAND:
+	elif Input.is_action_just_pressed("buy_land") and GameManager.current_state == GameManager.State.BUY_LAND:
 		GameManager.current_state = GameManager.State.PLAY
+		buy_label.visible = false
 		locked_cam  = false
 		hud.visible = true
 		selection_cube.visible = false
-		$Camera.rotation = Vector3(deg_to_rad(-60), 0,0)
+		$Camera.rotation = Vector3(deg_to_rad(-45), 0,0)
 		$Camera.global_position = old_pos_mount
 		$Camera.set_fov(75)
 	
@@ -79,7 +89,7 @@ func _process(delta):
 		selection_cube.visible = true
 		var ray_length = 1000
 		var grid_size = 64
-
+	
 		var from = $Camera.project_ray_origin(mouse_pos)
 		var to = from + $Camera.project_ray_normal(mouse_pos) * ray_length
 		var space = get_world_3d().direct_space_state
@@ -95,31 +105,39 @@ func _process(delta):
 			grid_cell_pos = Vector3(floor(raycast_result.position.x / grid_size) * grid_size, 0, floor(raycast_result.position.z / grid_size) * grid_size)  + Vector3(grid_size / 2,	 0, grid_size / 2)
 			selection_cube.global_transform.origin = grid_cell_pos
 		
+		if can_place_chunk(grid_cell_pos,grid_size):
+			buy_label.visible = true
+		else:
+			buy_label.visible = false
+		buy_label.text = str(GameManager.current_price_for_land)
+		
 		if Input.is_action_just_released("left_mouse_down"):
 			
 			if typeof(grid_cell_pos)== TYPE_VECTOR3:
-				var can_place = can_place_chunk(grid_cell_pos, grid_size)
-				if can_place:
-					for x in range(grid_size):
-						for z in range(grid_size):
-							var cell_position_grass = Vector3(grid_cell_pos.x - grid_size / 2 + x, 1, grid_cell_pos.z - grid_size / 2 + z)
-							var cell_position_dirt = Vector3(grid_cell_pos.x - grid_size / 2 + x, 0, grid_cell_pos.z - grid_size / 2 + z)
+				if GameManager.current_price_for_land < GameManager.snails:
+					var can_place = can_place_chunk(grid_cell_pos, grid_size)
+					if can_place:
+						for x in range(grid_size):
+							for z in range(grid_size):
+								var cell_position_grass = Vector3(grid_cell_pos.x - grid_size / 2 + x, 1, grid_cell_pos.z - grid_size / 2 + z)
+								var cell_position_dirt = Vector3(grid_cell_pos.x - grid_size / 2 + x, 0, grid_cell_pos.z - grid_size / 2 + z)
 
-							if grid_map.get_cell_item(cell_position_dirt) == -1 and grid_map.get_cell_item(cell_position_grass) == -1:
-								grid_map.set_cell_item(cell_position_grass, 0)
-								grid_map.set_cell_item(cell_position_dirt, 8)
-								
-							else:
-								pass
-					var new_area_nav_plane=bought_grid_nav_plane.instantiate()
-					navigation_region_3d.add_child(new_area_nav_plane,true)
-					new_area_nav_plane.global_position=grid_cell_pos
-					new_area_nav_plane.global_position+=Vector3(0,1,0)
-			
-					newGridAdded.emit(grid_cell_pos)
-		#			updateMinMaxValuesGrid(grid_map)
-				else:
-					print("cannot place new area. must be next to exisitng new area")
+								if grid_map.get_cell_item(cell_position_dirt) == -1 and grid_map.get_cell_item(cell_position_grass) == -1:
+									grid_map.set_cell_item(cell_position_grass, 0)
+									grid_map.set_cell_item(cell_position_dirt, 8)
+									
+								else:
+									pass
+						var new_area_nav_plane=bought_grid_nav_plane.instantiate()
+						navigation_region_3d.add_child(new_area_nav_plane,true)
+						new_area_nav_plane.global_position=grid_cell_pos
+						new_area_nav_plane.global_position+=Vector3(0,1,0)
+						GameManager.snails = GameManager.snails - GameManager.current_price_for_land
+						newGridAdded.emit(grid_cell_pos)
+						
+			#			updateMinMaxValuesGrid(grid_map)
+					else:
+						print("cannot place new area. must be next to exisitng new area")
 	
 func can_place_chunk(area_position: Vector3, chunk_size: int) -> bool:
 	var neighbor_positions = [
@@ -158,25 +176,14 @@ func _on_new_grid_added(area_position):
 		bush_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 2, randi_range(-31,31))
 		
 	ready_to_bake.emit()
-		
 	
-#	multi_mesh = MultiMesh.new()
-#	multi_mesh.transform_format = MultiMesh.TRANSFORM_3D
-#	multi_mesh.mesh = preload("res://assets/nature/bush_mesh.res")
-#	multi_mesh.instance_count = 5
-#
-#	var multi_mesh_instance = MultiMeshInstance3D.new()
-#	multi_mesh_instance.multimesh = multi_mesh
-#	get_parent().get_node("Grid/MultiMeshes").add_child(multi_mesh_instance)
-#
-#	for i in range(multi_mesh.instance_count):
-#		randomize()
-#		var transform = Transform3D()
-#		transform = transform.scaled(Vector3(0.1,0.1,0.1))
-#		transform.origin = area_position + Vector3(randi_range(-31, 31), 4, randi_range(-31,31))
-#		multi_mesh.set_instance_transform(i,transform)
+	
+	#Exponential Growth
+	GameManager.numberOfBoughtLands += 1
+	GameManager.current_price_for_land = ceilf(GameManager.BasePrice * pow(1.3,GameManager.numberOfBoughtLands))
+	print(GameManager.current_price_for_land)
 
-		
+	
 
 
 func _on_grid_grid_generated(size):	
@@ -193,25 +200,3 @@ func _on_grid_grid_generated(size):
 	
 	ready_to_bake.emit()
 	
-#	multi_mesh = MultiMesh.new()
-#	multi_mesh.transform_format = MultiMesh.TRANSFORM_3D
-#	multi_mesh.mesh = preload("res://assets/nature/bush_mesh.res")
-#	multi_mesh.instance_count = 50
-#
-#	var multi_mesh_instance = MultiMeshInstance3D.new()
-#	multi_mesh_instance.multimesh = multi_mesh
-#	get_parent().get_node("Grid/MultiMeshes").add_child(multi_mesh_instance)		
-#	for i in range(multi_mesh.instance_count):
-#		var meshLabel = Label3D.new()
-#		meshLabel.billboard = true
-#		meshLabel.font_size = 40
-#		multi_mesh_instance.add_child(meshLabel)
-#		randomize()
-#		var transform = Transform3D()
-#		transform = transform.scaled(Vector3(0.1,0.1,0.1))
-#		transform.origin = Vector3(randi_range(-size, size), 4, randi_range(-size,size))
-#		meshLabel.global_position = transform.origin + Vector3(0,2,0)
-#		multi_mesh_instance.add_to_group("food")
-#		multi_mesh.set_instance_transform(i,transform)
-#		meshLabel.text = str(multi_mesh_instance.get_groups())
-
