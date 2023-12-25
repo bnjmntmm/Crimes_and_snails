@@ -6,7 +6,8 @@ enum State{
 	BUILD,
 	DESTROY,
 	POV_MODE,
-	BUY_LAND
+	BUY_LAND,
+	MOVE_HOUSE
 }
 var current_state=State.PLAY
 

@@ -6,6 +6,8 @@ var Terrarium: PackedScene = ResourceLoader.load("res://scenes/building_scenes/t
 var able_to_build := true
 var current_spawnable: StaticBody3D
 
+var currentlyMovingObject
+var currentlyMoving = false
 
 func _physics_process(delta):
 	if GameManager.current_state==GameManager.State.DESTROY:
@@ -19,13 +21,16 @@ func _physics_process(delta):
 			var space_state=get_world_3d().direct_space_state
 			var query = PhysicsRayQueryParameters3D.create(from,to)
 			var result = space_state.intersect_ray(query)
-			if result.collider.is_in_group("building"):
+			if result.collider.is_in_group("building") or result.collider.is_in_group("stock"):
 				#result.collider.run_despawn()
-				pass
+				result.collider.queue_free()
 	if Input.is_action_just_pressed("esc"):
 		GameManager.current_state=GameManager.State.PLAY
 		if current_spawnable!=null:
 			current_spawnable.queue_free()
+		if currentlyMoving:
+			currentlyMoving = false
+			currentlyMovingObject = null
 	if GameManager.current_state==GameManager.State.BUILD:
 		var camera = get_viewport().get_camera_3d()
 		var from = camera.project_ray_origin(get_viewport().get_mouse_position())
@@ -49,6 +54,39 @@ func _physics_process(delta):
 				obj.global_position=current_spawnable.global_position
 		if Input.is_action_just_released("middle_mouse_button"):
 			current_spawnable.rotation_degrees+=Vector3(0,90,0)
+	if GameManager.current_state==GameManager.State.MOVE_HOUSE:
+		var camera = get_viewport().get_camera_3d()
+		var from = camera.project_ray_origin(get_viewport().get_mouse_position())
+		var to = from + camera.project_ray_normal(get_viewport().get_mouse_position()) * 1000
+		var space_state=get_world_3d().direct_space_state
+		var query = PhysicsRayQueryParameters3D.create(from,to)
+		if currentlyMovingObject !=null:
+			query.set_exclude([currentlyMovingObject.get_rid()])
+		else:
+			query.set_exclude([])
+		var result = space_state.intersect_ray(query)
+		var cursor_pos = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
+		
+				
+		if currentlyMoving:
+			currentlyMovingObject.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z)) + Vector3(0,1.5,0)
+			if Input.is_action_just_released("middle_mouse_button"):
+				currentlyMovingObject.rotation_degrees+=Vector3(0,90,0)
+			
+			if Input.is_action_just_pressed("left_mouse_down") and currentlyMoving and currentlyMovingObject != null:
+				currentlyMoving = false
+				print("placed")
+				currentlyMovingObject = null
+		
+		if result.size() > 0 and typeof(cursor_pos)== TYPE_VECTOR3:
+			if result.collider.is_in_group("building") or result.collider.is_in_group("stock"):
+				if Input.is_action_just_pressed("left_mouse_down") and !currentlyMoving:
+					currentlyMovingObject = result.collider
+					currentlyMoving = true
+
+		
+				
+		
 		
 func spawn_house():
 	spawn_object(House)

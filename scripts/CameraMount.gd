@@ -137,7 +137,7 @@ func _process(delta):
 						
 			#			updateMinMaxValuesGrid(grid_map)
 					else:
-						print("cannot place new area. must be next to exisitng new area")
+						print("cannot place new area. must be next to exisiting new area")
 	
 func can_place_chunk(area_position: Vector3, chunk_size: int) -> bool:
 	var neighbor_positions = [
