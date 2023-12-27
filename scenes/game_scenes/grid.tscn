@@ -1,12 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5s3s5eubnut4"]
+[gd_scene load_steps=2 format=3 uid="uid://b5s3s5eubnut4"]
 
 [ext_resource type="Script" path="res://scripts/grid_management.gd" id="1_qhvtw"]
-[ext_resource type="PackedScene" uid="uid://bmf22i40sj352" path="res://assets/grid_blocks/pre_worlds/grid_01.tscn" id="2_piuai"]
-[ext_resource type="PackedScene" uid="uid://bth6eq4axnr2p" path="res://assets/grid_blocks/pre_worlds/grid_02.tscn" id="3_7lajg"]
-[ext_resource type="PackedScene" uid="uid://dk4wlfxo5k1hd" path="res://assets/grid_blocks/pre_worlds/grid_03.tscn" id="4_00gxw"]
-[ext_resource type="PackedScene" uid="uid://0ad5yhiwpbg2" path="res://assets/grid_blocks/pre_worlds/grid_04.tscn" id="5_7j11q"]
-[ext_resource type="PackedScene" uid="uid://scc7g5wdt6fw" path="res://assets/grid_blocks/pre_worlds/grid_05.tscn" id="6_o2wpf"]
 
 [node name="Grid" type="Node3D"]
 script = ExtResource("1_qhvtw")
-Grid_scenes = Array[PackedScene]([ExtResource("2_piuai"), ExtResource("3_7lajg"), ExtResource("4_00gxw"), ExtResource("5_7j11q"), ExtResource("6_o2wpf")])

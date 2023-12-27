@@ -1,5 +1,4 @@
 extends Node3D
-@export var Grid_scenes: Array[PackedScene] 
 var mesh_lib_src : MeshLibrary= preload("res://assets/grid_blocks/tileMap.tres")
 @onready var navigation_region_3d = $NavigationRegion3D
 
@@ -21,7 +20,7 @@ func _ready():
 	#gridmap.set_bake_navigation(true)
 	#addNav()
 	gridmap.set_cell_size(Vector3(1,1,1))
-	gridmap.set_cell_scale(1)
+	gridmap.set_cell_scale(1.001)
 	gridmap.set_center_x(true)
 	gridmap.set_center_y(true)
 	gridmap.set_center_z(true)
