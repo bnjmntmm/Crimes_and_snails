@@ -1,0 +1,266 @@
+[gd_scene load_steps=18 format=3 uid="uid://cjmjp5mli5miu"]
+
+[ext_resource type="Script" path="res://scripts/InterfaceManager.gd" id="1_r1lqh"]
+[ext_resource type="Texture2D" uid="uid://cj0h6a2fiit5t" path="res://assets/textures/HUD/snail.png" id="2_dketd"]
+[ext_resource type="Script" path="res://scripts/Tooltip.gd" id="3_n6f31"]
+[ext_resource type="Texture2D" uid="uid://dgtavymir4ldk" path="res://assets/textures/HUD/Happiness.png" id="4_rvjbb"]
+[ext_resource type="Texture2D" uid="uid://m7fmmqm1onun" path="res://assets/textures/HUD/Food.PNG" id="5_v4tpr"]
+[ext_resource type="Texture2D" uid="uid://boqdfkwieimai" path="res://assets/textures/HUD/Wood.PNG" id="6_ouddu"]
+[ext_resource type="Texture2D" uid="uid://d3s2kpit3ctey" path="res://assets/textures/HUD/Wood Planks.PNG" id="7_jbkff"]
+[ext_resource type="Script" path="res://scripts/Tooltip_buildings.gd" id="8_3dk4q"]
+[ext_resource type="Script" path="res://scripts/MouseArea2D.gd" id="9_432ng"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xiq8r"]
+bg_color = Color(0.807843, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1xo2m"]
+bg_color = Color(0.533333, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oe57w"]
+bg_color = Color(1, 0.427451, 0.356863, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnqov"]
+bg_color = Color(0, 0.588235, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vsssv"]
+bg_color = Color(0, 0.498039, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aw01u"]
+bg_color = Color(0.623529, 1, 0.592157, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pwr7s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hxuef"]
+size = Vector2(1152, 144)
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -144.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_r1lqh")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_right = 65.0
+offset_bottom = 1.0
+grow_vertical = 2
+
+[node name="RessourceIcons" type="VBoxContainer" parent="HBoxContainer2"]
+custom_minimum_size = Vector2(26, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Snails" type="TextureRect" parent="HBoxContainer2/RessourceIcons"]
+layout_mode = 2
+size_flags_vertical = 6
+tooltip_text = "Snails:
+Snails are used as currency to buy buildings or resources."
+mouse_filter = 0
+texture = ExtResource("2_dketd")
+expand_mode = 4
+script = ExtResource("3_n6f31")
+
+[node name="Happiness" type="TextureRect" parent="HBoxContainer2/RessourceIcons"]
+layout_mode = 2
+size_flags_vertical = 6
+tooltip_text = "Happiness:
+Happiness shows how satisfied the villagers are with the amount of food."
+texture = ExtResource("4_rvjbb")
+expand_mode = 4
+script = ExtResource("3_n6f31")
+
+[node name="Food" type="TextureRect" parent="HBoxContainer2/RessourceIcons"]
+layout_mode = 2
+size_flags_vertical = 6
+tooltip_text = "Food:
+Food is consumed by the villager."
+texture = ExtResource("5_v4tpr")
+expand_mode = 4
+script = ExtResource("3_n6f31")
+
+[node name="Wood" type="TextureRect" parent="HBoxContainer2/RessourceIcons"]
+layout_mode = 2
+size_flags_vertical = 6
+tooltip_text = "Wood:
+Wood is used for building structures."
+texture = ExtResource("6_ouddu")
+expand_mode = 4
+script = ExtResource("3_n6f31")
+
+[node name="Planks" type="TextureRect" parent="HBoxContainer2/RessourceIcons"]
+layout_mode = 2
+size_flags_vertical = 6
+tooltip_text = "Planks:
+Planks are used for upgrading/building structures."
+texture = ExtResource("7_jbkff")
+expand_mode = 4
+script = ExtResource("3_n6f31")
+
+[node name="RessourceValues" type="VBoxContainer" parent="HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="SnailsValue" type="Label" parent="HBoxContainer2/RessourceValues"]
+layout_mode = 2
+text = "100"
+
+[node name="HappinessValue" type="Label" parent="HBoxContainer2/RessourceValues"]
+layout_mode = 2
+text = "100"
+
+[node name="FoodValue" type="Label" parent="HBoxContainer2/RessourceValues"]
+layout_mode = 2
+text = "100"
+
+[node name="WoodValue" type="Label" parent="HBoxContainer2/RessourceValues"]
+layout_mode = 2
+text = "100"
+
+[node name="PlanksValue" type="Label" parent="HBoxContainer2/RessourceValues"]
+layout_mode = 2
+text = "100"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = 16.0
+offset_right = -18.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="House" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "House:
+Houses are needed so that the villagers have a place to live and thus generate happiness."
+text = "House"
+script = ExtResource("8_3dk4q")
+
+[node name="Stock" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Stock:
+A Stock is used so that villagers have a shorter route to store their resources."
+text = "Stock"
+script = ExtResource("8_3dk4q")
+
+[node name="Lab" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Lab"
+script = ExtResource("8_3dk4q")
+
+[node name="Terrarium" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Terrarium"
+script = ExtResource("8_3dk4q")
+
+[node name="Farm" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Farm"
+script = ExtResource("8_3dk4q")
+
+[node name="Bakery" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Bakery"
+script = ExtResource("8_3dk4q")
+
+[node name="Incubator" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Incubator"
+script = ExtResource("8_3dk4q")
+
+[node name="Watch" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Watch"
+script = ExtResource("8_3dk4q")
+
+[node name="Tempel" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Tempel"
+script = ExtResource("8_3dk4q")
+
+[node name="Carpentry" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Carpentry"
+script = ExtResource("8_3dk4q")
+
+[node name="Wonder" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wonder"
+script = ExtResource("8_3dk4q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Delete" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_xiq8r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1xo2m")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oe57w")
+text = "Delete"
+
+[node name="Move" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_hnqov")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vsssv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_aw01u")
+text = "Move"
+
+[node name="MouseArea2D" type="Area2D" parent="."]
+position = Vector2(0, -504)
+script = ExtResource("9_432ng")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseArea2D"]
+shape = SubResource("CircleShape2D_pwr7s")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(576, 72)
+shape = SubResource("RectangleShape2D_hxuef")
+
+[connection signal="mouse_entered" from="HBoxContainer2/RessourceIcons/Snails" to="HBoxContainer2/RessourceIcons/Snails" method="_on_mouse_entered_snails"]
+[connection signal="mouse_entered" from="HBoxContainer2/RessourceIcons/Happiness" to="HBoxContainer2/RessourceIcons/Happiness" method="_on_mouse_entered_happiness"]
+[connection signal="mouse_entered" from="HBoxContainer2/RessourceIcons/Food" to="HBoxContainer2/RessourceIcons/Food" method="_on_mouse_entered_food"]
+[connection signal="mouse_entered" from="HBoxContainer2/RessourceIcons/Wood" to="HBoxContainer2/RessourceIcons/Wood" method="_on_mouse_entered_wood"]
+[connection signal="mouse_entered" from="HBoxContainer2/RessourceIcons/Planks" to="HBoxContainer2/RessourceIcons/Planks" method="_on_mouse_entered_planks"]
+[connection signal="button_down" from="HBoxContainer/House" to="." method="_on_house_button_down"]
+[connection signal="mouse_entered" from="HBoxContainer/House" to="HBoxContainer/House" method="_on_mouse_entered_house"]
+[connection signal="button_down" from="HBoxContainer/Stock" to="." method="_on_stock_button_down"]
+[connection signal="button_down" from="HBoxContainer/Terrarium" to="." method="_on_terrarium_button_down"]
+[connection signal="button_down" from="HBoxContainer/VBoxContainer/Delete" to="." method="_on_delete_button_down"]
+[connection signal="button_down" from="HBoxContainer/VBoxContainer/Move" to="." method="_on_move_button_down"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

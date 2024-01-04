@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxj50d437q5ko"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6hhdo"]
+size = Vector2(65, 65)
+
+[node name="BoughtGridNavPlane" type="MeshInstance3D"]
+visible = false
+mesh = SubResource("PlaneMesh_6hhdo")

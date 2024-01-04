@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3 uid="uid://clkrc5sotxj8r"]
+
+[ext_resource type="Texture2D" uid="uid://cj0h6a2fiit5t" path="res://assets/textures/HUD/Snail.PNG" id="1_0q1oy"]
+[ext_resource type="Texture2D" uid="uid://c6ht17vui84tq" path="res://assets/textures/building_images/house_image.png" id="1_jmhgg"]
+[ext_resource type="Texture2D" uid="uid://boqdfkwieimai" path="res://assets/textures/HUD/Wood.PNG" id="3_vb7q8"]
+[ext_resource type="Texture2D" uid="uid://d3s2kpit3ctey" path="res://assets/textures/HUD/Wood Planks.PNG" id="4_0cs8w"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t6kk2"]
+font_size = 20
+
+[node name="tooltip" type="Control"]
+custom_minimum_size = Vector2(300, 400)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 300.0
+offset_bottom = 300.0
+
+[node name="description" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "description"
+label_settings = SubResource("LabelSettings_t6kk2")
+autowrap_mode = 3
+
+[node name="current_building" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 500.0
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_jmhgg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -159.0
+offset_top = 23.0
+offset_right = -41.0
+offset_bottom = 146.0
+grow_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="snails_icon" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_0q1oy")
+expand_mode = 2
+
+[node name="wood_icon" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_vb7q8")
+expand_mode = 2
+
+[node name="planks_icon" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("4_0cs8w")
+expand_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="snails_value" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="wood_value" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="planks_value" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1

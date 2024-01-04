@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://cammbwgus5hb4"]
+
+[ext_resource type="Shader" path="res://assets/textures/m_water.gdshader" id="1_b4i0m"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4tiuh"]
+noise_type = 2
+fractal_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vbiuo"]
+seamless = true
+noise = SubResource("FastNoiseLite_4tiuh")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fd6qo"]
+noise_type = 2
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8pl80"]
+seamless = true
+noise = SubResource("FastNoiseLite_fd6qo")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6d5vg"]
+render_priority = 0
+shader = ExtResource("1_b4i0m")
+shader_parameter/beer_factor = 4.0
+shader_parameter/foam_distance = 0.01
+shader_parameter/foam_max_distance = 0.345
+shader_parameter/foam_min_distance = 0.05
+shader_parameter/foam_color = Color(1, 1, 1, 0.784314)
+shader_parameter/surface_noise_tiling = Vector2(1, 4)
+shader_parameter/surface_noise_scroll = Vector3(0.03, 0.03, 0)
+shader_parameter/surface_noise_cutoff = 0.875
+shader_parameter/surface_distortion_amount = 0.65
+shader_parameter/_DepthGradientShallow = Color(0.435294, 0.647059, 0.972549, 0.72549)
+shader_parameter/_DepthGradientDeep = Color(0.0823529, 0.392157, 0.701961, 0.862745)
+shader_parameter/_DepthMaxDistance = 1.0
+shader_parameter/_DepthFactor = 1.0
+shader_parameter/roughness = 0.001
+shader_parameter/specular = 0.5
+shader_parameter/surfaceNoise = SubResource("NoiseTexture2D_8pl80")
+shader_parameter/distortNoise = SubResource("NoiseTexture2D_vbiuo")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_d4e6r"]
+material = SubResource("ShaderMaterial_6d5vg")
+size = Vector2(1000, 1000)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_udd4p"]
+size = Vector3(1000, 1, 1000)
+
+[node name="Water" type="Area3D"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_d4e6r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_udd4p")
