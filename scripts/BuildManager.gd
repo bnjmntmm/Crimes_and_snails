@@ -9,6 +9,10 @@ var current_spawnable: StaticBody3D
 var currentlyMovingObject
 var currentlyMoving = false
 
+#Random Events Area
+signal houseSceneAdded(houseObj)
+signal houseSceneRemoved(houseObj)
+
 func _physics_process(delta):
 	if GameManager.current_state==GameManager.State.DESTROY:
 		if is_instance_valid(current_spawnable):
@@ -24,6 +28,7 @@ func _physics_process(delta):
 			if result.collider.is_in_group("building") or result.collider.is_in_group("stock"):
 				#result.collider.run_despawn()
 				result.collider.queue_free()
+				houseSceneRemoved.emit(result.collider)
 	if Input.is_action_just_pressed("esc"):
 		GameManager.current_state=GameManager.State.PLAY
 		if current_spawnable!=null:
@@ -50,7 +55,7 @@ func _physics_process(delta):
 				#obj.run_spawn()
 				obj.spawned=true
 				obj.set_disabled(false)
-				
+				houseSceneAdded.emit(obj)
 				obj.global_position=current_spawnable.global_position
 		if Input.is_action_just_released("middle_mouse_button"):
 			current_spawnable.rotation_degrees+=Vector3(0,90,0)
@@ -90,6 +95,7 @@ func _physics_process(delta):
 		
 func spawn_house():
 	spawn_object(House)
+	
 func spawn_stock():
 	spawn_object(Stock)
 func spawn_terrarium():

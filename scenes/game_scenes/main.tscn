@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cuy5ydshqlq1h"]
+[gd_scene load_steps=14 format=3 uid="uid://cuy5ydshqlq1h"]
 
 [ext_resource type="PackedScene" uid="uid://b5s3s5eubnut4" path="res://scenes/game_scenes/grid.tscn" id="1_e65h0"]
 [ext_resource type="Script" path="res://scripts/CameraMount.gd" id="2_0oeih"]
 [ext_resource type="PackedScene" uid="uid://cammbwgus5hb4" path="res://scenes/game_scenes/water.tscn" id="2_slo8a"]
 [ext_resource type="PackedScene" uid="uid://cjmjp5mli5miu" path="res://scenes/game_scenes/hud.tscn" id="4_3e1nk"]
+[ext_resource type="Script" path="res://scripts/sabotage_scripts/Fire.gd" id="5_2vvmx"]
+[ext_resource type="Script" path="res://scripts/sabotage_scripts/random_events.gd" id="5_p8rf6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d170q"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -76,6 +78,13 @@ transform = Transform3D(-0.999123, -0.0418757, -1.83044e-09, 0, -4.37114e-08, 1,
 shadow_enabled = true
 
 [node name="HUD" parent="." instance=ExtResource("4_3e1nk")]
+
+[node name="random_events" type="Node3D" parent="."]
+script = ExtResource("5_p8rf6")
+happinessCheckValue = 10
+
+[node name="Fire" type="Node3D" parent="random_events"]
+script = ExtResource("5_2vvmx")
 
 [connection signal="grid_generated" from="Grid" to="CameraMount" method="_on_grid_grid_generated"]
 [connection signal="newGridAdded" from="CameraMount" to="CameraMount" method="_on_new_grid_added"]
