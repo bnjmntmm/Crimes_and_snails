@@ -69,6 +69,7 @@ add_snails_command={
 [physics]
 
 3d/physics_engine="JoltPhysics3D"
+jolt_3d/collisions/areas_detect_static_bodies=true
 
 [rendering]
 

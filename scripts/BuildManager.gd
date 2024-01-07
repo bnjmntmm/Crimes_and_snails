@@ -13,6 +13,15 @@ var currentlyMoving = false
 signal houseSceneAdded(houseObj)
 signal houseSceneRemoved(houseObj)
 
+class HouseObj:
+	var staticbody : StaticBody3D = null
+	var fire_scene = null
+	var tornado_scene = null
+	var isBurning : bool = false
+	var isTornado : bool = false
+	var isDestroyed: bool = false
+
+
 func _physics_process(delta):
 	if GameManager.current_state==GameManager.State.DESTROY:
 		if is_instance_valid(current_spawnable):
@@ -42,23 +51,23 @@ func _physics_process(delta):
 		var to = from + camera.project_ray_normal(get_viewport().get_mouse_position()) * 1000
 		# Calculate where the mouse ray intersects the XZ plane (at height y of the transform origin).
 		var cursor_pos = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
-		
+		if typeof(cursor_pos)== TYPE_VECTOR3:
 		# Set the position of the current spawnable to the intersection point, with adjustments to x and z for snapping to a grid.
-		current_spawnable.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z)) + Vector3(0,1.5,0)
-		current_spawnable.active_buildable_object=true
-		
-		if able_to_build:
-			if Input.is_action_just_released("left_mouse_down"):
-				var obj:=current_spawnable.duplicate()
-				get_tree().root.add_child(obj)
-				obj.active_buildable_object=false
-				#obj.run_spawn()
-				obj.spawned=true
-				obj.set_disabled(false)
-				houseSceneAdded.emit(obj)
-				obj.global_position=current_spawnable.global_position
-		if Input.is_action_just_released("middle_mouse_button"):
-			current_spawnable.rotation_degrees+=Vector3(0,90,0)
+			current_spawnable.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z)) + Vector3(0,1.5,0)
+			current_spawnable.active_buildable_object=true
+			
+			if able_to_build:
+				if Input.is_action_just_released("left_mouse_down"):
+					var obj:=current_spawnable.duplicate()
+					get_tree().root.add_child(obj)
+					obj.active_buildable_object=false
+					#obj.run_spawn()
+					obj.spawned=true
+					obj.set_disabled(false)
+					houseSceneAdded.emit(obj)
+					obj.global_position=current_spawnable.global_position
+			if Input.is_action_just_released("middle_mouse_button"):
+				current_spawnable.rotation_degrees+=Vector3(0,90,0)
 	if GameManager.current_state==GameManager.State.MOVE_HOUSE:
 		var camera = get_viewport().get_camera_3d()
 		var from = camera.project_ray_origin(get_viewport().get_mouse_position())

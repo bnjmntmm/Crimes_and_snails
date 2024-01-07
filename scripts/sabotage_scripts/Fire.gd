@@ -7,14 +7,9 @@ var isDestroyed := false
 
 var houseFireDict = {}
 
-class HouseObj:
-	var staticbody : StaticBody3D = null
-	var fire_scene = null
-	var isBurning : bool = false
-	var isDestroyed: bool = false
 
 func execute_sabotage_to(house):
-	var currentHouse = HouseObj.new()
+	var currentHouse = BuildManager.HouseObj.new()
 	currentHouse.staticbody = house
 	houseFireDict[house.name] = currentHouse
 	houseFireDict[house.name].isBurning = true
