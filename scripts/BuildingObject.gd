@@ -18,6 +18,8 @@ var spawned:=false
 var current_actor
 
 
+
+
 func _ready():
 	$Area.area_entered.connect(_on_area_entered)
 	$Area.area_exited.connect(_on_area_exited)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bmf22i40sj352"]
 
-[ext_resource type="PackedScene" uid="uid://brf3dv5hwui3i" path="res://assets/grid_blocks/pre_worlds/grid_template.tscn" id="1_7aw5t"]
+[ext_resource type="PackedScene" uid="uid://brf3dv5hwui3i" path="res://assets/pre_worlds/grid_template.tscn" id="1_7aw5t"]
 
 [node name="grid_template" instance=ExtResource("1_7aw5t")]
 data = {

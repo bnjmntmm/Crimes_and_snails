@@ -9,6 +9,19 @@ var current_spawnable: StaticBody3D
 var currentlyMovingObject
 var currentlyMoving = false
 
+#Random Events Area
+signal houseSceneAdded(houseObj)
+signal houseSceneRemoved(houseObj)
+
+class HouseObj:
+	var staticbody : StaticBody3D = null
+	var fire_scene = null
+	var tornado_scene = null
+	var isBurning : bool = false
+	var isTornado : bool = false
+	var isDestroyed: bool = false
+
+
 func _physics_process(delta):
 	if GameManager.current_state==GameManager.State.DESTROY:
 		if is_instance_valid(current_spawnable):
@@ -24,6 +37,7 @@ func _physics_process(delta):
 			if result.collider.is_in_group("building") or result.collider.is_in_group("stock"):
 				#result.collider.run_despawn()
 				result.collider.queue_free()
+				houseSceneRemoved.emit(result.collider)
 	if Input.is_action_just_pressed("esc"):
 		GameManager.current_state=GameManager.State.PLAY
 		if current_spawnable!=null:
@@ -37,24 +51,23 @@ func _physics_process(delta):
 		var to = from + camera.project_ray_normal(get_viewport().get_mouse_position()) * 1000
 		# Calculate where the mouse ray intersects the XZ plane (at height y of the transform origin).
 		var cursor_pos = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
-		
+		if typeof(cursor_pos)== TYPE_VECTOR3:
 		# Set the position of the current spawnable to the intersection point, with adjustments to x and z for snapping to a grid.
-		current_spawnable.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z)) + Vector3(0,1.5,0)
-		current_spawnable.active_buildable_object=true
-		
-		if able_to_build:
-			if Input.is_action_just_released("left_mouse_down"):
-				var obj:=current_spawnable.duplicate()
-				get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").add_child(obj)
-				obj.active_buildable_object=false
-				#obj.run_spawn()
-				obj.spawned=true
-				obj.set_disabled(false)
-				
-				obj.global_position=current_spawnable.global_position
-				get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()				
-		if Input.is_action_just_released("middle_mouse_button"):
-			current_spawnable.rotation_degrees+=Vector3(0,90,0)
+			current_spawnable.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z)) + Vector3(0,1.5,0)
+			current_spawnable.active_buildable_object=true
+			
+			if able_to_build:
+				if Input.is_action_just_released("left_mouse_down"):
+					var obj:=current_spawnable.duplicate()
+					get_tree().root.add_child(obj)
+					obj.active_buildable_object=false
+					#obj.run_spawn()
+					obj.spawned=true
+					obj.set_disabled(false)
+					houseSceneAdded.emit(obj)
+					obj.global_position=current_spawnable.global_position
+			if Input.is_action_just_released("middle_mouse_button"):
+				current_spawnable.rotation_degrees+=Vector3(0,90,0)
 	if GameManager.current_state==GameManager.State.MOVE_HOUSE:
 		var camera = get_viewport().get_camera_3d()
 		var from = camera.project_ray_origin(get_viewport().get_mouse_position())
@@ -91,6 +104,7 @@ func _physics_process(delta):
 		
 func spawn_house():
 	spawn_object(House)
+	
 func spawn_stock():
 	spawn_object(Stock)
 func spawn_terrarium():
