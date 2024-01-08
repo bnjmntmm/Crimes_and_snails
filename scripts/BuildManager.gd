@@ -45,13 +45,14 @@ func _physics_process(delta):
 		if able_to_build:
 			if Input.is_action_just_released("left_mouse_down"):
 				var obj:=current_spawnable.duplicate()
-				get_tree().root.add_child(obj)
+				get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").add_child(obj)
 				obj.active_buildable_object=false
 				#obj.run_spawn()
 				obj.spawned=true
 				obj.set_disabled(false)
 				
 				obj.global_position=current_spawnable.global_position
+				get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()				
 		if Input.is_action_just_released("middle_mouse_button"):
 			current_spawnable.rotation_degrees+=Vector3(0,90,0)
 	if GameManager.current_state==GameManager.State.MOVE_HOUSE:

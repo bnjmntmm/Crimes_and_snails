@@ -8,7 +8,11 @@
 
 [node name="Citizen" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+floor_stop_on_slope = false
+floor_block_on_wall = false
+safe_margin = 0.05
 script = ExtResource("1_gmgp7")
+walk_speed = 10.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_fnhfs")
@@ -23,4 +27,8 @@ text = "default"
 font_size = 64
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 2.0
 debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(1, 0.0784314, 1, 1)
+debug_path_custom_point_size = 6.38

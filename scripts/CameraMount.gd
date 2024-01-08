@@ -166,7 +166,7 @@ func area_exists(position: Vector3) -> bool:
 
 func _on_new_grid_added(area_position):
 	var instance_count = 5
-	var bush_mesh = preload("res://assets/nature/bush1berries.glb")
+	var bush_mesh = ResourceLoader.load("res://scenes/game_scenes/bush.tscn")
 	
 	for i in range(instance_count):
 		var bush_instance = bush_mesh.instantiate()
@@ -189,7 +189,7 @@ func _on_new_grid_added(area_position):
 func _on_grid_grid_generated(size):	
 	
 	var instance_count = 50
-	var bush_mesh = preload("res://assets/nature/bush1berries.glb")
+	var bush_mesh = ResourceLoader.load("res://scenes/game_scenes/bush.tscn")
 	
 	for i in range(instance_count):
 		var bush_instance = bush_mesh.instantiate()
