@@ -167,6 +167,7 @@ func area_exists(position: Vector3) -> bool:
 func _on_new_grid_added(area_position):
 	var instance_count = 5
 	var bush_mesh = ResourceLoader.load("res://scenes/game_scenes/bush.tscn")
+	var tree_mesh = ResourceLoader.load("res://scenes/game_scenes/tree.tscn")
 	
 	for i in range(instance_count):
 		var bush_instance = bush_mesh.instantiate()
@@ -175,6 +176,10 @@ func _on_new_grid_added(area_position):
 		randomize()
 		bush_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 2, randi_range(-31,31))
 		
+		var tree_instance = tree_mesh.instantiate()
+		tree_instance.add_to_group("wood")
+		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").add_child(tree_instance,true)
+		tree_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 2, randi_range(-31,31))
 	ready_to_bake.emit()
 	
 	
@@ -190,6 +195,7 @@ func _on_grid_grid_generated(size):
 	
 	var instance_count = 50
 	var bush_mesh = ResourceLoader.load("res://scenes/game_scenes/bush.tscn")
+	var tree_mesh = ResourceLoader.load("res://scenes/game_scenes/tree.tscn")
 	
 	for i in range(instance_count):
 		var bush_instance = bush_mesh.instantiate()
@@ -197,6 +203,10 @@ func _on_grid_grid_generated(size):
 		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").add_child(bush_instance, true)
 		randomize()
 		bush_instance.transform.origin =  Vector3(randi_range(-size, size), 2, randi_range(-size,size))
+		var tree_instance = tree_mesh.instantiate()
+		tree_instance.add_to_group("wood")
+		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").add_child(tree_instance,true)
+		tree_instance.transform.origin =  Vector3(randi_range(-size, size), 2, randi_range(-size,size))
 	
 	ready_to_bake.emit()
 	

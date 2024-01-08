@@ -1,6 +1,6 @@
 extends StaticBody3D
 @onready var label_3d = $Label3D
-@onready var bush_mesh = $bush1berries
+@export var mesh : Node3D
 
 
 
@@ -19,7 +19,7 @@ func _on_farmed():
 func _on_max_farmed_reached():
 	label_3d.show()
 	self.is_farmable=false
-	bush_mesh.hide()
+	mesh.hide()
 	self.current_worker_amount=0
 	self.current_times_farmed=0
 	$RespawnTimer.start()
@@ -38,5 +38,5 @@ func _process(delta):
 
 func _on_respawn_timer_timeout():
 	self.is_farmable=true
-	bush_mesh.show()
+	mesh.show()
 	label_3d.hide()
