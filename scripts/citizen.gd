@@ -1,6 +1,8 @@
 extends CharacterBody3D
 
 @onready var navigation_agent = $NavigationAgent3D
+@onready var pov_camera = Camera3D.new()
+@onready var main_camera = get_viewport().get_camera_3d()
 
 
 
@@ -10,7 +12,8 @@ enum TASK{
 	GETTING_FOOD,
 	SEARCHING,
 	DELIVERING,
-	WALKING
+	WALKING,
+	POV_MODE
 }
 enum JOB{
 	food,
@@ -25,23 +28,47 @@ var current_job=JOB.food
 var run_once:=true
 var spawn_point
 
+var mouse_sensitivity = 0.002
 var food_harvest_amount:=10
 var food_hold_current:=0
 var nearest_resource_object:Node3D
 
 
 func _ready():
+	add_child(pov_camera)
 	_calc_new_resource_to_get()
+
+func _input(event):
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		rotate_y(-event.relative.x * mouse_sensitivity)
+		pov_camera.rotate_x(-event.relative.y * mouse_sensitivity)
+		# Clamps the POV camera's x rotation to avoid flipping over.
+		pov_camera.rotation.x = clampf(pov_camera.rotation.x, -deg_to_rad(70), deg_to_rad(70))
 
 func _physics_process(delta):
 	$Label3D.text=str(TASK.find_key(current_task))
-
+	
 	match current_task:
+		TASK.POV_MODE:
+			if Input.is_action_just_released("esc"):
+				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+				pov_camera.current = false
+				main_camera.current = true
+				GameManager.current_state = GameManager.State.PLAY
+				current_task = TASK.SEARCHING
+			var input_dir = Input.get_vector("left", "right", "forward", "backward")
+			var walk_direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+			if walk_direction:
+				velocity.x = walk_direction.x * walk_speed
+				velocity.z = walk_direction.z * walk_speed
+				move_and_slide()
 		TASK.GETTING_FOOD:
 			if run_once:
 				run_once=false
 				await (get_tree().create_timer(2.0).timeout)
 				run_once=true
+				if GameManager.current_state == GameManager.State.POV_MODE:
+					return
 				#food_hold_current+=food_harvest_amount
 				
 				food_hold_current+=nearest_resource_object.resource_amount_generated
@@ -97,6 +124,7 @@ func _physics_process(delta):
 			var direction=global_position.direction_to(target_pos)
 			velocity=direction*walk_speed
 			move_and_slide()
+		
 func _farm_own_resource():
 	navigation_agent.target_position=nearest_resource_object.global_position
 		
@@ -114,3 +142,12 @@ func _calc_new_resource_to_get():
 	
 
 
+
+
+func _on_clicked(camera, event, position, normal, shape_idx):
+	if Input.is_action_just_released("left_mouse_down"):
+		main_camera.current = false
+		pov_camera.current = true
+		GameManager.current_state = GameManager.State.POV_MODE
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		current_task = TASK.POV_MODE

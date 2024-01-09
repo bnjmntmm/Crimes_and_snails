@@ -41,7 +41,7 @@ func _physics_process(delta):
 				#result.collider.run_despawn()
 				result.collider.queue_free()
 				houseSceneRemoved.emit(result.collider)
-	if Input.is_action_just_pressed("esc"):
+	if Input.is_action_just_pressed("esc") and not GameManager.current_state == GameManager.State.POV_MODE:
 		GameManager.current_state=GameManager.State.PLAY
 		if current_spawnable!=null:
 			current_spawnable.queue_free()

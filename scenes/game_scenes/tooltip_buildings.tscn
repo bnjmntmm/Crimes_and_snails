@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://clkrc5sotxj8r"]
 
-[ext_resource type="Texture2D" uid="uid://cj0h6a2fiit5t" path="res://assets/textures/HUD/Snail.PNG" id="1_0q1oy"]
+[ext_resource type="Texture2D" uid="uid://cj0h6a2fiit5t" path="res://assets/textures/HUD/snail.png" id="1_0q1oy"]
 [ext_resource type="Texture2D" uid="uid://c6ht17vui84tq" path="res://assets/textures/building_images/house_image.png" id="1_jmhgg"]
 [ext_resource type="Texture2D" uid="uid://boqdfkwieimai" path="res://assets/textures/HUD/Wood.PNG" id="3_vb7q8"]
 [ext_resource type="Texture2D" uid="uid://d3s2kpit3ctey" path="res://assets/textures/HUD/Wood Planks.PNG" id="4_0cs8w"]

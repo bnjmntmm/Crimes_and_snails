@@ -32,3 +32,5 @@ debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(1, 0.0784314, 1, 1)
 debug_path_custom_point_size = 6.38
+
+[connection signal="input_event" from="." to="." method="_on_clicked"]
