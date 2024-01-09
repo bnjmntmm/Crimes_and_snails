@@ -37,6 +37,7 @@ var nearest_resource_object:Node3D
 func _ready():
 	add_child(pov_camera)
 	_calc_new_resource_to_get()
+	GameManager.population+=1
 
 func _input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
