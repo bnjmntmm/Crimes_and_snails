@@ -25,3 +25,13 @@ var citizen: PackedScene
 var current_price_for_land:= 10
 var BasePrice := 10
 var numberOfBoughtLands := 0
+var winChecker = WinCondition.new()
+
+#Checks if WinCondition is erreicht, when condition != null also no condition erreicht, nothing happens
+#else its spammed :D
+
+#Question: Pause the Game? Make a hud visible to "continue" or stop? Maybe a Score? Idk
+func _process(delta):
+	var condition = winChecker.checkIfWinCondition()
+	if condition != null:
+		print("Win by: " +str(condition))

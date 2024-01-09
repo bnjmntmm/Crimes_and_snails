@@ -28,6 +28,7 @@ signal ready_to_bake
 
 var multi_mesh
 var buy_label : Label3D
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	grid_map = get_parent().get_node("Grid/BaseGrid")
