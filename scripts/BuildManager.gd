@@ -24,9 +24,12 @@ class HouseObj:
 
 func _physics_process(delta):
 	if GameManager.current_state==GameManager.State.DESTROY:
-		if is_instance_valid(current_spawnable):
+		if current_spawnable!=null:
 			current_spawnable.queue_free()
 			current_spawnable=null
+		if currentlyMoving:
+			currentlyMoving = false
+			currentlyMovingObject = null
 		if Input.is_action_just_released("left_mouse_down"):
 			var camera = get_viewport().get_camera_3d()
 			var from = camera.project_ray_origin(get_viewport().get_mouse_position())
@@ -66,6 +69,8 @@ func _physics_process(delta):
 					obj.set_disabled(false)
 					houseSceneAdded.emit(obj)
 					obj.global_position=current_spawnable.global_position
+					current_spawnable.remove_foliage()
+					
 			if Input.is_action_just_released("middle_mouse_button"):
 				current_spawnable.rotation_degrees+=Vector3(0,90,0)
 	if GameManager.current_state==GameManager.State.MOVE_HOUSE:
@@ -88,10 +93,11 @@ func _physics_process(delta):
 				currentlyMovingObject.rotation_degrees+=Vector3(0,90,0)
 			
 			if Input.is_action_just_pressed("left_mouse_down") and currentlyMoving and currentlyMovingObject != null:
+				currentlyMovingObject.remove_foliage()
 				currentlyMoving = false
 				print("placed")
 				currentlyMovingObject = null
-		
+			
 		if result.size() > 0 and typeof(cursor_pos)== TYPE_VECTOR3:
 			if result.collider.is_in_group("building") or result.collider.is_in_group("stock"):
 				if Input.is_action_just_pressed("left_mouse_down") and !currentlyMoving:
