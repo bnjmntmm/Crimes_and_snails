@@ -14,7 +14,10 @@ func _process(delta):
 	$BuildMenu/HBoxContainer2/RessourceValues/WoodValue.text=str(GameManager.wood)
 	$BuildMenu/HBoxContainer2/RessourceValues/PlanksValue.text=str(GameManager.planks)
 	$Population/PopulationValue.text=str(GameManager.population)
-
+	if GameManager.current_state == GameManager.State.POV_MODE:
+		visible= false
+	else:
+		visible = true
 	
 func _on_area_2d_area_entered(area):
 	BuildManager.able_to_build=false
