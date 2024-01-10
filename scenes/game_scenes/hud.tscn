@@ -278,6 +278,18 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="FPS" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -110.0
+offset_top = 52.0
+offset_right = -17.0
+offset_bottom = 78.0
+grow_horizontal = 0
+text = "FPS:  "
+
 [connection signal="mouse_entered" from="BuildMenu/HBoxContainer2/RessourceIcons/Snails" to="BuildMenu/HBoxContainer2/RessourceIcons/Snails" method="_on_mouse_entered_snails"]
 [connection signal="mouse_entered" from="BuildMenu/HBoxContainer2/RessourceIcons/Happiness" to="BuildMenu/HBoxContainer2/RessourceIcons/Happiness" method="_on_mouse_entered_happiness"]
 [connection signal="mouse_entered" from="BuildMenu/HBoxContainer2/RessourceIcons/Food" to="BuildMenu/HBoxContainer2/RessourceIcons/Food" method="_on_mouse_entered_food"]
