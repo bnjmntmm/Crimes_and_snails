@@ -44,7 +44,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var viewport_size = get_viewport().size
+	var viewport_height = ProjectSettings.get_setting("display/window/size/viewport_height")
+	var viewport_width = ProjectSettings.get_setting("display/window/size/viewport_width")
+	var viewport_size = Vector2(viewport_width,viewport_height)
 	var mouse_pos = get_viewport().get_mouse_position()
 	if !locked_cam:
 		if mouse_pos.x < 10:

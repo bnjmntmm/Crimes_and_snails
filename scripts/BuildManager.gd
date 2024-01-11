@@ -51,12 +51,12 @@ func _physics_process(delta):
 	if GameManager.current_state==GameManager.State.BUILD:
 		var camera = get_viewport().get_camera_3d()
 		var from = camera.project_ray_origin(get_viewport().get_mouse_position())
-		var to = from + camera.project_ray_normal(get_viewport().get_mouse_position()) * 1000
+		var to = from + camera.project_ray_normal(get_viewport().get_mouse_position()) * 10000
 		# Calculate where the mouse ray intersects the XZ plane (at height y of the transform origin).
-		var cursor_pos = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
+		var cursor_pos = Plane(Vector3.UP, 1.5).intersects_ray(from, to)
 		if typeof(cursor_pos)== TYPE_VECTOR3:
 		# Set the position of the current spawnable to the intersection point, with adjustments to x and z for snapping to a grid.
-			current_spawnable.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z)) + Vector3(0,1.5,0)
+			current_spawnable.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z)) 
 			current_spawnable.active_buildable_object=true
 			
 			if able_to_build:
@@ -76,7 +76,7 @@ func _physics_process(delta):
 	if GameManager.current_state==GameManager.State.MOVE_HOUSE:
 		var camera = get_viewport().get_camera_3d()
 		var from = camera.project_ray_origin(get_viewport().get_mouse_position())
-		var to = from + camera.project_ray_normal(get_viewport().get_mouse_position()) * 1000
+		var to = from + camera.project_ray_normal(get_viewport().get_mouse_position()) * 10000
 		var space_state=get_world_3d().direct_space_state
 		var query = PhysicsRayQueryParameters3D.create(from,to)
 		if currentlyMovingObject !=null:

@@ -90,7 +90,6 @@ backward={
 
 [physics]
 
-3d/run_on_separate_thread=true
 jolt_3d/collisions/areas_detect_static_bodies=true
 
 [rendering]

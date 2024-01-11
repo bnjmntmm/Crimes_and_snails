@@ -4,7 +4,6 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aq28u"]
 resource_name = "grass"
-vertex_color_use_as_albedo = true
 albedo_color = Color(0.682353, 0.682353, 0.682353, 1)
 albedo_texture = ExtResource("1_gretp")
 uv1_scale = Vector3(0.025, 0.025, 0.025)
@@ -12,7 +11,6 @@ uv1_triplanar_sharpness = 150.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iceyw"]
 resource_name = "dirt"
-vertex_color_use_as_albedo = true
 albedo_color = Color(0.878431, 0.576471, 0.372549, 1)
 metallic = 1.0
 
@@ -70,7 +68,6 @@ data = PackedVector3Array(-0.5, 1, 0.5, -0.5, 1, -0.5, 0.5, 1, -0.5, 0.5, 1, -0.
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xgsu"]
 resource_name = "dirt"
-vertex_color_use_as_albedo = true
 albedo_color = Color(0.878431, 0.576471, 0.372549, 1)
 metallic = 1.0
 
