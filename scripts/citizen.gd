@@ -3,6 +3,7 @@ extends CharacterBody3D
 @onready var navigation_agent = $NavigationAgent3D
 @onready var pov_camera = Camera3D.new()
 @onready var main_camera = get_viewport().get_camera_3d()
+@onready var npc_menu = $npc_menu
 
 
 
@@ -146,7 +147,21 @@ func _calc_new_resource_to_get():
 
 
 func _on_clicked(camera, event, position, normal, shape_idx):
-	if Input.is_action_just_released("left_mouse_down"):
+	if Input.is_action_just_released("left_mouse_down") and not GameManager.opened_npc_menu:
+		GameManager.opened_npc_menu = true
+		npc_menu.set_position(get_viewport().get_mouse_position())
+		npc_menu.visible = true
+
+
+
+func _on_close_button_pressed():
+	npc_menu.visible = false
+	GameManager.opened_npc_menu = false
+
+
+func _on_pov_mode_pressed():
+		npc_menu.visible = false
+		GameManager.opened_npc_menu = false
 		main_camera.current = false
 		pov_camera.current = true
 		GameManager.current_state = GameManager.State.POV_MODE

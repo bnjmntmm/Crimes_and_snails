@@ -26,6 +26,7 @@ var current_price_for_land:= 10
 var BasePrice := 10
 var numberOfBoughtLands := 0
 var winChecker = WinCondition.new()
+var opened_npc_menu = false
 
 #Checks if WinCondition is erreicht, when condition != null also no condition erreicht, nothing happens
 #else its spammed :D

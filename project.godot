@@ -21,6 +21,8 @@ BuildManager="*res://scripts/BuildManager.gd"
 
 [display]
 
+window/stretch/mode="canvas_items"
+window/stretch/aspect="ignore"
 mouse_cursor/tooltip_position_offset=Vector2(10, -50)
 
 [input]
@@ -88,9 +90,10 @@ backward={
 
 [physics]
 
-3d/physics_engine="JoltPhysics3D"
+3d/run_on_separate_thread=true
 jolt_3d/collisions/areas_detect_static_bodies=true
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
 anti_aliasing/quality/msaa_3d=3
