@@ -73,6 +73,7 @@ func _physics_process(delta):
 					return
 				#food_hold_current+=food_harvest_amount
 				
+				#print(nearest_resource_object.resource_amount_generated)
 				food_hold_current+=nearest_resource_object.resource_amount_generated
 				
 				nearest_resource_object._on_farmed()
@@ -107,7 +108,7 @@ func _physics_process(delta):
 				var nearest_stock=stocks[0]
 				for stock in stocks:
 					if stock.spawned:
-						if stock.global_position.distance_to(global_position)<nearest_stock.global_position.distance_to(global_position):
+						if stock.global_position.distance_sqaured_to(global_position)<nearest_stock.global_position.distance_squared_to(global_position):
 							nearest_stock=stock
 				navigation_agent.target_position=nearest_stock.get_node("SpawnPoint").global_position
 				current_task=TASK.WALKING
@@ -130,18 +131,38 @@ func _physics_process(delta):
 func _farm_own_resource():
 	navigation_agent.target_position=nearest_resource_object.global_position
 		
-func _calc_new_resource_to_get():
-	var resources=get_tree().get_nodes_in_group(str(JOB.find_key(current_job)))
+func _calc_new_resource_to_get():#
+	var resources = get_tree().get_nodes_in_group(str(JOB.find_key(current_job)))
 	nearest_resource_object=resources.pick_random()
+	var nearest_resource_dist = nearest_resource_object.global_position.distance_squared_to(global_position)
 	for resource in resources:
-			if resource.global_position.distance_to(global_position)<nearest_resource_object.global_position.distance_to(global_position) and resource.current_worker_amount<resource.spots_for_workers and resource.is_farmable:
-				resource.current_worker_amount+=1
-				nearest_resource_object=resource
-				
-				
-				
-	navigation_agent.target_position=nearest_resource_object.global_position
+		var resourceGlobalPos : Vector3 = resource.global_position
+		if not resource.is_farmable or resource.current_worker_amount  >= resource.spots_for_workers:
+			continue
+		var resource_dist = resource.global_position.distance_squared_to(global_position)
+		if resource_dist < nearest_resource_dist:
+			nearest_resource_object = resource
+			nearest_resource_dist = resource_dist
+	if not nearest_resource_object.is_farmable:
+		pass
+		#no resources left
+	nearest_resource_object.current_worker_amount +=1
+	navigation_agent.target_position = nearest_resource_object.global_position
 	
+	
+	
+	## OLD
+#	var resources=get_tree().get_nodes_in_group(str(JOB.find_key(current_job)))
+#	nearest_resource_object=resources.pick_random()
+#	for resource in resources:
+#			if resource.global_position.distance_squared_to(global_position)<nearest_resource_object.global_position.distance_squared_to(global_position) and resource.current_worker_amount<resource.spots_for_workers and resource.is_farmable:
+#				resource.current_worker_amount+=1
+#				nearest_resource_object=resource
+#
+#
+#
+#	navigation_agent.target_position=nearest_resource_object.global_position
+#
 
 
 
