@@ -110,10 +110,11 @@ func _input(event):
 		pov_camera.rotation.x = clampf(pov_camera.rotation.x, -deg_to_rad(70), deg_to_rad(70))
 
 func _physics_process(delta):
-	$Label3D.text=str(TASK.find_key(current_task))
+	pass
+	#$Label3D.text=str(TASK.find_key(current_task))
 	
 
-#
+# OLLLDDDD
 #	match current_task:
 #		TASK.POV_MODE:
 #			if Input.is_action_just_released("esc"):
@@ -263,3 +264,4 @@ func _on_pov_mode_pressed():
 		GameManager.current_state = GameManager.State.POV_MODE
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		current_task = TASK.POV_MODE
+

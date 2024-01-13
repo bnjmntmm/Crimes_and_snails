@@ -34,7 +34,6 @@ var bush_array = []
 
 var stock_array = []
 
-var map : RID
 
 
 

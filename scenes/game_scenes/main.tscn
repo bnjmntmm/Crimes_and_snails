@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cuy5ydshqlq1h"]
+[gd_scene load_steps=16 format=3 uid="uid://cuy5ydshqlq1h"]
 
 [ext_resource type="PackedScene" uid="uid://b5s3s5eubnut4" path="res://scenes/game_scenes/grid.tscn" id="1_e65h0"]
 [ext_resource type="Script" path="res://scripts/CameraMount.gd" id="2_0oeih"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://scripts/sabotage_scripts/Fire.gd" id="5_2vvmx"]
 [ext_resource type="Script" path="res://scripts/sabotage_scripts/random_events.gd" id="5_p8rf6"]
 [ext_resource type="Script" path="res://scripts/sabotage_scripts/Tornado.gd" id="7_m144j"]
-[ext_resource type="Script" path="res://scripts/NavigationServer.gd" id="9_jmrjb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d170q"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -102,9 +101,6 @@ script = ExtResource("5_2vvmx")
 
 [node name="Tornado" type="Node3D" parent="random_events"]
 script = ExtResource("7_m144j")
-
-[node name="NavigationServer" type="Node3D" parent="."]
-script = ExtResource("9_jmrjb")
 
 [connection signal="grid_generated" from="Grid" to="CameraMount" method="_on_grid_grid_generated"]
 [connection signal="newGridAdded" from="CameraMount" to="CameraMount" method="_on_new_grid_added"]

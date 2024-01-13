@@ -2,8 +2,8 @@ extends Node
 class_name WinCondition
 
 var npcCountTarget : int = 200
-var foodCountTarget : int = 200
-var snailCountTarget : int = 1000
+var foodCountTarget : int = 100000
+var snailCountTarget : int = 10000
 var landBoughtTarget : int = 50
 
 enum WIN_CONDITION{NPC, FOOD, SNAIL, LAND}
