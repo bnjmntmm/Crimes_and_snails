@@ -6,7 +6,7 @@ var spawn_timer:=0.0
 var spawn_interval:=3.0
 var current_citizen
 var current_pop:=0
-var max_pop:=50
+var max_pop:=1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

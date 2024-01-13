@@ -28,6 +28,16 @@ var numberOfBoughtLands := 0
 var winChecker = WinCondition.new()
 var opened_npc_menu = false
 
+#### Navigation 
+var tree_array = []
+var bush_array = []
+
+var map : RID
+
+
+
+
+
 #Checks if WinCondition is erreicht, when condition != null also no condition erreicht, nothing happens
 #else its spammed :D
 
