@@ -69,6 +69,8 @@ func _physics_process(delta):
 					obj.set_disabled(false)
 					houseSceneAdded.emit(obj)
 					obj.global_position=current_spawnable.global_position
+					if obj.name == "Stock":
+						GameManager.stock_array.append(obj)
 					current_spawnable.remove_foliage()
 					
 			if Input.is_action_just_released("middle_mouse_button"):

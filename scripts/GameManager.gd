@@ -32,6 +32,8 @@ var opened_npc_menu = false
 var tree_array = []
 var bush_array = []
 
+var stock_array = []
+
 var map : RID
 
 

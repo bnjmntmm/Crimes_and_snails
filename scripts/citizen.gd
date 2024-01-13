@@ -43,40 +43,64 @@ func _ready():
 	if JOB.find_key(current_job) == "wood":
 		if GameManager.tree_array.size() > 0:
 			var randomTree = GameManager.tree_array.pick_random()
-			#navigation_agent.target_position = randomTree.global_position
-			path = NavigationServer3D.map_get_path(GameManager.map, global_position, randomTree.global_position, true)
-			path.remove_at(0)
+			navigation_agent.target_position = randomTree.global_position
 			set_process(true)
 	elif JOB.find_key(current_job)== "food":
 		if GameManager.bush_array.size() > 0:
 			var randomBush = GameManager.bush_array.pick_random()
-			#navigation_agent.target_position = randomBush.global_position
-			path = NavigationServer3D.map_get_path(GameManager.map, global_position, randomBush.global_position, true)
-			path.remove_at(0)
+			navigation_agent.target_position = randomBush.global_position
 			set_process(true)
 	add_child(pov_camera)
 #	_calc_new_resource_to_get()
 	GameManager.population+=1
 
-func _process(delta):
-	var walk_distance = 20*delta
-	move_along_path(walk_distance)
-	
 
-func move_along_path(distance):
-	var last_point = self.position
-	while path.size():
-
-		var distance_between_points = last_point.distance_to(path[0])
-		if distance <= distance_between_points:
-			self.position = last_point.lerp(path[0], distance/ distance_between_points)
-			return
-		distance -= distance_between_points
-		last_point = path[0]
-		path.remove_at(0)
-	self.position = last_point
-	set_process(false)
+func move_along_path():
+	if navigation_agent.is_navigation_finished():
+		if food_hold_current==0:
+			current_task=TASK.GETTING_FOOD
+		else:
+			match JOB.find_key(current_job):
+				"food":GameManager.food+=food_hold_current
+			food_hold_current=0
+			current_task=TASK.SEARCHING
+		return
+	var next_path_position : Vector3 = navigation_agent.get_next_path_position()
+	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * walk_speed
+	if navigation_agent.avoidance_enabled:
+		navigation_agent.set_velocity(new_velocity)
+	else:
+		_on_velocity_computed(new_velocity)
 	#walk back to center?
+
+func _process(delta):
+	match current_task:
+		TASK.SEARCHING:
+			if JOB.find_key(current_job) == "food":
+				calc_new_resource_to_get(GameManager.bush_array.pick_random())
+			if JOB.find_key(current_job) == "wood":
+				calc_new_resource_to_get(GameManager.tree_array.pick_random())
+	
+		TASK.WALKING:
+			move_along_path()
+		TASK.GETTING_FOOD:
+			if GameManager.current_state == GameManager.State.POV_MODE:
+				return
+			food_hold_current+=nearest_resource_object.resource_amount_generated
+			nearest_resource_object._on_farmed()
+			current_task = TASK.DELIVERING
+		TASK.DELIVERING:
+			if GameManager.stock_array.is_empty():
+				navigation_agent.target_position = spawn_point.global_position
+				current_task = TASK.WALKING
+			else:
+				var nearest_stock = GameManager.stock_array[0]
+				for stock in GameManager.stock_array:
+					if stock.spawned:
+						if stock.global_position.distance_sqaured_to(global_position)<nearest_stock.global_position.distance_squared_to(global_position):
+							nearest_stock=stock
+				navigation_agent.target_position=nearest_stock.get_node("SpawnPoint").global_position
+				current_task=TASK.WALKING
 
 func _input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -86,16 +110,9 @@ func _input(event):
 		pov_camera.rotation.x = clampf(pov_camera.rotation.x, -deg_to_rad(70), deg_to_rad(70))
 
 func _physics_process(delta):
-	#if navigation_agent.is_navigation_finished():
-	#	print("nav done")
-	#	return
-	var next_path_position : Vector3 = navigation_agent.get_next_path_position()
-	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * walk_speed
-	if navigation_agent.avoidance_enabled:
-		navigation_agent.set_velocity(new_velocity)
-	else:
-		_on_velocity_computed(new_velocity)
-#	$Label3D.text=str(TASK.find_key(current_task))
+	$Label3D.text=str(TASK.find_key(current_task))
+	
+
 #
 #	match current_task:
 #		TASK.POV_MODE:
@@ -210,6 +227,15 @@ func _physics_process(delta):
 #
 #	navigation_agent.target_position=nearest_resource_object.global_position
 #
+
+func calc_new_resource_to_get(resource):
+	nearest_resource_object = resource
+	if not nearest_resource_object.is_farmable or nearest_resource_object.current_worker_amount >= nearest_resource_object.spots_for_workers:
+		pass
+		#no resource left
+	navigation_agent.target_position = nearest_resource_object.global_position
+	current_task=TASK.WALKING
+
 
 func _on_velocity_computed(safe_velocity: Vector3):
 	velocity = safe_velocity
