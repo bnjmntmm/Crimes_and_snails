@@ -95,6 +95,7 @@ grow_vertical = 2
 
 [node name="random_events" type="Node3D" parent="."]
 script = ExtResource("5_p8rf6")
+happinessCheckValue = 2
 
 [node name="Fire" type="Node3D" parent="random_events"]
 script = ExtResource("5_2vvmx")

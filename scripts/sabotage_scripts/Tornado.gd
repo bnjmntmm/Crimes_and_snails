@@ -8,14 +8,12 @@ var spawn_angle = randf_range(0,2*PI)
 var houseTornadoDict = {}
 
 func travel_to_house(house):
-	var currentHouse = BuildManager.HouseObj.new()
-	currentHouse.staticbody = house
-	houseTornadoDict[house.name] = currentHouse
-	houseTornadoDict[house.name].isTornado = true
-	var currentTornadoObject = houseTornadoDict[house.name].staticbody
+	houseTornadoDict[house] = house
+	houseTornadoDict[house].isTornado = true
+	var currentTornadoObject = houseTornadoDict[house]
 	randomize()
 	var new_tornado = tornado_scene.instantiate()
-	houseTornadoDict[house.name].tornado_scene = new_tornado
+	houseTornadoDict[house].tornado_scene = new_tornado
 	add_child(new_tornado)
 	new_tornado.target = house
 	var spawn_x = currentTornadoObject.global_position.x + spawn_radius * cos(spawn_angle)
@@ -27,12 +25,12 @@ func travel_to_house(house):
 	new_tornado.ready_to_move = true
 	
 func stop_tornado(house):
-	houseTornadoDict[house.name].isTornado = false
+	houseTornadoDict[house].isTornado = false
 	
-	if houseTornadoDict[house.name].tornado_scene.body_freed:
-		houseTornadoDict[house.name].tornado_scene.queue_free()
-		houseTornadoDict[house.name].tornado_scene = null
-		houseTornadoDict[house.name].staticbody.queue_free()
+	if houseTornadoDict[house].tornado_scene.body_freed:
+		houseTornadoDict[house].tornado_scene.queue_free()
+		houseTornadoDict[house].tornado_scene = null
+		houseTornadoDict[house].queue_free()
 	else:
-		houseTornadoDict[house.name].tornado_scene.queue_free()
-		houseTornadoDict[house.name].tornado_scene = null
+		houseTornadoDict[house].tornado_scene.queue_free()
+		houseTornadoDict[house].tornado_scene = null

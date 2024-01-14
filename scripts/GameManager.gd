@@ -28,12 +28,15 @@ var numberOfBoughtLands := 0
 var winChecker = WinCondition.new()
 var opened_npc_menu = false
 
+var first_area_generated = false
+
 #### Navigation 
-var tree_array = []
-var bush_array = []
+var tree_array : Array = []
+var bush_array : Array = []
 
 var stock_array = []
 
+var npc_in_charge = null
 
 
 

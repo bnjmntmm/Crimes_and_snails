@@ -14,6 +14,9 @@ var old_pos_mount : Vector3
 @onready var hud = $"../HUD"
 @onready var water = $"../Water"
 
+var bush_mesh = ResourceLoader.load("res://scenes/game_scenes/bush.tscn")
+var tree_mesh = ResourceLoader.load("res://scenes/game_scenes/tree.tscn")
+
 
 var grid_map : GridMap
 var chunk_size = 64
@@ -103,7 +106,7 @@ func _process(delta):
 		ray_query.collide_with_bodies = true
 	
 		var raycast_result = space.intersect_ray(ray_query)
-		var grid_cell_pos
+		var grid_cell_pos : Vector3
 		if raycast_result.size() > 0:
 			grid_cell_pos = Vector3(floor(raycast_result.position.x / grid_size) * grid_size, 0, floor(raycast_result.position.z / grid_size) * grid_size)  + Vector3(grid_size / 2,	 0, grid_size / 2)
 			selection_cube.global_transform.origin = grid_cell_pos
@@ -169,23 +172,21 @@ func area_exists(position: Vector3) -> bool:
 
 func _on_new_grid_added(area_position):
 	var instance_count = 5
-	var bush_mesh = ResourceLoader.load("res://scenes/game_scenes/bush.tscn")
-	var tree_mesh = ResourceLoader.load("res://scenes/game_scenes/tree.tscn")
-	
 	for i in range(instance_count):
 		var bush_instance = bush_mesh.instantiate()
 		bush_instance.add_to_group("food")
 		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").add_child(bush_instance,true)
 		randomize()
-		bush_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 2, randi_range(-31,31))
+		bush_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 1.5, randi_range(-31,31))
 		GameManager.bush_array.append(bush_instance)
 		
 		var tree_instance = tree_mesh.instantiate()
 		tree_instance.add_to_group("wood")
 		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").add_child(tree_instance,true)
-		tree_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 2, randi_range(-31,31))
+		tree_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 1.5, randi_range(-31,31))
 		GameManager.bush_array.append(tree_instance)
 	ready_to_bake.emit()
+
 	
 	
 	#Exponential Growth
@@ -199,22 +200,20 @@ func _on_new_grid_added(area_position):
 func _on_grid_grid_generated(size):	
 	
 	var instance_count = 50
-	var bush_mesh = ResourceLoader.load("res://scenes/game_scenes/bush.tscn")
-	var tree_mesh = ResourceLoader.load("res://scenes/game_scenes/tree.tscn")
 	
 	for i in range(instance_count):
 		var bush_instance = bush_mesh.instantiate()
 		bush_instance.add_to_group("food")
 		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").add_child(bush_instance, true)
 		randomize()
-		bush_instance.transform.origin =  Vector3(randi_range(-size, size), 2, randi_range(-size,size))
+		bush_instance.transform.origin =  Vector3(randi_range(-size, size), 1.5, randi_range(-size,size))
 		GameManager.bush_array.append(bush_instance)
 		
 		var tree_instance = tree_mesh.instantiate()
 		tree_instance.add_to_group("wood")
 		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").add_child(tree_instance,true)
-		tree_instance.transform.origin =  Vector3(randi_range(-size, size), 2, randi_range(-size,size))
+		tree_instance.transform.origin =  Vector3(randi_range(-size, size), 1.5, randi_range(-size,size))
 		GameManager.bush_array.append(tree_instance)
-	
+	GameManager.first_area_generated = true
 	ready_to_bake.emit()
 	

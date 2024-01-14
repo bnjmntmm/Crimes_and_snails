@@ -115,6 +115,10 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "POV"
 
+[node name="ExtinguishTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="input_event" from="." to="." method="_on_clicked"]
 [connection signal="pressed" from="npc_menu/close" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="npc_menu/pov_mode" to="." method="_on_pov_mode_pressed"]

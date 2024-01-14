@@ -52,22 +52,31 @@ func check_if_sabotage_valid():
 func start_sabotage(obj, sabotage_type):
 	print(str(obj)+ "wird sabotiert mit: " + str(sabotage_type))
 	if sabotage_type.name == "Fire":
+		obj.isBurning = true
+		obj.sabotageType = sabotage_type
 		sabotage_type.execute_sabotage_to(obj)
 		previousSabotagedHouse = obj
 
-		await get_tree().create_timer(5).timeout
-		
-		#this has to be called when we extinguish the building. Currently its on a timer :D
-		sabotage_type.fire_stopped(obj)
-		sabotageTimerCheck.wait_time = sabotageCheckInterval
-		sabotageTimerCheck.start()
+#		await get_tree().create_timer(5).timeout
+#
+#		#this has to be called when we extinguish the building. Currently its on a timer :D
+#		sabotage_type.fire_stopped(obj)
+#		sabotageTimerCheck.wait_time = sabotageCheckInterval
+#		sabotageTimerCheck.start()
+
+
+
 	if sabotage_type.name == "Tornado":
 		sabotage_type.travel_to_house(obj)
 		previousSabotagedHouse = obj
-		
+#
 		await get_tree().create_timer(5).timeout
-		
-		#this has to be called when we extinguish the building. Currently its on a timer :D
+#
+#		#this has to be called when we extinguish the building. Currently its on a timer :D
 		sabotage_type.stop_tornado(obj)
 		sabotageTimerCheck.wait_time = sabotageCheckInterval
 		sabotageTimerCheck.start()
+
+func start_sabotage_timer():
+	sabotageTimerCheck.wait_time = sabotageCheckInterval
+	sabotageTimerCheck.start()

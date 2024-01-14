@@ -94,5 +94,4 @@ jolt_3d/collisions/areas_detect_static_bodies=true
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
 anti_aliasing/quality/msaa_3d=3

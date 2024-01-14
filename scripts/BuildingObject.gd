@@ -17,6 +17,13 @@ var active_buildable_object: bool
 var spawned:=false
 var current_actor
 
+var isBurning = false
+var isDestroyed = false
+var sabotageType = null
+var fire_scene : GPUParticles3D = null
+
+var isTornado = false
+var tornado_scene = null
 
 #Foliage Array to remove when house is placed
 var collidingObjects := []
@@ -37,6 +44,7 @@ func _ready():
 
 func _on_body_entered(body):
 	var bodyName = body.name.rstrip("0123456789")
+	print(body)
 	if bodyName == "Bush" or bodyName == "Tree":
 		collidingObjects.append(body)
 func _on_body_exited(body):
@@ -62,3 +70,7 @@ func set_disabled(enabled):
 func remove_foliage():
 	for i in collidingObjects:
 		i.queue_free()
+		if i.is_in_group("food"):
+			GameManager.bush_array.erase(i)
+		if i.is_in_group("wood"):
+			GameManager.tree_array.erase(i)

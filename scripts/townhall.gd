@@ -1,12 +1,15 @@
 extends Node3D
 
 @onready var citizen=ResourceLoader.load("res://scenes/game_scenes/citizen.tscn")
+@onready var check_for_tree_and_bush = $CheckForTreeAndBush
+
+
 var spawn_ready:=false
 var spawn_timer:=0.0
 var spawn_interval:=3.0
 var current_citizen
 var current_pop:=0
-var max_pop:=200
+var max_pop:= 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,8 +30,23 @@ func _process(delta):
 		if spawn_timer >= spawn_interval:
 			spawn_timer = 0  
 			run_spawn()
-		
+
 		
 		
 func _enter_tree():
 	spawn_ready=true
+
+
+func _on_check_for_tree_and_bush_body_entered(body):
+	if body.is_in_group("food"):
+		var index = GameManager.bush_array.find(body)
+		if index != -1:
+			GameManager.bush_array.pop_at(index)
+			print("removed bush")
+			body.queue_free()
+	if body.is_in_group("wood"):
+		var index = GameManager.tree_array.find(body)
+		if index != -1:
+			GameManager.bush_array.pop_at(index)
+			print("removed tree")
+			body.queue_free()
