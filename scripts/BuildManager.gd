@@ -60,9 +60,9 @@ func _physics_process(delta):
 			current_spawnable.active_buildable_object=true
 			
 			if able_to_build:
-				if Input.is_action_just_released("left_mouse_down"):
+				if Input.is_action_just_released("left_mouse_down"):	
 					var obj:=current_spawnable.duplicate()
-					get_tree().root.add_child(obj)
+					get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").add_child(obj)
 					obj.active_buildable_object=false
 					#obj.run_spawn()
 					obj.spawned=true

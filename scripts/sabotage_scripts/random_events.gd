@@ -42,7 +42,7 @@ func check_if_sabotage_valid():
 		var randomHouseInt = randi_range(0, housesInScenes.size()-1)
 		var randomSabotageInt = randi_range(0,sabotageEvents.size()-1)
 		var randomHouse = housesInScenes[randomHouseInt]
-		var randomEvent = sabotageEvents[randomSabotageInt]
+		var randomEvent = sabotageEvents[0]
 		if previousSabotagedHouse != randomHouse:
 			start_sabotage(randomHouse, randomEvent)
 		else:
