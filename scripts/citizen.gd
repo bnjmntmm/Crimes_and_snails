@@ -30,8 +30,8 @@ var run_once:=true
 var spawn_point
 
 var mouse_sensitivity = 0.002
-var food_harvest_amount:=10
-var food_hold_current:=0
+
+var resource_hold_current:=0
 var nearest_resource_object:Node3D
 
 var waterParticles : Node3D
@@ -43,15 +43,19 @@ var path = []
 var allowWater = false
 
 func _ready():
+	randomize()
+	current_job=JOB.find_key(randi_range(0,1))
+	
+	
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
-	if JOB.find_key(current_job) == "wood":
+	if current_job == "wood":
 		if GameManager.tree_array.size() > 0:
 			var randomTree = GameManager.tree_array.pick_random()
 			while !is_instance_valid(randomTree):
 				randomTree = GameManager.tree_array.pick_random()
 			navigation_agent.target_position = randomTree.global_position
 			set_process(true)
-	elif JOB.find_key(current_job)== "food":
+	elif current_job == "food":
 		if GameManager.bush_array.size() > 0:
 			var randomBush = GameManager.bush_array.pick_random()
 			while !is_instance_valid(randomBush):
@@ -71,12 +75,13 @@ func _ready():
 
 func move_along_path():
 	if navigation_agent.is_navigation_finished():
-		if food_hold_current==0:
+		if  resource_hold_current==0:
 			current_task=TASK.GETTING_FOOD
 		else:
-			match JOB.find_key(current_job):
-				"food":GameManager.food+=food_hold_current
-			food_hold_current=0
+			match current_job:
+				"food":GameManager.food+=resource_hold_current
+				"wood":GameManager.wood+=resource_hold_current
+			resource_hold_current=0
 			current_task=TASK.SEARCHING
 		return
 	var next_path_position : Vector3 = navigation_agent.get_next_path_position()
@@ -90,17 +95,17 @@ func move_along_path():
 func _process(delta):
 	match current_task:
 		TASK.SEARCHING:
-			if JOB.find_key(current_job) == "food":
-				calc_new_resource_to_get(GameManager.bush_array.pick_random())
-			if JOB.find_key(current_job) == "wood":
-				calc_new_resource_to_get(GameManager.tree_array.pick_random())
+			if current_job == "food":
+				calc_new_resource_to_get(GameManager.bush_array)
+			if current_job == "wood":
+				calc_new_resource_to_get(GameManager.tree_array)
 	
 		TASK.WALKING:
 			move_along_path()
 		TASK.GETTING_FOOD:
 			if GameManager.current_state == GameManager.State.POV_MODE:
 				return
-			food_hold_current+=nearest_resource_object.resource_amount_generated
+			resource_hold_current+=nearest_resource_object.resource_amount_generated
 			nearest_resource_object._on_farmed()
 			current_task = TASK.DELIVERING
 		TASK.DELIVERING:
@@ -178,11 +183,18 @@ func execute_raycast(event_position, camera : Camera3D):
 			return raycast_result
 
 
-func calc_new_resource_to_get(resource):
-	nearest_resource_object = resource
-	if not nearest_resource_object.is_farmable or nearest_resource_object.current_worker_amount >= nearest_resource_object.spots_for_workers:
-		pass
-		#no resource left
+func calc_new_resource_to_get(resources: Array):
+	nearest_resource_object = resources.pick_random()
+	var nearest_resource_distance=nearest_resource_object.global_position.distance_squared_to(global_position)
+	for resource in resources:
+		if !resource.is_farmable or resource.current_worker_amount >= resource.spots_for_workers:
+			continue
+		else:
+			var resource_distance=resource.global_position.distance_squared_to(global_position)
+			if resource_distance<nearest_resource_distance:
+				nearest_resource_object=resource
+				nearest_resource_distance=resource_distance
+	nearest_resource_object.current_worker_amount+=1
 	navigation_agent.target_position = nearest_resource_object.global_position
 	current_task=TASK.WALKING
 

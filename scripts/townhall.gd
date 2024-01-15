@@ -2,6 +2,7 @@ extends Node3D
 
 @onready var citizen=ResourceLoader.load("res://scenes/game_scenes/citizen.tscn")
 @onready var check_for_tree_and_bush = $CheckForTreeAndBush
+@onready var navigation_region_3d = $".."
 
 
 var spawn_ready:=false
@@ -39,14 +40,13 @@ func _enter_tree():
 
 func _on_check_for_tree_and_bush_body_entered(body):
 	if body.is_in_group("food"):
-		var index = GameManager.bush_array.find(body)
-		if index != -1:
-			GameManager.bush_array.pop_at(index)
-			print("removed bush")
-			body.queue_free()
+		GameManager.bush_array.erase(body)
+		body.queue_free()
+		print(str(body) + " removed")
+		
 	if body.is_in_group("wood"):
-		var index = GameManager.tree_array.find(body)
-		if index != -1:
-			GameManager.bush_array.pop_at(index)
-			print("removed tree")
-			body.queue_free()
+		GameManager.tree_array.erase(body)
+		body.queue_free()
+		print(str(body) + " removed")
+		
+	

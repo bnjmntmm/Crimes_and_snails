@@ -12,7 +12,7 @@ floor_stop_on_slope = false
 floor_block_on_wall = false
 safe_margin = 0.05
 script = ExtResource("1_gmgp7")
-walk_speed = 4.0
+walk_speed = 15.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_fnhfs")
@@ -29,6 +29,8 @@ font_size = 64
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 height = 2.0
+debug_enabled = true
+debug_use_custom = true
 debug_path_custom_color = Color(1, 0.0784314, 1, 1)
 debug_path_custom_point_size = 6.38
 
