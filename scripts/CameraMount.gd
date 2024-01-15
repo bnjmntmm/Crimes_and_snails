@@ -4,6 +4,10 @@ extends Node3D
 
 @export var sense=1.0
 @export var locked_cam:=false
+@export var min_zoom=0.5
+@export var max_zoom=3
+@export var zoom_speed=0.08
+var zoom=1.5
 @onready var navigation_region_3d = $"../Grid/NavigationRegion3D"
 
 @onready var bought_grid_nav_plane=ResourceLoader.load("res://scenes/game_scenes/bought_grid_nav_plane.tscn")
@@ -66,14 +70,21 @@ func _process(delta):
 		GameManager.snails = GameManager.snails +10
 
 	if Input.is_action_just_released("mouse_wheel_up"):
-		if $Camera.global_position.distance_to(global_position) > 15:
-			$Camera.global_position -= $Camera.global_position * 0.1 * sense
+		zoom-=zoom_speed
+#		if $Camera.global_position.distance_to(global_position) > 15:
+#			$Camera.global_position -= $Camera.global_position * 0.1 * sense
+
+		
+		
 	if Input.is_action_just_released("mouse_wheel_down"):
-		if $Camera.global_position.distance_to(global_position) < 50:
-			$Camera.global_position += $Camera.global_position * 0.1 * sense
+		zoom+=zoom_speed
+	zoom=clamp(zoom,min_zoom,max_zoom)
+	scale=lerp(scale,Vector3.ONE*zoom,zoom_speed)
+#		if $Camera.global_position.distance_to(global_position) < 50:
+#			$Camera.global_position += $Camera.global_position * 0.1 * sense
 	
 	if Input.is_action_just_pressed("buy_land") and GameManager.current_state != GameManager.State.BUY_LAND:
-		old_pos_mount = $Camera.global_position
+		old_pos_mount = $Camera.position
 		locked_cam = true
 		hud.visible = false
 		$Camera.rotation = Vector3(deg_to_rad(-90),0,0)
@@ -88,7 +99,7 @@ func _process(delta):
 		hud.visible = true
 		selection_cube.visible = false
 		$Camera.rotation = Vector3(deg_to_rad(-45), 0,0)
-		$Camera.global_position = old_pos_mount
+		$Camera.position = old_pos_mount
 		$Camera.set_fov(75)
 	
 	if GameManager.current_state == GameManager.State.BUY_LAND:

@@ -75,7 +75,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00121784, 0.0692291)
 script = ExtResource("2_0oeih")
 
 [node name="Camera" type="Camera3D" parent="CameraMount"]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866026, 0, -0.866026, 0.5, 0, 20, 5)
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 20, 5)
 current = true
 near = 2.0
 far = 1000.0

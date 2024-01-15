@@ -4,6 +4,8 @@ extends CharacterBody3D
 @onready var pov_camera = Camera3D.new()
 @onready var main_camera = get_viewport().get_camera_3d()
 @onready var npc_menu = $npc_menu
+@onready var current_job_value = $npc_menu/current_job_value
+
 
 var waterParticlesPrefab = preload("res://assets/particles/water_extinguish.tscn")
 @onready var extinguish_timer = $ExtinguishTimer
@@ -45,6 +47,10 @@ var allowWater = false
 func _ready():
 	randomize()
 	current_job=JOB.find_key(randi_range(0,1))
+	match current_job:
+		"food":current_job_value.text="Farmer"
+		"wood":current_job_value.text="Lumberjack"
+	
 	
 	
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
@@ -229,3 +235,14 @@ func _on_pov_mode_pressed():
 		current_task = TASK.POV_MODE
 		GameManager.npc_in_charge = self
 
+
+
+func _on_job_wood_button_down():
+	current_job=JOB.find_key(1)
+	current_job_value.text="Lumberjack"
+	
+
+
+func _on_job_food_button_down():
+	current_job=JOB.find_key(0)
+	current_job_value.text="Farmer"

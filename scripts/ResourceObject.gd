@@ -29,7 +29,7 @@ func _process(delta):
 	if current_worker_amount>=spots_for_workers:
 		self.is_farmable=false
 	if current_times_farmed==max_times_farmable:
-		_on_max_farmed_reached()
+		_on_max_farmed_reached() 
 		
 	
 			
