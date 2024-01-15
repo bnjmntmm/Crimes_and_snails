@@ -17,10 +17,24 @@ var active_buildable_object: bool
 var spawned:=false
 var current_actor
 
+var isBurning = false
+var isDestroyed = false
+var sabotageType = null
+var fire_scene : GPUParticles3D = null
+
+var isTornado = false
+var tornado_scene = null
+
+#Foliage Array to remove when house is placed
+var collidingObjects := []
+
+
 
 func _ready():
 	$Area.area_entered.connect(_on_area_entered)
 	$Area.area_exited.connect(_on_area_exited)
+	$Area.body_entered.connect(_on_body_entered)
+	$Area.body_exited.connect(_on_body_exited)
 #func run_spawn():
 #	if can_spawn_actor:
 #		pass
@@ -28,8 +42,18 @@ func _ready():
 #	if can_spawn_actor:
 #		pass
 
+func _on_body_entered(body):
+	var bodyName = body.name.rstrip("0123456789")
+	print(body)
+	if bodyName == "Bush" or bodyName == "Tree":
+		collidingObjects.append(body)
+func _on_body_exited(body):
+	var bodyName = body.name.rstrip("0123456789")
+	if bodyName == "Bush" or bodyName == "Tree":
+		collidingObjects.erase(body)
+		
+
 func _on_area_entered(area):
-	
 	if active_buildable_object:
 		objects.append(area)
 		BuildManager.able_to_build=false
@@ -42,5 +66,11 @@ func _on_area_exited(area):
 			BuildManager.able_to_build=true
 func set_disabled(enabled):
 		$CollisionShape.disabled=enabled
-
 	
+func remove_foliage():
+	for i in collidingObjects:
+		i.queue_free()
+		if i.is_in_group("food"):
+			GameManager.bush_array.erase(i)
+		if i.is_in_group("wood"):
+			GameManager.tree_array.erase(i)

@@ -8,7 +8,11 @@
 
 [node name="Citizen" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+floor_stop_on_slope = false
+floor_block_on_wall = false
+safe_margin = 0.05
 script = ExtResource("1_gmgp7")
+walk_speed = 4.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_fnhfs")
@@ -23,4 +27,98 @@ text = "default"
 font_size = 64
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-debug_enabled = true
+avoidance_enabled = true
+height = 2.0
+debug_path_custom_color = Color(1, 0.0784314, 1, 1)
+debug_path_custom_point_size = 6.38
+
+[node name="npc_menu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 194.0
+offset_bottom = 237.0
+
+[node name="Panel" type="Panel" parent="npc_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="job_changed" type="Label" parent="npc_menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.5
+offset_top = -96.5
+offset_right = 45.5
+offset_bottom = -70.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Job Change:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="npc_menu"]
+custom_minimum_size = Vector2(170, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.0
+offset_top = -65.5
+offset_right = 85.0
+offset_bottom = 34.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="job_wood" type="Button" parent="npc_menu/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wood"
+
+[node name="job_food" type="Button" parent="npc_menu/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Food"
+
+[node name="close" type="Button" parent="npc_menu"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -35.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 35.0
+grow_horizontal = 0
+text = "X"
+
+[node name="pov_mode" type="Button" parent="npc_menu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.5
+offset_top = -58.0
+offset_right = 25.5
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "POV"
+
+[node name="ExtinguishTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="input_event" from="." to="." method="_on_clicked"]
+[connection signal="pressed" from="npc_menu/close" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="npc_menu/pov_mode" to="." method="_on_pov_mode_pressed"]

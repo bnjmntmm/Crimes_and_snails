@@ -8,11 +8,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$HBoxContainer2/RessourceValues/SnailsValue.text=str(GameManager.snails)
-	$HBoxContainer2/RessourceValues/HappinessValue.text=str(GameManager.happiness)
-	$HBoxContainer2/RessourceValues/FoodValue.text=str(GameManager.food)
-	$HBoxContainer2/RessourceValues/WoodValue.text=str(GameManager.wood)
-	$HBoxContainer2/RessourceValues/PlanksValue.text=str(GameManager.planks)
+	$BuildMenu/HBoxContainer2/RessourceValues/SnailsValue.text=str(GameManager.snails)
+	$BuildMenu/HBoxContainer2/RessourceValues/HappinessValue.text=str(GameManager.happiness)
+	$BuildMenu/HBoxContainer2/RessourceValues/FoodValue.text=str(GameManager.food)
+	$BuildMenu/HBoxContainer2/RessourceValues/WoodValue.text=str(GameManager.wood)
+	$BuildMenu/HBoxContainer2/RessourceValues/PlanksValue.text=str(GameManager.planks)
+	$Population/PopulationValue.text=str(GameManager.population)
+	$FPS.text = str("FPS %d" % Engine.get_frames_per_second())
+	if GameManager.current_state == GameManager.State.POV_MODE:
+		visible= false
+	else:
+		visible = true
 	
 func _on_area_2d_area_entered(area):
 	BuildManager.able_to_build=false

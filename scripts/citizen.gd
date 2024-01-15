@@ -1,15 +1,20 @@
 extends CharacterBody3D
 
-@onready var navigation_agent = $NavigationAgent3D
-@onready var navigation_region_3d = $"../NavigationRegion3D"
+@onready var navigation_agent : NavigationAgent3D = $NavigationAgent3D
+@onready var pov_camera = Camera3D.new()
+@onready var main_camera = get_viewport().get_camera_3d()
+@onready var npc_menu = $npc_menu
 
+var waterParticlesPrefab = preload("res://assets/particles/water_extinguish.tscn")
+@onready var extinguish_timer = $ExtinguishTimer
 
 
 enum TASK{
 	GETTING_FOOD,
 	SEARCHING,
 	DELIVERING,
-	WALKING
+	WALKING,
+	POV_MODE
 }
 enum JOB{
 	food,
@@ -24,58 +29,191 @@ var current_job=JOB.food
 var run_once:=true
 var spawn_point
 
+var mouse_sensitivity = 0.002
+var food_harvest_amount:=10
+var food_hold_current:=0
+var nearest_resource_object:Node3D
+
+var waterParticles : Node3D
+var currentHouse = null
+
+
+# Path
+var path = []
+var allowWater = false
 
 func _ready():
-	pass
+	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	if JOB.find_key(current_job) == "wood":
+		if GameManager.tree_array.size() > 0:
+			var randomTree = GameManager.tree_array.pick_random()
+			while !is_instance_valid(randomTree):
+				randomTree = GameManager.tree_array.pick_random()
+			navigation_agent.target_position = randomTree.global_position
+			set_process(true)
+	elif JOB.find_key(current_job)== "food":
+		if GameManager.bush_array.size() > 0:
+			var randomBush = GameManager.bush_array.pick_random()
+			while !is_instance_valid(randomBush):
+				randomBush = GameManager.bush_array.pick_random()
+			navigation_agent.target_position = randomBush.global_position
+			set_process(true)
+	pov_camera.position = Vector3(0,0.9,0)
+	add_child(pov_camera)
+	waterParticles = waterParticlesPrefab.instantiate()
+	pov_camera.add_child(waterParticles)
+	waterParticles.position = pov_camera.position + Vector3(1,-1,0)
+	
+	
+	
+	GameManager.population+=1
 
-func _physics_process(delta):
-	$Label3D.text=str(TASK.find_key(current_task))
 
+func move_along_path():
+	if navigation_agent.is_navigation_finished():
+		if food_hold_current==0:
+			current_task=TASK.GETTING_FOOD
+		else:
+			match JOB.find_key(current_job):
+				"food":GameManager.food+=food_hold_current
+			food_hold_current=0
+			current_task=TASK.SEARCHING
+		return
+	var next_path_position : Vector3 = navigation_agent.get_next_path_position()
+	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * walk_speed
+	if navigation_agent.avoidance_enabled:
+		navigation_agent.set_velocity(new_velocity)
+	else:
+		_on_velocity_computed(new_velocity)
+	#walk back to center?
+
+func _process(delta):
 	match current_task:
-		TASK.GETTING_FOOD:
-			if run_once:
-				run_once=false
-				await (get_tree().create_timer(2.0).timeout)
-				run_once=true
-				current_task=TASK.SEARCHING
 		TASK.SEARCHING:
-			var resources=get_tree().get_nodes_in_group(str(JOB.find_key(current_job)))
-			print(resources.size())
-			var nearest_resource_object=resources[0]
-			for resource in resources:
-				if resource.global_position.distance_to(global_position)<nearest_resource_object.global_position.distance_to(global_position):
-					nearest_resource_object=resource
-			navigation_agent.target_position=nearest_resource_object.global_position
-			current_task=TASK.WALKING
+			if JOB.find_key(current_job) == "food":
+				calc_new_resource_to_get(GameManager.bush_array.pick_random())
+			if JOB.find_key(current_job) == "wood":
+				calc_new_resource_to_get(GameManager.tree_array.pick_random())
+	
+		TASK.WALKING:
+			move_along_path()
+		TASK.GETTING_FOOD:
+			if GameManager.current_state == GameManager.State.POV_MODE:
+				return
+			food_hold_current+=nearest_resource_object.resource_amount_generated
+			nearest_resource_object._on_farmed()
+			current_task = TASK.DELIVERING
 		TASK.DELIVERING:
-			var stocks=get_tree().get_nodes_in_group("stock")
-			if stocks.is_empty():
-				#navigation_agent.target_position=spawn_point.global_position
-				current_task=TASK.WALKING
+			if GameManager.stock_array.is_empty():
+				navigation_agent.target_position = spawn_point.global_position
+				current_task = TASK.WALKING
 			else:
-				var nearest_stock=stocks[0]
-				for stock in stocks:
+				var nearest_stock = GameManager.stock_array[0]
+				for stock in GameManager.stock_array:
 					if stock.spawned:
-						if stock.global_position.distance_to(global_position)<nearest_stock.global_position.distance_to(global_position):
+						if stock.global_position.distance_sqaured_to(global_position)<nearest_stock.global_position.distance_squared_to(global_position):
 							nearest_stock=stock
 				navigation_agent.target_position=nearest_stock.get_node("SpawnPoint").global_position
 				current_task=TASK.WALKING
-		TASK.WALKING:
-			
-			if navigation_agent.is_navigation_finished():
-				match JOB.find_key(current_job):
-					"food":GameManager.food+=5
-				
-				current_task=TASK.SEARCHING
-				return
-			var target_pos=navigation_agent.get_next_path_position()
-			var direction=global_position.direction_to(target_pos)
-			velocity=direction*walk_speed
-			move_and_slide()
+		TASK.POV_MODE:
+			if Input.is_action_just_pressed("esc"):
 		
-				
-							
-			
-			
+				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+				pov_camera.current = false
+				main_camera.current = true
+				GameManager.current_state = GameManager.State.PLAY
+				current_task = TASK.SEARCHING
+			var input_dir = Input.get_vector("left", "right", "forward", "backward")
+			var walk_direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+			if walk_direction:
+				velocity.x = walk_direction.x * walk_speed
+				velocity.z = walk_direction.z * walk_speed
+				move_and_slide()
+
+func _input(event):
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		rotate_y(-event.relative.x * mouse_sensitivity)
+		pov_camera.rotate_x(-event.relative.y * mouse_sensitivity)
+		# Clamps the POV camera's x rotation to avoid flipping over.
+		pov_camera.rotation.x = clampf(pov_camera.rotation.x, -deg_to_rad(70), deg_to_rad(70))
+	if event.is_action_pressed("left_mouse_down") and GameManager.current_state == GameManager.State.POV_MODE and current_task == TASK.POV_MODE:
+		var raycast_result  = execute_raycast(event.position, pov_camera)
+		if raycast_result != null:
+			var house = raycast_result.collider
+			if house.isBurning:	
+				allowWater = true
+				extinguish_timer.start()
+				currentHouse = house
+#				house.sabotageType.fire_stopped(house)
+#				house.isBurning = false#
+#				print("brand gelöscht. Super gemacht")
+
+func _physics_process(delta):
+	if Input.is_action_pressed("left_mouse_down") and current_task == TASK.POV_MODE and allowWater:
+		waterParticles.set_emitting(true)
+		if extinguish_timer.is_stopped():
+			currentHouse.sabotageType.fire_stopped(currentHouse) 
+			allowWater = false
+			waterParticles.set_emitting(false)
+	if Input.is_action_just_released("left_mouse_down") and current_task == TASK.POV_MODE and allowWater:
+		waterParticles.set_emitting(false)
+		extinguish_timer.stop()
 		
+		
+		
+		
+		
+func execute_raycast(event_position, camera : Camera3D):
+	var raycastFrom = camera.project_ray_origin(event_position)
+	var raycastTo = raycastFrom + camera.project_ray_normal(event_position) * 20
+	var space = get_world_3d().direct_space_state
+	var ray_query = PhysicsRayQueryParameters3D.new()
+	ray_query.from = raycastFrom
+	ray_query.to = raycastTo
+	ray_query.collide_with_areas = false
+	ray_query.collide_with_bodies = true
+	var raycast_result = space.intersect_ray(ray_query)
+	if !raycast_result.is_empty():
+		if raycast_result.collider.is_in_group("building"):
+			return raycast_result
+
+
+func calc_new_resource_to_get(resource):
+	nearest_resource_object = resource
+	if not nearest_resource_object.is_farmable or nearest_resource_object.current_worker_amount >= nearest_resource_object.spots_for_workers:
+		pass
+		#no resource left
+	navigation_agent.target_position = nearest_resource_object.global_position
+	current_task=TASK.WALKING
+
+
+func _on_velocity_computed(safe_velocity: Vector3):
+	velocity = safe_velocity
+	move_and_slide()
+
+
+func _on_clicked(camera, event, position, normal, shape_idx):
+	if Input.is_action_just_released("left_mouse_down") and not GameManager.opened_npc_menu:
+		GameManager.opened_npc_menu = true
+		npc_menu.set_position(get_viewport().get_mouse_position())
+		npc_menu.visible = true
+
+
+
+func _on_close_button_pressed():
+	npc_menu.visible = false
+	GameManager.opened_npc_menu = false
+
+
+func _on_pov_mode_pressed():
+		npc_menu.visible = false
+		GameManager.opened_npc_menu = false
+		main_camera.current = false
+		pov_camera.current = true
+		navigation_agent.target_position = global_position
+		navigation_agent.get_next_path_position()
+		GameManager.current_state = GameManager.State.POV_MODE
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		current_task = TASK.POV_MODE
+		GameManager.npc_in_charge = self
 
