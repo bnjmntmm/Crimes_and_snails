@@ -184,7 +184,7 @@ func _on_new_grid_added(area_position):
 		tree_instance.add_to_group("wood")
 		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").add_child(tree_instance,true)
 		tree_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 1.5, randi_range(-31,31))
-		GameManager.bush_array.append(tree_instance)
+		GameManager.tree_array.append(tree_instance)
 	ready_to_bake.emit()
 
 	
@@ -213,7 +213,7 @@ func _on_grid_grid_generated(size):
 		tree_instance.add_to_group("wood")
 		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").add_child(tree_instance,true)
 		tree_instance.transform.origin =  Vector3(randi_range(-size, size), 1.5, randi_range(-size,size))
-		GameManager.bush_array.append(tree_instance)
+		GameManager.tree_array.append(tree_instance)
 	GameManager.first_area_generated = true
 	ready_to_bake.emit()
 	
