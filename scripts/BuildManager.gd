@@ -3,6 +3,7 @@ extends Node3D
 var House: PackedScene =ResourceLoader.load("res://scenes/building_scenes/house.tscn")
 var Stock: PackedScene=ResourceLoader.load("res://scenes/building_scenes/stock.tscn")
 var Terrarium: PackedScene = ResourceLoader.load("res://scenes/building_scenes/terrarium.tscn")
+var Incubator: PackedScene = ResourceLoader.load("res://scenes/building_scenes/incubator.tscn")
 var able_to_build := true
 var current_spawnable: StaticBody3D
 
@@ -42,6 +43,7 @@ func _physics_process(delta):
 				result.collider.queue_free()
 				houseSceneRemoved.emit(result.collider)
 	if Input.is_action_just_pressed("esc") and not GameManager.current_state == GameManager.State.POV_MODE:
+		GameManager.opened_house_menu = false
 		GameManager.current_state=GameManager.State.PLAY
 		if current_spawnable!=null:
 			current_spawnable.queue_free()
@@ -97,7 +99,6 @@ func _physics_process(delta):
 			if Input.is_action_just_pressed("left_mouse_down") and currentlyMoving and currentlyMovingObject != null:
 				currentlyMovingObject.remove_foliage()
 				currentlyMoving = false
-				print("placed")
 				currentlyMovingObject = null
 			
 		if result.size() > 0 and typeof(cursor_pos)== TYPE_VECTOR3:
@@ -118,6 +119,8 @@ func spawn_stock():
 func spawn_terrarium():
 	spawn_object(Terrarium)
 	
+func spawn_incubator():
+	spawn_object(Incubator)
 	
 func spawn_object(obj):
 	if current_spawnable!=null:

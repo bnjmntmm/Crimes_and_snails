@@ -64,6 +64,8 @@ func _process(delta):
 
 	if Input.is_action_just_pressed("add_snails_command"):
 		GameManager.snails = GameManager.snails +10
+		GameManager.wood = GameManager.wood + 10
+		GameManager.food = GameManager.food + 10
 
 	if Input.is_action_just_released("mouse_wheel_up"):
 		if $Camera.global_position.distance_to(global_position) > 15:
