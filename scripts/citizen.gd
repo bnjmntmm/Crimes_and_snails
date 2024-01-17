@@ -70,6 +70,7 @@ func _ready():
 			set_process(true)
 	pov_camera.position = Vector3(0,0.9,0)
 	add_child(pov_camera)
+	pov_camera.current = false
 	waterParticles = waterParticlesPrefab.instantiate()
 	pov_camera.add_child(waterParticles)
 	waterParticles.position = pov_camera.position + Vector3(1,-1,0)
@@ -109,8 +110,10 @@ func _process(delta):
 		TASK.WALKING:
 			move_along_path()
 		TASK.GETTING_FOOD:
-			if GameManager.current_state == GameManager.State.POV_MODE:
-				return
+#			await (get_tree().create_timer(2.0).timeout)
+#			if pov_camera.current == true:
+#				current_task= TASK.POV_MODE
+#				return
 			resource_hold_current+=nearest_resource_object.resource_amount_generated
 			nearest_resource_object._on_farmed()
 			current_task = TASK.DELIVERING
@@ -122,7 +125,7 @@ func _process(delta):
 				var nearest_stock = GameManager.stock_array[0]
 				for stock in GameManager.stock_array:
 					if stock.spawned:
-						if stock.global_position.distance_sqaured_to(global_position)<nearest_stock.global_position.distance_squared_to(global_position):
+						if stock.global_position.distance_squared_to(global_position)<nearest_stock.global_position.distance_squared_to(global_position):
 							nearest_stock=stock
 				navigation_agent.target_position=nearest_stock.get_node("SpawnPoint").global_position
 				current_task=TASK.WALKING
@@ -133,7 +136,10 @@ func _process(delta):
 				pov_camera.current = false
 				main_camera.current = true
 				GameManager.current_state = GameManager.State.PLAY
-				current_task = TASK.SEARCHING
+				if  resource_hold_current==0:
+					current_task = TASK.SEARCHING
+				else:
+					current_task = TASK.DELIVERING
 			var input_dir = Input.get_vector("left", "right", "forward", "backward")
 			var walk_direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 			if walk_direction:
@@ -142,7 +148,7 @@ func _process(delta):
 				move_and_slide()
 
 func _input(event):
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and current_task == TASK.POV_MODE:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		pov_camera.rotate_x(-event.relative.y * mouse_sensitivity)
 		# Clamps the POV camera's x rotation to avoid flipping over.
