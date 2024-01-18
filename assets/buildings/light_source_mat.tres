@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cgpajs5n1h6g1"]
+
+[resource]
+resource_name = "Light"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0, 0, 1)
+metallic = 1.0
+emission_enabled = true
+emission = Color(1, 0.756855, 0.243872, 1)
+emission_energy_multiplier = 8.0
+grow_amount = 1.29

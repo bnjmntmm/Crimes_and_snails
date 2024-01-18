@@ -215,7 +215,6 @@ func _on_velocity_computed(safe_velocity: Vector3):
 	velocity = safe_velocity
 	move_and_slide()
 
-
 func _on_clicked(camera, event, position, normal, shape_idx):
 	if Input.is_action_just_released("left_mouse_down") and not GameManager.opened_npc_menu:
 		GameManager.opened_npc_menu = true

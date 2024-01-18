@@ -28,6 +28,7 @@ var numberOfBoughtLands := 0
 var winChecker = WinCondition.new()
 var opened_npc_menu = false
 
+var opened_house_menu = false
 var first_area_generated = false
 
 #### Navigation 
@@ -50,3 +51,5 @@ func _process(delta):
 	var condition = winChecker.checkIfWinCondition()
 	if condition != null:
 		print("Win by: " +str(condition))
+
+		
