@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://cw4byjwjm7swj"]
+
+[ext_resource type="Texture2D" uid="uid://n4qpenebtqlk" path="res://assets/textures/grass_texture/ALBEDO.png" id="1_wfx84"]
+[ext_resource type="Texture2D" uid="uid://cx4b4tjfk8un7" path="res://assets/textures/grass_texture/NormalMap.png" id="2_n3035"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_he8er"]
+albedo_texture = ExtResource("1_wfx84")
+albedo_texture_force_srgb = true
+normal_enabled = true
+normal_scale = 3.67
+normal_texture = ExtResource("2_n3035")
+uv1_scale = Vector3(15, 15, 15)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_d56hh"]
+lightmap_size_hint = Vector2i(82, 82)
+material = SubResource("ORMMaterial3D_he8er")
+size = Vector2(64, 64)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r2w1a"]
+size = Vector3(64, 0.5, 64)
+
+[node name="Plane" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_d56hh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_r2w1a")
