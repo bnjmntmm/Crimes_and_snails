@@ -74,6 +74,8 @@ func _physics_process(delta):
 					if obj.name == "Stock":
 						GameManager.stock_array.append(obj)
 					current_spawnable.remove_foliage()
+					get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()
+					
 					
 			if Input.is_action_just_released("middle_mouse_button"):
 				current_spawnable.rotation_degrees+=Vector3(0,90,0)

@@ -4,7 +4,7 @@ extends StaticBody3D
 
 
 
-var spots_for_workers:=1
+@export var spots_for_workers:=1
 var current_worker_amount:=0
 var resource_amount_generated:=5
 @export var max_times_farmable:=1
@@ -15,7 +15,7 @@ func _ready():
 	pass
 func _on_farmed():
 	current_times_farmed+=1
-	#print("farmed" +  str(self))
+	print("farmed" +  str(self))
 func _on_max_farmed_reached():
 	#label_3d.show()
 	self.is_farmable=false
@@ -26,9 +26,10 @@ func _on_max_farmed_reached():
 	$RespawnTimer.start()
 
 func _process(delta):
-	
-	if current_times_farmed==max_times_farmable and is_farmable:
-		_on_max_farmed_reached()
+	if current_worker_amount>=spots_for_workers:
+		self.is_farmable=false
+	if current_times_farmed==max_times_farmable:
+		_on_max_farmed_reached() 
 		
 	
 			

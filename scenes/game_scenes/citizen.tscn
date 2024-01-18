@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://bssic106xpnsv"]
+[gd_scene load_steps=6 format=3 uid="uid://bssic106xpnsv"]
 
 [ext_resource type="Script" path="res://scripts/citizen.gd" id="1_gmgp7"]
+[ext_resource type="Texture2D" uid="uid://boqdfkwieimai" path="res://assets/textures/HUD/Wood.PNG" id="2_eaq7i"]
+[ext_resource type="ArrayMesh" uid="uid://b4vl5nism6fl3" path="res://assets/char_model/citizen3.obj" id="2_ksmlr"]
+[ext_resource type="Texture2D" uid="uid://m7fmmqm1onun" path="res://assets/textures/HUD/Food.PNG" id="3_hpa0m"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fnhfs"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_ldxj8"]
+height = 1.5
 
 [node name="Citizen" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -15,20 +17,18 @@ script = ExtResource("1_gmgp7")
 walk_speed = 4.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.234451, 0)
 shape = SubResource("CapsuleShape3D_fnhfs")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_ldxj8")
-
-[node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20189, 0)
-billboard = 1
-text = "default"
-font_size = 64
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, -1, 0.1)
+mesh = ExtResource("2_ksmlr")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
 height = 2.0
+debug_enabled = true
+debug_use_custom = true
 debug_path_custom_color = Color(1, 0.0784314, 1, 1)
 debug_path_custom_point_size = 6.38
 
@@ -55,14 +55,79 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -45.5
-offset_top = -96.5
+offset_top = -118.5
 offset_right = 45.5
-offset_bottom = -70.5
+offset_bottom = -92.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Job Change:"
 
+[node name="current_job_label" type="Label" parent="npc_menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.0
+offset_top = -96.5
+offset_right = -30.0
+offset_bottom = -70.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Current:"
+
+[node name="current_job_value" type="Label" parent="npc_menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -94.5
+offset_right = 39.0
+offset_bottom = -71.5
+grow_horizontal = 2
+grow_vertical = 2
+autowrap_mode = 2
+
+[node name="lumberjack_label" type="Label" parent="npc_menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = 25.5
+offset_right = -8.0
+offset_bottom = 48.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+text = "Lumberjack"
+autowrap_mode = 2
+
+[node name="farmer_label" type="Label" parent="npc_menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 26.0
+offset_top = 25.5
+offset_right = 95.0
+offset_bottom = 48.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+text = "Farmer"
+autowrap_mode = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="npc_menu"]
+clip_contents = true
 custom_minimum_size = Vector2(170, 100)
 layout_mode = 1
 anchors_preset = 8
@@ -77,15 +142,19 @@ offset_bottom = 34.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="job_wood" type="Button" parent="npc_menu/HBoxContainer"]
+[node name="job_wood" type="TextureButton" parent="npc_menu/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Wood"
+texture_normal = ExtResource("2_eaq7i")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="job_food" type="Button" parent="npc_menu/HBoxContainer"]
+[node name="job_food" type="TextureButton" parent="npc_menu/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Food"
+texture_normal = ExtResource("3_hpa0m")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="close" type="Button" parent="npc_menu"]
 custom_minimum_size = Vector2(25, 25)
@@ -120,5 +189,7 @@ wait_time = 3.0
 one_shot = true
 
 [connection signal="input_event" from="." to="." method="_on_clicked"]
+[connection signal="button_down" from="npc_menu/HBoxContainer/job_wood" to="." method="_on_job_wood_button_down"]
+[connection signal="button_down" from="npc_menu/HBoxContainer/job_food" to="." method="_on_job_food_button_down"]
 [connection signal="pressed" from="npc_menu/close" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="npc_menu/pov_mode" to="." method="_on_pov_mode_pressed"]

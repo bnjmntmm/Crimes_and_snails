@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cuy5ydshqlq1h"]
+[gd_scene load_steps=17 format=3 uid="uid://cuy5ydshqlq1h"]
 
 [ext_resource type="PackedScene" uid="uid://b5s3s5eubnut4" path="res://scenes/game_scenes/grid.tscn" id="1_e65h0"]
 [ext_resource type="Script" path="res://scripts/CameraMount.gd" id="2_0oeih"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/sabotage_scripts/Fire.gd" id="5_2vvmx"]
 [ext_resource type="Script" path="res://scripts/sabotage_scripts/random_events.gd" id="5_p8rf6"]
 [ext_resource type="Script" path="res://scripts/sabotage_scripts/Tornado.gd" id="7_m144j"]
+[ext_resource type="AudioStream" uid="uid://2u3eyiovgu7y" path="res://audios/background_music.mp3" id="9_8f2j2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d170q"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -75,7 +76,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00121784, 0.0692291)
 script = ExtResource("2_0oeih")
 
 [node name="Camera" type="Camera3D" parent="CameraMount"]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866026, 0, -0.866026, 0.5, 0, 20, 5)
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 20, 5)
 current = true
 near = 2.0
 far = 1000.0
@@ -101,6 +102,11 @@ script = ExtResource("5_2vvmx")
 
 [node name="Tornado" type="Node3D" parent="random_events"]
 script = ExtResource("7_m144j")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_8f2j2")
+volume_db = -10.0
+autoplay = true
 
 [connection signal="grid_generated" from="Grid" to="CameraMount" method="_on_grid_grid_generated"]
 [connection signal="newGridAdded" from="CameraMount" to="CameraMount" method="_on_new_grid_added"]
