@@ -73,4 +73,5 @@ func addNav():
 
 
 func _on_camera_mount_ready_to_bake():
-	navigation_region_3d.bake_navigation_mesh()
+	#der bums hier laggt immernoch
+	navigation_region_3d.bake_navigation_mesh(true)

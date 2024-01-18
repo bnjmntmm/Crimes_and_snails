@@ -244,14 +244,14 @@ func _on_new_grid_added(area_position):
 	for i in range(instance_count):
 		var bush_instance = bush_mesh.instantiate()
 		bush_instance.add_to_group("food")
-		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").add_child(bush_instance,true)
+		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").call_thread_safe("add_child", bush_instance,true)
 		randomize()
 		bush_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 0.5, randi_range(-31,31))
 		GameManager.bush_array.append(bush_instance)
 		
 		var tree_instance = tree_mesh.instantiate()
 		tree_instance.add_to_group("wood")
-		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").add_child(tree_instance,true)
+		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").call_thread_safe("add_child", tree_instance,true)
 		tree_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 0.5, randi_range(-31,31))
 		GameManager.tree_array.append(tree_instance)
 	ready_to_bake.emit() ##this mofo lags :D
@@ -273,14 +273,14 @@ func _on_grid_grid_generated(size):
 	for i in range(instance_count):
 		var bush_instance = bush_mesh.instantiate()
 		bush_instance.add_to_group("food")
-		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").add_child(bush_instance, true)
+		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").call_thread_safe("add_child", bush_instance,true)
 		randomize()
 		bush_instance.transform.origin =  Vector3(randi_range(-size, size), 1.5, randi_range(-size,size))
 		GameManager.bush_array.append(bush_instance)
 		
 		var tree_instance = tree_mesh.instantiate()
 		tree_instance.add_to_group("wood")
-		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").add_child(tree_instance,true)
+		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").call_thread_safe("add_child", tree_instance,true)
 		tree_instance.transform.origin =  Vector3(randi_range(-size, size), 1.5, randi_range(-size,size))
 		GameManager.tree_array.append(tree_instance)
 	GameManager.first_area_generated = true
