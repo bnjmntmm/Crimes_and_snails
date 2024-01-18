@@ -34,7 +34,7 @@ func _ready():
 			var grass_pos = Vector3i(x,1,z)
 			var dirt_pos = Vector3i(x,0,z)
 			gridmap.set_cell_item(grass_pos, 0)
-			gridmap.set_cell_item(dirt_pos, 8)
+			gridmap.set_cell_item(dirt_pos, 1)
 	
 	grid_generated.emit(preGenSize)
 	
