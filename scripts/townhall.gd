@@ -12,6 +12,8 @@ var current_citizen
 var current_pop:=0
 var max_pop:= 10
 
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass

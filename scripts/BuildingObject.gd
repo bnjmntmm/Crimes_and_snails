@@ -44,7 +44,6 @@ func _ready():
 
 func _on_body_entered(body):
 	var bodyName = body.name.rstrip("0123456789")
-	print(body)
 	if bodyName == "Bush" or bodyName == "Tree":
 		collidingObjects.append(body)
 func _on_body_exited(body):
@@ -74,3 +73,9 @@ func remove_foliage():
 			GameManager.bush_array.erase(i)
 		if i.is_in_group("wood"):
 			GameManager.tree_array.erase(i)
+
+
+
+
+func _on_area_mouse_entered():
+	pass # Replace with function body.

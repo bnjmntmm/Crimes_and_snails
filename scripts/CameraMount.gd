@@ -36,9 +36,24 @@ signal ready_to_bake
 var multi_mesh
 var buy_label : Label3D
 
+# Neighbour Areas
+@onready var rightArea = $"../Grid/SelectionCube/NeighbourCheck/Right"
+@onready var topArea = $"../Grid/SelectionCube/NeighbourCheck/Top"
+@onready var leftArea = $"../Grid/SelectionCube/NeighbourCheck/Left"
+@onready var bottomArea = $"../Grid/SelectionCube/NeighbourCheck/Bottom"
+
+#Main Area
+@onready var main_area = $"../Grid/SelectionCube/Area3D"
+
+@onready var play_area = $"../Grid/NavigationRegion3D/PlayArea"
+
+
+var plane_prefab = preload("res://scenes/plane_adding/plane.tscn")
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	grid_map = get_parent().get_node("Grid/BaseGrid")
+	#grid_map = get_parent().get_node("Grid/BaseGrid")
 	buy_label = Label3D.new()
 	buy_label.font_size = 2000
 	buy_label.outline_size = 800
@@ -47,6 +62,9 @@ func _ready():
 	buy_label.position = Vector3(0,4,0)
 	selection_cube.add_child(buy_label)
 	buy_label.visible = false
+	
+	
+	
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -68,6 +86,8 @@ func _process(delta):
 
 	if Input.is_action_just_pressed("add_snails_command"):
 		GameManager.snails = GameManager.snails +10
+		GameManager.wood = GameManager.wood + 10
+		GameManager.food = GameManager.food + 10
 
 	if Input.is_action_just_released("mouse_wheel_up"):
 		zoom-=zoom_speed
@@ -119,44 +139,58 @@ func _process(delta):
 		var raycast_result = space.intersect_ray(ray_query)
 		var grid_cell_pos : Vector3
 		if raycast_result.size() > 0:
-			grid_cell_pos = Vector3(floor(raycast_result.position.x / grid_size) * grid_size, 0, floor(raycast_result.position.z / grid_size) * grid_size)  + Vector3(grid_size / 2,	 0, grid_size / 2)
-			selection_cube.global_transform.origin = grid_cell_pos
-		
-		if can_place_chunk(grid_cell_pos,grid_size):
+			var raycast_position = raycast_result.position
+			var snapped_x = snapped(raycast_position.x, grid_size)
+			var snapped_z = snapped(raycast_position.z, grid_size)
+			grid_cell_pos = Vector3(snapped_x,1,snapped_z)
+			selection_cube.position = grid_cell_pos
+			
+		if can_place_plane():
 			buy_label.visible = true
 		else:
 			buy_label.visible = false
 		buy_label.text = str(GameManager.current_price_for_land)
-		
 		if Input.is_action_just_released("left_mouse_down"):
-			
-			if typeof(grid_cell_pos)== TYPE_VECTOR3:
+			if typeof(grid_cell_pos) == TYPE_VECTOR3:
 				if GameManager.current_price_for_land < GameManager.snails:
-					var can_place = can_place_chunk(grid_cell_pos, grid_size)
-					if can_place:
-						for x in range(grid_size):
-							for z in range(grid_size):
-								var cell_position_grass = Vector3(grid_cell_pos.x - grid_size / 2 + x, 1, grid_cell_pos.z - grid_size / 2 + z)
-								var cell_position_dirt = Vector3(grid_cell_pos.x - grid_size / 2 + x, 0, grid_cell_pos.z - grid_size / 2 + z)
-
-								if grid_map.get_cell_item(cell_position_dirt) == -1 and grid_map.get_cell_item(cell_position_grass) == -1:
-									grid_map.set_cell_item(cell_position_grass, 0)
-									grid_map.set_cell_item(cell_position_dirt, 8)
-									
-								else:
-									pass
-						var new_area_nav_plane=bought_grid_nav_plane.instantiate()
-						navigation_region_3d.add_child(new_area_nav_plane,true)
-						new_area_nav_plane.global_position=grid_cell_pos
-						new_area_nav_plane.global_position+=Vector3(0,1,0)
+					if can_place_plane():
+						var new_plane = plane_prefab.instantiate()
+						new_plane.position = grid_cell_pos + Vector3(0,0.5,0)
+						play_area.add_child(new_plane,true)
 						GameManager.snails = GameManager.snails - GameManager.current_price_for_land
 						newGridAdded.emit(grid_cell_pos)
 						
-			#			updateMinMaxValuesGrid(grid_map)
-					else:
-						print("cannot place new area. must be next to exisiting new area")
+
+#		if Input.is_action_just_released("left_mouse_down"):
+#
+#			if typeof(grid_cell_pos)== TYPE_VECTOR3:
+#				if GameManager.current_price_for_land < GameManager.snails:
+#					var can_place = can_place_chunk(grid_cell_pos, grid_size)
+#					if can_place:
+#						for x in range(grid_size):
+#							for z in range(grid_size):
+#								var cell_position_grass = Vector3(grid_cell_pos.x - grid_size / 2 + x, 1, grid_cell_pos.z - grid_size / 2 + z)
+#								var cell_position_dirt = Vector3(grid_cell_pos.x - grid_size / 2 + x, 0, grid_cell_pos.z - grid_size / 2 + z)
+#
+#								if grid_map.get_cell_item(cell_position_dirt) == -1 and grid_map.get_cell_item(cell_position_grass) == -1:
+#									grid_map.set_cell_item(cell_position_grass, 0)
+#									grid_map.set_cell_item(cell_position_dirt, 8)
+#
+#								else:
+#									pass
+#						var new_area_nav_plane=bought_grid_nav_plane.instantiate()
+#						navigation_region_3d.add_child(new_area_nav_plane,true)
+#						new_area_nav_plane.global_position=grid_cell_pos
+#						new_area_nav_plane.global_position+=Vector3(0,1,0)
+#						GameManager.snails = GameManager.snails - GameManager.current_price_for_land
+#						newGridAdded.emit(grid_cell_pos)
+#
+#			#			updateMinMaxValuesGrid(grid_map)
+#					else:
+#						print("cannot place new area. must be next to exisiting new area")
 	
 func can_place_chunk(area_position: Vector3, chunk_size: int) -> bool:
+	var area3d_check = Area3D.new()
 	var neighbor_positions = [
 		Vector3(area_position.x + chunk_size, 0, area_position.z),
 		Vector3(area_position.x - chunk_size, 0, area_position.z),
@@ -172,6 +206,30 @@ func can_place_chunk(area_position: Vector3, chunk_size: int) -> bool:
 func area_exists(position: Vector3) -> bool:
 	return grid_map.get_cell_item(position) != -1
 
+func can_place_plane():
+	var rightAreaOverlaps = []
+	var topAreaOverlaps = []
+	var leftAreaOverlaps = []
+	var bottomAreaOverlaps = []
+	var selectionOverlaps = []
+	
+	if rightArea.has_overlapping_bodies():
+		rightAreaOverlaps = rightArea.get_overlapping_bodies()
+	if leftArea.has_overlapping_bodies():
+		leftAreaOverlaps = leftArea.get_overlapping_bodies()
+	if topArea.has_overlapping_bodies():
+		topAreaOverlaps = topArea.get_overlapping_bodies()
+	if bottomArea.has_overlapping_bodies():
+		bottomAreaOverlaps = bottomArea.get_overlapping_bodies()
+	if main_area.has_overlapping_bodies():
+		selectionOverlaps = main_area.get_overlapping_bodies()
+		
+	if selectionOverlaps == []:
+		if rightAreaOverlaps != [] or leftAreaOverlaps != [] or topAreaOverlaps != [] or bottomAreaOverlaps != []:
+			return true
+	return false
+
+	
 
 
 ## TODO:
@@ -186,17 +244,17 @@ func _on_new_grid_added(area_position):
 	for i in range(instance_count):
 		var bush_instance = bush_mesh.instantiate()
 		bush_instance.add_to_group("food")
-		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").add_child(bush_instance,true)
+		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").call_thread_safe("add_child", bush_instance,true)
 		randomize()
-		bush_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 1.5, randi_range(-31,31))
+		bush_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 0.5, randi_range(-31,31))
 		GameManager.bush_array.append(bush_instance)
 		
 		var tree_instance = tree_mesh.instantiate()
 		tree_instance.add_to_group("wood")
-		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").add_child(tree_instance,true)
-		tree_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 1.5, randi_range(-31,31))
+		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").call_thread_safe("add_child", tree_instance,true)
+		tree_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 0.5, randi_range(-31,31))
 		GameManager.tree_array.append(tree_instance)
-	ready_to_bake.emit()
+	ready_to_bake.emit() ##this mofo lags :D
 
 	
 	
@@ -215,14 +273,14 @@ func _on_grid_grid_generated(size):
 	for i in range(instance_count):
 		var bush_instance = bush_mesh.instantiate()
 		bush_instance.add_to_group("food")
-		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").add_child(bush_instance, true)
+		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").call_thread_safe("add_child", bush_instance,true)
 		randomize()
 		bush_instance.transform.origin =  Vector3(randi_range(-size, size), 1.5, randi_range(-size,size))
 		GameManager.bush_array.append(bush_instance)
 		
 		var tree_instance = tree_mesh.instantiate()
 		tree_instance.add_to_group("wood")
-		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").add_child(tree_instance,true)
+		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").call_thread_safe("add_child", tree_instance,true)
 		tree_instance.transform.origin =  Vector3(randi_range(-size, size), 1.5, randi_range(-size,size))
 		GameManager.tree_array.append(tree_instance)
 	GameManager.first_area_generated = true
