@@ -40,6 +40,9 @@ func _physics_process(delta):
 			if result.collider.is_in_group("building") or result.collider.is_in_group("stock"):
 				#result.collider.run_despawn()
 				result.collider.queue_free()
+				if result.collider.name.contains("House"):
+					GameManager.houses_built-=1
+					
 				houseSceneRemoved.emit(result.collider)
 	if Input.is_action_just_pressed("esc") and not GameManager.current_state == GameManager.State.POV_MODE:
 		GameManager.current_state=GameManager.State.PLAY
@@ -62,15 +65,19 @@ func _physics_process(delta):
 			if able_to_build:
 				if Input.is_action_just_released("left_mouse_down"):	
 					var obj:=current_spawnable.duplicate()
-					get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").add_child(obj)
+					
+					get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").add_child(obj,true)
 					obj.active_buildable_object=false
 					#obj.run_spawn()
 					obj.spawned=true
 					obj.set_disabled(false)
 					houseSceneAdded.emit(obj)
+					
 					obj.global_position=current_spawnable.global_position
 					if obj.name == "Stock":
 						GameManager.stock_array.append(obj)
+					if obj.name.contains("House"):
+						GameManager.houses_built+=1
 					current_spawnable.remove_foliage()
 					get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()
 					
@@ -99,7 +106,6 @@ func _physics_process(delta):
 			if Input.is_action_just_pressed("left_mouse_down") and currentlyMoving and currentlyMovingObject != null:
 				currentlyMovingObject.remove_foliage()
 				currentlyMoving = false
-				print("placed")
 				currentlyMovingObject = null
 			
 		if result.size() > 0 and typeof(cursor_pos)== TYPE_VECTOR3:
@@ -113,7 +119,10 @@ func _physics_process(delta):
 		
 		
 func spawn_house():
+	
+	
 	spawn_object(House)
+	
 	
 func spawn_stock():
 	spawn_object(Stock)

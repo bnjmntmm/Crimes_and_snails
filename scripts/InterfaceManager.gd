@@ -9,7 +9,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$BuildMenu/HBoxContainer2/RessourceValues/SnailsValue.text=str(GameManager.snails)
-	$BuildMenu/HBoxContainer2/RessourceValues/HappinessValue.text=str(GameManager.happiness)
+	$BuildMenu/HBoxContainer2/RessourceValues/HappinessValue.text=str(GameManager.inspiration)
 	$BuildMenu/HBoxContainer2/RessourceValues/FoodValue.text=str(GameManager.food)
 	$BuildMenu/HBoxContainer2/RessourceValues/WoodValue.text=str(GameManager.wood)
 	$BuildMenu/HBoxContainer2/RessourceValues/PlanksValue.text=str(GameManager.planks)

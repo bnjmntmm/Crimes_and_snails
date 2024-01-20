@@ -16,10 +16,11 @@ var wood:=0
 var planks:=0
 var snails:=0
 var happiness:=0
-
+var inspiration:=0
 var population:=0
-var max_population
-var available_population
+var houses_built:=0
+
+
 var citizen: PackedScene
 
 var current_price_for_land:= 10
@@ -47,6 +48,7 @@ var npc_in_charge = null
 
 #Question: Pause the Game? Make a hud visible to "continue" or stop? Maybe a Score? Idk
 func _process(delta):
+	
 	var condition = winChecker.checkIfWinCondition()
 	if condition != null:
 		print("Win by: " +str(condition))
