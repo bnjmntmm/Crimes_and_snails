@@ -14,7 +14,7 @@ floor_stop_on_slope = false
 floor_block_on_wall = false
 safe_margin = 0.05
 script = ExtResource("1_gmgp7")
-walk_speed = 4.0
+walk_speed = 110.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.234451, 0)

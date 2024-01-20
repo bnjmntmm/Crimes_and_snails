@@ -3,8 +3,12 @@ extends Node3D
 @onready var citizen=ResourceLoader.load("res://scenes/game_scenes/citizen.tscn")
 @onready var check_for_tree_and_bush = $CheckForTreeAndBush
 @onready var navigation_region_3d = $".."
+@onready var inspiration_resource_timer = $InspirationResourceTimer
 
 
+@export var citizen_food_consumption:=5
+#each house can take 10 citizens
+@export var citizen_housing_needs:=10
 var spawn_ready:=false
 var spawn_timer:=0.0
 var spawn_interval:=3.0
@@ -25,7 +29,7 @@ func run_spawn():
 	get_tree().root.add_child(current_citizen,true)
 	current_citizen.spawn_point=$SpawnPoint
 	current_citizen.global_position=$SpawnPoint.global_position
-	current_pop+=1
+	GameManager.population+=1
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if spawn_ready and current_pop<max_pop:
@@ -50,5 +54,20 @@ func _on_check_for_tree_and_bush_body_entered(body):
 		GameManager.tree_array.erase(body)
 		body.queue_free()
 		print(str(body) + " removed")
+		
+	
+func calculate_happy_citizens():
+	var citizens_with_enough_food=min(GameManager.food/citizen_food_consumption,GameManager.population)
+	var citizen_with_house=min(GameManager.houses_built*citizen_housing_needs,GameManager.population)
+	var happy_citizens=min(citizens_with_enough_food,citizen_with_house)
+	return happy_citizens
+
+func _on_inspiration_resource_timer_timeout():
+	
+	if (GameManager.food-(GameManager.population*citizen_food_consumption))>0:
+		GameManager.inspiration+=calculate_happy_citizens()
+		GameManager.food-=GameManager.population*citizen_food_consumption
+		
+		
 		
 	
