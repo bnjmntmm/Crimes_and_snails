@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bpnpmmv5fil5h"]
+[gd_scene load_steps=5 format=3 uid="uid://bpnpmmv5fil5h"]
 
 [ext_resource type="ArrayMesh" uid="uid://8un68pqrni0o" path="res://assets/nature/bush_mesh.res" id="1_c6qkh"]
 [ext_resource type="Script" path="res://scripts/ResourceObject.gd" id="1_l2leq"]
+[ext_resource type="AudioStream" uid="uid://cn18kjmk4vtc" path="res://audios/harvest_bush.wav" id="3_xtnob"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_lgafk"]
 radius = 0.828389
@@ -32,5 +33,11 @@ font_size = 64
 [node name="RespawnTimer" type="Timer" parent="."]
 wait_time = 20.0
 one_shot = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_xtnob")
+volume_db = -10.0
+unit_size = 20.0
+attenuation_filter_cutoff_hz = 20500.0
 
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]

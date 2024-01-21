@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bssic106xpnsv"]
+[gd_scene load_steps=7 format=3 uid="uid://bssic106xpnsv"]
 
 [ext_resource type="Script" path="res://scripts/citizen.gd" id="1_gmgp7"]
 [ext_resource type="Texture2D" uid="uid://boqdfkwieimai" path="res://assets/textures/HUD/Wood.PNG" id="2_eaq7i"]
 [ext_resource type="ArrayMesh" uid="uid://b4vl5nism6fl3" path="res://assets/char_model/citizen3.obj" id="2_ksmlr"]
 [ext_resource type="Texture2D" uid="uid://m7fmmqm1onun" path="res://assets/textures/HUD/Food.PNG" id="3_hpa0m"]
+[ext_resource type="AudioStream" uid="uid://cn7unbt2wc0qr" path="res://audios/wusch.wav" id="5_w32un"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fnhfs"]
 height = 1.5
@@ -187,6 +188,10 @@ text = "POV"
 [node name="ExtinguishTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_w32un")
+volume_db = -10.0
 
 [connection signal="input_event" from="." to="." method="_on_clicked"]
 [connection signal="button_down" from="npc_menu/HBoxContainer/job_wood" to="." method="_on_job_wood_button_down"]

@@ -1,6 +1,7 @@
 extends Node3D
 
 
+@onready var audio_stream_player = $AudioStreamPlayer3D
 
 
 @export var can_spawn_actor :=true

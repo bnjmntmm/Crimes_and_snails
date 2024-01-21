@@ -4,6 +4,7 @@ var sabotageEvents : Array
 var housesInScenes : Array
 
 var previousSabotagedHouse = null
+signal sabotage_started
 
 #5 way to low. 45s atleast
 @export var sabotageCheckInterval = 5
@@ -50,6 +51,7 @@ func check_if_sabotage_valid():
 		
 		
 func start_sabotage(obj, sabotage_type):
+	sabotage_started.emit()
 	print(str(obj)+ "wird sabotiert mit: " + str(sabotage_type))
 	if sabotage_type.name == "Fire":
 		obj.isBurning = true

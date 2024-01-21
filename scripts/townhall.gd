@@ -3,6 +3,7 @@ extends Node3D
 @onready var citizen=ResourceLoader.load("res://scenes/game_scenes/citizen.tscn")
 @onready var check_for_tree_and_bush = $CheckForTreeAndBush
 @onready var navigation_region_3d = $".."
+@onready var audio_stream_player = $AudioStreamPlayer3D
 
 
 var spawn_ready:=false
@@ -52,3 +53,15 @@ func _on_check_for_tree_and_bush_body_entered(body):
 		print(str(body) + " removed")
 		
 	
+
+
+func _on_random_events_sabotage_started():
+	audio_stream_player.play(0)
+
+
+func _on_fire_sabotage_stopped():
+	audio_stream_player.stop()
+
+
+func _on_tornado_sabotage_stopped():
+	audio_stream_player.stop()

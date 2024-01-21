@@ -5,6 +5,7 @@ extends CharacterBody3D
 @onready var main_camera = get_viewport().get_camera_3d()
 @onready var npc_menu = $npc_menu
 @onready var current_job_value = $npc_menu/current_job_value
+@onready var audio_stream_player = $AudioStreamPlayer
 
 
 var waterParticlesPrefab = preload("res://assets/particles/water_extinguish.tscn")
@@ -131,7 +132,7 @@ func _process(delta):
 				current_task=TASK.WALKING
 		TASK.POV_MODE:
 			if Input.is_action_just_pressed("esc"):
-		
+				audio_stream_player.play()
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 				pov_camera.current = false
 				main_camera.current = true
@@ -229,16 +230,17 @@ func _on_close_button_pressed():
 
 
 func _on_pov_mode_pressed():
-		npc_menu.visible = false
-		GameManager.opened_npc_menu = false
-		main_camera.current = false
-		pov_camera.current = true
-		navigation_agent.target_position = global_position
-		navigation_agent.get_next_path_position()
-		GameManager.current_state = GameManager.State.POV_MODE
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		current_task = TASK.POV_MODE
-		GameManager.npc_in_charge = self
+	audio_stream_player.play()
+	npc_menu.visible = false
+	GameManager.opened_npc_menu = false
+	main_camera.current = false
+	pov_camera.current = true
+	navigation_agent.target_position = global_position
+	navigation_agent.get_next_path_position()
+	GameManager.current_state = GameManager.State.POV_MODE
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	current_task = TASK.POV_MODE
+	GameManager.npc_in_charge = self
 
 
 
