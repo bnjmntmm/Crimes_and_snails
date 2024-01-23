@@ -6,9 +6,17 @@ extends CharacterBody3D
 @onready var npc_menu = $npc_menu
 @onready var current_job_value = $npc_menu/current_job_value
 
-
+@onready var animation_tree = $citizen_root/AnimationTreeNormalCit
 var waterParticlesPrefab = preload("res://assets/particles/water_extinguish.tscn")
 @onready var extinguish_timer = $ExtinguishTimer
+
+## OTHER MATERIAL AND CLOTHING
+var blue_skin = preload("res://assets/char_model/blue_skin.tres")
+var yellow_skin = preload("res://assets/char_model/yellow_skin.tres")
+var orange_skin = preload("res://assets/char_model/orange_skin.tres")
+
+var skin_array = [blue_skin, yellow_skin, orange_skin]
+@onready var body := $citizen_root/Citizen/Skeleton3D/Body
 
 
 enum TASK{
@@ -39,6 +47,18 @@ var nearest_resource_object:Node3D
 var waterParticles : Node3D
 var currentHouse = null
 
+var lastRot = 0
+
+var anim_pos_dict = {
+	"melking" : Vector2(0,1.1),
+	"walking" : Vector2(1,0),
+	"working" : Vector2(0,-1.1),
+	"strutting": Vector2(-1,0),
+	"busy" : Vector2(0,0)
+}
+@onready var citizen_root = $citizen_root
+
+
 
 # Path
 var path = []
@@ -46,6 +66,9 @@ var allowWater = false
 
 func _ready():
 	randomize()
+	animation_tree.active = true
+	body.set_surface_override_material(0, skin_array.pick_random())
+	
 	current_job=JOB.find_key(randi_range(0,1))
 	match current_job:
 		"food":current_job_value.text="Farmer"
@@ -92,6 +115,10 @@ func move_along_path():
 			current_task=TASK.SEARCHING
 		return
 	var next_path_position : Vector3 = navigation_agent.get_next_path_position()
+	#var angleToNextPoint =  citizen_root.global_position.angle_to(next_path_position)
+	var lookAtPos := next_path_position
+	citizen_root.look_at(Vector3(lookAtPos.x, 1.53,lookAtPos.z), Vector3(0,1,0), true)
+	#citizen_root.look_at(next_path_position, Vector3(0,1,0), true)
 	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * walk_speed
 	if navigation_agent.avoidance_enabled:
 		navigation_agent.set_velocity(new_velocity)
@@ -102,6 +129,7 @@ func move_along_path():
 func _process(delta):
 	match current_task:
 		TASK.SEARCHING:
+			update_animation_tree(anim_pos_dict["busy"])
 			if current_job == "food":
 				calc_new_resource_to_get(GameManager.bush_array)
 			if current_job == "wood":
@@ -109,14 +137,25 @@ func _process(delta):
 	
 		TASK.WALKING:
 			move_along_path()
+			update_animation_tree(anim_pos_dict["walking"])
 		TASK.GETTING_FOOD:
-#			await (get_tree().create_timer(2.0).timeout)
-#			if pov_camera.current == true:
-#				current_task= TASK.POV_MODE
-#				return
-			resource_hold_current+=nearest_resource_object.resource_amount_generated
-			nearest_resource_object._on_farmed()
-			current_task = TASK.DELIVERING
+			if run_once:
+				run_once = false
+				var randomInt = randi_range(0,1)
+				if randomInt == 1:
+					update_animation_tree(anim_pos_dict["working"])
+				else:
+					update_animation_tree(anim_pos_dict["melking"])
+				citizen_root.look_at(nearest_resource_object.global_position, Vector3(0,1,0), true)
+				await (get_tree().create_timer(2.0).timeout)
+				update_animation_tree(anim_pos_dict["walking"])
+				run_once = true
+	#			if pov_camera.current == true:
+	#				current_task= TASK.POV_MODE
+	#				return
+				resource_hold_current+=nearest_resource_object.resource_amount_generated
+				nearest_resource_object._on_farmed()
+				current_task = TASK.DELIVERING
 		TASK.DELIVERING:
 			if GameManager.stock_array.is_empty():
 				navigation_agent.target_position = spawn_point.global_position
@@ -251,3 +290,6 @@ func _on_job_wood_button_down():
 func _on_job_food_button_down():
 	current_job=JOB.find_key(0)
 	current_job_value.text="Farmer"
+
+func update_animation_tree(newPos : Vector2):
+	animation_tree["parameters/BlendSpace/blend_position"] = newPos
