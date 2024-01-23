@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://biqufrv3lsepk"]
+[gd_scene load_steps=11 format=3 uid="uid://biqufrv3lsepk"]
 
 [ext_resource type="PackedScene" uid="uid://cb0hijopqc2kv" path="res://assets/buildings/incubator.glb" id="1_8menp"]
 [ext_resource type="Script" path="res://scripts/BuildingObject.gd" id="1_ga4l1"]
 [ext_resource type="Material" uid="uid://cgpajs5n1h6g1" path="res://assets/buildings/light_source_mat.tres" id="2_26dt2"]
 [ext_resource type="Material" uid="uid://bmmp1mui471yc" path="res://assets/buildings/incubator_glass.tres" id="2_g6lfe"]
 [ext_resource type="Shader" path="res://assets/buildings/house_glass.gdshader" id="5_wopul"]
+[ext_resource type="AudioStream" uid="uid://c6v8o8bd0lv2l" path="res://audios/fire.wav" id="6_e0wn4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ex50q"]
 render_priority = 0
@@ -244,6 +245,11 @@ script = SubResource("GDScript_u4trq")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.27663, 3.03294, 0.346907)
 shape = SubResource("BoxShape3D_msql3")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_e0wn4")
+unit_size = 30.0
+attenuation_filter_cutoff_hz = 20500.0
 
 [connection signal="mouse_entered" from="Area" to="Area" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Area" to="Area" method="_on_mouse_exited"]
