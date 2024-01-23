@@ -10,6 +10,7 @@ radius = 0.828389
 [node name="Bush" type="StaticBody3D" node_paths=PackedStringArray("mesh") groups=["food"]]
 script = ExtResource("1_l2leq")
 mesh = NodePath("bush1berries")
+resource_amount_generated = 100
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.951771, -0.306808, 0, 0.306808, 0.951771, 0, 0, 0, 1, 0, 0.5, 0)
@@ -20,6 +21,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="berry" type="MeshInstance3D" parent="bush1berries"]
 transform = Transform3D(0.0473349, 0, 0, 0, 0.0473349, 0, 0, 0, 0.0473349, 0, 0.912118, 0.174693)
+lod_bias = 0.25
 mesh = ExtResource("1_c6qkh")
 skeleton = NodePath("")
 

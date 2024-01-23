@@ -6,7 +6,7 @@ extends StaticBody3D
 
 @export var spots_for_workers:=1
 var current_worker_amount:=0
-var resource_amount_generated:=5
+@export var resource_amount_generated:=5
 @export var max_times_farmable:=1
 var current_times_farmed:=0
 var is_farmable:=true
