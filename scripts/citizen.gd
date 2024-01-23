@@ -17,6 +17,12 @@ var orange_skin = preload("res://assets/char_model/orange_skin.tres")
 
 var skin_array = [blue_skin, yellow_skin, orange_skin]
 @onready var body := $citizen_root/Citizen/Skeleton3D/Body
+@onready var citizen_root = $citizen_root
+
+@onready var criminalclothing = $citizen_root/Citizen/Skeleton3D/Criminalclothing
+@onready var criminalhat = $citizen_root/Citizen/Skeleton3D/Criminalhat
+@onready var normalclothing = $citizen_root/Citizen/Skeleton3D/Normalclothing
+@onready var normalhat = $citizen_root/Citizen/Skeleton3D/Normalhat
 
 
 enum TASK{
@@ -56,8 +62,6 @@ var anim_pos_dict = {
 	"strutting": Vector2(-1,0),
 	"busy" : Vector2(0,0)
 }
-@onready var citizen_root = $citizen_root
-
 
 
 # Path
@@ -68,6 +72,9 @@ func _ready():
 	randomize()
 	animation_tree.active = true
 	body.set_surface_override_material(0, skin_array.pick_random())
+	
+	
+	#change_to_criminal()
 	
 	current_job=JOB.find_key(randi_range(0,1))
 	match current_job:
@@ -169,8 +176,9 @@ func _process(delta):
 				navigation_agent.target_position=nearest_stock.get_node("SpawnPoint").global_position
 				current_task=TASK.WALKING
 		TASK.POV_MODE:
+			animation_tree.active = false
 			if Input.is_action_just_pressed("esc"):
-		
+				animation_tree.active = true
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 				pov_camera.current = false
 				main_camera.current = true
@@ -293,3 +301,14 @@ func _on_job_food_button_down():
 
 func update_animation_tree(newPos : Vector2):
 	animation_tree["parameters/BlendSpace/blend_position"] = newPos
+
+func change_to_criminal():
+	criminalclothing.visible = true
+	criminalhat.visible = true
+	normalclothing.visible = false
+	normalhat.visible = false
+func change_to_normal():
+	criminalclothing.visible = false
+	criminalhat.visible = false
+	normalclothing.visible = true
+	normalhat.visible = true
