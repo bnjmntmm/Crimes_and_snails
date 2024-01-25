@@ -1,5 +1,4 @@
 extends Node3D
-var mesh_lib_src : MeshLibrary= preload("res://assets/grid_blocks/tileMap.tres")
 @onready var navigation_region_3d = $NavigationRegion3D
 @onready var plane_mesh := preload("res://scenes/plane_adding/plane.tscn")
 @onready var play_area = $NavigationRegion3D/PlayArea
@@ -54,19 +53,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-	
-	
-func addNav():
-	var gridmap_item_list : PackedInt32Array = mesh_lib_src.get_item_list()
-	for item in gridmap_item_list:
-		var new_item_navigation_mesh : NavigationMesh = NavigationMesh.new()
-		new_item_navigation_mesh.vertices = PackedVector3Array([
-		Vector3(-1.0, 0.0, 1.0),
-		Vector3(1.0, 0.0, 1.0),
-		Vector3(1.0, 0.0, -1.0),
-		Vector3(-1.0, 0.0, -1.0),])
-		new_item_navigation_mesh.add_polygon(PackedInt32Array([0, 1, 2, 3]))
-		mesh_lib_src.set_item_navigation_mesh(item, new_item_navigation_mesh)
+
 	
 
 		
