@@ -31,7 +31,6 @@ var maxZGrid
 var minZGrid
 
 signal newGridAdded(area_position)
-signal ready_to_bake
 
 var multi_mesh
 var buy_label : Label3D
@@ -45,7 +44,7 @@ var buy_label : Label3D
 #Main Area
 @onready var main_area = $"../Grid/SelectionCube/Area3D"
 
-@onready var play_area = $"../Grid/NavigationRegion3D/PlayArea"
+@onready var play_area = $"../Grid/PlayArea"
 
 
 var plane_prefab = preload("res://scenes/plane_adding/plane.tscn")
@@ -158,37 +157,9 @@ func _process(delta):
 						new_plane.position = grid_cell_pos + Vector3(0,0.5,0)
 						play_area.add_child(new_plane,true)
 						GameManager.snails = GameManager.snails - GameManager.current_price_for_land
-						newGridAdded.emit(grid_cell_pos)
-						
+						newGridAdded.emit(new_plane)
 
-#		if Input.is_action_just_released("left_mouse_down"):
-#
-#			if typeof(grid_cell_pos)== TYPE_VECTOR3:
-#				if GameManager.current_price_for_land < GameManager.snails:
-#					var can_place = can_place_chunk(grid_cell_pos, grid_size)
-#					if can_place:
-#						for x in range(grid_size):
-#							for z in range(grid_size):
-#								var cell_position_grass = Vector3(grid_cell_pos.x - grid_size / 2 + x, 1, grid_cell_pos.z - grid_size / 2 + z)
-#								var cell_position_dirt = Vector3(grid_cell_pos.x - grid_size / 2 + x, 0, grid_cell_pos.z - grid_size / 2 + z)
-#
-#								if grid_map.get_cell_item(cell_position_dirt) == -1 and grid_map.get_cell_item(cell_position_grass) == -1:
-#									grid_map.set_cell_item(cell_position_grass, 0)
-#									grid_map.set_cell_item(cell_position_dirt, 8)
-#
-#								else:
-#									pass
-#						var new_area_nav_plane=bought_grid_nav_plane.instantiate()
-#						navigation_region_3d.add_child(new_area_nav_plane,true)
-#						new_area_nav_plane.global_position=grid_cell_pos
-#						new_area_nav_plane.global_position+=Vector3(0,1,0)
-#						GameManager.snails = GameManager.snails - GameManager.current_price_for_land
-#						newGridAdded.emit(grid_cell_pos)
-#
-#			#			updateMinMaxValuesGrid(grid_map)
-#					else:
-#						print("cannot place new area. must be next to exisiting new area")
-	
+
 func can_place_chunk(area_position: Vector3, chunk_size: int) -> bool:
 	var area3d_check = Area3D.new()
 	var neighbor_positions = [
@@ -239,23 +210,23 @@ func can_place_plane():
 # Für die NPC's Angehbar?
 	# -> Bereich dann invisible und nach zeit wieder visible?
 
-func _on_new_grid_added(area_position):
+func _on_new_grid_added(body : StaticBody3D):
 	var instance_count = 5
 	for i in range(instance_count):
 		var bush_instance = bush_mesh.instantiate()
 		bush_instance.add_to_group("food")
-		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").call_thread_safe("add_child", bush_instance,true)
+		get_parent().get_node("Grid/PlayArea").get_node(str(body)).get_child(0).get_child(1).call_thread_safe("add_child", bush_instance,true)
 		randomize()
-		bush_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 0.5, randi_range(-31,31))
+		bush_instance.global_position =  body.global_position + Vector3(randi_range(-32,32),0,randi_range(-32,32))
 		GameManager.bush_array.append(bush_instance)
 		
 		var tree_instance = tree_mesh.instantiate()
 		tree_instance.add_to_group("wood")
-		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").call_thread_safe("add_child", tree_instance,true)
-		tree_instance.transform.origin = area_position + Vector3(randi_range(-31, 31), 0.5, randi_range(-31,31))
+		get_parent().get_node("Grid/PlayArea").get_node(str(body)).get_child(0).get_child(1).call_thread_safe("add_child", tree_instance,true)
+		tree_instance.global_position =  body.global_position + Vector3(randi_range(-32,32),0,randi_range(-32,32))
 		GameManager.tree_array.append(tree_instance)
-	ready_to_bake.emit() ##this mofo lags :D
-
+	#ready_to_bake.emit() ##this mofo lags :D
+	#call_deferred("bake_nav",body)
 	
 	
 	#Exponential Growth
@@ -266,23 +237,23 @@ func _on_new_grid_added(area_position):
 	
 
 
-func _on_grid_grid_generated(size):	
+func _on_grid_grid_generated(body: StaticBody3D):	
 	
-	var instance_count = 50
+	var instance_count = 5
 	
 	for i in range(instance_count):
 		var bush_instance = bush_mesh.instantiate()
 		bush_instance.add_to_group("food")
-		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Bushes").call_thread_safe("add_child", bush_instance,true)
+		get_parent().get_node("Grid/PlayArea").get_node(str(body)).get_child(0).get_child(1).call_thread_safe("add_child", bush_instance,true)
 		randomize()
-		bush_instance.transform.origin =  Vector3(randi_range(-size, size), 1.5, randi_range(-size,size))
+		bush_instance.global_position =  body.global_position + Vector3(randi_range(-32,32),0,randi_range(-32,32))
 		GameManager.bush_array.append(bush_instance)
 		
 		var tree_instance = tree_mesh.instantiate()
 		tree_instance.add_to_group("wood")
-		get_parent().get_node("Grid/NavigationRegion3D/MultiMeshes/Trees").call_thread_safe("add_child", tree_instance,true)
-		tree_instance.transform.origin =  Vector3(randi_range(-size, size), 1.5, randi_range(-size,size))
+		get_parent().get_node("Grid/PlayArea").get_node(str(body)).get_child(0).get_child(1).call_thread_safe("add_child", tree_instance,true)
+		tree_instance.global_position =  body.global_position + Vector3(randi_range(-32,32),0,randi_range(-32,32))
 		GameManager.tree_array.append(tree_instance)
 	GameManager.first_area_generated = true
-	ready_to_bake.emit()
-	
+	#ready_to_bake.emit()
+	body.bake_nav()

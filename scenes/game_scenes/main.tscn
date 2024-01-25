@@ -93,6 +93,8 @@ shape = SubResource("BoxShape3D_bnwa1")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Grid"]
 navigation_mesh = SubResource("NavigationMesh_vlt3o")
+enabled = false
+navigation_layers = 2
 
 [node name="MultiMeshes" type="Node3D" parent="Grid/NavigationRegion3D"]
 
@@ -104,7 +106,7 @@ navigation_mesh = SubResource("NavigationMesh_vlt3o")
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.5, 0)
 collision_layer = 0
 
-[node name="PlayArea" type="Node3D" parent="Grid/NavigationRegion3D"]
+[node name="PlayArea" type="Node3D" parent="Grid"]
 
 [node name="CameraMount" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00121784, 0.0692291)
@@ -145,7 +147,6 @@ autoplay = true
 
 [connection signal="grid_generated" from="Grid" to="CameraMount" method="_on_grid_grid_generated"]
 [connection signal="newGridAdded" from="CameraMount" to="CameraMount" method="_on_new_grid_added"]
-[connection signal="ready_to_bake" from="CameraMount" to="Grid" method="_on_camera_mount_ready_to_bake"]
 [connection signal="sabotage_started" from="random_events" to="Grid/NavigationRegion3D/Townhall" method="_on_random_events_sabotage_started"]
 [connection signal="sabotage_stopped" from="random_events/Fire" to="Grid/NavigationRegion3D/Townhall" method="_on_fire_sabotage_stopped"]
 [connection signal="sabotage_stopped" from="random_events/Tornado" to="Grid/NavigationRegion3D/Townhall" method="_on_tornado_sabotage_stopped"]

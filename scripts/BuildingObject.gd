@@ -7,7 +7,7 @@ extends Node3D
 @export var can_spawn_actor :=true
 @export var actor: PackedScene
 
-
+ 
 @export var wood_cost: int
 @export var plank_cost: int
 @export var food_cost: int
@@ -29,6 +29,10 @@ var tornado_scene = null
 #Foliage Array to remove when house is placed
 var collidingObjects := []
 
+@onready var right_cast := $NavPlaneCheck/RightCast
+@onready var left_cast := $NavPlaneCheck/LeftCast
+@onready var up_cast := $NavPlaneCheck/UpCast
+@onready var down_cast := $NavPlaneCheck/DownCast
 
 
 func _ready():
@@ -80,3 +84,13 @@ func remove_foliage():
 
 func _on_area_mouse_entered():
 	pass # Replace with function body.
+
+#RAYCASTS
+func get_right_cast():
+	return right_cast.get_collider()
+func get_left_cast():
+	return left_cast.get_collider()
+func get_up_cast():
+	return up_cast.get_collider()
+func get_down_cast():
+	return down_cast.get_collider()

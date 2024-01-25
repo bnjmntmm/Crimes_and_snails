@@ -1,7 +1,31 @@
-[gd_scene load_steps=6 format=3 uid="uid://cw4byjwjm7swj"]
+[gd_scene load_steps=8 format=3 uid="uid://cw4byjwjm7swj"]
 
 [ext_resource type="Texture2D" uid="uid://n4qpenebtqlk" path="res://assets/textures/grass_texture/ALBEDO.png" id="1_wfx84"]
 [ext_resource type="Texture2D" uid="uid://cx4b4tjfk8un7" path="res://assets/textures/grass_texture/NormalMap.png" id="2_n3035"]
+
+[sub_resource type="GDScript" id="GDScript_igalt"]
+script/source = "extends StaticBody3D
+
+@onready var navigation_region = $NavigationRegion
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+func bake_nav():
+	navigation_region.bake_navigation_mesh(true)
+"
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_p4agj"]
+vertices = PackedVector3Array(-32, 0.5, 24, -32, 0.5, 32, -24, 0.5, 32, 24, 0.5, 32, 32, 0.5, 32, 32, 0.5, 24, 32, 0.5, -24, 32, 0.5, -32, 24, 0.5, -32, -24, 0.5, -32, -32, 0.5, -32, -32, 0.5, -24, -32, 0.5, 16, -32, 0.5, 24, -24, 0.5, 32, 16, 0.5, 32, 24, 0.5, 32, 32, 0.5, 24, 32, 0.5, -16, 32, 0.5, -24, 24, 0.5, -32, 16, 0.5, -32, -16, 0.5, -32, -24, 0.5, -32, -32, 0.5, -24, -32, 0.5, -16, -32, 0.5, 16, -24, 0.5, 32, -16, 0.5, 32, -32, 0.5, 8, 16, 0.5, 32, 32, 0.5, 24, 32, 0.5, 16, 8, 0.5, 32, 32, 0.5, 0, 32, 0.5, -8, 8, 0.5, -32, 0, 0.5, -32, 8, 0.5, 32, 32, 0.5, 16, 32, 0.5, 8, 0, 0.5, 32, 32, 0.5, 0, 0, 0.5, -32, -32, 0.5, 0, -8, 0.5, 32, 0, 0.5, 32, 32, 0.5, 8, 0, 0.5, -32, -8, 0.5, -32, -32, 0.5, -8, -32, 0.5, 0, 32, 0.5, -8, 32, 0.5, -16, 16, 0.5, -32, 8, 0.5, -32, -8, 0.5, -32, -16, 0.5, -32, -32, 0.5, -16, -32, 0.5, -8, -32, 0.5, 8, -16, 0.5, 32, -8, 0.5, 32, -32, 0.5, 0)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9), PackedInt32Array(14, 13, 12), PackedInt32Array(17, 16, 15), PackedInt32Array(19, 18, 20), PackedInt32Array(20, 18, 21), PackedInt32Array(23, 22, 24), PackedInt32Array(24, 22, 25), PackedInt32Array(27, 26, 28), PackedInt32Array(28, 26, 29), PackedInt32Array(31, 30, 32), PackedInt32Array(32, 30, 33), PackedInt32Array(35, 34, 36), PackedInt32Array(36, 34, 37), PackedInt32Array(39, 38, 40), PackedInt32Array(40, 38, 41), PackedInt32Array(47, 46, 42), PackedInt32Array(42, 46, 45), PackedInt32Array(42, 45, 44), PackedInt32Array(42, 44, 43), PackedInt32Array(49, 48, 50), PackedInt32Array(50, 48, 51), PackedInt32Array(53, 52, 54), PackedInt32Array(54, 52, 55), PackedInt32Array(57, 56, 58), PackedInt32Array(58, 56, 59), PackedInt32Array(61, 60, 62), PackedInt32Array(62, 60, 63)]
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_he8er"]
 albedo_texture = ExtResource("1_wfx84")
@@ -14,15 +38,22 @@ uv1_scale = Vector3(15, 15, 15)
 [sub_resource type="PlaneMesh" id="PlaneMesh_d56hh"]
 lightmap_size_hint = Vector2i(82, 82)
 material = SubResource("ORMMaterial3D_he8er")
-size = Vector2(64, 64)
+size = Vector2(65, 65)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r2w1a"]
 size = Vector3(64, 0.5, 64)
 
 [node name="Plane" type="StaticBody3D"]
+script = SubResource("GDScript_igalt")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="NavigationRegion" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_p4agj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion"]
 mesh = SubResource("PlaneMesh_d56hh")
+skeleton = NodePath("../..")
+
+[node name="MultiMeshes" type="Node3D" parent="NavigationRegion"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)

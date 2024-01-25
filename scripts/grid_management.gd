@@ -1,13 +1,16 @@
 extends Node3D
 @onready var navigation_region_3d = $NavigationRegion3D
+
 @onready var plane_mesh := preload("res://scenes/plane_adding/plane.tscn")
-@onready var play_area = $NavigationRegion3D/PlayArea
+@onready var play_area =$PlayArea
+
+
 
 
 
 # Called when the node enters the scene tree for the first time.
 
-signal grid_generated(size)
+signal grid_generated()
 
 
 var chunk_size = 64
@@ -22,7 +25,8 @@ func _ready():
 			var plane_intantiate = plane_mesh.instantiate()
 			plane_intantiate.global_position = Vector3(x,1.5,z)
 			play_area.add_child(plane_intantiate,true)
-		
+			#call_deferred("emit",grid_generated, plane_intantiate)
+			grid_generated.emit(plane_intantiate)
 			
 #	var gridmap : GridMap = GridMap.new()
 #	add_child(gridmap)
@@ -47,18 +51,8 @@ func _ready():
 	
 	
 	
-	grid_generated.emit(preGenSize)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
-	
-
-		
-
-
-func _on_camera_mount_ready_to_bake():
-	#der bums hier laggt immernoch
-	navigation_region_3d.bake_navigation_mesh(true)

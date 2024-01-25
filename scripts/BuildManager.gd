@@ -22,6 +22,7 @@ class HouseObj:
 	var isTornado : bool = false
 	var isDestroyed: bool = false
 
+var navRegion = []
 
 func _physics_process(delta):
 	if GameManager.current_state==GameManager.State.DESTROY:
@@ -60,6 +61,10 @@ func _physics_process(delta):
 		# Calculate where the mouse ray intersects the XZ plane (at height y of the transform origin).
 		var cursor_pos = Plane(Vector3.UP, 1.5).intersects_ray(from, to)
 		if typeof(cursor_pos)== TYPE_VECTOR3:
+			##CHECK HOUSE NAV REGION
+			checkNavRegionBuilding(current_spawnable)
+		
+		
 		# Set the position of the current spawnable to the intersection point, with adjustments to x and z for snapping to a grid.
 			current_spawnable.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z)) 
 			current_spawnable.active_buildable_object=true
@@ -68,7 +73,8 @@ func _physics_process(delta):
 				if Input.is_action_just_released("left_mouse_down"):	
 					var obj:=current_spawnable.duplicate()
 					
-					get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").add_child(obj,true)
+					#get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").add_child(obj,true)
+					get_tree().root.get_node("main").get_node("Grid").get_node("PlayArea").get_node(str(navRegion[0])).get_child(0).add_child(obj,true)
 					obj.active_buildable_object=false
 					#obj.run_spawn()
 					obj.spawned=true
@@ -81,7 +87,8 @@ func _physics_process(delta):
 					if obj.name.contains("House"):
 						GameManager.houses_built+=1
 					current_spawnable.remove_foliage()
-					get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()
+					bake_nav_planes(navRegion)
+					#get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()
 					
 					
 			if Input.is_action_just_released("middle_mouse_button"):
@@ -141,3 +148,29 @@ func spawn_object(obj):
 	current_spawnable.set_disabled(true)
 	get_tree().root.add_child(current_spawnable)
 	GameManager.current_state=GameManager.State.BUILD
+
+func checkNavRegionBuilding(current : StaticBody3D):
+	navRegion = []
+	var leftCol = null
+	var rightCol = null
+	var upCol = null
+	var downCol = null
+	if current.is_in_group("building"):
+		leftCol = current.get_left_cast()
+		rightCol = current.get_left_cast()
+		upCol = current.get_up_cast()
+		downCol = current.get_down_cast()
+		if typeof(leftCol) == 24 and  typeof(rightCol) == 24 and  typeof(downCol) == 24 and  typeof(upCol) == 24:
+			navRegion = is_in_region([leftCol,rightCol,upCol, downCol], navRegion)
+		
+
+func is_in_region(bodyArray : Array, region : Array):
+	for body in bodyArray:
+		if region.has(body):
+			continue
+		else:
+			region.append(body)
+	return region
+func bake_nav_planes(regionsArray : Array):
+	for region in regionsArray:
+		region.bake_nav()
