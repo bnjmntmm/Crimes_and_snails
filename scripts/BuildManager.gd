@@ -24,6 +24,8 @@ class HouseObj:
 
 var navRegion = []
 
+var allowBake = false
+
 func _physics_process(delta):
 	if GameManager.current_state==GameManager.State.DESTROY:
 		if current_spawnable!=null:
@@ -86,6 +88,7 @@ func _physics_process(delta):
 						GameManager.stock_array.append(obj)
 					if obj.name.contains("House"):
 						GameManager.houses_built+=1
+						obj.old_plane = navRegion[0]
 					current_spawnable.remove_foliage()
 					bake_nav_planes(navRegion)
 					#get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()
@@ -106,16 +109,29 @@ func _physics_process(delta):
 		var result = space_state.intersect_ray(query)
 		var cursor_pos = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
 		
-				
+		var bakePlane = null
+		
 		if currentlyMoving:
 			currentlyMovingObject.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z)) + Vector3(0,1.5,0)
+			if result.size() > 0:
+				var colName = str(result.collider.name).rstrip("0123456789")
+				if colName == "Plane":
+					bakePlane = result.collider
 			if Input.is_action_just_released("middle_mouse_button"):
 				currentlyMovingObject.rotation_degrees+=Vector3(0,90,0)
 			
 			if Input.is_action_just_pressed("left_mouse_down") and currentlyMoving and currentlyMovingObject != null:
+				if bakePlane != null:
+					currentlyMovingObject.reparent(bakePlane.get_child(0))
+					bakePlane.bake_nav()
+					currentlyMovingObject.old_plane.bake_nav()
+					currentlyMovingObject.old_plane = bakePlane
+					
 				currentlyMovingObject.remove_foliage()
 				currentlyMoving = false
 				currentlyMovingObject = null
+
+				
 			
 		if result.size() > 0 and typeof(cursor_pos)== TYPE_VECTOR3:
 			if result.collider.is_in_group("building") or result.collider.is_in_group("stock"):

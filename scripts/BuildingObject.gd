@@ -29,6 +29,8 @@ var tornado_scene = null
 #Foliage Array to remove when house is placed
 var collidingObjects := []
 
+var old_plane = null
+
 @onready var right_cast := $NavPlaneCheck/RightCast
 @onready var left_cast := $NavPlaneCheck/LeftCast
 @onready var up_cast := $NavPlaneCheck/UpCast

@@ -227,7 +227,7 @@ func _on_new_grid_added(body : StaticBody3D):
 		GameManager.tree_array.append(tree_instance)
 	#ready_to_bake.emit() ##this mofo lags :D
 	#call_deferred("bake_nav",body)
-	
+	body.bake_nav()
 	
 	#Exponential Growth
 	GameManager.numberOfBoughtLands += 1
