@@ -45,6 +45,7 @@ var current_task=TASK.SEARCHING
 var current_job=JOB.food
 var run_once:=true
 var spawn_point
+var is_collecting :=false
 
 var mouse_sensitivity = 0.002
 
@@ -155,7 +156,9 @@ func _process(delta):
 				else:
 					update_animation_tree(anim_pos_dict["melking"])
 				citizen_root.look_at(nearest_resource_object.global_position, Vector3(0,1,0), true)
+				is_collecting = true
 				await (get_tree().create_timer(2.0).timeout)
+				is_collecting = false
 				update_animation_tree(anim_pos_dict["walking"])
 				run_once = true
 	#			if pov_camera.current == true:
@@ -278,17 +281,18 @@ func _on_close_button_pressed():
 
 
 func _on_pov_mode_pressed():
-	audio_stream_player.play()
-	npc_menu.visible = false
-	GameManager.opened_npc_menu = false
-	main_camera.current = false
-	pov_camera.current = true
-	navigation_agent.target_position = global_position
-	navigation_agent.get_next_path_position()
-	GameManager.current_state = GameManager.State.POV_MODE
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	current_task = TASK.POV_MODE
-	GameManager.npc_in_charge = self
+	if !is_collecting:
+		audio_stream_player.play()
+		npc_menu.visible = false
+		GameManager.opened_npc_menu = false
+		main_camera.current = false
+		pov_camera.current = true
+		navigation_agent.target_position = global_position
+		navigation_agent.get_next_path_position()
+		GameManager.current_state = GameManager.State.POV_MODE
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		current_task = TASK.POV_MODE
+		GameManager.npc_in_charge = self
 
 
 
