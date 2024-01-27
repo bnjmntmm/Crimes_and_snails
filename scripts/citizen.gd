@@ -155,18 +155,21 @@ func _process(delta):
 					update_animation_tree(anim_pos_dict["working"])
 				else:
 					update_animation_tree(anim_pos_dict["melking"])
-				citizen_root.look_at(nearest_resource_object.global_position, Vector3(0,1,0), true)
-				is_collecting = true
-				await (get_tree().create_timer(2.0).timeout)
-				is_collecting = false
-				update_animation_tree(anim_pos_dict["walking"])
-				run_once = true
-	#			if pov_camera.current == true:
-	#				current_task= TASK.POV_MODE
-	#				return
-				resource_hold_current+=nearest_resource_object.resource_amount_generated
-				nearest_resource_object._on_farmed()
-				current_task = TASK.DELIVERING
+				if is_instance_valid(nearest_resource_object):
+					citizen_root.look_at(nearest_resource_object.global_position, Vector3(0,1,0), true)
+					is_collecting = true
+					await (get_tree().create_timer(2.0).timeout)
+					is_collecting = false
+					update_animation_tree(anim_pos_dict["walking"])
+					run_once = true
+		#			if pov_camera.current == true:
+		#				current_task= TASK.POV_MODE
+		#				return
+					resource_hold_current+=nearest_resource_object.resource_amount_generated
+					nearest_resource_object._on_farmed()
+					current_task = TASK.DELIVERING
+				else:
+					current_task = TASK.SEARCHING
 		TASK.DELIVERING:
 			if GameManager.stock_array.is_empty():
 				navigation_agent.target_position = spawn_point.global_position

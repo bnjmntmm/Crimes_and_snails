@@ -27,28 +27,6 @@ func _ready():
 			play_area.add_child(plane_intantiate,true)
 			#call_deferred("emit",grid_generated, plane_intantiate)
 			grid_generated.emit(plane_intantiate)
-			
-#	var gridmap : GridMap = GridMap.new()
-#	add_child(gridmap)
-#	#gridmap.set_bake_navigation(true)
-#	#addNav()
-#	gridmap.set_cell_size(Vector3(1,1,1))
-#	gridmap.set_cell_scale(1.001)
-#	gridmap.set_center_x(true)
-#	gridmap.set_center_y(true)
-#	gridmap.set_center_z(true)
-#	gridmap.set_mesh_library(mesh_lib_src)
-#	gridmap.name = "BaseGrid"
-#
-#	gridmap.global_position = gridmap.global_position - Vector3(0,1,0)
-#
-#	for x in range(-preGenSize, preGenSize):
-#		for z in range(-preGenSize, preGenSize):
-#			var grass_pos = Vector3i(x,1,z)
-#			var dirt_pos = Vector3i(x,0,z)
-#			gridmap.set_cell_item(grass_pos, 0)
-#			gridmap.set_cell_item(dirt_pos, 1)
-	
 	
 	
 	

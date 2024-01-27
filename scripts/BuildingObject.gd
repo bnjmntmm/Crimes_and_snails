@@ -89,10 +89,10 @@ func _on_area_mouse_entered():
 
 #RAYCASTS
 func get_right_cast():
-	return right_cast.get_collider()
+	return $NavPlaneCheck.get_right_cast()
 func get_left_cast():
-	return left_cast.get_collider()
+	return $NavPlaneCheck.get_left_cast()
 func get_up_cast():
-	return up_cast.get_collider()
+	return $NavPlaneCheck.get_up_cast()
 func get_down_cast():
-	return down_cast.get_collider()
+	return $NavPlaneCheck.get_down_cast()

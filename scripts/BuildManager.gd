@@ -42,12 +42,20 @@ func _physics_process(delta):
 			var query = PhysicsRayQueryParameters3D.create(from,to)
 			var result = space_state.intersect_ray(query)
 			if result.collider.is_in_group("building") or result.collider.is_in_group("stock"):
+				checkNavRegionBuilding(result.collider)
 				#result.collider.run_despawn()
-				result.collider.queue_free()
 				if result.collider.name.contains("House"):
 					GameManager.houses_built-=1
 					
 				houseSceneRemoved.emit(result.collider)
+				
+				## QUEUE Free funktioniert hier nicht, da es im nächsten physics frame 
+				## erst gemacht wird, das baken aber in dem davor, deswegen ist die nav
+				## nicht fertig gebaked, .free() ist gefährlich
+				result.collider.free()
+				bake_nav_planes(navRegion)
+				
+
 	if Input.is_action_just_pressed("esc") and not GameManager.current_state == GameManager.State.POV_MODE:
 		GameManager.opened_house_menu = false
 		GameManager.current_state=GameManager.State.PLAY
