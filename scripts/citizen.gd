@@ -6,6 +6,8 @@ extends CharacterBody3D
 @onready var npc_menu = $npc_menu
 @onready var current_job_value = $npc_menu/current_job_value
 @onready var audio_stream_player = $AudioStreamPlayer
+@onready var tree_audio = $tree_audio
+@onready var bush_audio = $bush_audio
 
 @onready var animation_tree = $citizen_root/AnimationTreeNormalCit
 var waterParticlesPrefab = preload("res://assets/particles/water_extinguish.tscn")
@@ -157,7 +159,12 @@ func _process(delta):
 					update_animation_tree(anim_pos_dict["melking"])
 				citizen_root.look_at(nearest_resource_object.global_position, Vector3(0,1,0), true)
 				is_collecting = true
-				await (get_tree().create_timer(2.0).timeout)
+				if nearest_resource_object.is_in_group("wood"):
+					tree_audio.play(0)
+					await (get_tree().create_timer(2.9).timeout)
+				if nearest_resource_object.is_in_group("food"):
+					await (get_tree().create_timer(2.9).timeout)
+					bush_audio.play(0)
 				is_collecting = false
 				update_animation_tree(anim_pos_dict["walking"])
 				run_once = true
