@@ -1,0 +1,274 @@
+[gd_scene load_steps=12 format=3 uid="uid://biqufrv3lsepk"]
+
+[ext_resource type="PackedScene" uid="uid://cb0hijopqc2kv" path="res://assets/buildings/incubator.glb" id="1_8menp"]
+[ext_resource type="Script" path="res://scripts/BuildingObject.gd" id="1_ga4l1"]
+[ext_resource type="Material" uid="uid://cgpajs5n1h6g1" path="res://assets/buildings/light_source_mat.tres" id="2_26dt2"]
+[ext_resource type="Material" uid="uid://bmmp1mui471yc" path="res://assets/buildings/incubator_glass.tres" id="2_g6lfe"]
+[ext_resource type="Shader" path="res://assets/buildings/house_glass.gdshader" id="5_wopul"]
+[ext_resource type="AudioStream" uid="uid://c6v8o8bd0lv2l" path="res://audios/fire.wav" id="6_e0wn4"]
+[ext_resource type="PackedScene" uid="uid://cige1qbgly177" path="res://scenes/utils/nav_plane_check.tscn" id="7_q4nxl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ex50q"]
+render_priority = 0
+shader = ExtResource("5_wopul")
+shader_parameter/albedo = Color(1, 1, 1, 0)
+shader_parameter/roughness = 0.15
+shader_parameter/normal_strength = 1.0
+shader_parameter/edge_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_708um"]
+size = Vector3(4.61316, 3.66439, 4.30174)
+
+[sub_resource type="GDScript" id="GDScript_u4trq"]
+script/source = "extends Area3D
+
+@onready var incubator = $\"..\"
+
+var entered = false
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if Input.is_action_pressed(\"left_mouse_down\") and entered and incubator.spawned:
+		GameManager.opened_house_menu = true
+
+
+func _on_mouse_entered():
+	entered = true
+
+
+
+func _on_mouse_exited():
+	entered = false
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_msql3"]
+size = Vector3(5, 6, 5)
+
+[node name="Incubator" type="StaticBody3D" groups=["building"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+script = ExtResource("1_ga4l1")
+
+[node name="incubator" parent="." instance=ExtResource("1_8menp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.239005, 0, -0.159337)
+
+[node name="Cube_079" parent="incubator" index="77"]
+surface_material_override/0 = ExtResource("2_26dt2")
+
+[node name="Cube_128" parent="incubator" index="142"]
+surface_material_override/0 = ExtResource("2_26dt2")
+
+[node name="Plane_001" parent="incubator" index="151"]
+surface_material_override/0 = ExtResource("2_26dt2")
+
+[node name="Plane_003" parent="incubator" index="152"]
+surface_material_override/0 = ExtResource("2_26dt2")
+
+[node name="Cube_188" parent="incubator" index="153"]
+surface_material_override/0 = ExtResource("2_26dt2")
+
+[node name="Sphere_006" parent="incubator" index="163"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_004" parent="incubator" index="164"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_005" parent="incubator" index="165"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_007" parent="incubator" index="166"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_008" parent="incubator" index="167"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_009" parent="incubator" index="168"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_010" parent="incubator" index="169"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_011" parent="incubator" index="170"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_012" parent="incubator" index="171"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_013" parent="incubator" index="172"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_014" parent="incubator" index="173"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_015" parent="incubator" index="174"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_016" parent="incubator" index="175"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_017" parent="incubator" index="176"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_018" parent="incubator" index="177"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_019" parent="incubator" index="178"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_020" parent="incubator" index="179"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_021" parent="incubator" index="180"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_022" parent="incubator" index="181"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_023" parent="incubator" index="182"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_024" parent="incubator" index="183"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_025" parent="incubator" index="184"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_026" parent="incubator" index="185"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_027" parent="incubator" index="186"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_028" parent="incubator" index="187"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_029" parent="incubator" index="188"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_030" parent="incubator" index="189"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_031" parent="incubator" index="192"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_032" parent="incubator" index="193"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_033" parent="incubator" index="194"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_034" parent="incubator" index="195"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_035" parent="incubator" index="198"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Cylinder_020" parent="incubator" index="203"]
+surface_material_override/0 = ExtResource("2_26dt2")
+
+[node name="Sphere_037" parent="incubator" index="204"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_038" parent="incubator" index="205"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_039" parent="incubator" index="207"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Sphere_040" parent="incubator" index="208"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+surface_material_override/1 = ExtResource("2_g6lfe")
+
+[node name="Cylinder_002" parent="incubator" index="323"]
+surface_material_override/0 = ExtResource("2_g6lfe")
+
+[node name="Cylinder_007" parent="incubator" index="328"]
+surface_material_override/0 = SubResource("ShaderMaterial_ex50q")
+
+[node name="Sphere_001" parent="incubator" index="332"]
+transform = Transform3D(0.118251, 0, 0, 0, 0.118251, 0, 0, 0, 0.118251, -0.103381, 1.12899, 0.501168)
+surface_material_override/0 = ExtResource("2_g6lfe")
+
+[node name="Sphere_002" parent="incubator" index="333"]
+transform = Transform3D(0.0632946, 0, 0, 0, 0.0632946, 0, 0, 0, 0.0632946, -0.0910327, 1.12899, 0.547238)
+surface_material_override/0 = ExtResource("2_g6lfe")
+
+[node name="Sphere_003" parent="incubator" index="334"]
+transform = Transform3D(0.0352229, 0, 0, 0, 0.0352229, 0, 0, 0, 0.0352229, -0.136554, 1.07885, 0.46863)
+surface_material_override/0 = ExtResource("2_g6lfe")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.105904, 1.83555, 0.352283)
+shape = SubResource("BoxShape3D_708um")
+
+[node name="Area" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.194096, 0, 0)
+script = SubResource("GDScript_u4trq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.27663, 3.03294, 0.346907)
+shape = SubResource("BoxShape3D_msql3")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_e0wn4")
+unit_size = 30.0
+attenuation_filter_cutoff_hz = 20500.0
+
+[node name="NavPlaneCheck" parent="." instance=ExtResource("7_q4nxl")]
+
+[node name="RightCast" parent="NavPlaneCheck" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71187e-07, 0.0945359, 2.16642)
+
+[node name="LeftCast" parent="NavPlaneCheck" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9617e-07, 0.0942659, -1.8579)
+
+[node name="UpCast" parent="NavPlaneCheck" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.44646, 0.272266, 1.9785e-07)
+
+[node name="DownCast" parent="NavPlaneCheck" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14241, 0.272266, -2.33652e-07)
+
+[connection signal="mouse_entered" from="Area" to="Area" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Area" to="Area" method="_on_mouse_exited"]
+
+[editable path="incubator"]
+[editable path="NavPlaneCheck"]

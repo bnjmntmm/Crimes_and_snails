@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://cige1qbgly177"]
+
+[sub_resource type="GDScript" id="GDScript_bt57a"]
+script/source = "extends Node3D
+
+
+@onready var right_cast = $RightCast
+@onready var left_cast = $LeftCast
+@onready var up_cast = $UpCast
+@onready var down_cast = $DownCast
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+#RAYCASTS
+func get_right_cast():
+	return right_cast.get_collider()
+func get_left_cast():
+	return left_cast.get_collider()
+func get_up_cast():
+	return up_cast.get_collider()
+func get_down_cast():
+	return down_cast.get_collider()
+"
+
+[node name="NavPlaneCheck" type="Node3D"]
+script = SubResource("GDScript_bt57a")
+
+[node name="RightCast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0945359, -6.77623)
+debug_shape_thickness = 5
+
+[node name="LeftCast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0942659, 7.20542)
+debug_shape_thickness = 5
+
+[node name="UpCast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.97275, 0.272266, 0)
+debug_shape_thickness = 5
+
+[node name="DownCast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.48774, 0.272266, 0)
+debug_shape_thickness = 5

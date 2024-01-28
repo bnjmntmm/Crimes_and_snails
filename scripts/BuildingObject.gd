@@ -1,12 +1,13 @@
 extends Node3D
 
 
+@onready var audio_stream_player = $AudioStreamPlayer3D
 
 
 @export var can_spawn_actor :=true
 @export var actor: PackedScene
 
-
+ 
 @export var wood_cost: int
 @export var plank_cost: int
 @export var food_cost: int
@@ -28,6 +29,12 @@ var tornado_scene = null
 #Foliage Array to remove when house is placed
 var collidingObjects := []
 
+var old_plane = null
+
+@onready var right_cast := $NavPlaneCheck/RightCast
+@onready var left_cast := $NavPlaneCheck/LeftCast
+@onready var up_cast := $NavPlaneCheck/UpCast
+@onready var down_cast := $NavPlaneCheck/DownCast
 
 
 func _ready():
@@ -44,7 +51,6 @@ func _ready():
 
 func _on_body_entered(body):
 	var bodyName = body.name.rstrip("0123456789")
-	print(body)
 	if bodyName == "Bush" or bodyName == "Tree":
 		collidingObjects.append(body)
 func _on_body_exited(body):
@@ -74,3 +80,19 @@ func remove_foliage():
 			GameManager.bush_array.erase(i)
 		if i.is_in_group("wood"):
 			GameManager.tree_array.erase(i)
+
+
+
+
+func _on_area_mouse_entered():
+	pass # Replace with function body.
+
+#RAYCASTS
+func get_right_cast():
+	return $NavPlaneCheck.get_right_cast()
+func get_left_cast():
+	return $NavPlaneCheck.get_left_cast()
+func get_up_cast():
+	return $NavPlaneCheck.get_up_cast()
+func get_down_cast():
+	return $NavPlaneCheck.get_down_cast()

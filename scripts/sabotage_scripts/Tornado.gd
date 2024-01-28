@@ -4,6 +4,7 @@ var tornado_scene = preload("res://assets/textures/shader/tornado.tscn")
 
 @export var spawn_radius = 20
 var spawn_angle = randf_range(0,2*PI)
+signal sabotage_stopped
 
 var houseTornadoDict = {}
 
@@ -25,6 +26,7 @@ func travel_to_house(house):
 	new_tornado.ready_to_move = true
 	
 func stop_tornado(house):
+	sabotage_stopped.emit()
 	houseTornadoDict[house].isTornado = false
 	
 	if houseTornadoDict[house].tornado_scene.body_freed:

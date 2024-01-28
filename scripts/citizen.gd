@@ -5,10 +5,25 @@ extends CharacterBody3D
 @onready var main_camera = get_viewport().get_camera_3d()
 @onready var npc_menu = $npc_menu
 @onready var current_job_value = $npc_menu/current_job_value
+@onready var audio_stream_player = $AudioStreamPlayer
 
-
+@onready var animation_tree = $citizen_root/AnimationTreeNormalCit
 var waterParticlesPrefab = preload("res://assets/particles/water_extinguish.tscn")
 @onready var extinguish_timer = $ExtinguishTimer
+
+## OTHER MATERIAL AND CLOTHING
+var blue_skin = preload("res://assets/char_model/blue_skin.tres")
+var yellow_skin = preload("res://assets/char_model/yellow_skin.tres")
+var orange_skin = preload("res://assets/char_model/orange_skin.tres")
+
+var skin_array = [blue_skin, yellow_skin, orange_skin]
+@onready var body := $citizen_root/Citizen/Skeleton3D/Body
+@onready var citizen_root = $citizen_root
+
+@onready var criminalclothing = $citizen_root/Citizen/Skeleton3D/Criminalclothing
+@onready var criminalhat = $citizen_root/Citizen/Skeleton3D/Criminalhat
+@onready var normalclothing = $citizen_root/Citizen/Skeleton3D/Normalclothing
+@onready var normalhat = $citizen_root/Citizen/Skeleton3D/Normalhat
 
 
 enum TASK{
@@ -30,6 +45,7 @@ var current_task=TASK.SEARCHING
 var current_job=JOB.food
 var run_once:=true
 var spawn_point
+var is_collecting :=false
 
 var mouse_sensitivity = 0.002
 
@@ -39,6 +55,16 @@ var nearest_resource_object:Node3D
 var waterParticles : Node3D
 var currentHouse = null
 
+var lastRot = 0
+
+var anim_pos_dict = {
+	"melking" : Vector2(0,1.1),
+	"walking" : Vector2(1,0),
+	"working" : Vector2(0,-1.1),
+	"strutting": Vector2(-1,0),
+	"busy" : Vector2(0,0)
+}
+
 
 # Path
 var path = []
@@ -46,6 +72,12 @@ var allowWater = false
 
 func _ready():
 	randomize()
+	animation_tree.active = true
+	body.set_surface_override_material(0, skin_array.pick_random())
+	
+	
+	#change_to_criminal()
+	
 	current_job=JOB.find_key(randi_range(0,1))
 	match current_job:
 		"food":current_job_value.text="Farmer"
@@ -70,6 +102,7 @@ func _ready():
 			set_process(true)
 	pov_camera.position = Vector3(0,0.9,0)
 	add_child(pov_camera)
+	pov_camera.current = false
 	waterParticles = waterParticlesPrefab.instantiate()
 	pov_camera.add_child(waterParticles)
 	waterParticles.position = pov_camera.position + Vector3(1,-1,0)
@@ -91,6 +124,10 @@ func move_along_path():
 			current_task=TASK.SEARCHING
 		return
 	var next_path_position : Vector3 = navigation_agent.get_next_path_position()
+	#var angleToNextPoint =  citizen_root.global_position.angle_to(next_path_position)
+	var lookAtPos := next_path_position
+	citizen_root.look_at(Vector3(lookAtPos.x, 1.53,lookAtPos.z), Vector3(0,1,0), true)
+	#citizen_root.look_at(next_path_position, Vector3(0,1,0), true)
 	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * walk_speed
 	if navigation_agent.avoidance_enabled:
 		navigation_agent.set_velocity(new_velocity)
@@ -101,6 +138,7 @@ func move_along_path():
 func _process(delta):
 	match current_task:
 		TASK.SEARCHING:
+			update_animation_tree(anim_pos_dict["busy"])
 			if current_job == "food":
 				calc_new_resource_to_get(GameManager.bush_array)
 			if current_job == "wood":
@@ -108,12 +146,30 @@ func _process(delta):
 	
 		TASK.WALKING:
 			move_along_path()
+			update_animation_tree(anim_pos_dict["walking"])
 		TASK.GETTING_FOOD:
-			if GameManager.current_state == GameManager.State.POV_MODE:
-				return
-			resource_hold_current+=nearest_resource_object.resource_amount_generated
-			nearest_resource_object._on_farmed()
-			current_task = TASK.DELIVERING
+			if run_once:
+				run_once = false
+				var randomInt = randi_range(0,1)
+				if randomInt == 1:
+					update_animation_tree(anim_pos_dict["working"])
+				else:
+					update_animation_tree(anim_pos_dict["melking"])
+				if is_instance_valid(nearest_resource_object):
+					citizen_root.look_at(nearest_resource_object.global_position, Vector3(0,1,0), true)
+					is_collecting = true
+					await (get_tree().create_timer(2.0).timeout)
+					is_collecting = false
+					update_animation_tree(anim_pos_dict["walking"])
+					run_once = true
+		#			if pov_camera.current == true:
+		#				current_task= TASK.POV_MODE
+		#				return
+					resource_hold_current+=nearest_resource_object.resource_amount_generated
+					nearest_resource_object._on_farmed()
+					current_task = TASK.DELIVERING
+				else:
+					current_task = TASK.SEARCHING
 		TASK.DELIVERING:
 			if GameManager.stock_array.is_empty():
 				navigation_agent.target_position = spawn_point.global_position
@@ -122,18 +178,23 @@ func _process(delta):
 				var nearest_stock = GameManager.stock_array[0]
 				for stock in GameManager.stock_array:
 					if stock.spawned:
-						if stock.global_position.distance_sqaured_to(global_position)<nearest_stock.global_position.distance_squared_to(global_position):
+						if stock.global_position.distance_squared_to(global_position)<nearest_stock.global_position.distance_squared_to(global_position):
 							nearest_stock=stock
 				navigation_agent.target_position=nearest_stock.get_node("SpawnPoint").global_position
 				current_task=TASK.WALKING
 		TASK.POV_MODE:
+			animation_tree.active = false
 			if Input.is_action_just_pressed("esc"):
-		
+				audio_stream_player.play()
+				animation_tree.active = true
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 				pov_camera.current = false
 				main_camera.current = true
 				GameManager.current_state = GameManager.State.PLAY
-				current_task = TASK.SEARCHING
+				if  resource_hold_current==0:
+					current_task = TASK.SEARCHING
+				else:
+					current_task = TASK.DELIVERING
 			var input_dir = Input.get_vector("left", "right", "forward", "backward")
 			var walk_direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 			if walk_direction:
@@ -142,7 +203,7 @@ func _process(delta):
 				move_and_slide()
 
 func _input(event):
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and current_task == TASK.POV_MODE:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		pov_camera.rotate_x(-event.relative.y * mouse_sensitivity)
 		# Clamps the POV camera's x rotation to avoid flipping over.
@@ -209,7 +270,6 @@ func _on_velocity_computed(safe_velocity: Vector3):
 	velocity = safe_velocity
 	move_and_slide()
 
-
 func _on_clicked(camera, event, position, normal, shape_idx):
 	if Input.is_action_just_released("left_mouse_down") and not GameManager.opened_npc_menu:
 		GameManager.opened_npc_menu = true
@@ -224,6 +284,8 @@ func _on_close_button_pressed():
 
 
 func _on_pov_mode_pressed():
+	if !is_collecting:
+		audio_stream_player.play()
 		npc_menu.visible = false
 		GameManager.opened_npc_menu = false
 		main_camera.current = false
@@ -246,3 +308,17 @@ func _on_job_wood_button_down():
 func _on_job_food_button_down():
 	current_job=JOB.find_key(0)
 	current_job_value.text="Farmer"
+
+func update_animation_tree(newPos : Vector2):
+	animation_tree["parameters/BlendSpace/blend_position"] = newPos
+
+func change_to_criminal():
+	criminalclothing.visible = true
+	criminalhat.visible = true
+	normalclothing.visible = false
+	normalhat.visible = false
+func change_to_normal():
+	criminalclothing.visible = false
+	criminalhat.visible = false
+	normalclothing.visible = true
+	normalhat.visible = true
