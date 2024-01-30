@@ -1,6 +1,11 @@
 extends Control
 
+@onready var happiness_texture : TextureRect = $BuildMenu/TopUI/HappinessPopuPanel/Happiness
 
+
+var happySmile = preload("res://assets/textures/HUD/Happiness.png")
+var neutralSmile = preload("res://assets/textures/HUD/neutralFace.PNG")
+var madSmile = preload("res://assets/textures/HUD/MadFace.PNG")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -8,13 +13,18 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$BuildMenu/HBoxContainer2/RessourceValues/SnailsValue.text=str(GameManager.snails)
-	$BuildMenu/HBoxContainer2/RessourceValues/HappinessValue.text=str(GameManager.inspiration)
-	$BuildMenu/HBoxContainer2/RessourceValues/FoodValue.text=str(GameManager.food)
-	$BuildMenu/HBoxContainer2/RessourceValues/WoodValue.text=str(GameManager.wood)
-	$BuildMenu/HBoxContainer2/RessourceValues/PlanksValue.text=str(GameManager.planks)
-	$Population/PopulationValue.text=str(GameManager.population)
+	$BuildMenu/TopUI/ResourcePanel/SnailLabel.text=str(GameManager.snails)
+#	$BuildMenu/ResourceContainer/RessourceValues/HappinessValue.text=str(GameManager.inspiration)
+	$BuildMenu/TopUI/ResourcePanel/FoodLabel.text=str(GameManager.food)
+	$BuildMenu/TopUI/ResourcePanel/WoodRawLabel.text=str(GameManager.wood)
+	$BuildMenu/TopUI/ResourcePanel/WoodPlanksLabel.text=str(GameManager.planks)
+	$BuildMenu/TopUI/HappinessPopuPanel/Population/PopulationValue.text=str(GameManager.population)
 	$FPS.text = str("FPS %d" % Engine.get_frames_per_second())
+	$BuildMenu/TopUI/TimerPanel/Time.text = "%02d : %02d" % [GameManager.minutes, GameManager.seconds]
+	check_happiness()
+	
+	
+	
 	if GameManager.current_state == GameManager.State.POV_MODE:
 		visible= false
 	else:
@@ -55,3 +65,10 @@ func _on_move_button_down():
 	GameManager.current_state = GameManager.State.MOVE_HOUSE
 
 
+func check_happiness():
+	if GameManager.happiness > 74:
+		happiness_texture.texture = happySmile
+	elif GameManager.happiness < 74 and GameManager.happiness > 35:
+		happiness_texture.texture = neutralSmile
+	else:
+		happiness_texture.texture = madSmile

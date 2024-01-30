@@ -1,0 +1,38 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://b08cibmbq6mmg"]
+
+[ext_resource type="FontFile" uid="uid://dt86lte3ia3eb" path="res://assets/textures/HUD/UI/Life is goofy.ttf" id="1_ci087"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqu31"]
+bg_color = Color(0.0235294, 0.0823529, 0.00392157, 0.627451)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yka7j"]
+bg_color = Color(0.0823529, 0.196078, 0.0117647, 0.545098)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pnekb"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.341176, 0.501961, 0.282353, 0.486275)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[resource]
+Button/font_sizes/font_size = 30
+Button/fonts/font = ExtResource("1_ci087")
+Button/styles/hover = SubResource("StyleBoxFlat_wqu31")
+Button/styles/normal = SubResource("StyleBoxFlat_yka7j")
+Label/font_sizes/font_size = 80
+Label/fonts/font = ExtResource("1_ci087")
+Panel/styles/panel = SubResource("StyleBoxFlat_pnekb")
