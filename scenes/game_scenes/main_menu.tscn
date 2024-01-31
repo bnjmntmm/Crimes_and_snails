@@ -111,7 +111,9 @@ script = ExtResource("4_w4i61")
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 transparent_bg = true
+handle_input_locally = false
 size = Vector2i(289, 289)
+render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.978853, 0.204564, 0, -0.204564, 0.978853, 0, 12.3853, 19.7277)
