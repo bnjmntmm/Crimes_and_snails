@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://cuy5ydshqlq1h"]
+[gd_scene load_steps=19 format=3 uid="uid://cuy5ydshqlq1h"]
 
 [ext_resource type="PackedScene" uid="uid://b5s3s5eubnut4" path="res://scenes/game_scenes/grid.tscn" id="1_e65h0"]
+[ext_resource type="Environment" uid="uid://bhggvvhc3vklv" path="res://scenes/utils/world_env.tres" id="1_eefdw"]
 [ext_resource type="Script" path="res://scripts/CameraMount.gd" id="2_0oeih"]
 [ext_resource type="PackedScene" uid="uid://cammbwgus5hb4" path="res://scenes/game_scenes/water.tscn" id="2_slo8a"]
 [ext_resource type="PackedScene" uid="uid://bstm2hi6auqqt" path="res://scenes/townhall.tscn" id="3_kumha"]
@@ -9,19 +10,6 @@
 [ext_resource type="Script" path="res://scripts/sabotage_scripts/random_events.gd" id="5_p8rf6"]
 [ext_resource type="Script" path="res://scripts/sabotage_scripts/Tornado.gd" id="7_m144j"]
 [ext_resource type="AudioStream" uid="uid://2u3eyiovgu7y" path="res://audios/background_music.mp3" id="9_8f2j2"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d170q"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-
-[sub_resource type="Sky" id="Sky_v5u5o"]
-sky_material = SubResource("ProceduralSkyMaterial_d170q")
-
-[sub_resource type="Environment" id="Environment_vskdb"]
-background_mode = 2
-sky = SubResource("Sky_v5u5o")
-tonemap_mode = 2
-glow_enabled = true
 
 [sub_resource type="GDScript" id="GDScript_6jqw2"]
 script/source = "extends WorldEnvironment
@@ -63,7 +51,7 @@ func _ready():
 [node name="main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_vskdb")
+environment = ExtResource("1_eefdw")
 script = SubResource("GDScript_6jqw2")
 
 [node name="Water" parent="." instance=ExtResource("2_slo8a")]
