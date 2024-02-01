@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://b08cibmbq6mmg"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://b08cibmbq6mmg"]
 
 [ext_resource type="FontFile" uid="uid://dt86lte3ia3eb" path="res://assets/textures/HUD/UI/Life is goofy.ttf" id="1_ci087"]
 
@@ -28,6 +28,28 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plv15"]
+bg_color = Color(0.0823529, 0.196078, 0.0117647, 0.439216)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mo46n"]
+bg_color = Color(0.282353, 0.564706, 0.0784314, 0.545098)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fb0hu"]
+bg_color = Color(0.184314, 0.384314, 0.0431373, 0.545098)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h45eu"]
+bg_color = Color(0.0470588, 0.133333, 0.00392157, 0.545098)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
 [resource]
 Button/font_sizes/font_size = 30
 Button/fonts/font = ExtResource("1_ci087")
@@ -35,4 +57,18 @@ Button/styles/hover = SubResource("StyleBoxFlat_wqu31")
 Button/styles/normal = SubResource("StyleBoxFlat_yka7j")
 Label/font_sizes/font_size = 80
 Label/fonts/font = ExtResource("1_ci087")
+LineEdit/font_sizes/font_size = 30
+LineEdit/fonts/font = ExtResource("1_ci087")
+OptionButton/fonts/font = ExtResource("1_ci087")
 Panel/styles/panel = SubResource("StyleBoxFlat_pnekb")
+ProgressBar/fonts/font = ExtResource("1_ci087")
+TabBar/fonts/font = ExtResource("1_ci087")
+TabContainer/styles/panel = SubResource("StyleBoxFlat_plv15")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_mo46n")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_fb0hu")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_h45eu")
+TextEdit/font_sizes/font_size = 30
+TextEdit/fonts/font = ExtResource("1_ci087")
+Tree/font_sizes/font_size = 25
+Tree/fonts/font = ExtResource("1_ci087")
+Tree/fonts/title_button_font = ExtResource("1_ci087")

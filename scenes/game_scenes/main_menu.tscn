@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bl70bq45sopev"]
+[gd_scene load_steps=10 format=3 uid="uid://bl70bq45sopev"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_i7pvc"]
 [ext_resource type="StyleBox" uid="uid://bxwb3wa3vc1t5" path="res://assets/textures/HUD/UI/hud.tres" id="2_0kgot"]
 [ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="2_fyglm"]
+[ext_resource type="PackedScene" uid="uid://cnto8cdxsxbs0" path="res://scenes/utils/settings.tscn" id="4_4dkfx"]
 [ext_resource type="PackedScene" uid="uid://blu0iekkj6o0l" path="res://assets/buildings/House.glb" id="4_lt5gw"]
 [ext_resource type="Script" path="res://scripts/MainMenuSubViewport.gd" id="4_w4i61"]
 
@@ -80,16 +81,6 @@ theme = ExtResource("2_fyglm")
 theme_override_font_sizes/font_size = 50
 text = "Start"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer2"]
-layout_mode = 2
-
-[node name="QuitButton" type="Button" parent="Panel/VBoxContainer2/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("2_fyglm")
-theme_override_font_sizes/font_size = 65
-text = "Quit"
-
 [node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer2"]
 layout_mode = 2
 
@@ -100,19 +91,37 @@ theme = ExtResource("2_fyglm")
 theme_override_font_sizes/font_size = 65
 text = "Settings"
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer2"]
+layout_mode = 2
+
+[node name="QuitButton" type="Button" parent="Panel/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_fyglm")
+theme_override_font_sizes/font_size = 65
+text = "Quit"
+
+[node name="Settings" parent="Panel" instance=ExtResource("4_4dkfx")]
+visible = false
+layout_mode = 1
+offset_left = 512.0
+offset_top = 195.0
+offset_right = -87.0
+offset_bottom = -140.0
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 layout_mode = 0
-offset_left = 729.0
-offset_top = 361.0
-offset_right = 1018.0
-offset_bottom = 650.0
+offset_left = 678.0
+offset_top = 409.0
+offset_right = 909.0
+offset_bottom = 640.0
 stretch = true
 script = ExtResource("4_w4i61")
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(289, 289)
+size = Vector2i(231, 231)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
@@ -122,7 +131,7 @@ transform = Transform3D(1, 0, 0, 0, 0.978853, 0.204564, 0, -0.204564, 0.978853, 
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 8, -1)
 
 [connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer3/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer2/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer3/SettingsButton" to="." method="_on_quit_button_pressed"]
 [connection signal="mouse_entered" from="SubViewportContainer" to="SubViewportContainer" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="SubViewportContainer" to="SubViewportContainer" method="_on_mouse_exited"]

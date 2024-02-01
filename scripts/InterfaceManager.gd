@@ -1,6 +1,6 @@
 extends Control
 
-@onready var happiness_texture : TextureRect = $BuildMenu/TopUI/HappinessPopuPanel/Happiness
+@onready var happiness_texture : TextureRect = $TopUI/HappinessPopuPanel/Happiness
 
 
 var happySmile = preload("res://assets/textures/HUD/Happiness.png")
@@ -13,14 +13,14 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$BuildMenu/TopUI/ResourcePanel/SnailLabel.text=str(GameManager.snails)
+	$TopUI/ResourcePanel/SnailLabel.text=str(GameManager.snails)
 #	$BuildMenu/ResourceContainer/RessourceValues/HappinessValue.text=str(GameManager.inspiration)
-	$BuildMenu/TopUI/ResourcePanel/FoodLabel.text=str(GameManager.food)
-	$BuildMenu/TopUI/ResourcePanel/WoodRawLabel.text=str(GameManager.wood)
-	$BuildMenu/TopUI/ResourcePanel/WoodPlanksLabel.text=str(GameManager.planks)
-	$BuildMenu/TopUI/HappinessPopuPanel/Population/PopulationValue.text=str(GameManager.population)
+	$TopUI/ResourcePanel/FoodLabel.text=str(GameManager.food)
+	$TopUI/ResourcePanel/WoodRawLabel.text=str(GameManager.wood)
+	$TopUI/ResourcePanel/WoodPlanksLabel.text=str(GameManager.planks)
+	$TopUI/HappinessPopuPanel/Population/PopulationValue.text=str(GameManager.population)
 	$FPS.text = str("FPS %d" % Engine.get_frames_per_second())
-	$BuildMenu/TopUI/TimerPanel/Time.text = "%02d : %02d" % [GameManager.minutes, GameManager.seconds]
+	$TopUI/TimerPanel/Time.text = "%02d : %02d" % [GameManager.minutes, GameManager.seconds]
 	check_happiness()
 	
 	
@@ -63,7 +63,7 @@ func _on_delete_button_down():
 
 func _on_move_button_down():
 	GameManager.current_state = GameManager.State.MOVE_HOUSE
-
+ 
 
 func check_happiness():
 	if GameManager.happiness > 74:
@@ -72,3 +72,16 @@ func check_happiness():
 		happiness_texture.texture = neutralSmile
 	else:
 		happiness_texture.texture = madSmile
+
+
+func _on_settings_settings_closed():
+	$TopUI.visible = true
+	$BuildMenu.visible = true
+	get_tree().paused = false
+
+
+func _on_settings_menu_pressed():
+	get_tree().paused = true
+	$Settings.visible = true
+	$TopUI.visible = false
+	$BuildMenu.visible = false

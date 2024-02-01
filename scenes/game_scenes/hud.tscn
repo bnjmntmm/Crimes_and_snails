@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cjmjp5mli5miu"]
+[gd_scene load_steps=25 format=3 uid="uid://cjmjp5mli5miu"]
 
 [ext_resource type="Script" path="res://scripts/InterfaceManager.gd" id="1_r1lqh"]
 [ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="2_0su6q"]
@@ -13,6 +13,15 @@
 [ext_resource type="Script" path="res://scripts/MouseArea2D.gd" id="9_432ng"]
 [ext_resource type="Script" path="res://scripts/incubator_menu.gd" id="10_uqwhf"]
 [ext_resource type="StyleBox" uid="uid://bxwb3wa3vc1t5" path="res://assets/textures/HUD/UI/hud.tres" id="11_04pr6"]
+[ext_resource type="Texture2D" uid="uid://2qtyrss2w3b6" path="res://assets/textures/HUD/UI/settings_cog.png" id="12_cd738"]
+[ext_resource type="PackedScene" uid="uid://cnto8cdxsxbs0" path="res://scenes/utils/settings.tscn" id="15_82u5j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jiy5"]
+bg_color = Color(0, 0.12549, 0, 0.592157)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnqov"]
 bg_color = Color(0, 0.588235, 0, 1)
@@ -62,6 +71,7 @@ corner_radius_bottom_left = 10
 size = Vector2(865, 70)
 
 [node name="HUD" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1152.0
@@ -69,6 +79,191 @@ offset_bottom = 648.0
 script = ExtResource("1_r1lqh")
 metadata/_edit_vertical_guides_ = [576.0]
 metadata/_edit_horizontal_guides_ = [325.0]
+
+[node name="TopUI" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.131
+offset_right = -1152.0
+offset_bottom = -84.888
+theme = ExtResource("2_0su6q")
+
+[node name="HappinessPopuPanel" type="Panel" parent="TopUI"]
+layout_mode = 0
+offset_left = 310.0
+offset_top = 10.0
+offset_right = 488.0
+offset_bottom = 60.0
+theme_override_styles/panel = ExtResource("11_04pr6")
+
+[node name="Population" type="Label" parent="TopUI/HappinessPopuPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -102.0
+offset_right = 37.0
+offset_bottom = 41.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 30
+text = "Population: "
+
+[node name="PopulationValue" type="Label" parent="TopUI/HappinessPopuPanel/Population"]
+layout_mode = 0
+offset_left = -18.0
+offset_top = 20.0
+offset_right = 109.0
+offset_bottom = 80.0
+theme_override_font_sizes/font_size = 50
+text = "0"
+horizontal_alignment = 1
+
+[node name="Happiness" type="TextureRect" parent="TopUI/HappinessPopuPanel"]
+layout_mode = 2
+offset_left = 12.0
+offset_top = 3.0
+offset_right = 80.0
+offset_bottom = 71.0
+scale = Vector2(0.69, 0.69)
+tooltip_text = "Happiness:
+Happiness shows how satisfied the villagers are with the amount of food."
+texture = ExtResource("4_rvjbb")
+expand_mode = 2
+script = ExtResource("3_n6f31")
+
+[node name="TimerPanel" type="Panel" parent="TopUI"]
+layout_mode = 0
+offset_left = 494.0
+offset_top = 10.0
+offset_right = 652.0
+offset_bottom = 61.0
+theme_override_styles/panel = ExtResource("11_04pr6")
+
+[node name="Time" type="Label" parent="TopUI/TimerPanel"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 5.99997
+offset_right = 152.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 50
+text = "Time:Time"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="ResourcePanel" type="Panel" parent="TopUI"]
+layout_mode = 0
+offset_left = 662.0
+offset_top = 10.0
+offset_right = 1133.0
+offset_bottom = 60.0
+theme_override_styles/panel = ExtResource("11_04pr6")
+
+[node name="Snails" type="TextureRect" parent="TopUI/ResourcePanel"]
+layout_mode = 2
+offset_right = 500.0
+offset_bottom = 500.0
+scale = Vector2(0.1, 0.1)
+tooltip_text = "Snails:
+Snails are used as currency to buy buildings or resources."
+mouse_filter = 0
+texture = ExtResource("2_dketd")
+script = ExtResource("3_n6f31")
+
+[node name="SnailLabel" type="Label" parent="TopUI/ResourcePanel"]
+layout_mode = 2
+offset_left = 44.0
+offset_top = 3.0
+offset_right = 107.0
+offset_bottom = 47.0
+theme_override_font_sizes/font_size = 40
+text = "1000"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 1
+
+[node name="Food" type="TextureRect" parent="TopUI/ResourcePanel"]
+layout_mode = 2
+offset_left = 106.0
+offset_right = 606.0
+offset_bottom = 500.0
+scale = Vector2(0.1, 0.1)
+tooltip_text = "Food:
+Food is consumed by the villager."
+texture = ExtResource("5_v4tpr")
+script = ExtResource("3_n6f31")
+
+[node name="FoodLabel" type="Label" parent="TopUI/ResourcePanel"]
+layout_mode = 2
+offset_left = 156.0
+offset_top = 3.0
+offset_right = 224.0
+offset_bottom = 47.0
+theme_override_font_sizes/font_size = 40
+text = "1000"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 1
+
+[node name="WoodRaw" type="TextureRect" parent="TopUI/ResourcePanel"]
+layout_mode = 2
+offset_left = 222.0
+offset_top = -1.0
+offset_right = 722.0
+offset_bottom = 499.0
+scale = Vector2(0.1, 0.1)
+tooltip_text = "Wood:
+Wood is used for building structures and refine to planks"
+texture = ExtResource("6_ouddu")
+script = ExtResource("3_n6f31")
+
+[node name="WoodRawLabel" type="Label" parent="TopUI/ResourcePanel"]
+layout_mode = 2
+offset_left = 269.0
+offset_top = 10.0
+offset_right = 335.0
+offset_bottom = 46.0
+theme_override_font_sizes/font_size = 40
+text = "1000"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 1
+
+[node name="WoodPlanks" type="TextureRect" parent="TopUI/ResourcePanel"]
+layout_mode = 2
+offset_left = 339.0
+offset_top = 1.0
+offset_right = 839.0
+offset_bottom = 501.0
+scale = Vector2(0.1, 0.1)
+tooltip_text = "Planks:
+Planks are used for upgrading/building structures."
+texture = ExtResource("8_84g23")
+script = ExtResource("3_n6f31")
+
+[node name="WoodPlanksLabel" type="Label" parent="TopUI/ResourcePanel"]
+layout_mode = 2
+offset_left = 388.0
+offset_top = 10.0
+offset_right = 448.0
+offset_bottom = 46.0
+theme_override_font_sizes/font_size = 40
+text = "1000"
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 1
+
+[node name="SettingsMenu" type="Button" parent="TopUI"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 10.0
+offset_right = 59.0
+offset_bottom = 50.0
+theme_override_styles/normal = ExtResource("11_04pr6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8jiy5")
+action_mode = 0
+icon = ExtResource("12_cd738")
+icon_alignment = 1
+expand_icon = true
 
 [node name="BuildMenu" type="Control" parent="."]
 layout_mode = 1
@@ -198,178 +393,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_xiq8r")
 theme_override_styles/hover = SubResource("StyleBoxFlat_1xo2m")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_oe57w")
 text = "Delete"
-
-[node name="TopUI" type="Control" parent="BuildMenu"]
-layout_mode = 1
-anchor_top = -3.5
-anchor_right = 1.0
-anchor_bottom = -3.069
-offset_top = 3.05176e-05
-offset_bottom = -0.0639648
-
-[node name="HappinessPopuPanel" type="Panel" parent="BuildMenu/TopUI"]
-layout_mode = 0
-offset_left = 310.0
-offset_top = 10.0
-offset_right = 488.0
-offset_bottom = 60.0
-theme_override_styles/panel = ExtResource("11_04pr6")
-
-[node name="Population" type="Label" parent="BuildMenu/TopUI/HappinessPopuPanel"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -102.0
-offset_right = 37.0
-offset_bottom = 41.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 30
-text = "Population: "
-
-[node name="PopulationValue" type="Label" parent="BuildMenu/TopUI/HappinessPopuPanel/Population"]
-layout_mode = 0
-offset_left = -18.0
-offset_top = 20.0
-offset_right = 109.0
-offset_bottom = 80.0
-theme_override_font_sizes/font_size = 50
-text = "0"
-horizontal_alignment = 1
-
-[node name="Happiness" type="TextureRect" parent="BuildMenu/TopUI/HappinessPopuPanel"]
-layout_mode = 2
-offset_left = 12.0
-offset_top = 3.0
-offset_right = 80.0
-offset_bottom = 71.0
-scale = Vector2(0.69, 0.69)
-tooltip_text = "Happiness:
-Happiness shows how satisfied the villagers are with the amount of food."
-texture = ExtResource("4_rvjbb")
-expand_mode = 2
-script = ExtResource("3_n6f31")
-
-[node name="TimerPanel" type="Panel" parent="BuildMenu/TopUI"]
-layout_mode = 0
-offset_left = 494.0
-offset_top = 10.0
-offset_right = 652.0
-offset_bottom = 60.0
-theme_override_styles/panel = ExtResource("11_04pr6")
-
-[node name="Time" type="Label" parent="BuildMenu/TopUI/TimerPanel"]
-layout_mode = 2
-offset_left = 7.0
-offset_top = -13.0
-offset_right = 156.0
-offset_bottom = 50.0
-theme_override_font_sizes/font_size = 50
-text = "Time:Time"
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="ResourcePanel" type="Panel" parent="BuildMenu/TopUI"]
-layout_mode = 0
-offset_left = 662.0
-offset_top = 10.0
-offset_right = 1133.0
-offset_bottom = 60.0
-theme_override_styles/panel = ExtResource("11_04pr6")
-
-[node name="Snails" type="TextureRect" parent="BuildMenu/TopUI/ResourcePanel"]
-layout_mode = 2
-offset_right = 500.0
-offset_bottom = 500.0
-scale = Vector2(0.1, 0.1)
-tooltip_text = "Snails:
-Snails are used as currency to buy buildings or resources."
-mouse_filter = 0
-texture = ExtResource("2_dketd")
-script = ExtResource("3_n6f31")
-
-[node name="SnailLabel" type="Label" parent="BuildMenu/TopUI/ResourcePanel"]
-layout_mode = 2
-offset_left = 44.0
-offset_top = 3.0
-offset_right = 107.0
-offset_bottom = 47.0
-theme_override_font_sizes/font_size = 40
-text = "1000"
-vertical_alignment = 2
-clip_text = true
-text_overrun_behavior = 1
-
-[node name="Food" type="TextureRect" parent="BuildMenu/TopUI/ResourcePanel"]
-layout_mode = 2
-offset_left = 106.0
-offset_right = 606.0
-offset_bottom = 500.0
-scale = Vector2(0.1, 0.1)
-tooltip_text = "Food:
-Food is consumed by the villager."
-texture = ExtResource("5_v4tpr")
-script = ExtResource("3_n6f31")
-
-[node name="FoodLabel" type="Label" parent="BuildMenu/TopUI/ResourcePanel"]
-layout_mode = 2
-offset_left = 156.0
-offset_top = 3.0
-offset_right = 224.0
-offset_bottom = 47.0
-theme_override_font_sizes/font_size = 40
-text = "1000"
-vertical_alignment = 2
-clip_text = true
-text_overrun_behavior = 1
-
-[node name="WoodRaw" type="TextureRect" parent="BuildMenu/TopUI/ResourcePanel"]
-layout_mode = 2
-offset_left = 222.0
-offset_top = -1.0
-offset_right = 722.0
-offset_bottom = 499.0
-scale = Vector2(0.1, 0.1)
-tooltip_text = "Wood:
-Wood is used for building structures and refine to planks"
-texture = ExtResource("6_ouddu")
-script = ExtResource("3_n6f31")
-
-[node name="WoodRawLabel" type="Label" parent="BuildMenu/TopUI/ResourcePanel"]
-layout_mode = 2
-offset_left = 269.0
-offset_top = 10.0
-offset_right = 335.0
-offset_bottom = 46.0
-theme_override_font_sizes/font_size = 40
-text = "1000"
-vertical_alignment = 2
-clip_text = true
-text_overrun_behavior = 1
-
-[node name="WoodPlanks" type="TextureRect" parent="BuildMenu/TopUI/ResourcePanel"]
-layout_mode = 2
-offset_left = 339.0
-offset_top = 1.0
-offset_right = 839.0
-offset_bottom = 501.0
-scale = Vector2(0.1, 0.1)
-tooltip_text = "Planks:
-Planks are used for upgrading/building structures."
-texture = ExtResource("8_84g23")
-script = ExtResource("3_n6f31")
-
-[node name="WoodPlanksLabel" type="Label" parent="BuildMenu/TopUI/ResourcePanel"]
-layout_mode = 2
-offset_left = 388.0
-offset_top = 10.0
-offset_right = 448.0
-offset_bottom = 46.0
-theme_override_font_sizes/font_size = 40
-text = "1000"
-vertical_alignment = 2
-clip_text = true
-text_overrun_behavior = 1
 
 [node name="MouseArea2D" type="Area2D" parent="BuildMenu"]
 script = ExtResource("9_432ng")
@@ -624,12 +647,26 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -1152.0
-offset_top = 20.0
+offset_top = 59.0
 offset_right = -1059.0
-offset_bottom = 46.0
+offset_bottom = 85.0
 grow_horizontal = 0
 text = "FPS:  "
 
+[node name="Settings" parent="." instance=ExtResource("15_82u5j")]
+visible = false
+layout_mode = 1
+offset_left = 295.0
+offset_top = 153.0
+offset_right = -304.0
+offset_bottom = -182.0
+
+[connection signal="mouse_entered" from="TopUI/HappinessPopuPanel/Happiness" to="TopUI/HappinessPopuPanel/Happiness" method="_on_mouse_entered_happiness"]
+[connection signal="mouse_entered" from="TopUI/ResourcePanel/Snails" to="TopUI/ResourcePanel/Snails" method="_on_mouse_entered_snails"]
+[connection signal="mouse_entered" from="TopUI/ResourcePanel/Food" to="TopUI/ResourcePanel/Food" method="_on_mouse_entered_food"]
+[connection signal="mouse_entered" from="TopUI/ResourcePanel/WoodRaw" to="TopUI/ResourcePanel/WoodRaw" method="_on_mouse_entered_wood"]
+[connection signal="mouse_entered" from="TopUI/ResourcePanel/WoodPlanks" to="TopUI/ResourcePanel/WoodPlanks" method="_on_mouse_entered_planks"]
+[connection signal="pressed" from="TopUI/SettingsMenu" to="." method="_on_settings_menu_pressed"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/House" to="." method="_on_house_button_down"]
 [connection signal="mouse_entered" from="BuildMenu/BuildingContainer/House" to="BuildMenu/BuildingContainer/House" method="_on_mouse_entered_house"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Stock" to="." method="_on_stock_button_down"]
@@ -637,11 +674,6 @@ text = "FPS:  "
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Incubator" to="." method="_on_incubator_button_down"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/VBoxContainer/Move" to="." method="_on_move_button_down"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/VBoxContainer/Delete" to="." method="_on_delete_button_down"]
-[connection signal="mouse_entered" from="BuildMenu/TopUI/HappinessPopuPanel/Happiness" to="BuildMenu/TopUI/HappinessPopuPanel/Happiness" method="_on_mouse_entered_happiness"]
-[connection signal="mouse_entered" from="BuildMenu/TopUI/ResourcePanel/Snails" to="BuildMenu/TopUI/ResourcePanel/Snails" method="_on_mouse_entered_snails"]
-[connection signal="mouse_entered" from="BuildMenu/TopUI/ResourcePanel/Food" to="BuildMenu/TopUI/ResourcePanel/Food" method="_on_mouse_entered_food"]
-[connection signal="mouse_entered" from="BuildMenu/TopUI/ResourcePanel/WoodRaw" to="BuildMenu/TopUI/ResourcePanel/WoodRaw" method="_on_mouse_entered_wood"]
-[connection signal="mouse_entered" from="BuildMenu/TopUI/ResourcePanel/WoodPlanks" to="BuildMenu/TopUI/ResourcePanel/WoodPlanks" method="_on_mouse_entered_planks"]
 [connection signal="area_entered" from="BuildMenu/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="BuildMenu/Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="button_down" from="CraftMenu/Panel/CloseButton" to="CraftMenu" method="_on_close_button_button_down"]
@@ -651,3 +683,4 @@ text = "FPS:  "
 [connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer/MinusWood" to="CraftMenu" method="_on_minus_wood_button_down"]
 [connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/ConfirmButton" to="CraftMenu" method="_on_confirm_button_button_down"]
 [connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/ConfirmAgain" to="CraftMenu" method="_on_confirm_again_button_down"]
+[connection signal="settings_closed" from="Settings" to="." method="_on_settings_settings_closed"]

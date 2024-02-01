@@ -275,4 +275,5 @@ one_shot = true
 stream = ExtResource("2_qycqi")
 volume_db = -15.0
 unit_size = 20.0
+bus = &"AMBIENT"
 attenuation_filter_cutoff_hz = 20500.0
