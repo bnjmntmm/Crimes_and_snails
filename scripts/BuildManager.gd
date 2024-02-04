@@ -34,6 +34,7 @@ func _physics_process(delta):
 		if currentlyMoving:
 			currentlyMoving = false
 			currentlyMovingObject = null
+		
 		if Input.is_action_just_released("left_mouse_down"):
 			var camera = get_viewport().get_camera_3d()
 			var from = camera.project_ray_origin(get_viewport().get_mouse_position())
@@ -43,6 +44,7 @@ func _physics_process(delta):
 			var result = space_state.intersect_ray(query)
 			if result.collider.is_in_group("building") or result.collider.is_in_group("stock"):
 				checkNavRegionBuilding(result.collider)
+				
 				#result.collider.run_despawn()
 				if result.collider.name.contains("House"):
 					GameManager.houses_built-=1
@@ -84,21 +86,24 @@ func _physics_process(delta):
 					var obj:=current_spawnable.duplicate()
 					
 					#get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").add_child(obj,true)
-					get_tree().root.get_node("main").get_node("Grid").get_node("PlayArea").get_node(str(navRegion[0])).get_child(0).add_child(obj,true)
-					obj.active_buildable_object=false
-					#obj.run_spawn()
-					obj.spawned=true
-					obj.set_disabled(false)
-					houseSceneAdded.emit(obj)
-					
-					obj.global_position=current_spawnable.global_position
-					if obj.name == "Stock":
-						GameManager.stock_array.append(obj)
-					if obj.name.contains("House"):
-						GameManager.houses_built+=1
-						obj.old_plane = navRegion[0]
-					current_spawnable.remove_foliage()
-					bake_nav_planes(navRegion)
+					if navRegion.size() > 0:
+						if is_instance_of(navRegion[0], StaticBody3D):
+							get_tree().root.get_node("main").get_node("Grid").get_node("PlayArea").get_node(str(navRegion[0])).get_child(0).add_child(obj,true)
+							obj.active_buildable_object=false
+							#obj.run_spawn()
+							obj.spawned=true
+							obj.set_disabled(false)
+							houseSceneAdded.emit(obj)
+							
+							obj.global_position=current_spawnable.global_position
+							if obj.name == "Stock":
+								GameManager.stock_array.append(obj)
+								obj.old_plane = navRegion[0]
+							if obj.name.contains("House"):
+								GameManager.houses_built+=1
+								obj.old_plane = navRegion[0]
+							current_spawnable.remove_foliage()
+							bake_nav_planes(navRegion)
 					#get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()
 					
 					
@@ -179,7 +184,7 @@ func checkNavRegionBuilding(current : StaticBody3D):
 	var rightCol = null
 	var upCol = null
 	var downCol = null
-	if current.is_in_group("building"):
+	if current.is_in_group("building") or current.is_in_group("stock"):
 		leftCol = current.get_left_cast()
 		rightCol = current.get_left_cast()
 		upCol = current.get_up_cast()
@@ -197,4 +202,5 @@ func is_in_region(bodyArray : Array, region : Array):
 	return region
 func bake_nav_planes(regionsArray : Array):
 	for region in regionsArray:
-		region.bake_nav()
+		if is_instance_of(region, StaticBody3D):
+			region.bake_nav()

@@ -4,6 +4,9 @@ extends Node3D
 @onready var check_for_tree_and_bush = $CheckForTreeAndBush
 @onready var navigation_region_3d = $".."
 @onready var audio_stream_player = $AudioStreamPlayer3D
+@onready var inspiration_resource_timer = $InspirationResourceTimer
+
+
 
 
 var spawn_ready:=false
@@ -12,6 +15,9 @@ var spawn_interval:=3.0
 var current_citizen
 var current_pop:=0
 var max_pop:= 10
+
+@export var citizen_food_consumption:=5
+@export var citizen_housing_needs:=10
 
 
 
@@ -26,7 +32,7 @@ func run_spawn():
 	get_tree().root.add_child(current_citizen,true)
 	current_citizen.spawn_point=$SpawnPoint
 	current_citizen.global_position=$SpawnPoint.global_position
-	current_pop+=1
+	GameManager.population +=1
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if spawn_ready and current_pop<max_pop:
@@ -52,7 +58,12 @@ func _on_check_for_tree_and_bush_body_entered(body):
 		body.queue_free()
 		print(str(body) + " removed")
 		
-	
+
+func calculate_happy_citizens():
+	var citizens_with_enough_food = min(GameManager.food/citizen_food_consumption, GameManager.population)
+	var citizen_with_house = min(GameManager.houses_built*citizen_housing_needs, GameManager.population)
+	var happy_citizen = min(citizens_with_enough_food, citizen_with_house)
+	return happy_citizen
 
 
 func _on_random_events_sabotage_started():
@@ -65,3 +76,9 @@ func _on_fire_sabotage_stopped():
 
 func _on_tornado_sabotage_stopped():
 	audio_stream_player.stop()
+
+
+func _on_inspiration_resource_timer_timeout():
+	if (GameManager.food-(GameManager.population*citizen_food_consumption))>0:
+		GameManager.inspiration+=calculate_happy_citizens()
+		GameManager.food-=GameManager.population*citizen_food_consumption

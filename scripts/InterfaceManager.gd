@@ -6,6 +6,11 @@ extends Control
 var happySmile = preload("res://assets/textures/HUD/Happiness.png")
 var neutralSmile = preload("res://assets/textures/HUD/neutralFace.PNG")
 var madSmile = preload("res://assets/textures/HUD/MadFace.PNG")
+
+
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -72,9 +77,10 @@ func _on_move_button_down():
  
 
 func check_happiness():
-	if GameManager.inspiration > 74:
+
+	if GameManager.inspiration > GameManager.happyInspiration:
 		happiness_texture.texture = happySmile
-	elif GameManager.inspiration < 74 and GameManager.inspiration > 35:
+	elif GameManager.inspiration < GameManager.happyInspiration-1 and GameManager.inspiration > GameManager.mediumInspiration:
 		happiness_texture.texture = neutralSmile
 	else:
 		happiness_texture.texture = madSmile

@@ -21,6 +21,12 @@ var population:=0
 var houses_built:=0
 
 
+####INSPIRATION CHECK
+var happyInspiration = 50
+var mediumInspiration = 30
+var madInspiration = 10
+
+
 var citizen: PackedScene
 
 var current_price_for_land:= 10
