@@ -1,8 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://cuy5ydshqlq1h"]
-[gd_scene load_steps=19 format=3 uid="uid://cuy5ydshqlq1h"]
 
 [ext_resource type="PackedScene" uid="uid://b5s3s5eubnut4" path="res://scenes/game_scenes/grid.tscn" id="1_e65h0"]
-[ext_resource type="Environment" uid="uid://bhggvvhc3vklv" path="res://scenes/utils/world_env.tres" id="1_eefdw"]
 [ext_resource type="Script" path="res://scripts/CameraMount.gd" id="2_0oeih"]
 [ext_resource type="PackedScene" uid="uid://cammbwgus5hb4" path="res://scenes/game_scenes/water.tscn" id="2_slo8a"]
 [ext_resource type="PackedScene" uid="uid://bstm2hi6auqqt" path="res://scenes/townhall.tscn" id="3_kumha"]
@@ -12,14 +10,18 @@
 [ext_resource type="Script" path="res://scripts/sabotage_scripts/Tornado.gd" id="7_m144j"]
 [ext_resource type="AudioStream" uid="uid://2u3eyiovgu7y" path="res://audios/background_music.mp3" id="9_8f2j2"]
 
-[sub_resource type="GDScript" id="GDScript_6jqw2"]
-script/source = "extends WorldEnvironment
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d170q"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
+[sub_resource type="Sky" id="Sky_v5u5o"]
+sky_material = SubResource("ProceduralSkyMaterial_d170q")
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	Settings.world_environement = self
-"
+[sub_resource type="Environment" id="Environment_vskdb"]
+background_mode = 2
+sky = SubResource("Sky_v5u5o")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b38wf"]
 size = Vector3(63, 0.3, 63)
@@ -38,28 +40,12 @@ size = Vector3(63, 0.3, 63)
 [sub_resource type="BoxShape3D" id="BoxShape3D_bnwa1"]
 size = Vector3(63, 0.3, 63)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_fxt5s"]
-size = Vector3(63, 0.3, 63)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_bnwa1"]
-size = Vector3(63, 0.3, 63)
-
 [sub_resource type="NavigationMesh" id="NavigationMesh_vlt3o"]
-
-[sub_resource type="GDScript" id="GDScript_mg7ph"]
-script/source = "extends DirectionalLight3D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	Settings.light = self
-"
 
 [node name="main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("1_eefdw")
-script = SubResource("GDScript_6jqw2")
+environment = SubResource("Environment_vskdb")
 
 [node name="Water" parent="." instance=ExtResource("2_slo8a")]
 collision_layer = 2147483648
@@ -67,13 +53,6 @@ collision_layer = 2147483648
 [node name="Grid" parent="." instance=ExtResource("1_e65h0")]
 
 [node name="SelectionCube" type="Node3D" parent="Grid"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-
-[node name="Area3D" type="Area3D" parent="Grid/SelectionCube"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/SelectionCube/Area3D"]
-shape = SubResource("BoxShape3D_b38wf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 
 [node name="Area3D" type="Area3D" parent="Grid/SelectionCube"]
@@ -112,36 +91,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 64)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/SelectionCube/NeighbourCheck/Bottom"]
 shape = SubResource("BoxShape3D_bnwa1")
 
-[node name="NeighbourCheck" type="Node3D" parent="Grid/SelectionCube"]
-
-[node name="Right" type="Area3D" parent="Grid/SelectionCube/NeighbourCheck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.1242, -0.15, -0.119797)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/SelectionCube/NeighbourCheck/Right"]
-shape = SubResource("BoxShape3D_fxt5s")
-
-[node name="Top" type="Area3D" parent="Grid/SelectionCube/NeighbourCheck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.124, -0.15, -64)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/SelectionCube/NeighbourCheck/Top"]
-shape = SubResource("BoxShape3D_bnwa1")
-
-[node name="Left" type="Area3D" parent="Grid/SelectionCube/NeighbourCheck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, -0.15, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/SelectionCube/NeighbourCheck/Left"]
-shape = SubResource("BoxShape3D_bnwa1")
-
-[node name="Bottom" type="Area3D" parent="Grid/SelectionCube/NeighbourCheck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 64)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/SelectionCube/NeighbourCheck/Bottom"]
-shape = SubResource("BoxShape3D_bnwa1")
-
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Grid"]
 navigation_mesh = SubResource("NavigationMesh_vlt3o")
-enabled = false
-navigation_layers = 2
 enabled = false
 navigation_layers = 2
 
@@ -154,8 +105,6 @@ navigation_layers = 2
 [node name="Townhall" parent="Grid/NavigationRegion3D" instance=ExtResource("3_kumha")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.5, 0)
 collision_layer = 0
-
-[node name="PlayArea" type="Node3D" parent="Grid"]
 
 [node name="PlayArea" type="Node3D" parent="Grid"]
 
@@ -172,7 +121,6 @@ far = 1000.0
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.999123, -0.0418757, -1.83044e-09, 0, -4.37114e-08, 1, -0.0418757, 0.999123, 4.3673e-08, 0, 0, 0)
 shadow_enabled = true
-script = SubResource("GDScript_mg7ph")
 
 [node name="HUD" parent="." instance=ExtResource("4_3e1nk")]
 anchors_preset = 15
@@ -185,7 +133,6 @@ grow_vertical = 2
 
 [node name="random_events" type="Node3D" parent="."]
 script = ExtResource("5_p8rf6")
-happinessCheckValue = 1
 
 [node name="Fire" type="Node3D" parent="random_events"]
 script = ExtResource("5_2vvmx")
@@ -198,17 +145,8 @@ stream = ExtResource("9_8f2j2")
 volume_db = -30.0
 autoplay = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("9_8f2j2")
-volume_db = -30.0
-autoplay = true
-bus = &"MUSIC"
-
 [connection signal="grid_generated" from="Grid" to="CameraMount" method="_on_grid_grid_generated"]
 [connection signal="newGridAdded" from="CameraMount" to="CameraMount" method="_on_new_grid_added"]
-[connection signal="sabotage_started" from="random_events" to="Grid/NavigationRegion3D/Townhall" method="_on_random_events_sabotage_started"]
-[connection signal="sabotage_stopped" from="random_events/Fire" to="Grid/NavigationRegion3D/Townhall" method="_on_fire_sabotage_stopped"]
-[connection signal="sabotage_stopped" from="random_events/Tornado" to="Grid/NavigationRegion3D/Townhall" method="_on_tornado_sabotage_stopped"]
 [connection signal="sabotage_started" from="random_events" to="Grid/NavigationRegion3D/Townhall" method="_on_random_events_sabotage_started"]
 [connection signal="sabotage_stopped" from="random_events/Fire" to="Grid/NavigationRegion3D/Townhall" method="_on_fire_sabotage_stopped"]
 [connection signal="sabotage_stopped" from="random_events/Tornado" to="Grid/NavigationRegion3D/Townhall" method="_on_tornado_sabotage_stopped"]

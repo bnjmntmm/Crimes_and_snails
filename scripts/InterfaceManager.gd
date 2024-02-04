@@ -61,8 +61,6 @@ func _on_terrarium_button_down():
 func _on_incubator_button_down():
 	BuildManager.spawn_incubator()
 
-func _on_incubator_button_down():
-	BuildManager.spawn_incubator()
 
 
 func _on_delete_button_down():
