@@ -1,7 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bpnpmmv5fil5h"]
+[gd_scene load_steps=5 format=3 uid="uid://bpnpmmv5fil5h"]
 
 [ext_resource type="ArrayMesh" uid="uid://8un68pqrni0o" path="res://assets/nature/bush_mesh.res" id="1_c6qkh"]
 [ext_resource type="Script" path="res://scripts/ResourceObject.gd" id="1_l2leq"]
+[ext_resource type="AudioStream" uid="uid://cn18kjmk4vtc" path="res://audios/harvest_bush.wav" id="3_xtnob"]
 [ext_resource type="AudioStream" uid="uid://cn18kjmk4vtc" path="res://audios/harvest_bush.wav" id="3_xtnob"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_lgafk"]
@@ -21,6 +23,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="berry" type="MeshInstance3D" parent="bush1berries"]
 transform = Transform3D(0.0473349, 0, 0, 0, 0.0473349, 0, 0, 0, 0.0473349, 0, 0.912118, 0.174693)
+lod_bias = 0.25
 lod_bias = 0.25
 mesh = ExtResource("1_c6qkh")
 skeleton = NodePath("")

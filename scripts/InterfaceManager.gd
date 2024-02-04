@@ -35,6 +35,11 @@ func _process(delta):
 	else:
 		$CraftMenu.visible = false
 	
+	if GameManager.opened_house_menu:
+		$CraftMenu.visible = true
+	else:
+		$CraftMenu.visible = false
+	
 func _on_area_2d_area_entered(area):
 	BuildManager.able_to_build=false
 
@@ -52,6 +57,9 @@ func _on_stock_button_down():
 func _on_terrarium_button_down():
 	BuildManager.spawn_terrarium()
 
+
+func _on_incubator_button_down():
+	BuildManager.spawn_incubator()
 
 func _on_incubator_button_down():
 	BuildManager.spawn_incubator()

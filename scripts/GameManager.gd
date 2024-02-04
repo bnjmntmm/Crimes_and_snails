@@ -30,6 +30,7 @@ var winChecker = WinCondition.new()
 var opened_npc_menu = false
 
 var opened_house_menu = false
+var opened_house_menu = false
 var first_area_generated = false
 
 #### Navigation 

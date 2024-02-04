@@ -1,6 +1,8 @@
 [gd_scene load_steps=18 format=3 uid="uid://b2o4sjrxniyyn"]
+[gd_scene load_steps=18 format=3 uid="uid://b2o4sjrxniyyn"]
 
 [ext_resource type="Script" path="res://scripts/ResourceObject.gd" id="1_3lcox"]
+[ext_resource type="AudioStream" uid="uid://c7skn58cy4hg8" path="res://audios/wood_working.wav" id="2_qycqi"]
 [ext_resource type="AudioStream" uid="uid://c7skn58cy4hg8" path="res://audios/wood_working.wav" id="2_qycqi"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_c6sf3"]
@@ -227,11 +229,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0326767, 0)
 [node name="Cylinder" type="MeshInstance3D" parent="tree_node"]
 transform = Transform3D(1.18294, 0, 0, 0, 1.18294, 0, 0, 0, 1.18294, 0, 1.49929, 0)
 lod_bias = 0.25
+lod_bias = 0.25
 mesh = SubResource("ArrayMesh_77k3f")
 skeleton = NodePath("")
 
 [node name="Cylinder_001" type="MeshInstance3D" parent="tree_node"]
 transform = Transform3D(-0.105752, 0, 0.994393, 0, 1, 0, -0.994393, 0, -0.105752, 0, 2.11743, 0)
+lod_bias = 0.25
 lod_bias = 0.25
 mesh = SubResource("ArrayMesh_qefsd")
 skeleton = NodePath("")
@@ -239,11 +243,13 @@ skeleton = NodePath("")
 [node name="Cylinder_002" type="MeshInstance3D" parent="tree_node"]
 transform = Transform3D(0.849436, 0.0623522, 0.03137, -0.0623098, 0.850015, -0.00230113, -0.0314543, -2.97662e-10, 0.851718, 0, 2.79978, 0)
 lod_bias = 0.25
+lod_bias = 0.25
 mesh = SubResource("ArrayMesh_b31c0")
 skeleton = NodePath("")
 
 [node name="Cylinder_003" type="MeshInstance3D" parent="tree_node"]
 transform = Transform3D(-0.554736, 0.0417454, -0.580643, 0.0288374, 0.803043, 0.0301842, 0.581427, -1.4978e-09, -0.555485, 0, 3.47144, 0)
+lod_bias = 0.25
 lod_bias = 0.25
 mesh = SubResource("ArrayMesh_r0ekl")
 skeleton = NodePath("")
@@ -251,11 +257,13 @@ skeleton = NodePath("")
 [node name="Cylinder_004" type="MeshInstance3D" parent="tree_node"]
 transform = Transform3D(-0.52916, 0.00736045, 0.309727, 0.0219899, 0.612358, 0.0230168, -0.309033, 0.0309702, -0.52871, 0, 4.03526, 0)
 lod_bias = 0.25
+lod_bias = 0.25
 mesh = SubResource("ArrayMesh_4nt1r")
 skeleton = NodePath("")
 
 [node name="Cylinder_005" type="MeshInstance3D" parent="tree_node"]
 transform = Transform3D(0.390072, 0, 0, 0, 1.30917, 0, 0, 0, 0.390072, 0, 1.34713, 0)
+lod_bias = 0.25
 lod_bias = 0.25
 mesh = SubResource("ArrayMesh_vxvor")
 skeleton = NodePath("")
