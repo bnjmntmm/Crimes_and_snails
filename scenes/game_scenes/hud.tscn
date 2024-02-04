@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cjmjp5mli5miu"]
+[gd_scene load_steps=19 format=3 uid="uid://cjmjp5mli5miu"]
 
 [ext_resource type="Script" path="res://scripts/InterfaceManager.gd" id="1_r1lqh"]
 [ext_resource type="Texture2D" uid="uid://cj0h6a2fiit5t" path="res://assets/textures/HUD/snail.png" id="2_dketd"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://d3s2kpit3ctey" path="res://assets/textures/HUD/Wood Planks.PNG" id="7_jbkff"]
 [ext_resource type="Script" path="res://scripts/Tooltip_buildings.gd" id="8_3dk4q"]
 [ext_resource type="Script" path="res://scripts/MouseArea2D.gd" id="9_432ng"]
+[ext_resource type="Script" path="res://scripts/incubator_menu.gd" id="10_uqwhf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xiq8r"]
 bg_color = Color(0.807843, 0, 0, 1)
@@ -257,6 +258,230 @@ shape = SubResource("CircleShape2D_pwr7s")
 position = Vector2(576, 72)
 shape = SubResource("RectangleShape2D_hxuef")
 
+[node name="CraftMenu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -177.0
+offset_right = 161.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_uqwhf")
+
+[node name="Panel" type="Panel" parent="CraftMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.008
+anchor_bottom = 1.0
+offset_right = 49.176
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CloseButton" type="Button" parent="CraftMenu/Panel"]
+layout_mode = 0
+offset_left = 322.0
+offset_top = 6.0
+offset_right = 340.0
+offset_bottom = 37.0
+action_mode = 0
+text = "x"
+
+[node name="exchange_resource" type="Label" parent="CraftMenu/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -148.0
+offset_right = 92.0
+offset_bottom = -122.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.00622)
+text = "Exchange Resources"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CraftMenu/Panel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 48.0
+offset_right = 396.0
+offset_bottom = 252.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CraftMenu/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CraftMenu/Panel/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(170, 100)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("5_v4tpr")
+expand_mode = 2
+
+[node name="AddBerry" type="Button" parent="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+action_mode = 0
+text = "ADD"
+
+[node name="MinusBerry" type="Button" parent="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+action_mode = 0
+text = "MINUS"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CraftMenu/Panel/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(170, 100)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_ouddu")
+expand_mode = 2
+
+[node name="AddWood" type="Button" parent="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+action_mode = 0
+text = "ADD"
+
+[node name="MinusWood" type="Button" parent="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+action_mode = 0
+text = "MINUS"
+
+[node name="ConfirmButton" type="Button" parent="CraftMenu/Panel/HBoxContainer"]
+layout_mode = 2
+action_mode = 0
+text = "CONFIRM"
+
+[node name="ConfirmAgain" type="Button" parent="CraftMenu/Panel/HBoxContainer"]
+visible = false
+layout_mode = 2
+action_mode = 0
+text = "CONFIRM AGAIN"
+
+[node name="BerryIcon" type="TextureRect" parent="CraftMenu/Panel"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 265.0
+offset_right = 81.0
+offset_bottom = 300.0
+texture = ExtResource("5_v4tpr")
+expand_mode = 1
+
+[node name="timesLabel" type="Label" parent="CraftMenu/Panel/BerryIcon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = -10.5
+offset_right = 27.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.00622)
+text = "x"
+
+[node name="counterBerry" type="Label" parent="CraftMenu/Panel/BerryIcon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+offset_top = -10.5
+offset_right = 85.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.00622)
+text = "0"
+clip_text = true
+
+[node name="WoodIcon" type="TextureRect" parent="CraftMenu/Panel"]
+layout_mode = 0
+offset_left = 149.0
+offset_top = 265.0
+offset_right = 185.0
+offset_bottom = 300.0
+texture = ExtResource("6_ouddu")
+expand_mode = 1
+
+[node name="timesLabel" type="Label" parent="CraftMenu/Panel/WoodIcon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 18.0
+offset_top = -10.5
+offset_right = 27.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.00622)
+text = "x"
+
+[node name="counterWood" type="Label" parent="CraftMenu/Panel/WoodIcon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+offset_top = -10.5
+offset_right = 78.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.00622)
+text = "0"
+clip_text = true
+
+[node name="Label" type="Label" parent="CraftMenu/Panel"]
+layout_mode = 0
+offset_left = 269.0
+offset_top = 273.0
+offset_right = 286.0
+offset_bottom = 299.0
+text = "="
+
+[node name="Snails" type="Label" parent="CraftMenu/Panel/Label"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 1.0
+offset_right = 71.0
+offset_bottom = 27.0
+horizontal_alignment = 2
+clip_text = true
+
+[node name="TextureRect" type="TextureRect" parent="CraftMenu/Panel/Label"]
+layout_mode = 0
+offset_left = 70.0
+offset_right = 94.0
+offset_bottom = 24.0
+texture = ExtResource("2_dketd")
+expand_mode = 1
+
 [node name="Population" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 1
@@ -299,7 +524,15 @@ text = "FPS:  "
 [connection signal="mouse_entered" from="BuildMenu/HBoxContainer/House" to="BuildMenu/HBoxContainer/House" method="_on_mouse_entered_house"]
 [connection signal="button_down" from="BuildMenu/HBoxContainer/Stock" to="." method="_on_stock_button_down"]
 [connection signal="button_down" from="BuildMenu/HBoxContainer/Terrarium" to="." method="_on_terrarium_button_down"]
+[connection signal="button_down" from="BuildMenu/HBoxContainer/Incubator" to="." method="_on_incubator_button_down"]
 [connection signal="button_down" from="BuildMenu/HBoxContainer/VBoxContainer/Delete" to="." method="_on_delete_button_down"]
 [connection signal="button_down" from="BuildMenu/HBoxContainer/VBoxContainer/Move" to="." method="_on_move_button_down"]
 [connection signal="area_entered" from="BuildMenu/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="BuildMenu/Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="button_down" from="CraftMenu/Panel/CloseButton" to="CraftMenu" method="_on_close_button_button_down"]
+[connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer2/AddBerry" to="CraftMenu" method="_on_add_berry_button_down"]
+[connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer2/MinusBerry" to="CraftMenu" method="_on_minus_berry_button_down"]
+[connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer/AddWood" to="CraftMenu" method="_on_add_wood_button_down"]
+[connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer/MinusWood" to="CraftMenu" method="_on_minus_wood_button_down"]
+[connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/ConfirmButton" to="CraftMenu" method="_on_confirm_button_button_down"]
+[connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/ConfirmAgain" to="CraftMenu" method="_on_confirm_again_button_down"]

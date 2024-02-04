@@ -11,3 +11,4 @@ func _make_custom_tooltip(for_text):
 
 func _on_mouse_entered_house():
 	current_building = preload("res://assets/textures/building_images/house_image.png")
+

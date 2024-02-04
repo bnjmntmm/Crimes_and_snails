@@ -9,7 +9,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$BuildMenu/HBoxContainer2/RessourceValues/SnailsValue.text=str(GameManager.snails)
-	$BuildMenu/HBoxContainer2/RessourceValues/HappinessValue.text=str(GameManager.happiness)
+	$BuildMenu/HBoxContainer2/RessourceValues/HappinessValue.text=str(GameManager.inspiration)
 	$BuildMenu/HBoxContainer2/RessourceValues/FoodValue.text=str(GameManager.food)
 	$BuildMenu/HBoxContainer2/RessourceValues/WoodValue.text=str(GameManager.wood)
 	$BuildMenu/HBoxContainer2/RessourceValues/PlanksValue.text=str(GameManager.planks)
@@ -19,6 +19,11 @@ func _process(delta):
 		visible= false
 	else:
 		visible = true
+	
+	if GameManager.opened_house_menu:
+		$CraftMenu.visible = true
+	else:
+		$CraftMenu.visible = false
 	
 func _on_area_2d_area_entered(area):
 	BuildManager.able_to_build=false
@@ -38,6 +43,9 @@ func _on_terrarium_button_down():
 	BuildManager.spawn_terrarium()
 
 
+func _on_incubator_button_down():
+	BuildManager.spawn_incubator()
+
 
 func _on_delete_button_down():
 	GameManager.current_state = GameManager.State.DESTROY
@@ -45,3 +53,5 @@ func _on_delete_button_down():
 
 func _on_move_button_down():
 	GameManager.current_state = GameManager.State.MOVE_HOUSE
+
+

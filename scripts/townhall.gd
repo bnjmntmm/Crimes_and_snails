@@ -2,6 +2,8 @@ extends Node3D
 
 @onready var citizen=ResourceLoader.load("res://scenes/game_scenes/citizen.tscn")
 @onready var check_for_tree_and_bush = $CheckForTreeAndBush
+@onready var navigation_region_3d = $".."
+@onready var audio_stream_player = $AudioStreamPlayer3D
 
 
 var spawn_ready:=false
@@ -10,6 +12,8 @@ var spawn_interval:=3.0
 var current_citizen
 var current_pop:=0
 var max_pop:= 10
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,14 +43,25 @@ func _enter_tree():
 
 func _on_check_for_tree_and_bush_body_entered(body):
 	if body.is_in_group("food"):
-		var index = GameManager.bush_array.find(body)
-		if index != -1:
-			GameManager.bush_array.pop_at(index)
-			print("removed bush")
-			body.queue_free()
+		GameManager.bush_array.erase(body)
+		body.queue_free()
+		print(str(body) + " removed")
+		
 	if body.is_in_group("wood"):
-		var index = GameManager.tree_array.find(body)
-		if index != -1:
-			GameManager.bush_array.pop_at(index)
-			print("removed tree")
-			body.queue_free()
+		GameManager.tree_array.erase(body)
+		body.queue_free()
+		print(str(body) + " removed")
+		
+	
+
+
+func _on_random_events_sabotage_started():
+	audio_stream_player.play(0)
+
+
+func _on_fire_sabotage_stopped():
+	audio_stream_player.stop()
+
+
+func _on_tornado_sabotage_stopped():
+	audio_stream_player.stop()
