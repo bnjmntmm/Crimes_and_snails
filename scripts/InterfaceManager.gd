@@ -72,9 +72,9 @@ func _on_move_button_down():
  
 
 func check_happiness():
-	if GameManager.happiness > 74:
+	if GameManager.inspiration > 74:
 		happiness_texture.texture = happySmile
-	elif GameManager.happiness < 74 and GameManager.happiness > 35:
+	elif GameManager.inspiration < 74 and GameManager.inspiration > 35:
 		happiness_texture.texture = neutralSmile
 	else:
 		happiness_texture.texture = madSmile
