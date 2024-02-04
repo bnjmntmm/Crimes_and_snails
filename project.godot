@@ -18,6 +18,7 @@ config/features=PackedStringArray("4.1", "Forward Plus")
 
 GameManager="*res://scripts/GameManager.gd"
 BuildManager="*res://scripts/BuildManager.gd"
+Settings="*res://scripts/settings/Settings.gd"
 
 [display]
 

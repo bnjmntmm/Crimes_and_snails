@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bl70bq45sopev"]
+[gd_scene load_steps=8 format=3 uid="uid://bl70bq45sopev"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_i7pvc"]
+[ext_resource type="StyleBox" uid="uid://bxwb3wa3vc1t5" path="res://assets/textures/HUD/UI/hud.tres" id="2_0kgot"]
+[ext_resource type="Environment" uid="uid://bhggvvhc3vklv" path="res://scenes/utils/world_env.tres" id="2_7w0qe"]
+[ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="2_fyglm"]
+[ext_resource type="PackedScene" uid="uid://cnto8cdxsxbs0" path="res://scenes/utils/settings.tscn" id="4_4dkfx"]
+[ext_resource type="PackedScene" uid="uid://blu0iekkj6o0l" path="res://assets/buildings/House.glb" id="4_lt5gw"]
+[ext_resource type="Script" path="res://scripts/MainMenuSubViewport.gd" id="4_w4i61"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -11,6 +17,13 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_i7pvc")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_7w0qe")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -18,45 +31,95 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_0kgot")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
+offset_top = 68.0
+offset_bottom = 136.0
 grow_horizontal = 2
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 64
+theme = ExtResource("2_fyglm")
 text = "Krasses Game !!!"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
-anchors_preset = 14
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 1.0
 anchor_bottom = 0.5
-grow_horizontal = 2
+offset_top = -77.0
+offset_right = 252.0
+offset_bottom = 102.0
 grow_vertical = 2
+alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2"]
 layout_mode = 2
+alignment = 1
 
 [node name="StartButton" type="Button" parent="Panel/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 6
-theme_override_font_sizes/font_size = 32
+size_flags_horizontal = 3
+theme = ExtResource("2_fyglm")
+theme_override_font_sizes/font_size = 50
 text = "Start"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer2"]
+layout_mode = 2
+
+[node name="SettingsButton" type="Button" parent="Panel/VBoxContainer2/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_fyglm")
+theme_override_font_sizes/font_size = 65
+text = "Settings"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer2"]
 layout_mode = 2
 
 [node name="QuitButton" type="Button" parent="Panel/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
-size_flags_horizontal = 6
-theme_override_font_sizes/font_size = 32
+size_flags_horizontal = 3
+theme = ExtResource("2_fyglm")
+theme_override_font_sizes/font_size = 65
 text = "Quit"
 
+[node name="Settings" parent="Panel" instance=ExtResource("4_4dkfx")]
+visible = false
+layout_mode = 1
+offset_left = 512.0
+offset_top = 195.0
+offset_right = -87.0
+offset_bottom = -140.0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_left = 678.0
+offset_top = 409.0
+offset_right = 909.0
+offset_bottom = 640.0
+stretch = true
+script = ExtResource("4_w4i61")
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(231, 231)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.978853, 0.204564, 0, -0.204564, 0.978853, 0, 12.3853, 19.7277)
+
+[node name="House" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_lt5gw")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 8, -1)
+
 [connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer3/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer2/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="mouse_entered" from="SubViewportContainer" to="SubViewportContainer" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="SubViewportContainer" to="SubViewportContainer" method="_on_mouse_exited"]

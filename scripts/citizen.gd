@@ -105,7 +105,7 @@ func _ready():
 	pov_camera.current = false
 	waterParticles = waterParticlesPrefab.instantiate()
 	pov_camera.add_child(waterParticles)
-	waterParticles.position = pov_camera.position + Vector3(1,-1,0)
+	waterParticles.position = pov_camera.position + Vector3(0.5,-1.25,0)
 	
 	
 	

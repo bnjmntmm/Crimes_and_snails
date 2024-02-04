@@ -30,6 +30,7 @@ var winChecker = WinCondition.new()
 var opened_npc_menu = false
 
 var opened_house_menu = false
+var opened_house_menu = false
 var first_area_generated = false
 
 #### Navigation 
@@ -41,6 +42,11 @@ var stock_array = []
 var npc_in_charge = null
 
 
+##Timer
+var game_time = 0
+var timer_on = false
+var seconds = 0
+var minutes = 0
 
 
 
@@ -49,9 +55,16 @@ var npc_in_charge = null
 
 #Question: Pause the Game? Make a hud visible to "continue" or stop? Maybe a Score? Idk
 func _process(delta):
+	if(!get_tree().paused):
+		game_time += delta
+	seconds = fmod(game_time, 60)
+	minutes = fmod(game_time, 60*60) / 60
+		
 	
 	var condition = winChecker.checkIfWinCondition()
 	if condition != null:
 		print("Win by: " +str(condition))
+		
+	
 
 		
