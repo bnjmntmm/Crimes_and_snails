@@ -38,6 +38,8 @@ uv1_scale = Vector3(100, 100, 100)
 lightmap_size_hint = Vector2i(82, 82)
 material = SubResource("ORMMaterial3D_he8er")
 size = Vector2(65, 65)
+subdivide_width = 64
+subdivide_depth = 64
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r2w1a"]
 size = Vector3(64, 0.5, 64)
