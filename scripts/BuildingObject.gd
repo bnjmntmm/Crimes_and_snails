@@ -31,6 +31,7 @@ var collidingObjects := []
 
 var old_plane = null
 
+
 @onready var right_cast := $NavPlaneCheck/RightCast
 @onready var left_cast := $NavPlaneCheck/LeftCast
 @onready var up_cast := $NavPlaneCheck/UpCast
@@ -83,10 +84,6 @@ func remove_foliage():
 
 
 
-
-func _on_area_mouse_entered():
-	pass # Replace with function body.
-
 #RAYCASTS
 func get_right_cast():
 	return $NavPlaneCheck.get_right_cast()
@@ -96,3 +93,4 @@ func get_up_cast():
 	return $NavPlaneCheck.get_up_cast()
 func get_down_cast():
 	return $NavPlaneCheck.get_down_cast()
+

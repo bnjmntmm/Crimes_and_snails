@@ -1,11 +1,16 @@
 extends Control
 
+signal lab_menu_signal
+
+
 @onready var happiness_texture : TextureRect = $TopUI/HappinessPopuPanel/Happiness
 
 
 var happySmile = preload("res://assets/textures/HUD/Happiness.png")
 var neutralSmile = preload("res://assets/textures/HUD/neutralFace.PNG")
 var madSmile = preload("res://assets/textures/HUD/MadFace.PNG")
+
+var recalcJustOnce : bool = true
 
 
 
@@ -39,14 +44,20 @@ func _process(delta):
 		visible = true
 	
 	if GameManager.opened_house_menu:
+		$LabMenu.visible = false
 		$CraftMenu.visible = true
 	else:
 		$CraftMenu.visible = false
 	
-	if GameManager.opened_house_menu:
-		$CraftMenu.visible = true
+	if GameManager.opened_lab_menu:
+		if recalcJustOnce:
+			recalcJustOnce = false
+			$CraftMenu.visible = false
+			$LabMenu.visible = true
+			lab_menu_signal.emit()
 	else:
-		$CraftMenu.visible = false
+		recalcJustOnce = true
+		$LabMenu.visible = false
 	
 func _on_area_2d_area_entered(area):
 	BuildManager.able_to_build=false
@@ -69,6 +80,9 @@ func _on_terrarium_button_down():
 func _on_incubator_button_down():
 	BuildManager.spawn_incubator()
 
+
+func _on_lab_button_down():
+	BuildManager.spawn_lab()
 
 
 func _on_delete_button_down():
@@ -100,3 +114,4 @@ func _on_settings_menu_pressed():
 	$Settings.visible = true
 	$TopUI.visible = false
 	$BuildMenu.visible = false
+

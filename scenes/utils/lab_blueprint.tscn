@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://bk6ueva8krbay"]
+
+[ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="1_2wr7u"]
+[ext_resource type="Script" path="res://scripts/UI/lab_blueprint.gd" id="2_udfof"]
+[ext_resource type="Texture2D" uid="uid://b3dakog34o6lf" path="res://assets/textures/HUD/Inspiration.PNG" id="3_jnshg"]
+
+[node name="LabBlueprint" type="Control"]
+custom_minimum_size = Vector2(310, 40)
+layout_mode = 3
+anchor_right = 0.269
+anchor_bottom = 0.059
+offset_right = 3.11197
+offset_bottom = 1.768
+theme = ExtResource("1_2wr7u")
+script = ExtResource("2_udfof")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.997
+anchor_bottom = 0.974
+offset_right = -0.0610046
+offset_bottom = 0.0399971
+
+[node name="BuildingName" type="Label" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 9.0
+offset_right = 361.0
+offset_bottom = 93.0
+scale = Vector2(0.3, 0.3)
+theme_override_font_sizes/font_size = 100
+text = "BuildingName"
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 122.0
+offset_right = 162.0
+offset_bottom = 40.0
+texture = ExtResource("3_jnshg")
+expand_mode = 1
+
+[node name="price_label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 153.0
+offset_top = 11.0
+offset_right = 390.0
+offset_bottom = 95.0
+scale = Vector2(0.3, 0.3)
+theme_override_font_sizes/font_size = 100
+text = "x 10000"
+vertical_alignment = 1
+clip_text = true
+
+[node name="UpgradeButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 243.0
+offset_top = 5.0
+offset_right = 504.0
+offset_bottom = 152.0
+scale = Vector2(0.2, 0.2)
+theme_override_font_sizes/font_size = 100
+text = "Upgrade"
+
+[connection signal="button_down" from="UpgradeButton" to="." method="_on_upgrade_button_button_down"]
