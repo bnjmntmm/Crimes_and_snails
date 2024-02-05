@@ -89,14 +89,16 @@ func _process(delta):
 		GameManager.food = GameManager.food + 10
 
 	if Input.is_action_just_released("mouse_wheel_up"):
-		zoom-=zoom_speed
+		if !GameManager.opened_lab_menu:
+			zoom-=zoom_speed
 #		if $Camera.global_position.distance_to(global_position) > 15:
 #			$Camera.global_position -= $Camera.global_position * 0.1 * sense
 
 		
 		
 	if Input.is_action_just_released("mouse_wheel_down"):
-		zoom+=zoom_speed
+		if !GameManager.opened_lab_menu:
+			zoom+=zoom_speed
 	zoom=clamp(zoom,min_zoom,max_zoom)
 	scale=lerp(scale,Vector3.ONE*zoom,zoom_speed)
 #		if $Camera.global_position.distance_to(global_position) < 50:

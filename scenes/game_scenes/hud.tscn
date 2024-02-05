@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cjmjp5mli5miu"]
+[gd_scene load_steps=26 format=3 uid="uid://cjmjp5mli5miu"]
 
 [ext_resource type="Script" path="res://scripts/InterfaceManager.gd" id="1_r1lqh"]
 [ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="2_0su6q"]
@@ -15,6 +15,7 @@
 [ext_resource type="StyleBox" uid="uid://bxwb3wa3vc1t5" path="res://assets/textures/HUD/UI/hud.tres" id="11_04pr6"]
 [ext_resource type="Texture2D" uid="uid://2qtyrss2w3b6" path="res://assets/textures/HUD/UI/settings_cog.png" id="12_cd738"]
 [ext_resource type="PackedScene" uid="uid://cnto8cdxsxbs0" path="res://scenes/utils/settings.tscn" id="15_82u5j"]
+[ext_resource type="Script" path="res://scripts/LabMenu.gd" id="15_kbjog"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jiy5"]
 bg_color = Color(0, 0.12549, 0, 0.592157)
@@ -417,7 +418,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -192.0
 offset_top = -177.0
-offset_right = 161.0
+offset_right = 208.0
 offset_bottom = 130.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -429,18 +430,17 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.008
 anchor_bottom = 1.0
-offset_right = 49.176
+offset_right = -2.20001
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CloseButton" type="Button" parent="CraftMenu/Panel"]
+[node name="Button" type="Button" parent="CraftMenu/Panel"]
 layout_mode = 0
-offset_left = 322.0
-offset_top = 6.0
-offset_right = 340.0
-offset_bottom = 37.0
-action_mode = 0
-text = "x"
+offset_left = 355.0
+offset_top = 8.0
+offset_right = 395.0
+offset_bottom = 48.0
+text = "X"
 
 [node name="exchange_resource" type="Label" parent="CraftMenu/Panel"]
 layout_mode = 1
@@ -641,6 +641,63 @@ offset_bottom = 31.0
 texture = ExtResource("2_dketd")
 expand_mode = 1
 
+[node name="LabMenu" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 382.0
+offset_top = 147.0
+offset_right = 786.0
+offset_bottom = 453.0
+mouse_filter = 1
+theme = ExtResource("2_0su6q")
+script = ExtResource("15_kbjog")
+
+[node name="Panel" type="Panel" parent="LabMenu"]
+layout_mode = 0
+offset_right = 404.0
+offset_bottom = 307.0
+
+[node name="Button" type="Button" parent="LabMenu/Panel"]
+layout_mode = 0
+offset_left = 357.0
+offset_top = 6.0
+offset_right = 397.0
+offset_bottom = 46.0
+text = "X"
+
+[node name="Label" type="Label" parent="LabMenu/Panel"]
+layout_mode = 0
+offset_left = 120.0
+offset_right = 271.0
+offset_bottom = 29.0
+theme_override_font_sizes/font_size = 31
+text = "Upgrade Buildings"
+
+[node name="TabContainer" type="TabContainer" parent="LabMenu/Panel"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 48.0
+offset_right = 379.0
+offset_bottom = 296.0
+
+[node name="Houses" type="ScrollContainer" parent="LabMenu/Panel/TabContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="HousesVBox" type="VBoxContainer" parent="LabMenu/Panel/TabContainer/Houses"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Stocks" type="ScrollContainer" parent="LabMenu/Panel/TabContainer"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="StocksVBox" type="VBoxContainer" parent="LabMenu/Panel/TabContainer/Stocks"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
 [node name="FPS" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 1
@@ -661,6 +718,7 @@ offset_top = 153.0
 offset_right = -304.0
 offset_bottom = -182.0
 
+[connection signal="lab_menu_signal" from="." to="LabMenu" method="_on_hud_lab_menu_signal"]
 [connection signal="mouse_entered" from="TopUI/HappinessPopuPanel/Happiness" to="TopUI/HappinessPopuPanel/Happiness" method="_on_mouse_entered_happiness"]
 [connection signal="mouse_entered" from="TopUI/ResourcePanel/Snails" to="TopUI/ResourcePanel/Snails" method="_on_mouse_entered_snails"]
 [connection signal="mouse_entered" from="TopUI/ResourcePanel/Food" to="TopUI/ResourcePanel/Food" method="_on_mouse_entered_food"]
@@ -670,17 +728,19 @@ offset_bottom = -182.0
 [connection signal="button_down" from="BuildMenu/BuildingContainer/House" to="." method="_on_house_button_down"]
 [connection signal="mouse_entered" from="BuildMenu/BuildingContainer/House" to="BuildMenu/BuildingContainer/House" method="_on_mouse_entered_house"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Stock" to="." method="_on_stock_button_down"]
+[connection signal="button_down" from="BuildMenu/BuildingContainer/Lab" to="." method="_on_lab_button_down"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Terrarium" to="." method="_on_terrarium_button_down"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Incubator" to="." method="_on_incubator_button_down"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/VBoxContainer/Move" to="." method="_on_move_button_down"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/VBoxContainer/Delete" to="." method="_on_delete_button_down"]
 [connection signal="area_entered" from="BuildMenu/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="BuildMenu/Area2D" to="." method="_on_area_2d_area_exited"]
-[connection signal="button_down" from="CraftMenu/Panel/CloseButton" to="CraftMenu" method="_on_close_button_button_down"]
+[connection signal="button_down" from="CraftMenu/Panel/Button" to="CraftMenu" method="_on_close_button_button_down"]
 [connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer2/AddBerry" to="CraftMenu" method="_on_add_berry_button_down"]
 [connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer2/MinusBerry" to="CraftMenu" method="_on_minus_berry_button_down"]
 [connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer/AddWood" to="CraftMenu" method="_on_add_wood_button_down"]
 [connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/VBoxContainer/HBoxContainer/MinusWood" to="CraftMenu" method="_on_minus_wood_button_down"]
 [connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/ConfirmButton" to="CraftMenu" method="_on_confirm_button_button_down"]
 [connection signal="button_down" from="CraftMenu/Panel/HBoxContainer/ConfirmAgain" to="CraftMenu" method="_on_confirm_again_button_down"]
+[connection signal="button_down" from="LabMenu/Panel/Button" to="LabMenu" method="_on_button_button_down"]
 [connection signal="settings_closed" from="Settings" to="." method="_on_settings_settings_closed"]

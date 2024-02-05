@@ -37,6 +37,8 @@ var opened_npc_menu = false
 
 var opened_house_menu = false
 var first_area_generated = false
+var opened_lab_menu = false
+
 
 #### Navigation 
 var tree_array : Array = []

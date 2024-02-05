@@ -4,6 +4,7 @@ var House: PackedScene =ResourceLoader.load("res://scenes/building_scenes/house.
 var Stock: PackedScene=ResourceLoader.load("res://scenes/building_scenes/stock.tscn")
 var Terrarium: PackedScene = ResourceLoader.load("res://scenes/building_scenes/terrarium.tscn")
 var Incubator: PackedScene = ResourceLoader.load("res://scenes/building_scenes/incubator.tscn")
+var Lab: PackedScene = ResourceLoader.load("res://scenes/building_scenes/temple.tscn")
 var able_to_build := true
 var current_spawnable: StaticBody3D
 
@@ -60,6 +61,7 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed("esc") and not GameManager.current_state == GameManager.State.POV_MODE:
 		GameManager.opened_house_menu = false
+		GameManager.opened_lab_menu = false
 		GameManager.current_state=GameManager.State.PLAY
 		if current_spawnable!=null:
 			current_spawnable.queue_free()
@@ -82,6 +84,7 @@ func _physics_process(delta):
 			current_spawnable.active_buildable_object=true
 			
 			if able_to_build:
+				
 				if Input.is_action_just_released("left_mouse_down"):	
 					var obj:=current_spawnable.duplicate()
 					
@@ -157,10 +160,7 @@ func _physics_process(delta):
 		
 		
 func spawn_house():
-	
-	
 	spawn_object(House)
-	
 	
 func spawn_stock():
 	spawn_object(Stock)
@@ -170,6 +170,8 @@ func spawn_terrarium():
 func spawn_incubator():
 	spawn_object(Incubator)
 	
+func spawn_lab():
+	spawn_object(Lab)
 func spawn_object(obj):
 	if current_spawnable!=null:
 		current_spawnable.queue_free()
