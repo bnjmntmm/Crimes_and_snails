@@ -13,11 +13,14 @@ var madSmile = preload("res://assets/textures/HUD/MadFace.PNG")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	GameManager.inGame = true
+	Settings.world_environement = $"../WorldEnvironment"
+	Settings.light = $"../Sun"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	$TopUI/ResourcePanel/SnailLabel.text=str(GameManager.snails)
 #	$BuildMenu/ResourceContainer/RessourceValues/HappinessValue.text=str(GameManager.inspiration)
 	$TopUI/ResourcePanel/FoodLabel.text=str(GameManager.food)

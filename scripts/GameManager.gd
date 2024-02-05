@@ -54,16 +54,21 @@ var seconds = 0
 var minutes = 0
 
 
+var inGame = false
+
+
 
 #Checks if WinCondition is erreicht, when condition != null also no condition erreicht, nothing happens
 #else its spammed :D
 
 #Question: Pause the Game? Make a hud visible to "continue" or stop? Maybe a Score? Idk
 func _process(delta):
-	if(!get_tree().paused):
-		game_time += delta
-	seconds = fmod(game_time, 60)
-	minutes = fmod(game_time, 60*60) / 60
+	
+	if inGame:
+		if(!get_tree().paused):
+			game_time += delta
+		seconds = fmod(game_time, 60)
+		minutes = fmod(game_time, 60*60) / 60
 		
 	
 	var condition = winChecker.checkIfWinCondition()
