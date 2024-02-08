@@ -1,61 +1,66 @@
 extends CharacterBody3D
 
-@onready var navigation_agent : NavigationAgent3D = $NavigationAgent3D
+# 01. @onready variables
+@onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var pov_camera = Camera3D.new()
 @onready var main_camera = get_viewport().get_camera_3d()
 @onready var npc_menu = $npc_menu
 @onready var current_job_value = $npc_menu/current_job_value
 @onready var audio_stream_player = $AudioStreamPlayer
-
 @onready var animation_tree = $citizen_root/AnimationTreeNormalCit
-var waterParticlesPrefab = preload("res://assets/particles/water_extinguish.tscn")
 @onready var extinguish_timer = $ExtinguishTimer
 
-## OTHER MATERIAL AND CLOTHING
+
+# 02. Constants and Preloads
+var waterParticlesPrefab = preload("res://assets/particles/water_extinguish.tscn")
 var blue_skin = preload("res://assets/char_model/blue_skin.tres")
 var yellow_skin = preload("res://assets/char_model/yellow_skin.tres")
 var orange_skin = preload("res://assets/char_model/orange_skin.tres")
+var water_progressPrefab = preload("res://scenes/utils/water_extinguish_timer.tscn")
 
 var skin_array = [blue_skin, yellow_skin, orange_skin]
+
+# 03. @onready nodes
 @onready var body := $citizen_root/Citizen/Skeleton3D/Body
 @onready var citizen_root = $citizen_root
-
 @onready var criminalclothing = $citizen_root/Citizen/Skeleton3D/Criminalclothing
 @onready var criminalhat = $citizen_root/Citizen/Skeleton3D/Criminalhat
 @onready var normalclothing = $citizen_root/Citizen/Skeleton3D/Normalclothing
 @onready var normalhat = $citizen_root/Citizen/Skeleton3D/Normalhat
 
-
+# 04. Enums
 enum TASK{
 	GETTING_FOOD,
 	SEARCHING,
 	DELIVERING,
 	WALKING,
-	POV_MODE
+	POV_MODE,
+	RIOT
 }
 enum JOB{
 	food,
 	wood
-	
 }
 
+# 05. @export variables
 @export var walk_speed = 5.0
 
-var current_task=TASK.SEARCHING
-var current_job=JOB.food
-var run_once:=true
+# 06. Public variables
+var current_task = TASK.SEARCHING
+var current_job = JOB.food
+var run_once := true
 var spawn_point
-var is_collecting :=false
+var is_collecting := false
 
 var mouse_sensitivity = 0.002
 
-var resource_hold_current:=0
+var resource_hold_current := 0
 var nearest_resource_object:Node3D
 
 var waterParticles : Node3D
+var waterProgress : ProgressBar
+#this is for the water
 var currentHouse = null
-
-var lastRot = 0
 
 var anim_pos_dict = {
 	"melking" : Vector2(0,1.1),
@@ -64,11 +69,19 @@ var anim_pos_dict = {
 	"strutting": Vector2(-1,0),
 	"busy" : Vector2(0,0)
 }
-
-
-# Path
+#Path
 var path = []
 var allowWater = false
+
+
+#for the sabotage walking
+var is_disguised
+var sabotageHouse
+var gotToSabotageHouse = false
+signal reachedSabotageHouse
+var runOnceSabotage = true
+
+
 
 func _ready():
 	randomize()
@@ -104,12 +117,13 @@ func _ready():
 	add_child(pov_camera)
 	pov_camera.current = false
 	waterParticles = waterParticlesPrefab.instantiate()
+	waterProgress = water_progressPrefab.instantiate()
 	pov_camera.add_child(waterParticles)
 	waterParticles.position = pov_camera.position + Vector3(0.5,-1.25,0)
 	
+	waterProgress.visible = false
+	pov_camera.add_child(waterProgress)
 	
-	
-	GameManager.population+=1
 
 
 func move_along_path():
@@ -135,6 +149,31 @@ func move_along_path():
 		_on_velocity_computed(new_velocity)
 	#walk back to center?
 
+func move_towards_sabotage_house():
+	#print(sabotageHouse)
+	gotToSabotageHouse = false
+	if navigation_agent.is_navigation_finished():
+		if runOnceSabotage:
+			runOnceSabotage = false
+			gotToSabotageHouse = true
+			update_animation_tree(anim_pos_dict["working"])
+			await get_tree().create_timer(5).timeout
+			reachedSabotageHouse.emit()
+			runOnceSabotage = true
+			change_to_normal()
+			current_task = TASK.SEARCHING
+	
+	if not navigation_agent.is_target_reachable():
+		print("stuck?")
+	var next_path_position : Vector3 = navigation_agent.get_next_path_position()
+	var lookAtPos := next_path_position
+	citizen_root.look_at(Vector3(lookAtPos.x, 1.53,lookAtPos.z), Vector3(0,1,0), true)
+	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * walk_speed
+	if navigation_agent.avoidance_enabled:
+		navigation_agent.set_velocity(new_velocity)
+	else:
+		_on_velocity_computed(new_velocity)
+			
 func _process(delta):
 	match current_task:
 		TASK.SEARCHING:
@@ -201,6 +240,18 @@ func _process(delta):
 				velocity.x = walk_direction.x * walk_speed
 				velocity.z = walk_direction.z * walk_speed
 				move_and_slide()
+		TASK.RIOT:
+			if is_instance_valid(sabotageHouse):
+				if navigation_agent.target_position != sabotageHouse.sabotage_point.global_position:
+					navigation_agent.target_position = sabotageHouse.sabotage_point.global_position
+					change_to_criminal()
+				move_towards_sabotage_house()
+			else:
+				change_to_normal()
+				navigation_agent.target_position = global_position
+				current_task = TASK.SEARCHING
+
+	
 
 func _input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and current_task == TASK.POV_MODE:
@@ -216,6 +267,8 @@ func _input(event):
 				allowWater = true
 				extinguish_timer.start()
 				currentHouse = house
+				waterProgress.visible = true
+				
 #				house.sabotageType.fire_stopped(house)
 #				house.isBurning = false#
 #				print("brand gelöscht. Super gemacht")
@@ -223,18 +276,28 @@ func _input(event):
 func _physics_process(delta):
 	if Input.is_action_pressed("left_mouse_down") and current_task == TASK.POV_MODE and allowWater:
 		waterParticles.set_emitting(true)
+		waterProgress.value = calcPercentage()
 		if extinguish_timer.is_stopped():
+			waterProgress.value = 0
+			waterProgress.visible = false
 			currentHouse.sabotageType.fire_stopped(currentHouse) 
 			allowWater = false
 			waterParticles.set_emitting(false)
+			GameManager.sabotages_stopped += 1
 	if Input.is_action_just_released("left_mouse_down") and current_task == TASK.POV_MODE and allowWater:
 		waterParticles.set_emitting(false)
 		extinguish_timer.stop()
+		waterProgress.visible = false
+		waterProgress.value = 0
 		
 		
 		
 		
-		
+func calcPercentage():
+	var extinguishTime = 3
+	var percentage = (float(extinguish_timer.time_left) / float(extinguishTime)) * 100
+	return snapped(percentage, 0.1)
+
 func execute_raycast(event_position, camera : Camera3D):
 	var raycastFrom = camera.project_ray_origin(event_position)
 	var raycastTo = raycastFrom + camera.project_ray_normal(event_position) * 20
@@ -271,10 +334,11 @@ func _on_velocity_computed(safe_velocity: Vector3):
 	move_and_slide()
 
 func _on_clicked(camera, event, position, normal, shape_idx):
-	if Input.is_action_just_released("left_mouse_down") and not GameManager.opened_npc_menu:
-		GameManager.opened_npc_menu = true
-		npc_menu.set_position(get_viewport().get_mouse_position())
-		npc_menu.visible = true
+	if not is_disguised:
+		if Input.is_action_just_released("left_mouse_down"):
+			GameManager.opened_npc_menu = true
+			npc_menu.set_position(get_viewport().get_mouse_position())
+			npc_menu.visible = true
 
 
 
@@ -312,12 +376,15 @@ func _on_job_food_button_down():
 func update_animation_tree(newPos : Vector2):
 	animation_tree["parameters/BlendSpace/blend_position"] = newPos
 
+
 func change_to_criminal():
+	is_disguised = true
 	criminalclothing.visible = true
 	criminalhat.visible = true
 	normalclothing.visible = false
 	normalhat.visible = false
 func change_to_normal():
+	is_disguised = false
 	criminalclothing.visible = false
 	criminalhat.visible = false
 	normalclothing.visible = true

@@ -16,7 +16,7 @@ func _ready():
 func _on_farmed():
 	audio_stream_player.play()
 	current_times_farmed+=1
-	print("farmed" +  str(self))
+	#print("farmed" +  str(self))
 func _on_max_farmed_reached():
 	#label_3d.show()
 	self.is_farmable=false

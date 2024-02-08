@@ -19,7 +19,7 @@ var happiness:=0
 var inspiration:=0
 var population:=0
 var houses_built:=0
-
+var sabotages_stopped:=0
 
 ####INSPIRATION CHECK
 var happyInspiration = 50
@@ -57,7 +57,10 @@ var minutes = 0
 
 
 var inGame = false
+var riotAllowed = false
 
+##TEMPLE BUILD WIN CONDITITION
+var isTempleBuild = false
 
 
 #Checks if WinCondition is erreicht, when condition != null also no condition erreicht, nothing happens
@@ -78,5 +81,3 @@ func _process(delta):
 		print("Win by: " +str(condition))
 		
 	
-
-		

@@ -11,8 +11,10 @@
 [ext_resource type="AudioStream" uid="uid://2u3eyiovgu7y" path="res://audios/background_music.mp3" id="9_8f2j2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d170q"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+sky_horizon_color = Color(0.470588, 0.619608, 0.839216, 1)
+ground_bottom_color = Color(0.0941176, 0.415686, 0.690196, 1)
+ground_horizon_color = Color(0.470588, 0.619608, 0.839216, 1)
+ground_curve = 0.0386376
 
 [sub_resource type="Sky" id="Sky_v5u5o"]
 sky_material = SubResource("ProceduralSkyMaterial_d170q")

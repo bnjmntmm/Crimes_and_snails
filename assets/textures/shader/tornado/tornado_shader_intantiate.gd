@@ -6,7 +6,7 @@ var house_pos
 var target_pos
 var body_freed = false
 
-var speed = 3
+var speed = 10
 @onready var detect_house = $DetectHouse
 
 var target = null

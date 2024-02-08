@@ -4,7 +4,7 @@ var House: PackedScene =ResourceLoader.load("res://scenes/building_scenes/house.
 var Stock: PackedScene=ResourceLoader.load("res://scenes/building_scenes/stock.tscn")
 var Terrarium: PackedScene = ResourceLoader.load("res://scenes/building_scenes/terrarium.tscn")
 var Incubator: PackedScene = ResourceLoader.load("res://scenes/building_scenes/incubator.tscn")
-var Lab: PackedScene = ResourceLoader.load("res://scenes/building_scenes/temple.tscn")
+var Lab: PackedScene = ResourceLoader.load("res://scenes/building_scenes/laboratorium.tscn")
 var able_to_build := true
 var current_spawnable: StaticBody3D
 
@@ -43,20 +43,23 @@ func _physics_process(delta):
 			var space_state=get_world_3d().direct_space_state
 			var query = PhysicsRayQueryParameters3D.create(from,to)
 			var result = space_state.intersect_ray(query)
-			if result.collider.is_in_group("building") or result.collider.is_in_group("stock"):
-				checkNavRegionBuilding(result.collider)
-				
-				#result.collider.run_despawn()
-				if result.collider.name.contains("House"):
-					GameManager.houses_built-=1
+			if result.size() > 0:
+				if result.collider.is_in_group("building") or result.collider.is_in_group("stock"):
+					checkNavRegionBuilding(result.collider)
 					
-				houseSceneRemoved.emit(result.collider)
-				
-				## QUEUE Free funktioniert hier nicht, da es im nächsten physics frame 
-				## erst gemacht wird, das baken aber in dem davor, deswegen ist die nav
-				## nicht fertig gebaked, .free() ist gefährlich
-				result.collider.free()
-				bake_nav_planes(navRegion)
+					#result.collider.run_despawn()
+					if result.collider.name.contains("House"):
+						GameManager.houses_built-=1
+					if result.collider.is_in_group("stock"):
+						GameManager.stock_array.erase(result.collider)
+						
+					houseSceneRemoved.emit(result.collider)
+					
+					## QUEUE Free funktioniert hier nicht, da es im nächsten physics frame 
+					## erst gemacht wird, das baken aber in dem davor, deswegen ist die nav
+					## nicht fertig gebaked, .free() ist gefährlich
+					result.collider.free()
+					bake_nav_planes(navRegion)
 				
 
 	if Input.is_action_just_pressed("esc") and not GameManager.current_state == GameManager.State.POV_MODE:
@@ -82,9 +85,8 @@ func _physics_process(delta):
 		# Set the position of the current spawnable to the intersection point, with adjustments to x and z for snapping to a grid.
 			current_spawnable.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z)) 
 			current_spawnable.active_buildable_object=true
-			
+			#print(able_to_build)
 			if able_to_build:
-				
 				if Input.is_action_just_released("left_mouse_down"):	
 					var obj:=current_spawnable.duplicate()
 					

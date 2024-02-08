@@ -48,5 +48,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.371487, 0.272266, -3.29506)
 [node name="DownCast" parent="NavPlaneCheck" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00470018, 0.272266, 2.08182)
 
+[node name="SabotagePoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.231, 0, 2)
+
 [editable path="Warehouse_Big"]
 [editable path="NavPlaneCheck"]

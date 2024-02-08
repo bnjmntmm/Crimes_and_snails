@@ -38,6 +38,7 @@ func _on_upgrade_button_button_down():
 		is_upgraded = true
 		#state_changed.emit()
 		object.queue_free()
+		GameManager.inspiration = GameManager.inspiration - upgrade_price_house
 		
 	if object.is_in_group("stock"):
 		var upgraded_building = big_stock.instantiate()
@@ -48,6 +49,7 @@ func _on_upgrade_button_button_down():
 		is_upgraded = true
 		#state_changed.emit()
 		object.queue_free()
+		GameManager.inspiration = GameManager.inspiration - upgrade_price_stock
 		GameManager.stock_array.erase(object)
 		GameManager.stock_array.append(upgraded_building)
 		

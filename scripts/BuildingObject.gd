@@ -2,6 +2,7 @@ extends Node3D
 
 
 @onready var audio_stream_player = $AudioStreamPlayer3D
+@onready var sabotage_point = $SabotagePoint
 
 
 @export var can_spawn_actor :=true
@@ -66,10 +67,9 @@ func _on_area_entered(area):
 		BuildManager.able_to_build=false
 
 func _on_area_exited(area):
-	
 	if active_buildable_object:
 		objects.erase(area)
-		if objects.size()<=0:
+		if objects.size()>=0:
 			BuildManager.able_to_build=true
 func set_disabled(enabled):
 		$CollisionShape.disabled=enabled
