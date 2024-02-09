@@ -10,6 +10,8 @@ extends Node3D
 var zoom=1.5
 @onready var navigation_region_3d = $"../Grid/NavigationRegion3D"
 
+@export var generate_bushes_and_trees_range = 28
+
 @onready var bought_grid_nav_plane=ResourceLoader.load("res://scenes/game_scenes/bought_grid_nav_plane.tscn")
 
 var old_pos_mount : Vector3
@@ -219,13 +221,15 @@ func _on_new_grid_added(body : StaticBody3D):
 		bush_instance.add_to_group("food")
 		get_parent().get_node("Grid/PlayArea").get_node(str(body)).get_child(0).get_child(1).call_thread_safe("add_child", bush_instance,true)
 		randomize()
-		bush_instance.global_position =  body.global_position + Vector3(randi_range(-32,32),0,randi_range(-32,32))
+		var random_vec_bush =  Vector3(randi_range(-generate_bushes_and_trees_range,generate_bushes_and_trees_range),0,randi_range(-generate_bushes_and_trees_range,generate_bushes_and_trees_range))
+		bush_instance.global_position =  body.global_position + random_vec_bush
 		GameManager.bush_array.append(bush_instance)
 		
 		var tree_instance = tree_mesh.instantiate()
 		tree_instance.add_to_group("wood")
 		get_parent().get_node("Grid/PlayArea").get_node(str(body)).get_child(0).get_child(1).call_thread_safe("add_child", tree_instance,true)
-		tree_instance.global_position =  body.global_position + Vector3(randi_range(-32,32),0,randi_range(-32,32))
+		var random_vec_tree =  Vector3(randi_range(-generate_bushes_and_trees_range,generate_bushes_and_trees_range),0,randi_range(-generate_bushes_and_trees_range,generate_bushes_and_trees_range))
+		tree_instance.global_position =  body.global_position + random_vec_tree
 		GameManager.tree_array.append(tree_instance)
 	#ready_to_bake.emit() ##this mofo lags :D
 	#call_deferred("bake_nav",body)
@@ -248,13 +252,15 @@ func _on_grid_grid_generated(body: StaticBody3D):
 		bush_instance.add_to_group("food")
 		get_parent().get_node("Grid/PlayArea").get_node(str(body)).get_child(0).get_child(1).call_thread_safe("add_child", bush_instance,true)
 		randomize()
-		bush_instance.global_position =  body.global_position + Vector3(randi_range(-32,32),0,randi_range(-32,32))
+		var random_vec_bush =  Vector3(randi_range(-generate_bushes_and_trees_range,generate_bushes_and_trees_range),0,randi_range(-generate_bushes_and_trees_range,generate_bushes_and_trees_range))
+		bush_instance.global_position =  body.global_position + random_vec_bush
 		GameManager.bush_array.append(bush_instance)
 		
 		var tree_instance = tree_mesh.instantiate()
 		tree_instance.add_to_group("wood")
 		get_parent().get_node("Grid/PlayArea").get_node(str(body)).get_child(0).get_child(1).call_thread_safe("add_child", tree_instance,true)
-		tree_instance.global_position =  body.global_position + Vector3(randi_range(-32,32),0,randi_range(-32,32))
+		var random_vec_tree =  Vector3(randi_range(-generate_bushes_and_trees_range,generate_bushes_and_trees_range),0,randi_range(-generate_bushes_and_trees_range,generate_bushes_and_trees_range))
+		tree_instance.global_position =  body.global_position + random_vec_tree
 		GameManager.tree_array.append(tree_instance)
 	GameManager.first_area_generated = true
 	#ready_to_bake.emit()

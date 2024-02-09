@@ -5,7 +5,7 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_c6sf3"]
 height = 4.61569
-radius = 1.72925
+radius = 1.39935
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hra5v"]
 resource_name = "Krone"
