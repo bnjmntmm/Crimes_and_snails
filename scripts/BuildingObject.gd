@@ -14,6 +14,15 @@ extends Node3D
 @export var food_cost: int
 @export var snail_cost:int
 
+@export var is_crafting_building:=false
+@export var crafted_resource_ammount:=0
+@export var raw_to_refined_ratio:=0
+@export_enum("planks","bread","wheat") var crafted_resource:String
+@onready var crafting_timer = $CraftingTimer
+@onready var crafting_progress = $CraftingProgress
+@export var crafting_time:=10.0
+var current_time:=crafting_time
+
 var objects:Array=[]
 var active_buildable_object: bool
 var spawned:=false
@@ -44,6 +53,8 @@ func _ready():
 	$Area.area_exited.connect(_on_area_exited)
 	$Area.body_entered.connect(_on_body_entered)
 	$Area.body_exited.connect(_on_body_exited)
+	if is_crafting_building:
+		crafting_timer.start()
 #func run_spawn():
 #	if can_spawn_actor:
 #		pass
@@ -93,4 +104,29 @@ func get_up_cast():
 	return $NavPlaneCheck.get_up_cast()
 func get_down_cast():
 	return $NavPlaneCheck.get_down_cast()
+	
 
+func craft_resource():
+	match crafted_resource:
+		"planks":
+			if GameManager.wood>=crafted_resource_ammount*raw_to_refined_ratio:
+				GameManager.wood-=crafted_resource_ammount*raw_to_refined_ratio
+				GameManager.planks+=crafted_resource_ammount
+				
+		"bread":
+			pass
+		"wheat":
+			pass
+
+
+func _on_crafting_timer_timeout():
+	self.current_time-=0.1
+	update_progress_bar()
+func update_progress_bar():
+	var progress=(crafting_time-current_time)/crafting_time
+	if progress>=1:
+		#crafting_progress.value=0
+		progress=0
+		self.current_time=crafting_time
+		craft_resource()
+	self.crafting_progress.value=progress

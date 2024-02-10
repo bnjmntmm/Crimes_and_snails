@@ -5,9 +5,11 @@ var Stock: PackedScene=ResourceLoader.load("res://scenes/building_scenes/stock.t
 var Terrarium: PackedScene = ResourceLoader.load("res://scenes/building_scenes/terrarium.tscn")
 var Incubator: PackedScene = ResourceLoader.load("res://scenes/building_scenes/incubator.tscn")
 var Lab: PackedScene = ResourceLoader.load("res://scenes/building_scenes/laboratorium.tscn")
+var Bakery: PackedScene=ResourceLoader.load("res://scenes/building_scenes/bakery.tscn")
+var Carpentry: PackedScene=ResourceLoader.load("res://scenes/building_scenes/carpentry.tscn")
 var able_to_build := true
 var current_spawnable: StaticBody3D
-
+"res://scenes/building_scenes/bakery.tscn"
 var currentlyMovingObject
 var currentlyMoving = false
 
@@ -171,6 +173,10 @@ func spawn_terrarium():
 	
 func spawn_incubator():
 	spawn_object(Incubator)
+func spawn_bakery():
+	spawn_object(Bakery)
+func spawn_carpentry():
+	spawn_object(Carpentry)
 	
 func spawn_lab():
 	spawn_object(Lab)
