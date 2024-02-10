@@ -114,7 +114,10 @@ func craft_resource():
 				GameManager.planks+=crafted_resource_ammount
 				
 		"bread":
-			pass
+			if GameManager.wheat>=crafted_resource_ammount*raw_to_refined_ratio:
+				GameManager.food+=crafted_resource_ammount*10
+				GameManager.wheat-=crafted_resource_ammount*raw_to_refined_ratio
+				
 		"wheat":
 			pass
 
