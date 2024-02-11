@@ -115,3 +115,11 @@ func _on_settings_menu_pressed():
 	$TopUI.visible = false
 	$BuildMenu.visible = false
 
+
+
+func _on_bakery_button_down():
+	BuildManager.spawn_bakery()
+
+
+func _on_carpentry_button_down():
+	BuildManager.spawn_carpentry()
