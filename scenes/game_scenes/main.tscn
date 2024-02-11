@@ -71,24 +71,28 @@ mesh = SubResource("PlaneMesh_o7iwh")
 
 [node name="Right" type="Area3D" parent="Grid/SelectionCube/NeighbourCheck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.1242, -0.15, -0.119797)
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/SelectionCube/NeighbourCheck/Right"]
 shape = SubResource("BoxShape3D_fxt5s")
 
 [node name="Top" type="Area3D" parent="Grid/SelectionCube/NeighbourCheck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.124, -0.15, -64)
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/SelectionCube/NeighbourCheck/Top"]
 shape = SubResource("BoxShape3D_bnwa1")
 
 [node name="Left" type="Area3D" parent="Grid/SelectionCube/NeighbourCheck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, -0.15, 0)
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/SelectionCube/NeighbourCheck/Left"]
 shape = SubResource("BoxShape3D_bnwa1")
 
 [node name="Bottom" type="Area3D" parent="Grid/SelectionCube/NeighbourCheck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 64)
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/SelectionCube/NeighbourCheck/Bottom"]
 shape = SubResource("BoxShape3D_bnwa1")

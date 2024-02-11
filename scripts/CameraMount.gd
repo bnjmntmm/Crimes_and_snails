@@ -41,7 +41,7 @@ var buy_label : Label3D
 @onready var rightArea = $"../Grid/SelectionCube/NeighbourCheck/Right"
 @onready var topArea = $"../Grid/SelectionCube/NeighbourCheck/Top"
 @onready var leftArea = $"../Grid/SelectionCube/NeighbourCheck/Left"
-@onready var bottomArea = $"../Grid/SelectionCube/NeighbourCheck/Bottom"
+@onready var bottomArea = $"../Grid/SelectionCube/righCheck/Bottom"
 
 #Main Area
 @onready var main_area = $"../Grid/SelectionCube/Area3D"

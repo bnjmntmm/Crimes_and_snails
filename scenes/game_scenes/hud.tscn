@@ -87,6 +87,7 @@ anchor_right = 1.0
 anchor_bottom = 0.131
 offset_right = -1152.0
 offset_bottom = -84.888
+mouse_filter = 1
 theme = ExtResource("2_0su6q")
 
 [node name="HappinessPopuPanel" type="Panel" parent="TopUI"]
@@ -422,6 +423,7 @@ offset_right = 208.0
 offset_bottom = 130.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme = ExtResource("2_0su6q")
 script = ExtResource("10_uqwhf")
 

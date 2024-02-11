@@ -85,7 +85,7 @@ func _physics_process(delta):
 		# Set the position of the current spawnable to the intersection point, with adjustments to x and z for snapping to a grid.
 			current_spawnable.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z)) 
 			current_spawnable.active_buildable_object=true
-			#print(able_to_build)
+			
 			if able_to_build:
 				if Input.is_action_just_released("left_mouse_down"):	
 					var obj:=current_spawnable.duplicate()

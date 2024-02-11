@@ -62,15 +62,19 @@ func _on_body_exited(body):
 		
 
 func _on_area_entered(area):
+
 	if active_buildable_object:
 		objects.append(area)
 		BuildManager.able_to_build=false
+		print(objects)
 
 func _on_area_exited(area):
 	if active_buildable_object:
 		objects.erase(area)
-		if objects.size()>=0:
+		if objects.size()<=0:
 			BuildManager.able_to_build=true
+		print(objects)
+
 func set_disabled(enabled):
 		$CollisionShape.disabled=enabled
 	
