@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bmmp1mui471yc"]
+
+[ext_resource type="Shader" path="res://assets/buildings/house_glass.gdshader" id="1_kg0rj"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_kg0rj")
+shader_parameter/albedo = Color(0.345098, 0.627451, 0.65098, 0.32549)
+shader_parameter/roughness = 0.15
+shader_parameter/normal_strength = 1.0
+shader_parameter/edge_color = Color(0.156863, 0.156863, 0.156863, 0)

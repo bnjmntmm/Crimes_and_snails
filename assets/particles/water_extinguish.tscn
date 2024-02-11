@@ -1,29 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://csa44waahd7dg"]
+[gd_scene load_steps=8 format=3 uid="uid://csa44waahd7dg"]
 
 [ext_resource type="Script" path="res://scripts/water_extinguish.gd" id="1_factq"]
+[ext_resource type="QuadMesh" uid="uid://dlwwt1uxfwjhy" path="res://assets/particles/smokeAnim.tres" id="2_0ouef"]
+
+[sub_resource type="Gradient" id="Gradient_2j7wn"]
+offsets = PackedFloat32Array(0, 0.834586, 1)
+colors = PackedColorArray(0.172549, 0.403922, 1, 1, 0.588235, 0.721569, 1, 1, 0.813687, 0.875649, 0.999997, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ijedo"]
+gradient = SubResource("Gradient_2j7wn")
+
+[sub_resource type="Curve" id="Curve_c2s6n"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1acuw"]
+curve = SubResource("Curve_c2s6n")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_13gms"]
-direction = Vector3(0, 0, 0)
-spread = 0.0
-initial_velocity_min = 10.0
-initial_velocity_max = 15.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j54wt"]
-transparency = 1
-albedo_color = Color(0, 0, 1, 0.576471)
-
-[sub_resource type="SphereMesh" id="SphereMesh_2thgy"]
-material = SubResource("StandardMaterial3D_j54wt")
-radius = 0.2
-height = 0.4
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.0
+emission_ring_radius = 0.2
+emission_ring_inner_radius = 0.0
+direction = Vector3(0, 0, 1)
+spread = 5.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+angular_velocity_min = -30.0
+angular_velocity_max = 30.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_1acuw")
+color_ramp = SubResource("GradientTexture1D_ijedo")
+anim_speed_min = -10.0
+anim_speed_max = 10.0
 
 [node name="water_extinguish" type="Node3D"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
 script = ExtResource("1_factq")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 emitting = false
-amount = 30
-lifetime = 1.5
+amount = 400
+lifetime = 3.0
+visibility_aabb = AABB(-0.504952, -0.516451, -1, 1.0099, 1.0329, 2)
 process_material = SubResource("ParticleProcessMaterial_13gms")
-draw_pass_1 = SubResource("SphereMesh_2thgy")
+draw_pass_1 = ExtResource("2_0ouef")

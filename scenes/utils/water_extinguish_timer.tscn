@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://chbl7tr2vqecn"]
+
+[ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="1_drwli"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77stl"]
+bg_color = Color(0.372549, 0.654902, 0.670588, 1)
+
+[node name="water_extinguish_timer" type="ProgressBar"]
+offset_left = 411.0
+offset_top = 548.0
+offset_right = 746.0
+offset_bottom = 575.0
+theme = ExtResource("1_drwli")
+theme_override_styles/fill = SubResource("StyleBoxFlat_77stl")
+value = 100.0
+show_percentage = false
