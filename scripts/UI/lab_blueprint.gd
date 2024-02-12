@@ -29,7 +29,7 @@ func _ready():
 
 func _on_upgrade_button_button_down():
 	is_upgraded	= true
-	if object.is_in_group("house"):
+	if object.is_in_group("house") and not object.is_in_group("big_house"):
 		var upgraded_building = big_house.instantiate()
 		var parent_obj = object.get_parent()
 		parent_obj.add_child(upgraded_building)
@@ -40,7 +40,7 @@ func _on_upgrade_button_button_down():
 		object.queue_free()
 		GameManager.inspiration = GameManager.inspiration - upgrade_price_house
 		
-	if object.is_in_group("stock"):
+	if object.is_in_group("stock") and not object.is_in_group("big_stock"):
 		var upgraded_building = big_stock.instantiate()
 		var parent_obj = object.get_parent()
 		parent_obj.add_child(upgraded_building)
