@@ -7,6 +7,7 @@ var Incubator: PackedScene = ResourceLoader.load("res://scenes/building_scenes/i
 var Lab: PackedScene = ResourceLoader.load("res://scenes/building_scenes/laboratorium.tscn")
 var Bakery: PackedScene=ResourceLoader.load("res://scenes/building_scenes/bakery.tscn")
 var Carpentry: PackedScene=ResourceLoader.load("res://scenes/building_scenes/carpentry.tscn")
+var Watch : PackedScene = ResourceLoader.load("res://scenes/building_scenes/watch.tscn")
 var able_to_build := true
 var current_spawnable: StaticBody3D
 "res://scenes/building_scenes/bakery.tscn"
@@ -180,6 +181,10 @@ func spawn_carpentry():
 	
 func spawn_lab():
 	spawn_object(Lab)
+	
+func spawn_watch():
+	spawn_object(Watch)
+	
 func spawn_object(obj):
 	if current_spawnable!=null:
 		current_spawnable.queue_free()
