@@ -60,6 +60,12 @@ var minutes = 0
 var inGame = false
 var riotAllowed = false
 
+#Watches
+var watch_particles_array : Array = []
+
+var main_node : Node3D
+
+
 ##TEMPLE BUILD WIN CONDITITION
 var isTempleBuild = false
 
@@ -82,3 +88,11 @@ func _process(delta):
 		print("Win by: " +str(condition))
 		
 	
+
+func emitting_watch_particles():
+	for particle in watch_particles_array:
+		particle.visible = !particle.visible
+		particle.emitting = !particle.emitting
+		
+
+

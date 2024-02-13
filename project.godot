@@ -89,6 +89,10 @@ backward={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_8="WatchArea"
+
 [physics]
 
 jolt_3d/collisions/areas_detect_static_bodies=true

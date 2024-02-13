@@ -110,6 +110,8 @@ func _physics_process(delta):
 							if obj.name.contains("House"):
 								GameManager.houses_built+=1
 								obj.old_plane = navRegion[0]
+							if obj.is_in_group("watch"):
+								GameManager.watch_particles_array.append(obj.get_watch_particles())
 							current_spawnable.remove_foliage()
 							bake_nav_planes(navRegion)
 					#get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()

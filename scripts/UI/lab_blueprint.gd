@@ -69,9 +69,10 @@ func _on_upgrade_button_button_down():
 		upgraded_building.name = object.name
 		is_upgraded = true#
 		object.queue_free()
-		parent_obj.bake_navigation_mesh(true)
+		
 		GameManager.inspiration = GameManager.inspiration - upgrade_price_watch
-		GameManager.stock_array.erase(object)
-		GameManager.stock_array.append(upgraded_building)
+		
+		#THIS LAGS ATM idk WHY, baking does baking stuff
+		parent_obj.bake_navigation_mesh(true)
 		queue_free()
 		

@@ -63,7 +63,8 @@ func _ready():
 	buy_label.position = Vector3(0,4,0)
 	selection_cube.add_child(buy_label)
 	buy_label.visible = false
-	
+	GameManager.main_node = get_tree().root.get_child(3)
+
 	
 	
 	pass

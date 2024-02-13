@@ -164,6 +164,7 @@ func move_towards_sabotage_house():
 			current_task = TASK.SEARCHING
 	
 	if not navigation_agent.is_target_reachable():
+		
 		print("stuck?")
 	var next_path_position : Vector3 = navigation_agent.get_next_path_position()
 	var lookAtPos := next_path_position
@@ -247,9 +248,7 @@ func _process(delta):
 					change_to_criminal()
 				move_towards_sabotage_house()
 			else:
-				change_to_normal()
-				navigation_agent.target_position = global_position
-				current_task = TASK.SEARCHING
+				reset_npc()
 
 	
 
@@ -389,3 +388,8 @@ func change_to_normal():
 	criminalhat.visible = false
 	normalclothing.visible = true
 	normalhat.visible = true
+
+func reset_npc():
+	change_to_normal()
+	navigation_agent.target_position = global_position
+	current_task = TASK.SEARCHING
