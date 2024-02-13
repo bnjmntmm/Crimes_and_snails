@@ -55,7 +55,10 @@ func _physics_process(delta):
 						GameManager.houses_built-=1
 					if result.collider.is_in_group("stock"):
 						GameManager.stock_array.erase(result.collider)
-						
+					if result.collider.is_in_group("watch"):
+						var particles = result.collider.get_watch_particles()
+						GameManager.watch_particles_array.erase(particles)
+					
 					houseSceneRemoved.emit(result.collider)
 					
 					## QUEUE Free funktioniert hier nicht, da es im nächsten physics frame 
