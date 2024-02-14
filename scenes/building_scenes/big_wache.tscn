@@ -1,0 +1,161 @@
+[gd_scene load_steps=15 format=3 uid="uid://06e4bdqa0agr"]
+
+[ext_resource type="Script" path="res://scripts/BuildingObject.gd" id="1_lxxt5"]
+[ext_resource type="PackedScene" uid="uid://dl2nugudl6cgm" path="res://assets/buildings/wache_ev.glb" id="2_1un5k"]
+[ext_resource type="Material" uid="uid://cgpajs5n1h6g1" path="res://assets/buildings/light_source_mat.tres" id="3_834mj"]
+[ext_resource type="AudioStream" uid="uid://c6v8o8bd0lv2l" path="res://audios/fire.wav" id="3_lcb7l"]
+[ext_resource type="PackedScene" uid="uid://cige1qbgly177" path="res://scenes/utils/nav_plane_check.tscn" id="4_aeadi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r067d"]
+size = Vector3(18, 17.3863, 14)
+
+[sub_resource type="GDScript" id="GDScript_i8vdq"]
+script/source = "extends Area3D
+
+var entered = false
+@onready var big_watch = $\"..\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if Input.is_action_just_pressed(\"left_mouse_down\") and entered and big_watch.spawned:
+		GameManager.emitting_watch_particles()
+
+
+
+func _on_mouse_entered():
+	entered = true
+
+func _on_mouse_exited():
+	entered = false
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eu6ja"]
+size = Vector3(19, 17.3863, 15.9608)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ba4en"]
+height = 1.0
+radius = 80.0
+
+[sub_resource type="Gradient" id="Gradient_55v1p"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.451128, 1)
+colors = PackedColorArray(0, 0, 1, 1, 0.329412, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2yybd"]
+gradient = SubResource("Gradient_55v1p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yo3mh"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 10.0
+emission_ring_radius = 79.0
+emission_ring_inner_radius = 75.0
+direction = Vector3(0, 0.1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+angular_velocity_min = 10.0
+angular_velocity_max = 20.0
+radial_accel_min = -10.0
+radial_accel_max = -10.0
+tangential_accel_min = 150.0
+tangential_accel_max = 150.0
+damping_min = 105.0
+damping_max = 105.0
+color_ramp = SubResource("GradientTexture1D_2yybd")
+attractor_interaction_enabled = false
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2704j"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_kpsno"]
+material = SubResource("StandardMaterial3D_2704j")
+
+[node name="Big_watch" type="StaticBody3D" groups=["big_watch", "building", "watch"]]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+script = ExtResource("1_lxxt5")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.13079, 8.73141, -0.756089)
+shape = SubResource("BoxShape3D_r067d")
+
+[node name="wache_ev" parent="." instance=ExtResource("2_1un5k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0598e-07, 0, -7)
+
+[node name="Cube_001" parent="wache_ev" index="1"]
+surface_material_override/1 = ExtResource("3_834mj")
+
+[node name="Cube_002" parent="wache_ev" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0154678, 8.36029, 9.93371)
+surface_material_override/1 = ExtResource("3_834mj")
+
+[node name="Cube_126" parent="wache_ev" index="386"]
+surface_material_override/3 = ExtResource("3_834mj")
+
+[node name="Area" type="Area3D" parent="."]
+script = SubResource("GDScript_i8vdq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 8.72511, -0.64996)
+shape = SubResource("BoxShape3D_eu6ja")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_lcb7l")
+unit_size = 20.0
+bus = &"ALARM"
+attenuation_filter_cutoff_hz = 20500.0
+
+[node name="NavPlaneCheck" parent="." instance=ExtResource("4_aeadi")]
+
+[node name="RightCast" parent="NavPlaneCheck" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.25696, 0.0945359, -9.24446)
+
+[node name="LeftCast" parent="NavPlaneCheck" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.0942659, 7.53898)
+
+[node name="UpCast" parent="NavPlaneCheck" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5891, 0.272266, -0.781979)
+
+[node name="DownCast" parent="NavPlaneCheck" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.28774, 0.272266, 9.61651e-08)
+
+[node name="SabotagePoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2215, 0, 7.33053)
+
+[node name="WatchArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11248, 0)
+collision_layer = 128
+collision_mask = 128
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WatchArea"]
+shape = SubResource("CylinderShape3D_ba4en")
+
+[node name="watch_particles" type="GPUParticles3D" parent="WatchArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.91799, 0)
+visible = false
+emitting = false
+amount = 500
+preprocess = 2.0
+visibility_aabb = AABB(-76, -7.99392, -79, 152, 15.9878, 158)
+process_material = SubResource("ParticleProcessMaterial_yo3mh")
+draw_pass_1 = SubResource("QuadMesh_kpsno")
+
+[node name="FireLocation" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.368343, 16.7788, 2.80526)
+
+[connection signal="mouse_entered" from="Area" to="Area" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Area" to="Area" method="_on_mouse_exited"]
+[connection signal="body_entered" from="WatchArea" to="." method="_on_watch_area_body_entered"]
+[connection signal="body_exited" from="WatchArea" to="." method="_on_watch_area_body_exited"]
+
+[editable path="wache_ev"]
+[editable path="NavPlaneCheck"]

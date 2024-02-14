@@ -7,6 +7,7 @@ var Incubator: PackedScene = ResourceLoader.load("res://scenes/building_scenes/i
 var Lab: PackedScene = ResourceLoader.load("res://scenes/building_scenes/laboratorium.tscn")
 var Bakery: PackedScene=ResourceLoader.load("res://scenes/building_scenes/bakery.tscn")
 var Carpentry: PackedScene=ResourceLoader.load("res://scenes/building_scenes/carpentry.tscn")
+var Watch : PackedScene = ResourceLoader.load("res://scenes/building_scenes/watch.tscn")
 var able_to_build := true
 var current_spawnable: StaticBody3D
 "res://scenes/building_scenes/bakery.tscn"
@@ -54,7 +55,10 @@ func _physics_process(delta):
 						GameManager.houses_built-=1
 					if result.collider.is_in_group("stock"):
 						GameManager.stock_array.erase(result.collider)
-						
+					if result.collider.is_in_group("watch"):
+						var particles = result.collider.get_watch_particles()
+						GameManager.watch_particles_array.erase(particles)
+					
 					houseSceneRemoved.emit(result.collider)
 					
 					## QUEUE Free funktioniert hier nicht, da es im nächsten physics frame 
@@ -109,6 +113,8 @@ func _physics_process(delta):
 							if obj.name.contains("House"):
 								GameManager.houses_built+=1
 								obj.old_plane = navRegion[0]
+							if obj.is_in_group("watch"):
+								GameManager.watch_particles_array.append(obj.get_watch_particles())
 							current_spawnable.remove_foliage()
 							bake_nav_planes(navRegion)
 					#get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()
@@ -180,6 +186,10 @@ func spawn_carpentry():
 	
 func spawn_lab():
 	spawn_object(Lab)
+	
+func spawn_watch():
+	spawn_object(Watch)
+	
 func spawn_object(obj):
 	if current_spawnable!=null:
 		current_spawnable.queue_free()

@@ -1,18 +1,20 @@
 extends StaticBody3D
 @onready var label_3d = $Label3D
-@export var mesh : Node3D
 @onready var audio_stream_player = $AudioStreamPlayer3D
 
 
+
+@export var mesh : Node3D
 @export var spots_for_workers:=1
-var current_worker_amount:=0
 @export var resource_amount_generated:=5
 @export var max_times_farmable:=1
+
+var current_worker_amount:=0
 var current_times_farmed:=0
 var is_farmable:=true
 
-func _ready():
-	pass
+
+
 func _on_farmed():
 	audio_stream_player.play()
 	current_times_farmed+=1
