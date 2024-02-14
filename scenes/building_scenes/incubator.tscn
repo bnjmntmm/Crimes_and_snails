@@ -271,6 +271,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14241, 0.272266, -2.33652e-
 [node name="SabotagePoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.389, 0, -0.240618)
 
+[node name="FireLocation" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.932383, 1.9711, -0.148437)
+
 [connection signal="mouse_entered" from="Area" to="Area" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Area" to="Area" method="_on_mouse_exited"]
 

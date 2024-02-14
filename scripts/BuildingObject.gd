@@ -8,6 +8,8 @@ extends Node3D
 @onready var up_cast := $NavPlaneCheck/UpCast
 @onready var down_cast := $NavPlaneCheck/DownCast
 @onready var watch_tower_particles = $WatchArea/watch_particles
+@onready var fire_marker := $FireLocation
+
 @export var can_spawn_actor := true
 @export var actor: PackedScene
 
@@ -149,6 +151,8 @@ func _on_watch_area_body_exited(body):
 func get_watch_particles():
 	return watch_tower_particles 
 
+func get_fire_spot_location():
+	return fire_marker.global_position
 
 #Chance for the Watch to stop the 
 func change_to_stop_rioter(body):

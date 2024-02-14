@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://06e4bdqa0agr"]
+[gd_scene load_steps=15 format=3 uid="uid://06e4bdqa0agr"]
 
 [ext_resource type="Script" path="res://scripts/BuildingObject.gd" id="1_lxxt5"]
 [ext_resource type="PackedScene" uid="uid://dl2nugudl6cgm" path="res://assets/buildings/wache_ev.glb" id="2_1un5k"]
+[ext_resource type="Material" uid="uid://cgpajs5n1h6g1" path="res://assets/buildings/light_source_mat.tres" id="3_834mj"]
 [ext_resource type="AudioStream" uid="uid://c6v8o8bd0lv2l" path="res://audios/fire.wav" id="3_lcb7l"]
 [ext_resource type="PackedScene" uid="uid://cige1qbgly177" path="res://scenes/utils/nav_plane_check.tscn" id="4_aeadi"]
 
@@ -89,6 +90,16 @@ shape = SubResource("BoxShape3D_r067d")
 [node name="wache_ev" parent="." instance=ExtResource("2_1un5k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0598e-07, 0, -7)
 
+[node name="Cube_001" parent="wache_ev" index="1"]
+surface_material_override/1 = ExtResource("3_834mj")
+
+[node name="Cube_002" parent="wache_ev" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0154678, 8.36029, 9.93371)
+surface_material_override/1 = ExtResource("3_834mj")
+
+[node name="Cube_126" parent="wache_ev" index="386"]
+surface_material_override/3 = ExtResource("3_834mj")
+
 [node name="Area" type="Area3D" parent="."]
 script = SubResource("GDScript_i8vdq")
 
@@ -130,15 +141,21 @@ shape = SubResource("CylinderShape3D_ba4en")
 
 [node name="watch_particles" type="GPUParticles3D" parent="WatchArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.91799, 0)
+visible = false
+emitting = false
 amount = 500
 preprocess = 2.0
 visibility_aabb = AABB(-76, -7.99392, -79, 152, 15.9878, 158)
 process_material = SubResource("ParticleProcessMaterial_yo3mh")
 draw_pass_1 = SubResource("QuadMesh_kpsno")
 
+[node name="FireLocation" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.368343, 16.7788, 2.80526)
+
 [connection signal="mouse_entered" from="Area" to="Area" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Area" to="Area" method="_on_mouse_exited"]
 [connection signal="body_entered" from="WatchArea" to="." method="_on_watch_area_body_entered"]
 [connection signal="body_exited" from="WatchArea" to="." method="_on_watch_area_body_exited"]
 
+[editable path="wache_ev"]
 [editable path="NavPlaneCheck"]
