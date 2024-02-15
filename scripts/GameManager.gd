@@ -46,7 +46,6 @@ var tree_array : Array = []
 var bush_array : Array = []
 
 var stock_array = []
-
 var npc_in_charge = null
 
 
@@ -60,6 +59,7 @@ var minutes = 0
 var inGame = false
 var riotAllowed = false
 
+
 #Watches
 var watch_particles_array : Array = []
 
@@ -69,23 +69,24 @@ var main_node : Node3D
 ##TEMPLE BUILD WIN CONDITITION
 var isTempleBuild = false
 
+var selected_win_condition = null
+
 
 #Checks if WinCondition is erreicht, when condition != null also no condition erreicht, nothing happens
 #else its spammed :D
 
 #Question: Pause the Game? Make a hud visible to "continue" or stop? Maybe a Score? Idk
 func _process(delta):
-	
 	if inGame:
 		if(!get_tree().paused):
 			game_time += delta
 		seconds = fmod(game_time, 60)
 		minutes = fmod(game_time, 60*60) / 60
-		
 	
 	var condition = winChecker.checkIfWinCondition()
 	if condition != null:
-		print("Win by: " +str(condition))
+		if condition == selected_win_condition:
+			print("Win by: " +str(condition))
 		
 	
 
