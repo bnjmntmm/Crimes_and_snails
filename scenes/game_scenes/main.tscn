@@ -11,8 +11,10 @@
 [ext_resource type="AudioStream" uid="uid://2u3eyiovgu7y" path="res://audios/background_music.mp3" id="9_8f2j2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d170q"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+sky_horizon_color = Color(0.470588, 0.619608, 0.839216, 1)
+ground_bottom_color = Color(0.0941176, 0.415686, 0.690196, 1)
+ground_horizon_color = Color(0.470588, 0.619608, 0.839216, 1)
+ground_curve = 0.0386376
 
 [sub_resource type="Sky" id="Sky_v5u5o"]
 sky_material = SubResource("ProceduralSkyMaterial_d170q")
@@ -69,30 +71,36 @@ mesh = SubResource("PlaneMesh_o7iwh")
 
 [node name="Right" type="Area3D" parent="Grid/SelectionCube/NeighbourCheck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.1242, -0.15, -0.119797)
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/SelectionCube/NeighbourCheck/Right"]
 shape = SubResource("BoxShape3D_fxt5s")
 
 [node name="Top" type="Area3D" parent="Grid/SelectionCube/NeighbourCheck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.124, -0.15, -64)
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/SelectionCube/NeighbourCheck/Top"]
 shape = SubResource("BoxShape3D_bnwa1")
 
 [node name="Left" type="Area3D" parent="Grid/SelectionCube/NeighbourCheck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, -0.15, 0)
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/SelectionCube/NeighbourCheck/Left"]
 shape = SubResource("BoxShape3D_bnwa1")
 
 [node name="Bottom" type="Area3D" parent="Grid/SelectionCube/NeighbourCheck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 64)
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/SelectionCube/NeighbourCheck/Bottom"]
 shape = SubResource("BoxShape3D_bnwa1")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Grid"]
 navigation_mesh = SubResource("NavigationMesh_vlt3o")
+enabled = false
+navigation_layers = 2
 
 [node name="MultiMeshes" type="Node3D" parent="Grid/NavigationRegion3D"]
 
@@ -104,7 +112,7 @@ navigation_mesh = SubResource("NavigationMesh_vlt3o")
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.5, 0)
 collision_layer = 0
 
-[node name="PlayArea" type="Node3D" parent="Grid/NavigationRegion3D"]
+[node name="PlayArea" type="Node3D" parent="Grid"]
 
 [node name="CameraMount" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00121784, 0.0692291)
@@ -145,7 +153,6 @@ autoplay = true
 
 [connection signal="grid_generated" from="Grid" to="CameraMount" method="_on_grid_grid_generated"]
 [connection signal="newGridAdded" from="CameraMount" to="CameraMount" method="_on_new_grid_added"]
-[connection signal="ready_to_bake" from="CameraMount" to="Grid" method="_on_camera_mount_ready_to_bake"]
 [connection signal="sabotage_started" from="random_events" to="Grid/NavigationRegion3D/Townhall" method="_on_random_events_sabotage_started"]
 [connection signal="sabotage_stopped" from="random_events/Fire" to="Grid/NavigationRegion3D/Townhall" method="_on_fire_sabotage_stopped"]
 [connection signal="sabotage_stopped" from="random_events/Tornado" to="Grid/NavigationRegion3D/Townhall" method="_on_tornado_sabotage_stopped"]

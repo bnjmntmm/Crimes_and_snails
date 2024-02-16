@@ -10,6 +10,8 @@ signal sabotage_stopped
 var houseFireDict = {}
 
 
+
+
 func execute_sabotage_to(house):
 	houseFireDict[house] = house
 	houseFireDict[house].isBurning = true
@@ -23,7 +25,7 @@ func set_fire_to_object(house):
 	houseFireDict[house].fire_scene = newFire
 	add_child(newFire,true)
 	print("Feuer started " + str(houseFireDict[house]))
-	newFire.global_position = currentBurningObject.global_position + Vector3(0,15,0)
+	newFire.global_position = currentBurningObject.get_fire_spot_location()
 
 func add_label_to_building(currentBurningObject):
 	var newLabel = Label3D.new()

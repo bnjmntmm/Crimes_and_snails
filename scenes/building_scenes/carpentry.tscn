@@ -1,0 +1,96 @@
+[gd_scene load_steps=7 format=3 uid="uid://db85bqfopx7wq"]
+
+[ext_resource type="Script" path="res://scripts/BuildingObject.gd" id="1_nvw8e"]
+[ext_resource type="PackedScene" uid="uid://c2s1br8uq2yv3" path="res://assets/buildings/CarpentryFixed.glb" id="2_ofshv"]
+[ext_resource type="Script" path="res://scripts/ProgressBar3D.gd" id="3_mvwci"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5j8hq"]
+size = Vector3(23.8427, 19.3726, 27.1968)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7paeu"]
+size = Vector3(23.553, 18.7271, 26.735)
+
+[sub_resource type="GDScript" id="GDScript_bt57a"]
+script/source = "extends Node3D
+
+
+@onready var right_cast = $RightCast
+@onready var left_cast = $LeftCast
+@onready var up_cast = $UpCast
+@onready var down_cast = $DownCast
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+#RAYCASTS
+func get_right_cast():
+	return right_cast.get_collider()
+func get_left_cast():
+	return left_cast.get_collider()
+func get_up_cast():
+	return up_cast.get_collider()
+func get_down_cast():
+	return down_cast.get_collider()
+"
+
+[node name="carpentry" type="StaticBody3D" groups=["building"]]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.1, -0.0239353, 0)
+script = ExtResource("1_nvw8e")
+is_crafting_building = true
+crafted_resource_ammount = 10
+raw_to_refined_ratio = 1
+crafted_resource = "planks"
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.03184, 9.87053, -8.9407e-08)
+shape = SubResource("BoxShape3D_5j8hq")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+
+[node name="Area" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 18.5, -0.3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, -8.8, 5.96046e-08)
+shape = SubResource("BoxShape3D_7paeu")
+
+[node name="NavPlaneCheck" type="Node3D" parent="."]
+script = SubResource("GDScript_bt57a")
+
+[node name="RightCast" type="RayCast3D" parent="NavPlaneCheck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.49658e-07, 0.09, -13.2083)
+debug_shape_thickness = 5
+
+[node name="LeftCast" type="RayCast3D" parent="NavPlaneCheck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.887001, 0.09, 13.4965)
+debug_shape_thickness = 5
+
+[node name="UpCast" type="RayCast3D" parent="NavPlaneCheck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.323, 0.09, -5.36442e-07)
+debug_shape_thickness = 5
+
+[node name="DownCast" type="RayCast3D" parent="NavPlaneCheck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.7739, 0.09, -1.008)
+debug_shape_thickness = 5
+
+[node name="CarpentryFixed" parent="." instance=ExtResource("2_ofshv")]
+
+[node name="CraftingTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="CraftingProgress" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22, 0)
+script = ExtResource("3_mvwci")
+outline_color = Color(1, 1, 1, 1)
+size = Vector3(5, 0.175, 0.05)
+cast_shadows = 0
+
+[node name="FireLocation" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.64913, 12.4367, -0.0948687)
+
+[connection signal="timeout" from="CraftingTimer" to="." method="_on_crafting_timer_timeout"]
