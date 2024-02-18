@@ -13,7 +13,7 @@ extends Node3D
 
 var spawn_ready:=false
 var spawn_timer:=0.0
-var spawn_interval:=3.0
+var spawn_interval:=1.0
 var current_citizen
 var current_pop:=0
 var max_pop:= 10

@@ -55,6 +55,7 @@ var timer_on = false
 var seconds = 0
 var minutes = 0
 
+var winConditionTimer : Timer
 
 var inGame = false
 var riotAllowed = false
@@ -72,22 +73,33 @@ var isTempleBuild = false
 var selected_win_condition = null
 
 
+func _ready():
+	winConditionTimer = Timer.new()
+	winConditionTimer.wait_time = 0.3
+	winConditionTimer.timeout.connect(checkIfWinConditionReached)
+
 #Checks if WinCondition is erreicht, when condition != null also no condition erreicht, nothing happens
 #else its spammed :D
 
 #Question: Pause the Game? Make a hud visible to "continue" or stop? Maybe a Score? Idk
 func _process(delta):
 	if inGame:
+		winConditionTimer.start()
 		if(!get_tree().paused):
 			game_time += delta
+		else:
+			winConditionTimer.stop()
+			
 		seconds = fmod(game_time, 60)
 		minutes = fmod(game_time, 60*60) / 60
 	
+
+		
+func checkIfWinConditionReached():
 	var condition = winChecker.checkIfWinCondition()
 	if condition != null:
 		if condition == selected_win_condition:
-			print("Win by: " +str(condition))
-		
+			print("Win by: " + str(condition))
 	
 
 func emitting_watch_particles():

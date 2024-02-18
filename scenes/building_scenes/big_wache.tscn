@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://06e4bdqa0agr"]
+[gd_scene load_steps=17 format=3 uid="uid://06e4bdqa0agr"]
 
 [ext_resource type="Script" path="res://scripts/BuildingObject.gd" id="1_lxxt5"]
 [ext_resource type="PackedScene" uid="uid://dl2nugudl6cgm" path="res://assets/buildings/wache_ev.glb" id="2_1un5k"]
@@ -8,6 +8,14 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r067d"]
 size = Vector3(18, 17.3863, 14)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7xxp"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a8k4m"]
+material = SubResource("StandardMaterial3D_m7xxp")
+size = Vector3(19.01, 1, 16.27)
 
 [sub_resource type="GDScript" id="GDScript_i8vdq"]
 script/source = "extends Area3D
@@ -99,6 +107,10 @@ surface_material_override/1 = ExtResource("3_834mj")
 
 [node name="Cube_126" parent="wache_ev" index="386"]
 surface_material_override/3 = ExtResource("3_834mj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="wache_ev"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7193, 0.500375, 6.69576)
+mesh = SubResource("BoxMesh_a8k4m")
 
 [node name="Area" type="Area3D" parent="."]
 script = SubResource("GDScript_i8vdq")
