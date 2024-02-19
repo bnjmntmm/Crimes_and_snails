@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bl70bq45sopev"]
+[gd_scene load_steps=9 format=3 uid="uid://bl70bq45sopev"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_i7pvc"]
 [ext_resource type="StyleBox" uid="uid://bxwb3wa3vc1t5" path="res://assets/textures/HUD/UI/hud.tres" id="2_0kgot"]
+[ext_resource type="PackedScene" uid="uid://dlwx7hjnp15sy" path="res://scenes/game_scenes/set_up_win_condition.tscn" id="2_2omk5"]
 [ext_resource type="Environment" uid="uid://bhggvvhc3vklv" path="res://scenes/utils/world_env.tres" id="2_7w0qe"]
 [ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="2_fyglm"]
 [ext_resource type="PackedScene" uid="uid://cnto8cdxsxbs0" path="res://scenes/utils/settings.tscn" id="4_4dkfx"]
@@ -16,6 +17,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_i7pvc")
+loading_scene = ExtResource("2_2omk5")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_7w0qe")

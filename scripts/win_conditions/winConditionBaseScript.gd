@@ -17,7 +17,7 @@ enum WIN_CONDITION{
 	SAVED_SABOTAGES
 }
 
-var current_winCondition = null
+var current_winCondition
 
 func get_npc_target_count():
 	return npcCountTarget
@@ -27,6 +27,8 @@ func get_snail_target_count():
 	return snailCountTarget
 func get_land_bought_target():
 	return landBoughtTarget
+func get_saved_sabotages_count():
+	return savedSabotages
 
 
 func checkIfWinCondition():

@@ -160,6 +160,7 @@ func change_to_stop_rioter(body):
 	if random_value < riotStopProbability:
 		body.reset_npc()
 		print("riot was stopped")
+		GameManager.sabotages_stopped += 1
 		GameManager.main_node.find_child("random_events").start_sabotage_timer()
 	else:
 		print("riot was not stopped")

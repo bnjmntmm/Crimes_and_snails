@@ -46,7 +46,6 @@ var tree_array : Array = []
 var bush_array : Array = []
 
 var stock_array = []
-
 var npc_in_charge = null
 
 
@@ -56,9 +55,12 @@ var timer_on = false
 var seconds = 0
 var minutes = 0
 
+var winConditionTimer : Timer
 
 var inGame = false
 var riotAllowed = false
+var firstState = true
+
 
 #Watches
 var watch_particles_array : Array = []
@@ -69,24 +71,39 @@ var main_node : Node3D
 ##TEMPLE BUILD WIN CONDITITION
 var isTempleBuild = false
 
+var selected_win_condition = null
 
-#Checks if WinCondition is erreicht, when condition != null also no condition erreicht, nothing happens
-#else its spammed :D
 
-#Question: Pause the Game? Make a hud visible to "continue" or stop? Maybe a Score? Idk
+func _ready():
+	winConditionTimer = Timer.new()
+	winConditionTimer.wait_time = 0.3
+	winConditionTimer.timeout.connect(checkIfWinConditionReached)
+	add_child(winConditionTimer)
+
 func _process(delta):
-	
 	if inGame:
+		if firstState:
+			winConditionTimer.start()
+			firstState = false
 		if(!get_tree().paused):
 			game_time += delta
+		else:
+			winConditionTimer.stop()
+		
+			
 		seconds = fmod(game_time, 60)
 		minutes = fmod(game_time, 60*60) / 60
-		
 	
-	var condition = winChecker.checkIfWinCondition()
-	if condition != null:
-		print("Win by: " +str(condition))
+
 		
+func checkIfWinConditionReached():
+	var condition = winChecker.checkIfWinCondition()
+	#print("check condition")
+	if condition != null:
+		if condition == selected_win_condition:
+			print("Win by: " + str(condition))
+			
+	winConditionTimer.start()
 	
 
 func emitting_watch_particles():
