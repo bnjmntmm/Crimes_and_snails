@@ -91,6 +91,8 @@ backward={
 
 [layer_names]
 
+3d_physics/layer_1="StaticWorld"
+3d_physics/layer_2="Citizen"
 3d_physics/layer_8="WatchArea"
 
 [physics]
