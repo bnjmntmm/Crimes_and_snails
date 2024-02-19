@@ -100,7 +100,6 @@ shape = SubResource("BoxShape3D_bnwa1")
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Grid"]
 navigation_mesh = SubResource("NavigationMesh_vlt3o")
 enabled = false
-navigation_layers = 2
 
 [node name="MultiMeshes" type="Node3D" parent="Grid/NavigationRegion3D"]
 
