@@ -63,7 +63,8 @@ func _ready():
 	buy_label.position = Vector3(0,4,0)
 	selection_cube.add_child(buy_label)
 	buy_label.visible = false
-	
+	GameManager.main_node = get_tree().root.get_child(3)
+
 	
 	
 	pass
@@ -225,7 +226,7 @@ func _on_new_grid_added(body : StaticBody3D):
 		bush_instance.global_position =  body.global_position + random_vec_bush
 		GameManager.bush_array.append(bush_instance)
 		
-		var tree_instance = tree_mesh.instantiate()
+		var tree_instance : StaticBody3D = tree_mesh.instantiate()
 		tree_instance.add_to_group("wood")
 		get_parent().get_node("Grid/PlayArea").get_node(str(body)).get_child(0).get_child(1).call_thread_safe("add_child", tree_instance,true)
 		var random_vec_tree =  Vector3(randi_range(-generate_bushes_and_trees_range,generate_bushes_and_trees_range),0,randi_range(-generate_bushes_and_trees_range,generate_bushes_and_trees_range))
@@ -256,8 +257,13 @@ func _on_grid_grid_generated(body: StaticBody3D):
 		bush_instance.global_position =  body.global_position + random_vec_bush
 		GameManager.bush_array.append(bush_instance)
 		
-		var tree_instance = tree_mesh.instantiate()
+		var tree_instance : StaticBody3D = tree_mesh.instantiate()
 		tree_instance.add_to_group("wood")
+		
+		var tree_variants = tree_instance.find_child("tree_variants")
+		var tree_variant = tree_variants.get_children().pick_random()
+		tree_variant.visible = true
+		
 		get_parent().get_node("Grid/PlayArea").get_node(str(body)).get_child(0).get_child(1).call_thread_safe("add_child", tree_instance,true)
 		var random_vec_tree =  Vector3(randi_range(-generate_bushes_and_trees_range,generate_bushes_and_trees_range),0,randi_range(-generate_bushes_and_trees_range,generate_bushes_and_trees_range))
 		tree_instance.global_position =  body.global_position + random_vec_tree

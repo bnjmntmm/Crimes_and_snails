@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://dskqc7t84q640"]
+
+[ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="1_wexq5"]
+
+[sub_resource type="GDScript" id="GDScript_mdpwy"]
+script/source = "extends Control
+
+@onready var win_condition_label = $win_condition_label
+
+var win_state
+
+
+
+func set_label_text(condition : String):
+	win_condition_label.text = condition
+
+
+func _on_select_button_button_down():
+	print(WinCondition.WIN_CONDITION.find_key(win_state))
+	#GameManager.selected_win_condition = win_condition_label.text
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5p60y"]
+bg_color = Color(0.176471, 0.176471, 0.176471, 0.372549)
+
+[node name="win_condition_blueprint" type="Control"]
+custom_minimum_size = Vector2(256, 50)
+layout_mode = 3
+anchor_right = 0.444
+anchor_bottom = 0.153
+offset_right = -0.488037
+offset_bottom = -0.144005
+theme = ExtResource("1_wexq5")
+script = SubResource("GDScript_mdpwy")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5p60y")
+
+[node name="win_condition_label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 37.0
+offset_right = -244.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "SAVED_SABOTAGES"
+
+[node name="select_button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.726
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0140076
+offset_top = 30.0
+offset_right = -17.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Select"
+
+[connection signal="button_down" from="select_button" to="." method="_on_select_button_button_down"]

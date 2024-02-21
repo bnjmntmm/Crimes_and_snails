@@ -164,6 +164,7 @@ func move_towards_sabotage_house():
 			current_task = TASK.SEARCHING
 	
 	if not navigation_agent.is_target_reachable():
+		
 		print("stuck?")
 	var next_path_position : Vector3 = navigation_agent.get_next_path_position()
 	var lookAtPos := next_path_position
@@ -175,6 +176,48 @@ func move_towards_sabotage_house():
 		_on_velocity_computed(new_velocity)
 			
 func _process(delta):
+	pass
+
+	
+
+func _input(event):
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and current_task == TASK.POV_MODE:
+		rotate_y(-event.relative.x * mouse_sensitivity)
+		pov_camera.rotate_x(-event.relative.y * mouse_sensitivity)
+		# Clamps the POV camera's x rotation to avoid flipping over.
+		pov_camera.rotation.x = clampf(pov_camera.rotation.x, -deg_to_rad(70), deg_to_rad(70))
+	if event.is_action_pressed("left_mouse_down") and GameManager.current_state == GameManager.State.POV_MODE and current_task == TASK.POV_MODE:
+		var raycast_result  = execute_raycast(event.position, pov_camera)
+		if raycast_result != null:
+			var house = raycast_result.collider
+			if house.isBurning:	
+				allowWater = true
+				extinguish_timer.start()
+				currentHouse = house
+				waterProgress.visible = true
+				
+#				house.sabotageType.fire_stopped(house)
+#				house.isBurning = false#
+#				print("brand gelöscht. Super gemacht")
+
+func _physics_process(delta):
+	if Input.is_action_pressed("left_mouse_down") and current_task == TASK.POV_MODE and allowWater:
+		waterParticles.set_emitting(true)
+		waterProgress.value = calcPercentage()
+		if extinguish_timer.is_stopped():
+			waterProgress.value = 0
+			waterProgress.visible = false
+			currentHouse.sabotageType.fire_stopped(currentHouse) 
+			allowWater = false
+			waterParticles.set_emitting(false)
+			GameManager.sabotages_stopped += 1
+	if Input.is_action_just_released("left_mouse_down") and current_task == TASK.POV_MODE and allowWater:
+		waterParticles.set_emitting(false)
+		extinguish_timer.stop()
+		waterProgress.visible = false
+		waterProgress.value = 0
+		
+		
 	match current_task:
 		TASK.SEARCHING:
 			update_animation_tree(anim_pos_dict["busy"])
@@ -247,49 +290,7 @@ func _process(delta):
 					change_to_criminal()
 				move_towards_sabotage_house()
 			else:
-				change_to_normal()
-				navigation_agent.target_position = global_position
-				current_task = TASK.SEARCHING
-
-	
-
-func _input(event):
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and current_task == TASK.POV_MODE:
-		rotate_y(-event.relative.x * mouse_sensitivity)
-		pov_camera.rotate_x(-event.relative.y * mouse_sensitivity)
-		# Clamps the POV camera's x rotation to avoid flipping over.
-		pov_camera.rotation.x = clampf(pov_camera.rotation.x, -deg_to_rad(70), deg_to_rad(70))
-	if event.is_action_pressed("left_mouse_down") and GameManager.current_state == GameManager.State.POV_MODE and current_task == TASK.POV_MODE:
-		var raycast_result  = execute_raycast(event.position, pov_camera)
-		if raycast_result != null:
-			var house = raycast_result.collider
-			if house.isBurning:	
-				allowWater = true
-				extinguish_timer.start()
-				currentHouse = house
-				waterProgress.visible = true
-				
-#				house.sabotageType.fire_stopped(house)
-#				house.isBurning = false#
-#				print("brand gelöscht. Super gemacht")
-
-func _physics_process(delta):
-	if Input.is_action_pressed("left_mouse_down") and current_task == TASK.POV_MODE and allowWater:
-		waterParticles.set_emitting(true)
-		waterProgress.value = calcPercentage()
-		if extinguish_timer.is_stopped():
-			waterProgress.value = 0
-			waterProgress.visible = false
-			currentHouse.sabotageType.fire_stopped(currentHouse) 
-			allowWater = false
-			waterParticles.set_emitting(false)
-			GameManager.sabotages_stopped += 1
-	if Input.is_action_just_released("left_mouse_down") and current_task == TASK.POV_MODE and allowWater:
-		waterParticles.set_emitting(false)
-		extinguish_timer.stop()
-		waterProgress.visible = false
-		waterProgress.value = 0
-		
+				reset_npc()
 		
 		
 		
@@ -389,3 +390,8 @@ func change_to_normal():
 	criminalhat.visible = false
 	normalclothing.visible = true
 	normalhat.visible = true
+
+func reset_npc():
+	change_to_normal()
+	navigation_agent.target_position = global_position
+	current_task = TASK.SEARCHING

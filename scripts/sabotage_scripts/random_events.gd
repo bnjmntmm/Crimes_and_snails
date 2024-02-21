@@ -39,8 +39,9 @@ func add_houseScene_to_array(houseObj):
 	print(str(houseObj) + " added")
 
 func remove_houseScene_from_array(houseObj):
-	housesInScenes.erase(houseObj)
-	print(str(houseObj) + " removed")
+	if housesInScenes.has(houseObj):
+		housesInScenes.erase(houseObj)
+		print(str(houseObj) + " removed")
 
 func check_if_sabotage_valid():
 	# SHOULD THIS BE HAPPINESS OR INSPIRATION?

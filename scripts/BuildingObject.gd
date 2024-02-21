@@ -1,31 +1,44 @@
 extends Node3D
 
-
 @onready var audio_stream_player = $AudioStreamPlayer3D
 @onready var sabotage_point = $SabotagePoint
 
+@onready var right_cast := $NavPlaneCheck/RightCast
+@onready var left_cast := $NavPlaneCheck/LeftCast
+@onready var up_cast := $NavPlaneCheck/UpCast
+@onready var down_cast := $NavPlaneCheck/DownCast
+@onready var watch_tower_particles = $WatchArea/watch_particles
+@onready var fire_marker := $FireLocation
 
-@export var can_spawn_actor :=true
+#just for the wonder
+@onready var wonder_timer : Timer = $WonderTimer
+
+
+@export var can_spawn_actor := true
 @export var actor: PackedScene
 
- 
+##[color=white]Riot Stop Check. Random Value has to be higher then the probabilty to 
+##execute the riot
+@export_range(1,100,0.1) var riotStopProbability :float = 50.0
+
+
 @export var wood_cost: int
 @export var plank_cost: int
 @export var food_cost: int
-@export var snail_cost:int
+@export var snail_cost: int
 
-@export var is_crafting_building:=false
-@export var crafted_resource_ammount:=0
-@export var raw_to_refined_ratio:=0
-@export_enum("planks","bread","wheat") var crafted_resource:String
+@export var is_crafting_building := false
+@export var crafted_resource_ammount := 0
+@export var raw_to_refined_ratio := 0
+@export_enum("planks","bread","wheat") var crafted_resource: String
 @onready var crafting_timer = $CraftingTimer
 @onready var crafting_progress = $CraftingProgress
-@export var crafting_time:=10.0
-var current_time:=crafting_time
+@export var crafting_time := 10.0
+var current_time := crafting_time
 
-var objects:Array=[]
+var objects: Array = []
 var active_buildable_object: bool
-var spawned:=false
+var spawned := false
 var current_actor
 
 var isBurning = false
@@ -42,10 +55,7 @@ var collidingObjects := []
 var old_plane = null
 
 
-@onready var right_cast := $NavPlaneCheck/RightCast
-@onready var left_cast := $NavPlaneCheck/LeftCast
-@onready var up_cast := $NavPlaneCheck/UpCast
-@onready var down_cast := $NavPlaneCheck/DownCast
+
 
 
 func _ready():
@@ -55,13 +65,6 @@ func _ready():
 	$Area.body_exited.connect(_on_body_exited)
 	if is_crafting_building:
 		crafting_timer.start()
-#func run_spawn():
-#	if can_spawn_actor:
-#		pass
-#func run_despawn():
-#	if can_spawn_actor:
-#		pass
-
 func _on_body_entered(body):
 	var bodyName = body.name.rstrip("0123456789")
 	if bodyName == "Bush" or bodyName == "Tree":
@@ -73,6 +76,7 @@ func _on_body_exited(body):
 		
 
 func _on_area_entered(area):
+
 	if active_buildable_object:
 		objects.append(area)
 		BuildManager.able_to_build=false
@@ -80,8 +84,9 @@ func _on_area_entered(area):
 func _on_area_exited(area):
 	if active_buildable_object:
 		objects.erase(area)
-		if objects.size()>=0:
+		if objects.size()<=0:
 			BuildManager.able_to_build=true
+
 func set_disabled(enabled):
 		$CollisionShape.disabled=enabled
 	
@@ -133,3 +138,38 @@ func update_progress_bar():
 		self.current_time=crafting_time
 		craft_resource()
 	self.crafting_progress.value=progress
+
+
+func _on_watch_area_body_entered(body):
+	if spawned:
+		if body.current_task == body.TASK.RIOT:
+			print("rioter entered")
+			change_to_stop_rioter(body)
+
+
+func _on_watch_area_body_exited(body):
+	if spawned:
+		if body.current_task == body.TASK.RIOT:
+			print("rioter exited")
+
+func get_watch_particles():
+	return watch_tower_particles 
+
+func get_fire_spot_location():
+	return fire_marker.global_position
+
+#Chance for the Watch to stop the 
+func change_to_stop_rioter(body):
+	var random_value = randi() % 100
+	if random_value < riotStopProbability:
+		body.reset_npc()
+		print("riot was stopped")
+		GameManager.sabotages_stopped += 1
+		GameManager.main_node.find_child("random_events").start_sabotage_timer()
+	else:
+		print("riot was not stopped")
+
+
+func _on_wonder_timer_timeout():
+	GameManager.isWonderBuild = true
+	print("buuiild")

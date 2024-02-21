@@ -85,13 +85,29 @@ func _on_lab_button_down():
 	BuildManager.spawn_lab()
 
 
+func _on_bakery_button_down():
+	BuildManager.spawn_bakery()
+
+
+func _on_carpentry_button_down():
+	BuildManager.spawn_carpentry()
+
+
+func _on_watch_button_down():
+	BuildManager.spawn_watch()
+func _on_wonder_button_down():
+	BuildManager.spawn_wonder()
+
+
+
 func _on_delete_button_down():
 	GameManager.current_state = GameManager.State.DESTROY
 
 
 func _on_move_button_down():
 	GameManager.current_state = GameManager.State.MOVE_HOUSE
- 
+
+
 
 func check_happiness():
 
@@ -117,9 +133,3 @@ func _on_settings_menu_pressed():
 
 
 
-func _on_bakery_button_down():
-	BuildManager.spawn_bakery()
-
-
-func _on_carpentry_button_down():
-	BuildManager.spawn_carpentry()
