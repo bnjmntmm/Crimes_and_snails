@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cjmjp5mli5miu"]
+[gd_scene load_steps=29 format=3 uid="uid://cjmjp5mli5miu"]
 
 [ext_resource type="Script" path="res://scripts/InterfaceManager.gd" id="1_r1lqh"]
 [ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="2_0su6q"]
@@ -23,6 +23,26 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kt563"]
+bg_color = Color(0.929412, 0.792157, 0.572549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vta6h"]
+bg_color = Color(0.619608, 0.443137, 0.168627, 0.443137)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i22ju"]
+bg_color = Color(0.760784, 0.552941, 0.231373, 0.443137)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnqov"]
 bg_color = Color(0, 0.588235, 0, 1)
@@ -289,7 +309,7 @@ offset_right = 1001.0
 offset_bottom = 646.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("11_04pr6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_kt563")
 
 [node name="BuildingContainer" type="HBoxContainer" parent="BuildMenu"]
 layout_mode = 1
@@ -308,6 +328,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "House:
 Houses are needed so that the villagers have a place to live and thus generate happiness."
+theme_override_styles/normal = SubResource("StyleBoxFlat_vta6h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i22ju")
 icon = ExtResource("4_hdnqd")
 icon_alignment = 1
 expand_icon = true
@@ -318,60 +340,80 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Stock:
 A Stock is used so that villagers have a shorter route to store their resources."
+theme_override_styles/normal = SubResource("StyleBoxFlat_vta6h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i22ju")
 text = "Stock"
 script = ExtResource("8_3dk4q")
 
 [node name="Lab" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_vta6h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i22ju")
 text = "Lab"
 script = ExtResource("8_3dk4q")
 
 [node name="Terrarium" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_vta6h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i22ju")
 text = "Terrarium"
 script = ExtResource("8_3dk4q")
 
 [node name="Farm" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_vta6h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i22ju")
 text = "Farm"
 script = ExtResource("8_3dk4q")
 
 [node name="Bakery" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_vta6h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i22ju")
 text = "Bakery"
 script = ExtResource("8_3dk4q")
 
 [node name="Incubator" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_vta6h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i22ju")
 text = "Incubator"
 script = ExtResource("8_3dk4q")
 
 [node name="Watch" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_vta6h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i22ju")
 text = "Watch"
 script = ExtResource("8_3dk4q")
 
 [node name="Tempel" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_vta6h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i22ju")
 text = "Tempel"
 script = ExtResource("8_3dk4q")
 
 [node name="Carpentry" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_vta6h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i22ju")
 text = "Carpentry"
 script = ExtResource("8_3dk4q")
 
 [node name="Wonder" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_vta6h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i22ju")
 text = "Wonder"
 script = ExtResource("8_3dk4q")
 
