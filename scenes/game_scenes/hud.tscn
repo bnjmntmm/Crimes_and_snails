@@ -644,6 +644,7 @@ texture = ExtResource("2_dketd")
 expand_mode = 1
 
 [node name="LabMenu" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_left = 382.0
 offset_top = 147.0
