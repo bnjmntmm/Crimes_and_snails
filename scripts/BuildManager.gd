@@ -8,6 +8,9 @@ var Lab: PackedScene = ResourceLoader.load("res://scenes/building_scenes/laborat
 var Bakery: PackedScene=ResourceLoader.load("res://scenes/building_scenes/bakery.tscn")
 var Carpentry: PackedScene=ResourceLoader.load("res://scenes/building_scenes/carpentry.tscn")
 var Watch : PackedScene = ResourceLoader.load("res://scenes/building_scenes/watch.tscn")
+var Wonder : PackedScene = ResourceLoader.load("res://scenes/building_scenes/wonder.tscn")
+
+
 var able_to_build := true
 var current_spawnable: StaticBody3D
 "res://scenes/building_scenes/bakery.tscn"
@@ -104,7 +107,8 @@ func _physics_process(delta):
 							#obj.run_spawn()
 							obj.spawned=true
 							obj.set_disabled(false)
-							houseSceneAdded.emit(obj)
+							if not obj.name.contains("wonder"):
+								houseSceneAdded.emit(obj)
 							
 							obj.global_position=current_spawnable.global_position
 							if obj.name == "Stock":
@@ -115,8 +119,11 @@ func _physics_process(delta):
 								obj.old_plane = navRegion[0]
 							if obj.is_in_group("watch"):
 								GameManager.watch_particles_array.append(obj.get_watch_particles())
+							if obj.name.contains("Wonder"):
+								obj.wonder_timer.start()
 							current_spawnable.remove_foliage()
 							bake_nav_planes(navRegion)
+							
 					#get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()
 					
 					
@@ -189,6 +196,9 @@ func spawn_lab():
 	
 func spawn_watch():
 	spawn_object(Watch)
+	
+func spawn_wonder():
+	spawn_object(Wonder)
 	
 func spawn_object(obj):
 	if current_spawnable!=null:

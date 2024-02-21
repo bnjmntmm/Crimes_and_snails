@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7cs1jwqkk0jn"]
+
+[ext_resource type="PackedScene" uid="uid://cthavm1n77ncp" path="res://assets/buildings/wunder.glb" id="1_120yi"]
+[ext_resource type="Script" path="res://scripts/BuildingObject.gd" id="1_vlxl4"]
+[ext_resource type="PackedScene" uid="uid://cige1qbgly177" path="res://scenes/utils/nav_plane_check.tscn" id="3_yosui"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x6ntx"]
+size = Vector3(12.629, 18.0641, 10.1796)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_311n1"]
+size = Vector3(12, 20, 12.1261)
+
+[node name="Wonder" type="StaticBody3D" groups=["building", "wonder"]]
+script = ExtResource("1_vlxl4")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 9.08812, 0)
+shape = SubResource("BoxShape3D_x6ntx")
+disabled = true
+
+[node name="wunder" parent="." instance=ExtResource("1_120yi")]
+transform = Transform3D(-1.31134e-08, 0, -0.3, 0, 0.3, 0, 0.3, 0, -1.31134e-08, 0, 0, 0)
+
+[node name="NavPlaneCheck" parent="." instance=ExtResource("3_yosui")]
+
+[node name="RightCast" parent="NavPlaneCheck" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.18947, 0.0945359, -0.0924768)
+
+[node name="LeftCast" parent="NavPlaneCheck" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.28127, 0.0942659, 0.20542)
+
+[node name="UpCast" parent="NavPlaneCheck" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.115551, 0.272266, -8)
+
+[node name="DownCast" parent="NavPlaneCheck" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.175828, 0.272266, 8.4)
+
+[node name="Area" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+shape = SubResource("BoxShape3D_311n1")
+
+[node name="WonderTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="WonderTimer" to="." method="_on_wonder_timer_timeout"]
+
+[editable path="NavPlaneCheck"]

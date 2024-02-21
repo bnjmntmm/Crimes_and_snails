@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bl70bq45sopev"]
+[gd_scene load_steps=14 format=3 uid="uid://bl70bq45sopev"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_i7pvc"]
 [ext_resource type="PackedScene" uid="uid://dlwx7hjnp15sy" path="res://scenes/game_scenes/set_up_win_condition.tscn" id="2_2omk5"]
@@ -20,6 +20,27 @@ border_width_bottom = 10
 border_color = Color(0.858824, 0.52549, 0.301961, 1)
 
 [sub_resource type="Theme" id="Theme_0t7on"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b4bbg"]
+bg_color = Color(0.890196, 0.72549, 0.458824, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ejpaa"]
+bg_color = Color(0.819608, 0.654902, 0.364706, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_507y5"]
+bg_color = Color(0.92549, 0.784314, 0.552941, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -104,14 +125,14 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2/Panel2/Panel"]
 layout_mode = 2
-anchor_left = 0.253
-anchor_top = 0.023
-anchor_right = 0.768
-anchor_bottom = 0.257
-offset_left = -0.105003
-offset_top = 7.39999
-offset_right = 0.485001
-offset_bottom = 15.238
+anchor_left = 0.184
+anchor_top = 0.075
+anchor_right = 0.821
+anchor_bottom = 0.345
+offset_left = 0.0185814
+offset_top = 0.0164089
+offset_right = 0.122711
+offset_bottom = -0.0367432
 theme = SubResource("Theme_0t7on")
 alignment = 1
 
@@ -120,42 +141,51 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_fyglm")
 theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4bbg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ejpaa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_507y5")
 text = "Start"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer2/Panel2/Panel"]
 layout_mode = 2
-anchor_left = 0.253
-anchor_top = 0.274
-anchor_right = 0.775
-anchor_bottom = 0.577
-offset_left = -0.129005
-offset_top = 19.118
-offset_right = -2.07501
-offset_bottom = 13.639
+anchor_left = 0.184
+anchor_top = 0.358
+anchor_right = 0.821
+anchor_bottom = 0.628
+offset_left = 0.0185814
+offset_top = 4.02365
+offset_right = 0.122711
+offset_bottom = 3.9705
 
 [node name="SettingsButton" type="Button" parent="Panel/VBoxContainer2/Panel2/Panel/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_fyglm")
 theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4bbg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ejpaa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_507y5")
 text = "Settings"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer2/Panel2/Panel"]
 layout_mode = 2
-anchor_left = 0.252
-anchor_top = 0.606
-anchor_right = 0.768
-anchor_bottom = 0.87
-offset_left = -0.0879974
-offset_top = 14.225
-offset_right = 0.207993
-offset_bottom = 14.425
+anchor_left = 0.184
+anchor_top = 0.668
+anchor_right = 0.821
+anchor_bottom = 0.937
+offset_left = 0.0185814
+offset_top = -0.0744019
+offset_right = 0.122711
+offset_bottom = 0.098587
 
 [node name="QuitButton" type="Button" parent="Panel/VBoxContainer2/Panel2/Panel/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_fyglm")
 theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4bbg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ejpaa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_507y5")
 text = "Quit"
 
 [node name="Settings" parent="Panel" instance=ExtResource("4_4dkfx")]
