@@ -6,10 +6,11 @@ type="PackedScene"
 uid="uid://bxpi4y6xlvuf2"
 path="res://.godot/imported/grass.glb-212fc34f42bec43a5f74367040cabb9f.scn"
 
+
 [deps]
 
-source_file="res://assets/nature/grass/grass.glb"
-dest_files=["res://.godot/imported/grass.glb-212fc34f42bec43a5f74367040cabb9f.scn"]
+source_file="res://assets/nature/grass/Grass.glb"
+dest_files=["res://.godot/imported/Grass.glb-e1ada1e95670147be2b164b9e652ff08.scn"]
 
 [params]
 
