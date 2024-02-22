@@ -17,6 +17,8 @@ func _ready():
 	burningTimer = Timer.new()
 	burningTimer.wait_time = 15.0
 	burningTimer.timeout.connect(destroyHouse)
+	add_child(burningTimer)
+
 
 
 
@@ -71,3 +73,4 @@ func destroyHouse():
 		GameManager.houses_built-=1
 	currentHouse.queue_free()
 	plane_to_bake.bake_nav()
+	sabotage_stopped.emit()
