@@ -21,6 +21,7 @@ func _ready():
 
 
 
+
 func execute_sabotage_to(house):
 	houseFireDict[house] = house
 	houseFireDict[house].isBurning = true
