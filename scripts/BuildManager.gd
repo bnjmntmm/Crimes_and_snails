@@ -63,7 +63,9 @@ func _physics_process(delta):
 					if result.collider.is_in_group("watch"):
 						var particles = result.collider.get_watch_particles()
 						GameManager.watch_particles_array.erase(particles)
-					
+					if result.collider.name.contains("Terrarium"):
+						GameManager.terrariumsPlaced -= 1
+						GameManager.calculateNewMaxSnailAmount()
 					houseSceneRemoved.emit(result.collider)
 					
 					## QUEUE Free funktioniert hier nicht, da es im nächsten physics frame 
@@ -97,9 +99,11 @@ func _physics_process(delta):
 			current_spawnable.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z)) 
 			current_spawnable.active_buildable_object=true
 			
-			if able_to_build:
-				if Input.is_action_just_released("left_mouse_down"):	
+			if able_to_build and can_afford(current_spawnable):
+				if Input.is_action_just_released("left_mouse_down"):
+					charge_object(current_spawnable)	
 					var obj:=current_spawnable.duplicate()
+					
 					
 					#get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").add_child(obj,true)
 					if navRegion.size() > 0:
@@ -123,6 +127,9 @@ func _physics_process(delta):
 								GameManager.watch_particles_array.append(obj.get_watch_particles())
 							if obj.name.contains("Wonder"):
 								obj.wonder_timer.start()
+							if obj.name.contains("Terrarium"):
+								GameManager.terrariumsPlaced += 1
+								GameManager.calculateNewMaxSnailAmount()
 							current_spawnable.remove_foliage()
 							bake_nav_planes(navRegion)
 							
@@ -239,3 +246,22 @@ func bake_nav_planes(regionsArray : Array):
 	for region in regionsArray:
 		if is_instance_of(region, StaticBody3D):
 			region.bake_nav()
+			
+			
+func charge_object(obj):
+	
+	GameManager.wood-=obj.wood_cost
+	GameManager.planks-=obj.plank_cost
+	GameManager.food-=obj.food_cost
+	GameManager.snails-=obj.snail_cost
+
+func can_afford(obj)->bool:
+	if GameManager.wood-obj.wood_cost<0:
+		return false
+	if GameManager.planks-obj.plank_cost<0:
+		return false
+	if GameManager.food-obj.food_cost<0:
+		return false
+	if GameManager.snails-obj.snail_cost<0:
+		return false
+	return true
