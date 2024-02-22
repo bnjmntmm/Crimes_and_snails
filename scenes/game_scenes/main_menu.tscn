@@ -1,13 +1,46 @@
-[gd_scene load_steps=9 format=3 uid="uid://bl70bq45sopev"]
+[gd_scene load_steps=14 format=3 uid="uid://bl70bq45sopev"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_i7pvc"]
-[ext_resource type="StyleBox" uid="uid://bxwb3wa3vc1t5" path="res://assets/textures/HUD/UI/hud.tres" id="2_0kgot"]
 [ext_resource type="PackedScene" uid="uid://dlwx7hjnp15sy" path="res://scenes/game_scenes/set_up_win_condition.tscn" id="2_2omk5"]
 [ext_resource type="Environment" uid="uid://bhggvvhc3vklv" path="res://scenes/utils/world_env.tres" id="2_7w0qe"]
 [ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="2_fyglm"]
 [ext_resource type="PackedScene" uid="uid://cnto8cdxsxbs0" path="res://scenes/utils/settings.tscn" id="4_4dkfx"]
-[ext_resource type="PackedScene" uid="uid://blu0iekkj6o0l" path="res://assets/buildings/House.glb" id="4_lt5gw"]
-[ext_resource type="Script" path="res://scripts/MainMenuSubViewport.gd" id="4_w4i61"]
+[ext_resource type="Texture2D" uid="uid://dqeoltm3vii1h" path="res://assets/textures/HUD/UI/start_scene/background_image.png" id="5_8uykj"]
+[ext_resource type="Texture2D" uid="uid://bk4gf7rifhl6m" path="res://assets/textures/HUD/UI/start_scene/logo.png" id="6_6tt5t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lw3n6"]
+bg_color = Color(0.439216, 0.517647, 0.372549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcqm7"]
+bg_color = Color(0.929412, 0.792157, 0.572549, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.858824, 0.52549, 0.301961, 1)
+
+[sub_resource type="Theme" id="Theme_0t7on"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b4bbg"]
+bg_color = Color(0.890196, 0.72549, 0.458824, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ejpaa"]
+bg_color = Color(0.819608, 0.654902, 0.364706, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_507y5"]
+bg_color = Color(0.92549, 0.784314, 0.552941, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -33,62 +66,126 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("2_0kgot")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="BackgroundImage" type="TextureRect" parent="Panel"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_top = 68.0
-offset_bottom = 136.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_8uykj")
+expand_mode = 3
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("2_fyglm")
-text = "Krasses Game !!!"
+[node name="TitleImage" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 112.0
+offset_top = 34.0
+offset_right = -620.0
+offset_bottom = -407.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_6tt5t")
+expand_mode = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel"]
+clip_contents = true
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -77.0
-offset_right = 252.0
-offset_bottom = 102.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 126.0
+offset_top = 317.0
+offset_right = -676.0
+offset_bottom = -91.0
+grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2"]
+[node name="Panel2" type="Panel" parent="Panel/VBoxContainer2"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_lw3n6")
+
+[node name="Panel" type="Panel" parent="Panel/VBoxContainer2/Panel2"]
+custom_minimum_size = Vector2(0, 175)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0197368
+anchor_top = 0.0292683
+anchor_right = 0.984
+anchor_bottom = 0.975634
+offset_right = -0.136017
+offset_bottom = -1.005
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_tcqm7")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2/Panel2/Panel"]
+layout_mode = 2
+anchor_left = 0.184
+anchor_top = 0.075
+anchor_right = 0.821
+anchor_bottom = 0.345
+offset_left = 0.0185814
+offset_top = 0.0164089
+offset_right = 0.122711
+offset_bottom = -0.0367432
+theme = SubResource("Theme_0t7on")
 alignment = 1
 
-[node name="StartButton" type="Button" parent="Panel/VBoxContainer2/HBoxContainer"]
+[node name="StartButton" type="Button" parent="Panel/VBoxContainer2/Panel2/Panel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_fyglm")
 theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4bbg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ejpaa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_507y5")
 text = "Start"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer2"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer2/Panel2/Panel"]
 layout_mode = 2
+anchor_left = 0.184
+anchor_top = 0.358
+anchor_right = 0.821
+anchor_bottom = 0.628
+offset_left = 0.0185814
+offset_top = 4.02365
+offset_right = 0.122711
+offset_bottom = 3.9705
 
-[node name="SettingsButton" type="Button" parent="Panel/VBoxContainer2/HBoxContainer3"]
+[node name="SettingsButton" type="Button" parent="Panel/VBoxContainer2/Panel2/Panel/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_fyglm")
 theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4bbg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ejpaa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_507y5")
 text = "Settings"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer2/Panel2/Panel"]
 layout_mode = 2
+anchor_left = 0.184
+anchor_top = 0.668
+anchor_right = 0.821
+anchor_bottom = 0.937
+offset_left = 0.0185814
+offset_top = -0.0744019
+offset_right = 0.122711
+offset_bottom = 0.098587
 
-[node name="QuitButton" type="Button" parent="Panel/VBoxContainer2/HBoxContainer2"]
+[node name="QuitButton" type="Button" parent="Panel/VBoxContainer2/Panel2/Panel/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_fyglm")
 theme_override_font_sizes/font_size = 65
+theme_override_styles/normal = SubResource("StyleBoxFlat_b4bbg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ejpaa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_507y5")
 text = "Quit"
 
 [node name="Settings" parent="Panel" instance=ExtResource("4_4dkfx")]
@@ -99,29 +196,6 @@ offset_top = 195.0
 offset_right = -87.0
 offset_bottom = -140.0
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-layout_mode = 0
-offset_left = 678.0
-offset_top = 409.0
-offset_right = 909.0
-offset_bottom = 640.0
-stretch = true
-script = ExtResource("4_w4i61")
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(231, 231)
-render_target_update_mode = 4
-
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 0.978853, 0.204564, 0, -0.204564, 0.978853, 0, 12.3853, 19.7277)
-
-[node name="House" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_lt5gw")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 8, -1)
-
-[connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer3/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer2/HBoxContainer2/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="mouse_entered" from="SubViewportContainer" to="SubViewportContainer" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="SubViewportContainer" to="SubViewportContainer" method="_on_mouse_exited"]
+[connection signal="pressed" from="Panel/VBoxContainer2/Panel2/Panel/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer2/Panel2/Panel/HBoxContainer3/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer2/Panel2/Panel/HBoxContainer2/QuitButton" to="." method="_on_quit_button_pressed"]

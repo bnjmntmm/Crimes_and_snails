@@ -69,7 +69,7 @@ var main_node : Node3D
 
 
 ##TEMPLE BUILD WIN CONDITITION
-var isTempleBuild = false
+var isWonderBuild = false
 
 var selected_win_condition = null
 

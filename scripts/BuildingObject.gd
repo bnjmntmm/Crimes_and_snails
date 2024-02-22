@@ -10,6 +10,10 @@ extends Node3D
 @onready var watch_tower_particles = $WatchArea/watch_particles
 @onready var fire_marker := $FireLocation
 
+#just for the wonder
+@onready var wonder_timer : Timer = $WonderTimer
+
+
 @export var can_spawn_actor := true
 @export var actor: PackedScene
 
@@ -164,3 +168,8 @@ func change_to_stop_rioter(body):
 		GameManager.main_node.find_child("random_events").start_sabotage_timer()
 	else:
 		print("riot was not stopped")
+
+
+func _on_wonder_timer_timeout():
+	GameManager.isWonderBuild = true
+	print("buuiild")

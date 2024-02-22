@@ -21,7 +21,11 @@ func _on_select_button_button_down():
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5p60y"]
-bg_color = Color(0.176471, 0.176471, 0.176471, 0.372549)
+bg_color = Color(0.764706, 0.6, 0.317647, 0.627451)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="win_condition_blueprint" type="Control"]
 custom_minimum_size = Vector2(256, 50)

@@ -95,6 +95,9 @@ func _on_carpentry_button_down():
 
 func _on_watch_button_down():
 	BuildManager.spawn_watch()
+func _on_wonder_button_down():
+	BuildManager.spawn_wonder()
+
 
 
 func _on_delete_button_down():
@@ -103,7 +106,7 @@ func _on_delete_button_down():
 
 func _on_move_button_down():
 	GameManager.current_state = GameManager.State.MOVE_HOUSE
- 
+
 
 
 func check_happiness():

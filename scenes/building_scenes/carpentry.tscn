@@ -39,6 +39,7 @@ func get_down_cast():
 "
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coy7v"]
+transparency = 1
 albedo_color = Color(1, 1, 1, 0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_turth"]

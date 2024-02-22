@@ -13,7 +13,7 @@ enum WIN_CONDITION{
 	FOOD,
 	SNAIL,
 	LAND,
-	TEMPLE,
+	WONDER,
 	SAVED_SABOTAGES
 }
 
@@ -40,8 +40,8 @@ func checkIfWinCondition():
 		current_winCondition = WIN_CONDITION.SNAIL
 	elif GameManager.numberOfBoughtLands >= landBoughtTarget:
 		current_winCondition = WIN_CONDITION.LAND
-	elif GameManager.isTempleBuild:
-		current_winCondition = WIN_CONDITION.TEMPLE
+	elif GameManager.isWonderBuild:
+		current_winCondition = WIN_CONDITION.WONDER
 	elif GameManager.sabotages_stopped >= savedSabotages:
 		current_winCondition = WIN_CONDITION.SAVED_SABOTAGES
 	else:

@@ -4,7 +4,8 @@ extends Control
 
 
 
-@onready var settings_button = $Panel/VBoxContainer2/HBoxContainer3/SettingsButton
+@onready var settings_button = $Panel/VBoxContainer2/Panel2/Panel/HBoxContainer3/SettingsButton
+
 
 func _ready():
 	Settings.world_environement = $WorldEnvironment
