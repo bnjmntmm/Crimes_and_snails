@@ -132,4 +132,6 @@ func _on_settings_menu_pressed():
 	$BuildMenu.visible = false
 
 
+func _on_farm_button_down():
+	BuildManager.spawn_farm()
 

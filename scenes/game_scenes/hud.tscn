@@ -832,6 +832,7 @@ offset_bottom = -182.0
 [connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Lab" to="BuildMenu/BuildingContainer/Lab" method="_on_mouse_entered_lab"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Terrarium" to="." method="_on_terrarium_button_down"]
 [connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Terrarium" to="BuildMenu/BuildingContainer/Terrarium" method="_on_mouse_entered_terrarium"]
+[connection signal="button_down" from="BuildMenu/BuildingContainer/Farm" to="." method="_on_farm_button_down"]
 [connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Farm" to="BuildMenu/BuildingContainer/Farm" method="_on_mouse_entered_farm"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Bakery" to="." method="_on_bakery_button_down"]
 [connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Bakery" to="BuildMenu/BuildingContainer/Bakery" method="_on_mouse_entered_bakery"]

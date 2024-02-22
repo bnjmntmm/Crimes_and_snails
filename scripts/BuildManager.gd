@@ -10,6 +10,8 @@ var Carpentry: PackedScene=ResourceLoader.load("res://scenes/building_scenes/car
 var Watch : PackedScene = ResourceLoader.load("res://scenes/building_scenes/watch.tscn")
 var Wonder : PackedScene = ResourceLoader.load("res://scenes/building_scenes/wonder.tscn")
 
+var Farm : PackedScene= ResourceLoader.load("res://scenes/building_scenes/farm.tscn")
+
 
 var able_to_build := true
 var current_spawnable: StaticBody3D
@@ -199,7 +201,10 @@ func spawn_watch():
 	
 func spawn_wonder():
 	spawn_object(Wonder)
-	
+
+func spawn_farm():
+	spawn_object(Farm)
+
 func spawn_object(obj):
 	if current_spawnable!=null:
 		current_spawnable.queue_free()

@@ -124,7 +124,7 @@ func craft_resource():
 				GameManager.wheat-=crafted_resource_ammount*raw_to_refined_ratio
 				
 		"wheat":
-			pass
+			GameManager.wheat+=crafted_resource_ammount
 
 
 func _on_crafting_timer_timeout():
