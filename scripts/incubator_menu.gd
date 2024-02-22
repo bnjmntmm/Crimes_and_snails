@@ -116,6 +116,14 @@ func _on_confirm_button_button_down():
 	confirm_button.visible = false
 	confirm_again.visible = true
 	calcCurrentSnails()
+	
+	if (GameManager.snails + (foodToSnailCounter+woodToSnailCounter)) > GameManager.maxSnails:
+		currentBerries = 0
+		currentWood = 0
+		counter_berry.text = str(0)
+		counter_wood.text = str(0)
+		snailsCost.text = 0
+		resetButtons()
 	if currentWood <= GameManager.wood and currentBerries <= GameManager.food:
 		snailsCost.text = str(foodToSnailCounter + woodToSnailCounter)
 	

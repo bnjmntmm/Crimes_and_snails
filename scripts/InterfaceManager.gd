@@ -27,6 +27,7 @@ func _ready():
 func _process(delta):
 	
 	$TopUI/ResourcePanel/SnailLabel.text=str(GameManager.snails)
+	$TopUI/ResourcePanel/MaxSnailLabel.text = "/ " + str(GameManager.maxSnails)
 #	$BuildMenu/ResourceContainer/RessourceValues/HappinessValue.text=str(GameManager.inspiration)
 	$TopUI/ResourcePanel/FoodLabel.text=str(GameManager.food)
 	$TopUI/ResourcePanel/WoodRawLabel.text=str(GameManager.wood)
