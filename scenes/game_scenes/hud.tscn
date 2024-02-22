@@ -201,15 +201,23 @@ script = ExtResource("3_n6f31")
 
 [node name="SnailLabel" type="Label" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 44.0
-offset_top = 3.0
-offset_right = 107.0
-offset_bottom = 47.0
-theme_override_font_sizes/font_size = 40
+offset_left = 53.0
+offset_top = 13.0
+offset_right = 116.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 25
 text = "1000"
-vertical_alignment = 2
 clip_text = true
 text_overrun_behavior = 1
+
+[node name="MaxSnailLabel" type="Label" parent="TopUI/ResourcePanel"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 29.0
+offset_right = 88.0
+offset_bottom = 53.0
+theme_override_font_sizes/font_size = 25
+text = "/1000"
 
 [node name="Food" type="TextureRect" parent="TopUI/ResourcePanel"]
 layout_mode = 2
@@ -224,13 +232,12 @@ script = ExtResource("3_n6f31")
 
 [node name="FoodLabel" type="Label" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 156.0
-offset_top = 3.0
-offset_right = 224.0
-offset_bottom = 47.0
-theme_override_font_sizes/font_size = 40
+offset_left = 163.0
+offset_top = 13.0
+offset_right = 231.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 25
 text = "1000"
-vertical_alignment = 2
 clip_text = true
 text_overrun_behavior = 1
 
@@ -248,13 +255,12 @@ script = ExtResource("3_n6f31")
 
 [node name="WoodRawLabel" type="Label" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 269.0
-offset_top = 10.0
-offset_right = 335.0
-offset_bottom = 46.0
-theme_override_font_sizes/font_size = 40
+offset_left = 272.0
+offset_top = 13.0
+offset_right = 338.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 25
 text = "1000"
-vertical_alignment = 2
 clip_text = true
 text_overrun_behavior = 1
 
@@ -272,13 +278,12 @@ script = ExtResource("3_n6f31")
 
 [node name="WoodPlanksLabel" type="Label" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 388.0
-offset_top = 10.0
-offset_right = 448.0
-offset_bottom = 46.0
-theme_override_font_sizes/font_size = 40
+offset_left = 389.0
+offset_top = 13.0
+offset_right = 449.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 25
 text = "1000"
-vertical_alignment = 2
 clip_text = true
 text_overrun_behavior = 1
 
@@ -497,7 +502,6 @@ position = Vector2(-8.5, 525)
 shape = SubResource("RectangleShape2D_hxuef")
 
 [node name="CraftMenu" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -693,7 +697,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 33.0
 offset_top = -16.5
-offset_right = 81.0
+offset_right = 105.0
 offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -713,20 +717,20 @@ text = "="
 
 [node name="Snails" type="Label" parent="CraftMenu/Panel/Label"]
 layout_mode = 0
-offset_left = 3.0
-offset_top = 1.0
-offset_right = 71.0
-offset_bottom = 27.0
+offset_left = 13.0
+offset_top = -3.0
+offset_right = 81.0
+offset_bottom = 38.0
 theme_override_font_sizes/font_size = 51
 horizontal_alignment = 2
 clip_text = true
 
 [node name="TextureRect" type="TextureRect" parent="CraftMenu/Panel/Label"]
 layout_mode = 0
-offset_left = 65.0
-offset_top = 7.0
-offset_right = 89.0
-offset_bottom = 31.0
+offset_left = 80.0
+offset_top = 6.0
+offset_right = 104.0
+offset_bottom = 30.0
 texture = ExtResource("2_dketd")
 expand_mode = 1
 

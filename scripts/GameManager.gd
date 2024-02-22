@@ -22,6 +22,12 @@ var population:=0
 var houses_built:=0
 var sabotages_stopped:=0
 
+var snailsPerTerrarium : int = 50
+var baseSnailamount : int = 200
+var maxSnails : int = 0
+var terrariumsPlaced : int = 0
+
+
 ####INSPIRATION CHECK
 var happyInspiration = 50
 var mediumInspiration = 30
@@ -78,6 +84,7 @@ func _ready():
 	winConditionTimer = Timer.new()
 	winConditionTimer.wait_time = 0.3
 	winConditionTimer.timeout.connect(checkIfWinConditionReached)
+	maxSnails = baseSnailamount
 	add_child(winConditionTimer)
 
 func _process(delta):
@@ -111,5 +118,6 @@ func emitting_watch_particles():
 		particle.visible = !particle.visible
 		particle.emitting = !particle.emitting
 		
-
+func calculateNewMaxSnailAmount():
+	maxSnails = baseSnailamount + (terrariumsPlaced * snailsPerTerrarium)
 

@@ -63,7 +63,9 @@ func _physics_process(delta):
 					if result.collider.is_in_group("watch"):
 						var particles = result.collider.get_watch_particles()
 						GameManager.watch_particles_array.erase(particles)
-					
+					if result.collider.name.contains("Terrarium"):
+						GameManager.terrariumsPlaced -= 1
+						GameManager.calculateNewMaxSnailAmount()
 					houseSceneRemoved.emit(result.collider)
 					
 					## QUEUE Free funktioniert hier nicht, da es im nächsten physics frame 
@@ -123,6 +125,9 @@ func _physics_process(delta):
 								GameManager.watch_particles_array.append(obj.get_watch_particles())
 							if obj.name.contains("Wonder"):
 								obj.wonder_timer.start()
+							if obj.name.contains("Terrarium"):
+								GameManager.terrariumsPlaced += 1
+								GameManager.calculateNewMaxSnailAmount()
 							current_spawnable.remove_foliage()
 							bake_nav_planes(navRegion)
 							
