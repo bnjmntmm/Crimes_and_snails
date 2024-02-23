@@ -49,6 +49,7 @@ size = Vector3(18.505, 1, 19.875)
 [node name="carpentry" type="StaticBody3D" groups=["building"]]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -0.1, -0.0239353, 0)
 script = ExtResource("1_nvw8e")
+wood_cost = 200
 is_crafting_building = true
 crafted_resource_ammount = 10
 raw_to_refined_ratio = 1

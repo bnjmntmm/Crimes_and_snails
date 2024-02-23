@@ -90,6 +90,7 @@ material = SubResource("StandardMaterial3D_2704j")
 [node name="Big_watch" type="StaticBody3D" groups=["big_watch", "building", "watch"]]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_lxxt5")
+plank_cost = 50
 
 [node name="CollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.13079, 8.73141, -0.756089)

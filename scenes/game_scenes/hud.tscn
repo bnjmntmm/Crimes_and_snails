@@ -1,9 +1,10 @@
-[gd_scene load_steps=37 format=3 uid="uid://cjmjp5mli5miu"]
+[gd_scene load_steps=41 format=3 uid="uid://cjmjp5mli5miu"]
 
 [ext_resource type="Script" path="res://scripts/InterfaceManager.gd" id="1_r1lqh"]
 [ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="2_0su6q"]
 [ext_resource type="Texture2D" uid="uid://cj0h6a2fiit5t" path="res://assets/textures/HUD/snail.png" id="2_dketd"]
 [ext_resource type="Script" path="res://scripts/Tooltip.gd" id="3_n6f31"]
+[ext_resource type="Texture2D" uid="uid://dclu3y2yh8d3o" path="res://assets/textures/HUD/UI/hud_top_view.png" id="3_no642"]
 [ext_resource type="Texture2D" uid="uid://c6ht17vui84tq" path="res://assets/textures/building_images/house_image.png" id="4_hdnqd"]
 [ext_resource type="Texture2D" uid="uid://dgtavymir4ldk" path="res://assets/textures/HUD/Happiness.png" id="4_rvjbb"]
 [ext_resource type="Texture2D" uid="uid://m7fmmqm1onun" path="res://assets/textures/HUD/Food.PNG" id="5_v4tpr"]
@@ -24,6 +25,17 @@
 [ext_resource type="Texture2D" uid="uid://br8qds7r0uuux" path="res://assets/textures/building_images/watch_image.png" id="18_vgniu"]
 [ext_resource type="Texture2D" uid="uid://62ethfkiu1lu" path="res://assets/textures/building_images/carpentry_image.png" id="19_vxceq"]
 [ext_resource type="Texture2D" uid="uid://iy8xiaudf0jn" path="res://assets/textures/building_images/wonder_image.png" id="20_abllo"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k3ddu"]
+texture = ExtResource("3_no642")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmorq"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3r8yn"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jiy5"]
 bg_color = Color(0, 0.12549, 0, 0.592157)
@@ -113,10 +125,20 @@ metadata/_edit_horizontal_guides_ = [325.0]
 layout_mode = 1
 anchor_right = 1.0
 anchor_bottom = 0.131
-offset_right = -1152.0
-offset_bottom = -84.888
+offset_left = -21.0
+offset_top = 12.0
+offset_right = -1173.0
+offset_bottom = -72.888
 mouse_filter = 1
 theme = ExtResource("2_0su6q")
+
+[node name="Panel" type="Panel" parent="TopUI"]
+layout_mode = 0
+offset_left = 308.0
+offset_top = 1.0
+offset_right = 1122.0
+offset_bottom = 71.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_k3ddu")
 
 [node name="HappinessPopuPanel" type="Panel" parent="TopUI"]
 layout_mode = 0
@@ -124,7 +146,7 @@ offset_left = 310.0
 offset_top = 10.0
 offset_right = 488.0
 offset_bottom = 60.0
-theme_override_styles/panel = ExtResource("11_04pr6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_hmorq")
 
 [node name="Population" type="Label" parent="TopUI/HappinessPopuPanel"]
 layout_mode = 1
@@ -164,10 +186,10 @@ script = ExtResource("3_n6f31")
 [node name="TimerPanel" type="Panel" parent="TopUI"]
 layout_mode = 0
 offset_left = 494.0
-offset_top = 10.0
+offset_top = 9.0
 offset_right = 652.0
-offset_bottom = 61.0
-theme_override_styles/panel = ExtResource("11_04pr6")
+offset_bottom = 60.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3r8yn")
 
 [node name="Time" type="Label" parent="TopUI/TimerPanel"]
 layout_mode = 2
@@ -183,10 +205,10 @@ vertical_alignment = 2
 [node name="ResourcePanel" type="Panel" parent="TopUI"]
 layout_mode = 0
 offset_left = 662.0
-offset_top = 10.0
+offset_top = 9.0
 offset_right = 1133.0
-offset_bottom = 60.0
-theme_override_styles/panel = ExtResource("11_04pr6")
+offset_bottom = 59.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3r8yn")
 
 [node name="Snails" type="TextureRect" parent="TopUI/ResourcePanel"]
 layout_mode = 2
@@ -289,10 +311,10 @@ text_overrun_behavior = 1
 
 [node name="SettingsMenu" type="Button" parent="TopUI"]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 10.0
-offset_right = 59.0
-offset_bottom = 50.0
+offset_left = 31.0
+offset_top = 15.0
+offset_right = 84.0
+offset_bottom = 55.0
 theme_override_styles/normal = ExtResource("11_04pr6")
 theme_override_styles/hover = SubResource("StyleBoxFlat_8jiy5")
 action_mode = 0
@@ -502,6 +524,7 @@ position = Vector2(-8.5, 525)
 shape = SubResource("RectangleShape2D_hxuef")
 
 [node name="CraftMenu" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -806,10 +829,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -1152.0
-offset_top = 59.0
-offset_right = -1059.0
-offset_bottom = 85.0
+offset_left = -1142.0
+offset_top = 74.0
+offset_right = -1049.0
+offset_bottom = 100.0
 grow_horizontal = 0
 text = "FPS:  "
 

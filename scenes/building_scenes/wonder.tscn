@@ -12,6 +12,7 @@ size = Vector3(12, 20, 12.1261)
 
 [node name="Wonder" type="StaticBody3D" groups=["building", "wonder"]]
 script = ExtResource("1_vlxl4")
+snail_cost = 500
 
 [node name="CollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 9.08812, 0)
