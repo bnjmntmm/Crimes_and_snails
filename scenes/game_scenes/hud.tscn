@@ -179,7 +179,8 @@ offset_right = 80.0
 offset_bottom = 71.0
 scale = Vector2(0.69, 0.69)
 tooltip_text = "Happiness:
-Happiness shows how satisfied the villagers are with the amount of food."
+Happiness shows how satisfied the villagers are with the amount of food.
+Currently it is"
 texture = ExtResource("4_rvjbb")
 expand_mode = 2
 script = ExtResource("3_n6f31")

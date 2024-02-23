@@ -9,12 +9,23 @@ var food_icon = preload("res://assets/textures/HUD/Food.PNG")
 var wood_icon = preload("res://assets/textures/HUD/Wood.PNG")
 var planks_icon = preload("res://assets/textures/HUD/Wood_planks.PNG")
 
+var happinessText: String = "Happiness:
+Happiness shows how satisfied the villagers are with the amount of food.
+Currently it is: " + str(GameManager.inspiration)
+
+
+
 
 
 func _make_custom_tooltip(for_text):
 	var tooltip = preload("res://scenes/game_scenes/tooltip.tscn").instantiate()
-	tooltip.get_node("description").text = for_text
+	if current_icon == happines_icon:
+		tooltip.get_node("description").text = happinessText
+	else:
+		tooltip.get_node("description").text = for_text
 	tooltip.get_node("current_icon").texture = current_icon
+	
+	tooltip.custom_minimum_size = Vector2(300,320)
 	return tooltip
 
 
