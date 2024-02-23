@@ -57,6 +57,7 @@ func _physics_process(delta):
 					#result.collider.run_despawn()
 					if result.collider.name.contains("House"):
 						GameManager.houses_built-=1
+						
 					if result.collider.is_in_group("stock"):
 						GameManager.stock_array.erase(result.collider)
 					if result.collider.is_in_group("watch"):
@@ -65,6 +66,7 @@ func _physics_process(delta):
 					if result.collider.name.contains("Terrarium"):
 						GameManager.terrariumsPlaced -= 1
 						GameManager.calculateNewMaxSnailAmount()
+					restoreResourcesOnDestroy(result.collider)
 					houseSceneRemoved.emit(result.collider)
 					
 					## QUEUE Free funktioniert hier nicht, da es im nächsten physics frame 
@@ -74,7 +76,7 @@ func _physics_process(delta):
 					bake_nav_planes(navRegion)
 				
 
-	if Input.is_action_just_pressed("esc") and not GameManager.current_state == GameManager.State.POV_MODE:
+	if Input.is_action_just_pressed("esc") and not GameManager.current_state == GameManager.State.POV_MODE and not GameManager.current_state == GameManager.State.BUY_LAND:
 		GameManager.opened_house_menu = false
 		GameManager.opened_lab_menu = false
 		GameManager.current_state=GameManager.State.PLAY
@@ -264,3 +266,9 @@ func can_afford(obj)->bool:
 	if GameManager.snails-obj.snail_cost<0:
 		return false
 	return true
+
+func restoreResourcesOnDestroy(obj):
+	GameManager.wood += obj.wood_cost
+	GameManager.planks += obj.plank_cost
+	GameManager.snails += obj.snail_cost
+	GameManager.food += obj.food_cost
