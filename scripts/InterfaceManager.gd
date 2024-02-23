@@ -13,6 +13,7 @@ var madSmile = preload("res://assets/textures/HUD/MadFace.PNG")
 var recalcJustOnce : bool = true
 
 
+signal switchToBuyLandCamera
 
 
 
@@ -136,3 +137,8 @@ func _on_settings_menu_pressed():
 func _on_farm_button_down():
 	BuildManager.spawn_farm()
 
+
+
+func _on_new_land_buy_button_button_down():
+	GameManager.current_state = GameManager.State.BUY_LAND
+	switchToBuyLandCamera.emit()

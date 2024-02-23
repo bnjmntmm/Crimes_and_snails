@@ -9,7 +9,6 @@ var Bakery: PackedScene=ResourceLoader.load("res://scenes/building_scenes/bakery
 var Carpentry: PackedScene=ResourceLoader.load("res://scenes/building_scenes/carpentry.tscn")
 var Watch : PackedScene = ResourceLoader.load("res://scenes/building_scenes/watch.tscn")
 var Wonder : PackedScene = ResourceLoader.load("res://scenes/building_scenes/wonder.tscn")
-
 var Farm : PackedScene= ResourceLoader.load("res://scenes/building_scenes/farm.tscn")
 
 

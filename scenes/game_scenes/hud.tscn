@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cjmjp5mli5miu"]
+[gd_scene load_steps=42 format=3 uid="uid://cjmjp5mli5miu"]
 
 [ext_resource type="Script" path="res://scripts/InterfaceManager.gd" id="1_r1lqh"]
 [ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="2_0su6q"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://ctme0hhhvra6t" path="res://assets/textures/building_images/terrarium_image.png" id="15_murfl"]
 [ext_resource type="Texture2D" uid="uid://bi677tpeuwe3l" path="res://assets/textures/building_images/bakery_image.png" id="16_g72af"]
 [ext_resource type="Texture2D" uid="uid://dxs101clu5067" path="res://assets/textures/building_images/incubator_image.png" id="17_iu3l1"]
+[ext_resource type="Texture2D" uid="uid://dud18gc3jlsh5" path="res://assets/textures/building_images/farm_image.png" id="17_vn0fb"]
 [ext_resource type="Texture2D" uid="uid://br8qds7r0uuux" path="res://assets/textures/building_images/watch_image.png" id="18_vgniu"]
 [ext_resource type="Texture2D" uid="uid://62ethfkiu1lu" path="res://assets/textures/building_images/carpentry_image.png" id="19_vxceq"]
 [ext_resource type="Texture2D" uid="uid://iy8xiaudf0jn" path="res://assets/textures/building_images/wonder_image.png" id="20_abllo"]
@@ -415,7 +416,9 @@ tooltip_text = "Farm:
 The Farm produces Wheat"
 theme_override_styles/normal = SubResource("StyleBoxFlat_vta6h")
 theme_override_styles/hover = SubResource("StyleBoxFlat_i22ju")
-text = "Farm"
+icon = ExtResource("17_vn0fb")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("8_3dk4q")
 
 [node name="Bakery" type="Button" parent="BuildMenu/BuildingContainer"]
@@ -488,6 +491,10 @@ icon = ExtResource("20_abllo")
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("8_3dk4q")
+
+[node name="NewLandBuyButton" type="Button" parent="BuildMenu/BuildingContainer"]
+layout_mode = 2
+text = "New Land"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
@@ -872,6 +879,7 @@ offset_bottom = -182.0
 [connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Carpentry" to="BuildMenu/BuildingContainer/Carpentry" method="_on_mouse_entered_carp"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Wonder" to="." method="_on_wonder_button_down"]
 [connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Wonder" to="BuildMenu/BuildingContainer/Wonder" method="_on_mouse_entered_wonder"]
+[connection signal="button_down" from="BuildMenu/BuildingContainer/NewLandBuyButton" to="." method="_on_new_land_buy_button_button_down"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/VBoxContainer/Move" to="." method="_on_move_button_down"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/VBoxContainer/Delete" to="." method="_on_delete_button_down"]
 [connection signal="area_entered" from="BuildMenu/Area2D" to="." method="_on_area_2d_area_entered"]
