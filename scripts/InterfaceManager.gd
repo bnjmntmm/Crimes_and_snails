@@ -33,7 +33,9 @@ func _process(delta):
 	$TopUI/ResourcePanel/FoodLabel.text=str(GameManager.food)
 	$TopUI/ResourcePanel/WoodRawLabel.text=str(GameManager.wood)
 	$TopUI/ResourcePanel/WoodPlanksLabel.text=str(GameManager.planks)
-	$TopUI/HappinessPopuPanel/Population/PopulationValue.text=str(GameManager.population)
+	$TopUI/HappinessPopuPanel/PeopleImage/PopulationValue.text=str(GameManager.population)
+	
+	$TopUI/HappinessPopuPanel/InspirationsLabel.text = str(GameManager.inspiration)
 	$FPS.text = str("FPS %d" % Engine.get_frames_per_second())
 	$TopUI/TimerPanel/Time.text = "%02d : %02d" % [GameManager.minutes, GameManager.seconds]
 	check_happiness()

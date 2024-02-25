@@ -5,13 +5,13 @@
 [ext_resource type="Texture2D" uid="uid://b3dakog34o6lf" path="res://assets/textures/HUD/Inspiration.PNG" id="3_jnshg"]
 [ext_resource type="Texture2D" uid="uid://d3s2kpit3ctey" path="res://assets/textures/HUD/Wood_planks.PNG" id="4_s54hj"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13q54"]
-bg_color = Color(0.917647, 0.733333, 0.533333, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.439216, 0.517647, 0.372549, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xf6ac"]
+bg_color = Color(0.929412, 0.792157, 0.572549, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.792157, 0.392157, 0.235294, 1)
 border_blend = true
 
 [node name="LabBlueprint" type="Control"]
@@ -31,7 +31,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_13q54")
+theme_override_styles/panel = SubResource("StyleBoxFlat_xf6ac")
 
 [node name="BuildingName" type="Label" parent="."]
 layout_mode = 0
