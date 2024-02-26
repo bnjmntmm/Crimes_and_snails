@@ -8,6 +8,7 @@ var happines_icon = preload("res://assets/textures/HUD/Happiness.png")
 var food_icon = preload("res://assets/textures/HUD/Food.PNG")
 var wood_icon = preload("res://assets/textures/HUD/Wood.PNG")
 var planks_icon = preload("res://assets/textures/HUD/Wood_planks.PNG")
+var wheat_icon = preload("res://assets/textures/HUD/wheat.png")
 
 
 
@@ -43,3 +44,7 @@ func _on_mouse_entered_wood():
 func _on_mouse_entered_planks():
 	current_icon = planks_icon
 
+
+
+func _on_mouse_entered_wheat():
+	current_icon = wheat_icon

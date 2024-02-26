@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cjmjp5mli5miu"]
+[gd_scene load_steps=41 format=3 uid="uid://cjmjp5mli5miu"]
 
 [ext_resource type="Script" path="res://scripts/InterfaceManager.gd" id="1_r1lqh"]
 [ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="2_0su6q"]
@@ -17,12 +17,13 @@
 [ext_resource type="Script" path="res://scripts/incubator_menu.gd" id="10_uqwhf"]
 [ext_resource type="StyleBox" uid="uid://bxwb3wa3vc1t5" path="res://assets/textures/HUD/UI/hud.tres" id="11_04pr6"]
 [ext_resource type="Texture2D" uid="uid://2qtyrss2w3b6" path="res://assets/textures/HUD/UI/settings_cog.png" id="12_cd738"]
+[ext_resource type="Texture2D" uid="uid://bo2i24ocmpblx" path="res://assets/textures/HUD/wheat.png" id="12_yujfg"]
 [ext_resource type="Texture2D" uid="uid://o2fxcpd1j1fu" path="res://assets/textures/building_images/stock_image.png" id="13_nbapn"]
 [ext_resource type="Script" path="res://scripts/UI/BuildMenu.gd" id="14_a68sq"]
 [ext_resource type="Texture2D" uid="uid://c2r3pyssr6iq8" path="res://assets/textures/building_images/laboratorium_image.png" id="14_dj75d"]
 [ext_resource type="PackedScene" uid="uid://cnto8cdxsxbs0" path="res://scenes/utils/settings.tscn" id="15_82u5j"]
 [ext_resource type="Script" path="res://scripts/LabMenu.gd" id="15_kbjog"]
-[ext_resource type="Texture2D" uid="uid://ctme0hhhvra6t" path="res://assets/textures/building_images/terrarium_image.png" id="15_murfl"]
+[ext_resource type="Texture2D" uid="uid://d106lvlc4np2h" path="res://assets/textures/building_images/terrarium_image.png" id="15_murfl"]
 [ext_resource type="Texture2D" uid="uid://bi677tpeuwe3l" path="res://assets/textures/building_images/bakery_image.png" id="16_g72af"]
 [ext_resource type="Texture2D" uid="uid://dxs101clu5067" path="res://assets/textures/building_images/incubator_image.png" id="17_iu3l1"]
 [ext_resource type="Texture2D" uid="uid://dud18gc3jlsh5" path="res://assets/textures/building_images/farm_image.png" id="17_vn0fb"]
@@ -56,6 +57,7 @@ bg_color = Color(0.929412, 0.792157, 0.572549, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pwr7s"]
 
@@ -174,17 +176,19 @@ vertical_alignment = 2
 
 [node name="ResourcePanel" type="Panel" parent="TopUI"]
 layout_mode = 0
-offset_left = 662.0
+offset_left = 648.0
 offset_top = 9.0
-offset_right = 1133.0
+offset_right = 1109.0
 offset_bottom = 59.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_3r8yn")
 
 [node name="Snails" type="TextureRect" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_right = 500.0
-offset_bottom = 500.0
-scale = Vector2(0.1, 0.1)
+offset_left = 4.0
+offset_top = 8.0
+offset_right = 504.0
+offset_bottom = 508.0
+scale = Vector2(0.07, 0.07)
 tooltip_text = "Snails:
 Snails are used as currency to buy buildings or resources."
 mouse_filter = 0
@@ -193,10 +197,10 @@ script = ExtResource("3_n6f31")
 
 [node name="SnailLabel" type="Label" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 53.0
-offset_top = 13.0
-offset_right = 116.0
-offset_bottom = 37.0
+offset_left = 44.0
+offset_top = 14.0
+offset_right = 95.0
+offset_bottom = 38.0
 theme_override_font_sizes/font_size = 25
 text = "1000"
 clip_text = true
@@ -204,19 +208,20 @@ text_overrun_behavior = 1
 
 [node name="MaxSnailLabel" type="Label" parent="TopUI/ResourcePanel"]
 layout_mode = 0
-offset_left = 44.0
-offset_top = 29.0
-offset_right = 88.0
-offset_bottom = 53.0
+offset_left = 35.0
+offset_top = 30.0
+offset_right = 90.0
+offset_bottom = 54.0
 theme_override_font_sizes/font_size = 25
 text = "/1000"
 
 [node name="Food" type="TextureRect" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 106.0
-offset_right = 606.0
-offset_bottom = 500.0
-scale = Vector2(0.1, 0.1)
+offset_left = 90.0
+offset_top = 8.0
+offset_right = 590.0
+offset_bottom = 508.0
+scale = Vector2(0.07, 0.07)
 tooltip_text = "Food:
 Food is consumed by the villager."
 texture = ExtResource("5_v4tpr")
@@ -224,9 +229,9 @@ script = ExtResource("3_n6f31")
 
 [node name="FoodLabel" type="Label" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 162.0
+offset_left = 127.0
 offset_top = 13.0
-offset_right = 230.0
+offset_right = 195.0
 offset_bottom = 37.0
 theme_override_font_sizes/font_size = 25
 text = "1000"
@@ -235,11 +240,11 @@ text_overrun_behavior = 1
 
 [node name="WoodRaw" type="TextureRect" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 222.0
-offset_top = -1.0
-offset_right = 722.0
-offset_bottom = 499.0
-scale = Vector2(0.1, 0.1)
+offset_left = 286.0
+offset_top = 8.0
+offset_right = 786.0
+offset_bottom = 508.0
+scale = Vector2(0.07, 0.07)
 tooltip_text = "Wood:
 Wood is used for building structures and refine to planks"
 texture = ExtResource("6_ouddu")
@@ -247,9 +252,9 @@ script = ExtResource("3_n6f31")
 
 [node name="WoodRawLabel" type="Label" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 272.0
+offset_left = 321.0
 offset_top = 13.0
-offset_right = 338.0
+offset_right = 383.0
 offset_bottom = 37.0
 theme_override_font_sizes/font_size = 25
 text = "1000"
@@ -258,11 +263,11 @@ text_overrun_behavior = 1
 
 [node name="WoodPlanks" type="TextureRect" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 339.0
-offset_top = 1.0
-offset_right = 839.0
-offset_bottom = 501.0
-scale = Vector2(0.1, 0.1)
+offset_left = 381.0
+offset_top = 8.0
+offset_right = 881.0
+offset_bottom = 508.0
+scale = Vector2(0.07, 0.07)
 tooltip_text = "Planks:
 Planks are used for upgrading/building structures."
 texture = ExtResource("8_84g23")
@@ -270,14 +275,36 @@ script = ExtResource("3_n6f31")
 
 [node name="WoodPlanksLabel" type="Label" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 389.0
+offset_left = 416.0
 offset_top = 13.0
-offset_right = 449.0
+offset_right = 476.0
 offset_bottom = 37.0
 theme_override_font_sizes/font_size = 25
 text = "1000"
 clip_text = true
 text_overrun_behavior = 1
+
+[node name="Wheat" type="TextureRect" parent="TopUI/ResourcePanel"]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 8.0
+offset_right = 689.0
+offset_bottom = 508.0
+scale = Vector2(0.07, 0.07)
+tooltip_text = "Wheat:
+Used to produced Food"
+texture = ExtResource("12_yujfg")
+expand_mode = 2
+script = ExtResource("3_n6f31")
+
+[node name="WheatLabel" type="Label" parent="TopUI/ResourcePanel"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 13.0
+offset_right = 280.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 25
+text = "1000"
 
 [node name="SettingsMenu" type="Button" parent="TopUI"]
 layout_mode = 0
@@ -813,6 +840,7 @@ offset_bottom = -182.0
 [connection signal="mouse_entered" from="TopUI/ResourcePanel/Food" to="TopUI/ResourcePanel/Food" method="_on_mouse_entered_food"]
 [connection signal="mouse_entered" from="TopUI/ResourcePanel/WoodRaw" to="TopUI/ResourcePanel/WoodRaw" method="_on_mouse_entered_wood"]
 [connection signal="mouse_entered" from="TopUI/ResourcePanel/WoodPlanks" to="TopUI/ResourcePanel/WoodPlanks" method="_on_mouse_entered_planks"]
+[connection signal="mouse_entered" from="TopUI/ResourcePanel/Wheat" to="TopUI/ResourcePanel/Wheat" method="_on_mouse_entered_wheat"]
 [connection signal="pressed" from="TopUI/SettingsMenu" to="." method="_on_settings_menu_pressed"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/House" to="." method="_on_house_button_down"]
 [connection signal="mouse_entered" from="BuildMenu/BuildingContainer/House" to="BuildMenu/BuildingContainer/House" method="_on_mouse_entered_house"]
