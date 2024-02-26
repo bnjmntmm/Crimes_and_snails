@@ -344,7 +344,7 @@ func _on_clicked(camera, event, position, normal, shape_idx):
 	if not is_disguised:
 		if Input.is_action_just_released("left_mouse_down"):
 			GameManager.opened_npc_menu = true
-			npc_menu.set_position(get_viewport().get_mouse_position())
+			#npc_menu.set_position(get_viewport().get_mouse_position())
 			npc_menu.visible = true
 
 
