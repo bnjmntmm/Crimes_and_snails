@@ -18,6 +18,7 @@ func _ready():
 	burningTimer = Timer.new()
 	burningTimer.wait_time = 15.0
 	burningTimer.timeout.connect(destroyHouse)
+	burningTimer.one_shot = true
 	add_child(burningTimer)
 
 
@@ -73,6 +74,7 @@ func destroyHouse():
 		GameManager.calculateNewMaxSnailAmount()
 	if currentHouse.name.contains("House"):
 		GameManager.houses_built-=1
+	print(currentHouse)
 	currentHouse.queue_free()
 	plane_to_bake.bake_nav()
 	sabotage_stopped.emit()

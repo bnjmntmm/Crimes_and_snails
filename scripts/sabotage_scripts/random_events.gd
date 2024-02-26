@@ -36,7 +36,7 @@ func _process(delta):
 
 func add_houseScene_to_array(houseObj):
 	housesInScenes.append(houseObj)
-	print(str(houseObj) + " added")
+	print(str(houseObj) + " added" + " with " + str(houseObj.old_plane) + " as plane")
 
 func remove_houseScene_from_array(houseObj):
 	if housesInScenes.has(houseObj):
@@ -47,7 +47,6 @@ func check_if_sabotage_valid():
 	# SHOULD THIS BE HAPPINESS OR INSPIRATION?
 	# WE DONT HAVE ANY INCREASE IN HAPPINESS ATM
 	if housesInScenes.size() > house_threshold and GameManager.riotAllowed and GameManager.population > 3:
-		
 		sabotageTimerCheck.stop()
 		randomize()
 		var randomHouseInt = randi_range(0, housesInScenes.size()-1)

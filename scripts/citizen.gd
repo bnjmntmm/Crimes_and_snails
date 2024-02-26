@@ -258,7 +258,11 @@ func _physics_process(delta):
 				navigation_agent.target_position = spawn_point.global_position
 				current_task = TASK.WALKING
 			else:
-				var nearest_stock = GameManager.stock_array[0]
+				var nearest_stock
+				for i in range(len(GameManager.stock_array)):
+					nearest_stock = GameManager.stock_array[i]
+					if is_instance_valid(nearest_stock):
+						break
 				for stock in GameManager.stock_array:
 					if is_instance_valid(nearest_stock) and is_instance_valid(stock):
 						if stock.spawned:

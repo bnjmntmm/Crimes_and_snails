@@ -28,7 +28,8 @@ var happy_citizen = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	run_spawn()
+	for i in range(20):
+		run_spawn()
 
 func run_spawn():
 	current_citizen=citizen.instantiate()

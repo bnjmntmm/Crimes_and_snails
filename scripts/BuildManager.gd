@@ -113,14 +113,12 @@ func _physics_process(delta):
 							obj.active_buildable_object=false
 							#obj.run_spawn()
 							obj.spawned=true
-							obj.set_disabled(false)
-							if not obj.name.contains("wonder"):
-								houseSceneAdded.emit(obj)
-							
+							obj.set_disabled(false)							
 							obj.global_position=current_spawnable.global_position
-							if obj.name == "Stock":
-								GameManager.stock_array.append(obj)
+							if obj.name.contains("Stock"):
 								obj.old_plane = navRegion[0]
+								GameManager.stock_array.append(obj)
+
 							if obj.name.contains("House"):
 								GameManager.houses_built+=1
 								obj.old_plane = navRegion[0]
@@ -133,6 +131,8 @@ func _physics_process(delta):
 								GameManager.calculateNewMaxSnailAmount()
 							current_spawnable.remove_foliage()
 							bake_nav_planes(navRegion)
+							if not obj.name.contains("wonder"):
+								houseSceneAdded.emit(obj)
 							
 					#get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()
 					
