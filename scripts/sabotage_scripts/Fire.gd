@@ -4,10 +4,22 @@ var fire_shader = preload("res://assets/textures/shader/fire_shader.tscn")
 var isBurning := false
 var isExtinguished := false
 var isDestroyed := false
+var currentHouse
+
 signal sabotage_stopped
 @onready var random_events = $".."
 
+var burningTimer : Timer
+var plane_to_bake
+
 var houseFireDict = {}
+
+func _ready():
+	burningTimer = Timer.new()
+	burningTimer.wait_time = 15.0
+	burningTimer.timeout.connect(destroyHouse)
+	burningTimer.one_shot = true
+	add_child(burningTimer)
 
 
 
@@ -26,6 +38,8 @@ func set_fire_to_object(house):
 	add_child(newFire,true)
 	print("Feuer started " + str(houseFireDict[house]))
 	newFire.global_position = currentBurningObject.get_fire_spot_location()
+	currentHouse = houseFireDict[house]
+	burningTimer.start()
 
 func add_label_to_building(currentBurningObject):
 	var newLabel = Label3D.new()
@@ -45,3 +59,22 @@ func fire_stopped(house):
 	houseFireDict[house].fire_scene = null
 	house.audio_stream_player.stop()
 	random_events.start_sabotage_timer()
+	burningTimer.stop()
+	#currentHouse = null
+
+func destroyHouse():
+	#get_tree().root.get_node("main").get_node("Grid").get_node("PlayArea").get_node(currentHouse.old_plane.name)
+	plane_to_bake = currentHouse.old_plane
+	currentHouse.fire_scene.queue_free()
+	
+	if currentHouse.name.contains("stock"):
+		GameManager.stock_array.erase(currentHouse)
+	if currentHouse.name.contains("Terrarium"):
+		GameManager.terrariumsPlaced -= 1
+		GameManager.calculateNewMaxSnailAmount()
+	if currentHouse.name.contains("House"):
+		GameManager.houses_built-=1
+	print(currentHouse)
+	currentHouse.queue_free()
+	plane_to_bake.bake_nav()
+	sabotage_stopped.emit()

@@ -44,6 +44,7 @@ enum JOB{
 
 # 05. @export variables
 @export var walk_speed = 5.0
+@export var food_consumption = 10.0
 
 # 06. Public variables
 var current_task = TASK.SEARCHING
@@ -176,79 +177,7 @@ func move_towards_sabotage_house():
 		_on_velocity_computed(new_velocity)
 			
 func _process(delta):
-	match current_task:
-		TASK.SEARCHING:
-			update_animation_tree(anim_pos_dict["busy"])
-			if current_job == "food":
-				calc_new_resource_to_get(GameManager.bush_array)
-			if current_job == "wood":
-				calc_new_resource_to_get(GameManager.tree_array)
-	
-		TASK.WALKING:
-			move_along_path()
-			update_animation_tree(anim_pos_dict["walking"])
-		TASK.GETTING_FOOD:
-			if run_once:
-				run_once = false
-				var randomInt = randi_range(0,1)
-				if randomInt == 1:
-					update_animation_tree(anim_pos_dict["working"])
-				else:
-					update_animation_tree(anim_pos_dict["melking"])
-				if is_instance_valid(nearest_resource_object):
-					citizen_root.look_at(nearest_resource_object.global_position, Vector3(0,1,0), true)
-					is_collecting = true
-					await (get_tree().create_timer(2.0).timeout)
-					is_collecting = false
-					update_animation_tree(anim_pos_dict["walking"])
-					run_once = true
-		#			if pov_camera.current == true:
-		#				current_task= TASK.POV_MODE
-		#				return
-					resource_hold_current+=nearest_resource_object.resource_amount_generated
-					nearest_resource_object._on_farmed()
-					current_task = TASK.DELIVERING
-				else:
-					current_task = TASK.SEARCHING
-		TASK.DELIVERING:
-			if GameManager.stock_array.is_empty():
-				navigation_agent.target_position = spawn_point.global_position
-				current_task = TASK.WALKING
-			else:
-				var nearest_stock = GameManager.stock_array[0]
-				for stock in GameManager.stock_array:
-					if stock.spawned:
-						if stock.global_position.distance_squared_to(global_position)<nearest_stock.global_position.distance_squared_to(global_position):
-							nearest_stock=stock
-				navigation_agent.target_position=nearest_stock.get_node("SpawnPoint").global_position
-				current_task=TASK.WALKING
-		TASK.POV_MODE:
-			animation_tree.active = false
-			if Input.is_action_just_pressed("esc"):
-				audio_stream_player.play()
-				animation_tree.active = true
-				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-				pov_camera.current = false
-				main_camera.current = true
-				GameManager.current_state = GameManager.State.PLAY
-				if  resource_hold_current==0:
-					current_task = TASK.SEARCHING
-				else:
-					current_task = TASK.DELIVERING
-			var input_dir = Input.get_vector("left", "right", "forward", "backward")
-			var walk_direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-			if walk_direction:
-				velocity.x = walk_direction.x * walk_speed
-				velocity.z = walk_direction.z * walk_speed
-				move_and_slide()
-		TASK.RIOT:
-			if is_instance_valid(sabotageHouse):
-				if navigation_agent.target_position != sabotageHouse.sabotage_point.global_position:
-					navigation_agent.target_position = sabotageHouse.sabotage_point.global_position
-					change_to_criminal()
-				move_towards_sabotage_house()
-			else:
-				reset_npc()
+	pass
 
 	
 
@@ -289,6 +218,85 @@ func _physics_process(delta):
 		waterProgress.visible = false
 		waterProgress.value = 0
 		
+		
+	match current_task:
+		TASK.SEARCHING:
+			update_animation_tree(anim_pos_dict["busy"])
+			if current_job == "food":
+				calc_new_resource_to_get(GameManager.bush_array)
+			if current_job == "wood":
+				calc_new_resource_to_get(GameManager.tree_array)
+	
+		TASK.WALKING:
+			move_along_path()
+			update_animation_tree(anim_pos_dict["walking"])
+		TASK.GETTING_FOOD:
+			if run_once:
+				run_once = false
+				var randomInt = randi_range(0,1)
+				if randomInt == 1:
+					update_animation_tree(anim_pos_dict["working"])
+				else:
+					update_animation_tree(anim_pos_dict["melking"])
+				if is_instance_valid(nearest_resource_object):
+					citizen_root.look_at(nearest_resource_object.global_position, Vector3(0,1,0), true)
+					is_collecting = true
+					await (get_tree().create_timer(2.0).timeout)
+					is_collecting = false
+					update_animation_tree(anim_pos_dict["walking"])
+					run_once = true
+		#			if pov_camera.current == true:
+		#				current_task= TASK.POV_MODE
+		#				return
+					resource_hold_current+=nearest_resource_object.resource_amount_generated
+					nearest_resource_object._on_farmed()
+					current_task = TASK.DELIVERING
+				else:
+					current_task = TASK.SEARCHING
+		TASK.DELIVERING:
+			if GameManager.stock_array.is_empty():
+				navigation_agent.target_position = spawn_point.global_position
+				current_task = TASK.WALKING
+			else:
+				var nearest_stock
+				for i in range(len(GameManager.stock_array)):
+					nearest_stock = GameManager.stock_array[i]
+					if is_instance_valid(nearest_stock):
+						break
+				for stock in GameManager.stock_array:
+					if is_instance_valid(nearest_stock) and is_instance_valid(stock):
+						if stock.spawned:
+							if stock.global_position.distance_squared_to(global_position)<nearest_stock.global_position.distance_squared_to(global_position):
+								nearest_stock=stock
+				navigation_agent.target_position=nearest_stock.get_node("SpawnPoint").global_position
+				current_task=TASK.WALKING
+		TASK.POV_MODE:
+			animation_tree.active = false
+			if Input.is_action_just_pressed("esc"):
+				audio_stream_player.play()
+				animation_tree.active = true
+				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+				pov_camera.current = false
+				main_camera.current = true
+				GameManager.current_state = GameManager.State.PLAY
+				if  resource_hold_current==0:
+					current_task = TASK.SEARCHING
+				else:
+					current_task = TASK.DELIVERING
+			var input_dir = Input.get_vector("left", "right", "forward", "backward")
+			var walk_direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+			if walk_direction:
+				velocity.x = walk_direction.x * walk_speed
+				velocity.z = walk_direction.z * walk_speed
+				move_and_slide()
+		TASK.RIOT:
+			if is_instance_valid(sabotageHouse):
+				if navigation_agent.target_position != sabotageHouse.sabotage_point.global_position:
+					navigation_agent.target_position = sabotageHouse.sabotage_point.global_position
+					change_to_criminal()
+				move_towards_sabotage_house()
+			else:
+				reset_npc()
 		
 		
 		
@@ -393,3 +401,7 @@ func reset_npc():
 	change_to_normal()
 	navigation_agent.target_position = global_position
 	current_task = TASK.SEARCHING
+
+
+func _on_eat_timer_timeout():
+	GameManager.food -= food_consumption

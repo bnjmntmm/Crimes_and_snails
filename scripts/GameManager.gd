@@ -15,12 +15,18 @@ var food:=0
 var wood:=0
 var planks:=0
 var snails:=0
-var wheat:=100
+var wheat:=0
 var happiness:=0
 var inspiration:=0
 var population:=0
-var houses_built:=0
+var houses_built:=1
 var sabotages_stopped:=0
+
+var snailsPerTerrarium : int = 50
+var baseSnailamount : int = 200
+var maxSnails : int = 0
+var terrariumsPlaced : int = 0
+
 
 ####INSPIRATION CHECK
 var happyInspiration = 50
@@ -55,9 +61,11 @@ var timer_on = false
 var seconds = 0
 var minutes = 0
 
+var winConditionTimer : Timer
 
 var inGame = false
 var riotAllowed = false
+var firstState = true
 
 
 #Watches
@@ -67,27 +75,42 @@ var main_node : Node3D
 
 
 ##TEMPLE BUILD WIN CONDITITION
-var isTempleBuild = false
+var isWonderBuild = false
 
 var selected_win_condition = null
 
 
-#Checks if WinCondition is erreicht, when condition != null also no condition erreicht, nothing happens
-#else its spammed :D
+func _ready():
+	winConditionTimer = Timer.new()
+	winConditionTimer.wait_time = 0.3
+	winConditionTimer.timeout.connect(checkIfWinConditionReached)
+	maxSnails = baseSnailamount
+	add_child(winConditionTimer)
 
-#Question: Pause the Game? Make a hud visible to "continue" or stop? Maybe a Score? Idk
 func _process(delta):
 	if inGame:
+		if firstState:
+			winConditionTimer.start()
+			firstState = false
 		if(!get_tree().paused):
 			game_time += delta
+		else:
+			winConditionTimer.stop()
+		
+			
 		seconds = fmod(game_time, 60)
 		minutes = fmod(game_time, 60*60) / 60
 	
+
+		
+func checkIfWinConditionReached():
 	var condition = winChecker.checkIfWinCondition()
+	#print("check condition")
 	if condition != null:
 		if condition == selected_win_condition:
-			print("Win by: " +str(condition))
-		
+			print("Win by: " + str(condition))
+			
+	winConditionTimer.start()
 	
 
 func emitting_watch_particles():
@@ -95,5 +118,6 @@ func emitting_watch_particles():
 		particle.visible = !particle.visible
 		particle.emitting = !particle.emitting
 		
-
+func calculateNewMaxSnailAmount():
+	maxSnails = baseSnailamount + (terrariumsPlaced * snailsPerTerrarium)
 

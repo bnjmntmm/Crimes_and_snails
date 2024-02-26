@@ -8,6 +8,10 @@ var Lab: PackedScene = ResourceLoader.load("res://scenes/building_scenes/laborat
 var Bakery: PackedScene=ResourceLoader.load("res://scenes/building_scenes/bakery.tscn")
 var Carpentry: PackedScene=ResourceLoader.load("res://scenes/building_scenes/carpentry.tscn")
 var Watch : PackedScene = ResourceLoader.load("res://scenes/building_scenes/watch.tscn")
+var Wonder : PackedScene = ResourceLoader.load("res://scenes/building_scenes/wonder.tscn")
+var Farm : PackedScene= ResourceLoader.load("res://scenes/building_scenes/farm.tscn")
+
+
 var able_to_build := true
 var current_spawnable: StaticBody3D
 "res://scenes/building_scenes/bakery.tscn"
@@ -53,12 +57,16 @@ func _physics_process(delta):
 					#result.collider.run_despawn()
 					if result.collider.name.contains("House"):
 						GameManager.houses_built-=1
+						
 					if result.collider.is_in_group("stock"):
 						GameManager.stock_array.erase(result.collider)
 					if result.collider.is_in_group("watch"):
 						var particles = result.collider.get_watch_particles()
 						GameManager.watch_particles_array.erase(particles)
-					
+					if result.collider.name.contains("Terrarium"):
+						GameManager.terrariumsPlaced -= 1
+						GameManager.calculateNewMaxSnailAmount()
+					restoreResourcesOnDestroy(result.collider)
 					houseSceneRemoved.emit(result.collider)
 					
 					## QUEUE Free funktioniert hier nicht, da es im nächsten physics frame 
@@ -68,7 +76,7 @@ func _physics_process(delta):
 					bake_nav_planes(navRegion)
 				
 
-	if Input.is_action_just_pressed("esc") and not GameManager.current_state == GameManager.State.POV_MODE:
+	if Input.is_action_just_pressed("esc") and not GameManager.current_state == GameManager.State.POV_MODE and not GameManager.current_state == GameManager.State.BUY_LAND:
 		GameManager.opened_house_menu = false
 		GameManager.opened_lab_menu = false
 		GameManager.current_state=GameManager.State.PLAY
@@ -92,9 +100,11 @@ func _physics_process(delta):
 			current_spawnable.global_position = Vector3(round(cursor_pos.x), cursor_pos.y, round(cursor_pos.z)) 
 			current_spawnable.active_buildable_object=true
 			
-			if able_to_build:
-				if Input.is_action_just_released("left_mouse_down"):	
+			if able_to_build and can_afford(current_spawnable):
+				if Input.is_action_just_released("left_mouse_down"):
+					charge_object(current_spawnable)	
 					var obj:=current_spawnable.duplicate()
+					
 					
 					#get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").add_child(obj,true)
 					if navRegion.size() > 0:
@@ -103,20 +113,27 @@ func _physics_process(delta):
 							obj.active_buildable_object=false
 							#obj.run_spawn()
 							obj.spawned=true
-							obj.set_disabled(false)
-							houseSceneAdded.emit(obj)
-							
+							obj.set_disabled(false)							
 							obj.global_position=current_spawnable.global_position
-							if obj.name == "Stock":
-								GameManager.stock_array.append(obj)
+							if obj.name.contains("Stock"):
 								obj.old_plane = navRegion[0]
+								GameManager.stock_array.append(obj)
+
 							if obj.name.contains("House"):
 								GameManager.houses_built+=1
 								obj.old_plane = navRegion[0]
 							if obj.is_in_group("watch"):
 								GameManager.watch_particles_array.append(obj.get_watch_particles())
+							if obj.name.contains("Wonder"):
+								obj.wonder_timer.start()
+							if obj.name.contains("Terrarium"):
+								GameManager.terrariumsPlaced += 1
+								GameManager.calculateNewMaxSnailAmount()
 							current_spawnable.remove_foliage()
 							bake_nav_planes(navRegion)
+							if not obj.name.contains("wonder"):
+								houseSceneAdded.emit(obj)
+							
 					#get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()
 					
 					
@@ -190,6 +207,12 @@ func spawn_lab():
 func spawn_watch():
 	spawn_object(Watch)
 	
+func spawn_wonder():
+	spawn_object(Wonder)
+
+func spawn_farm():
+	spawn_object(Farm)
+
 func spawn_object(obj):
 	if current_spawnable!=null:
 		current_spawnable.queue_free()
@@ -224,3 +247,26 @@ func bake_nav_planes(regionsArray : Array):
 	for region in regionsArray:
 		if is_instance_of(region, StaticBody3D):
 			region.bake_nav()
+			
+			
+func charge_object(obj):
+	
+	GameManager.wood-=obj.wood_cost
+	GameManager.planks-=obj.plank_cost
+	GameManager.food-=obj.food_cost
+	GameManager.snails-=obj.snail_cost
+
+func can_afford(obj)->bool:
+	if GameManager.wood-obj.wood_cost<0:
+		return false
+	if GameManager.planks-obj.plank_cost<0:
+		return false
+	if GameManager.snails-obj.snail_cost<0:
+		return false
+	return true
+
+func restoreResourcesOnDestroy(obj):
+	GameManager.wood += obj.wood_cost
+	GameManager.planks += obj.plank_cost
+	GameManager.snails += obj.snail_cost
+	GameManager.food += obj.food_cost

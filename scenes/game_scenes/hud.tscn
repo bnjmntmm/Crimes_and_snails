@@ -1,21 +1,49 @@
-[gd_scene load_steps=26 format=3 uid="uid://cjmjp5mli5miu"]
+[gd_scene load_steps=41 format=3 uid="uid://cjmjp5mli5miu"]
 
 [ext_resource type="Script" path="res://scripts/InterfaceManager.gd" id="1_r1lqh"]
 [ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="2_0su6q"]
 [ext_resource type="Texture2D" uid="uid://cj0h6a2fiit5t" path="res://assets/textures/HUD/snail.png" id="2_dketd"]
 [ext_resource type="Script" path="res://scripts/Tooltip.gd" id="3_n6f31"]
+[ext_resource type="Texture2D" uid="uid://dclu3y2yh8d3o" path="res://assets/textures/HUD/UI/hud_top_view.png" id="3_no642"]
 [ext_resource type="Texture2D" uid="uid://c6ht17vui84tq" path="res://assets/textures/building_images/house_image.png" id="4_hdnqd"]
 [ext_resource type="Texture2D" uid="uid://dgtavymir4ldk" path="res://assets/textures/HUD/Happiness.png" id="4_rvjbb"]
 [ext_resource type="Texture2D" uid="uid://m7fmmqm1onun" path="res://assets/textures/HUD/Food.PNG" id="5_v4tpr"]
+[ext_resource type="Texture2D" uid="uid://b3dakog34o6lf" path="res://assets/textures/HUD/Inspiration.PNG" id="6_1ycl3"]
 [ext_resource type="Texture2D" uid="uid://boqdfkwieimai" path="res://assets/textures/HUD/Wood.PNG" id="6_ouddu"]
+[ext_resource type="Texture2D" uid="uid://gi3nnkvnweyw" path="res://assets/icon/human.png" id="7_nea2v"]
 [ext_resource type="Script" path="res://scripts/Tooltip_buildings.gd" id="8_3dk4q"]
 [ext_resource type="Texture2D" uid="uid://d3s2kpit3ctey" path="res://assets/textures/HUD/Wood_planks.PNG" id="8_84g23"]
 [ext_resource type="Script" path="res://scripts/MouseArea2D.gd" id="9_432ng"]
 [ext_resource type="Script" path="res://scripts/incubator_menu.gd" id="10_uqwhf"]
 [ext_resource type="StyleBox" uid="uid://bxwb3wa3vc1t5" path="res://assets/textures/HUD/UI/hud.tres" id="11_04pr6"]
 [ext_resource type="Texture2D" uid="uid://2qtyrss2w3b6" path="res://assets/textures/HUD/UI/settings_cog.png" id="12_cd738"]
+[ext_resource type="Texture2D" uid="uid://bo2i24ocmpblx" path="res://assets/textures/HUD/wheat.png" id="12_yujfg"]
+[ext_resource type="Texture2D" uid="uid://o2fxcpd1j1fu" path="res://assets/textures/building_images/stock_image.png" id="13_nbapn"]
+[ext_resource type="Script" path="res://scripts/UI/BuildMenu.gd" id="14_a68sq"]
+[ext_resource type="Texture2D" uid="uid://c2r3pyssr6iq8" path="res://assets/textures/building_images/laboratorium_image.png" id="14_dj75d"]
 [ext_resource type="PackedScene" uid="uid://cnto8cdxsxbs0" path="res://scenes/utils/settings.tscn" id="15_82u5j"]
 [ext_resource type="Script" path="res://scripts/LabMenu.gd" id="15_kbjog"]
+[ext_resource type="Texture2D" uid="uid://d106lvlc4np2h" path="res://assets/textures/building_images/terrarium_image.png" id="15_murfl"]
+[ext_resource type="Texture2D" uid="uid://bi677tpeuwe3l" path="res://assets/textures/building_images/bakery_image.png" id="16_g72af"]
+[ext_resource type="Texture2D" uid="uid://dxs101clu5067" path="res://assets/textures/building_images/incubator_image.png" id="17_iu3l1"]
+[ext_resource type="Texture2D" uid="uid://dud18gc3jlsh5" path="res://assets/textures/building_images/farm_image.png" id="17_vn0fb"]
+[ext_resource type="Texture2D" uid="uid://br8qds7r0uuux" path="res://assets/textures/building_images/watch_image.png" id="18_vgniu"]
+[ext_resource type="Texture2D" uid="uid://62ethfkiu1lu" path="res://assets/textures/building_images/carpentry_image.png" id="19_vxceq"]
+[ext_resource type="Texture2D" uid="uid://iy8xiaudf0jn" path="res://assets/textures/building_images/wonder_image.png" id="20_abllo"]
+[ext_resource type="Texture2D" uid="uid://bbo84vp5rgbm" path="res://assets/icon/land_buy.png" id="25_alitu"]
+[ext_resource type="Texture2D" uid="uid://dq0gavd4370pq" path="res://assets/icon/move_normal.png" id="27_7h80n"]
+[ext_resource type="Texture2D" uid="uid://c0jw28f6clgve" path="res://assets/icon/house_delete_normal.png" id="29_g65y5"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k3ddu"]
+texture = ExtResource("3_no642")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmorq"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3r8yn"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jiy5"]
 bg_color = Color(0, 0.12549, 0, 0.592157)
@@ -24,43 +52,8 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnqov"]
-bg_color = Color(0, 0.588235, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vsssv"]
-bg_color = Color(0, 0.498039, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aw01u"]
-bg_color = Color(0.623529, 1, 0.592157, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xiq8r"]
-bg_color = Color(0.807843, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1xo2m"]
-bg_color = Color(0.533333, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oe57w"]
-bg_color = Color(1, 0.427451, 0.356863, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kt563"]
+bg_color = Color(0.929412, 0.792157, 0.572549, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -85,61 +78,90 @@ metadata/_edit_horizontal_guides_ = [325.0]
 layout_mode = 1
 anchor_right = 1.0
 anchor_bottom = 0.131
-offset_right = -1152.0
-offset_bottom = -84.888
+offset_left = -21.0
+offset_top = 12.0
+offset_right = -1173.0
+offset_bottom = -72.888
 mouse_filter = 1
 theme = ExtResource("2_0su6q")
 
+[node name="Panel" type="Panel" parent="TopUI"]
+layout_mode = 0
+offset_left = 223.0
+offset_top = 1.0
+offset_right = 1122.0
+offset_bottom = 71.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_k3ddu")
+
 [node name="HappinessPopuPanel" type="Panel" parent="TopUI"]
 layout_mode = 0
-offset_left = 310.0
+offset_left = 238.0
 offset_top = 10.0
 offset_right = 488.0
 offset_bottom = 60.0
-theme_override_styles/panel = ExtResource("11_04pr6")
-
-[node name="Population" type="Label" parent="TopUI/HappinessPopuPanel"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -102.0
-offset_right = 37.0
-offset_bottom = 41.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 30
-text = "Population: "
-
-[node name="PopulationValue" type="Label" parent="TopUI/HappinessPopuPanel/Population"]
-layout_mode = 0
-offset_left = -18.0
-offset_top = 20.0
-offset_right = 109.0
-offset_bottom = 80.0
-theme_override_font_sizes/font_size = 50
-text = "0"
-horizontal_alignment = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_hmorq")
 
 [node name="Happiness" type="TextureRect" parent="TopUI/HappinessPopuPanel"]
 layout_mode = 2
-offset_left = 12.0
-offset_top = 3.0
-offset_right = 80.0
-offset_bottom = 71.0
-scale = Vector2(0.69, 0.69)
+anchor_left = -0.47
+anchor_top = -0.02
+anchor_right = -0.47
+anchor_bottom = -0.02
+offset_left = 113.5
+offset_top = 1.0
+offset_right = 181.5
+offset_bottom = 69.0
+scale = Vector2(0.69, 0.692147)
 tooltip_text = "Happiness:
 Happiness shows how satisfied the villagers are with the amount of food."
 texture = ExtResource("4_rvjbb")
 expand_mode = 2
 script = ExtResource("3_n6f31")
 
+[node name="Inspiration" type="TextureRect" parent="TopUI/HappinessPopuPanel"]
+layout_mode = 0
+offset_left = 43.0
+offset_right = 111.0
+offset_bottom = 68.0
+scale = Vector2(0.69, 0.69)
+texture = ExtResource("6_1ycl3")
+expand_mode = 2
+
+[node name="InspirationsLabel" type="Label" parent="TopUI/HappinessPopuPanel"]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 13.0
+offset_right = 154.0
+offset_bottom = 41.0
+theme_override_font_sizes/font_size = 25
+text = "00000"
+text_overrun_behavior = 1
+
+[node name="PeopleImage" type="TextureRect" parent="TopUI/HappinessPopuPanel"]
+layout_mode = 0
+offset_left = 167.0
+offset_top = 5.0
+offset_right = 207.0
+offset_bottom = 45.0
+texture = ExtResource("7_nea2v")
+expand_mode = 2
+
+[node name="PopulationValue" type="Label" parent="TopUI/HappinessPopuPanel/PeopleImage"]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 7.0
+offset_right = 90.0
+offset_bottom = 31.0
+theme_override_font_sizes/font_size = 25
+text = "00000"
+
 [node name="TimerPanel" type="Panel" parent="TopUI"]
 layout_mode = 0
 offset_left = 494.0
-offset_top = 10.0
+offset_top = 9.0
 offset_right = 652.0
-offset_bottom = 61.0
-theme_override_styles/panel = ExtResource("11_04pr6")
+offset_bottom = 60.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3r8yn")
 
 [node name="Time" type="Label" parent="TopUI/TimerPanel"]
 layout_mode = 2
@@ -154,17 +176,19 @@ vertical_alignment = 2
 
 [node name="ResourcePanel" type="Panel" parent="TopUI"]
 layout_mode = 0
-offset_left = 662.0
-offset_top = 10.0
-offset_right = 1133.0
-offset_bottom = 60.0
-theme_override_styles/panel = ExtResource("11_04pr6")
+offset_left = 648.0
+offset_top = 9.0
+offset_right = 1109.0
+offset_bottom = 59.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3r8yn")
 
 [node name="Snails" type="TextureRect" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_right = 500.0
-offset_bottom = 500.0
-scale = Vector2(0.1, 0.1)
+offset_left = 4.0
+offset_top = 8.0
+offset_right = 504.0
+offset_bottom = 508.0
+scale = Vector2(0.07, 0.07)
 tooltip_text = "Snails:
 Snails are used as currency to buy buildings or resources."
 mouse_filter = 0
@@ -174,21 +198,30 @@ script = ExtResource("3_n6f31")
 [node name="SnailLabel" type="Label" parent="TopUI/ResourcePanel"]
 layout_mode = 2
 offset_left = 44.0
-offset_top = 3.0
-offset_right = 107.0
-offset_bottom = 47.0
-theme_override_font_sizes/font_size = 40
+offset_top = 14.0
+offset_right = 95.0
+offset_bottom = 38.0
+theme_override_font_sizes/font_size = 25
 text = "1000"
-vertical_alignment = 2
 clip_text = true
 text_overrun_behavior = 1
 
+[node name="MaxSnailLabel" type="Label" parent="TopUI/ResourcePanel"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 30.0
+offset_right = 90.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 25
+text = "/1000"
+
 [node name="Food" type="TextureRect" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 106.0
-offset_right = 606.0
-offset_bottom = 500.0
-scale = Vector2(0.1, 0.1)
+offset_left = 90.0
+offset_top = 8.0
+offset_right = 590.0
+offset_bottom = 508.0
+scale = Vector2(0.07, 0.07)
 tooltip_text = "Food:
 Food is consumed by the villager."
 texture = ExtResource("5_v4tpr")
@@ -196,23 +229,22 @@ script = ExtResource("3_n6f31")
 
 [node name="FoodLabel" type="Label" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 156.0
-offset_top = 3.0
-offset_right = 224.0
-offset_bottom = 47.0
-theme_override_font_sizes/font_size = 40
+offset_left = 127.0
+offset_top = 13.0
+offset_right = 195.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 25
 text = "1000"
-vertical_alignment = 2
 clip_text = true
 text_overrun_behavior = 1
 
 [node name="WoodRaw" type="TextureRect" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 222.0
-offset_top = -1.0
-offset_right = 722.0
-offset_bottom = 499.0
-scale = Vector2(0.1, 0.1)
+offset_left = 286.0
+offset_top = 8.0
+offset_right = 786.0
+offset_bottom = 508.0
+scale = Vector2(0.07, 0.07)
 tooltip_text = "Wood:
 Wood is used for building structures and refine to planks"
 texture = ExtResource("6_ouddu")
@@ -220,23 +252,22 @@ script = ExtResource("3_n6f31")
 
 [node name="WoodRawLabel" type="Label" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 269.0
-offset_top = 10.0
-offset_right = 335.0
-offset_bottom = 46.0
-theme_override_font_sizes/font_size = 40
+offset_left = 321.0
+offset_top = 13.0
+offset_right = 383.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 25
 text = "1000"
-vertical_alignment = 2
 clip_text = true
 text_overrun_behavior = 1
 
 [node name="WoodPlanks" type="TextureRect" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 339.0
-offset_top = 1.0
-offset_right = 839.0
-offset_bottom = 501.0
-scale = Vector2(0.1, 0.1)
+offset_left = 381.0
+offset_top = 8.0
+offset_right = 881.0
+offset_bottom = 508.0
+scale = Vector2(0.07, 0.07)
 tooltip_text = "Planks:
 Planks are used for upgrading/building structures."
 texture = ExtResource("8_84g23")
@@ -244,22 +275,43 @@ script = ExtResource("3_n6f31")
 
 [node name="WoodPlanksLabel" type="Label" parent="TopUI/ResourcePanel"]
 layout_mode = 2
-offset_left = 388.0
-offset_top = 10.0
-offset_right = 448.0
-offset_bottom = 46.0
-theme_override_font_sizes/font_size = 40
+offset_left = 416.0
+offset_top = 13.0
+offset_right = 476.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 25
 text = "1000"
-vertical_alignment = 2
 clip_text = true
 text_overrun_behavior = 1
 
+[node name="Wheat" type="TextureRect" parent="TopUI/ResourcePanel"]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 8.0
+offset_right = 689.0
+offset_bottom = 508.0
+scale = Vector2(0.07, 0.07)
+tooltip_text = "Wheat:
+Used to produced Food"
+texture = ExtResource("12_yujfg")
+expand_mode = 2
+script = ExtResource("3_n6f31")
+
+[node name="WheatLabel" type="Label" parent="TopUI/ResourcePanel"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 13.0
+offset_right = 280.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 25
+text = "1000"
+
 [node name="SettingsMenu" type="Button" parent="TopUI"]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 10.0
-offset_right = 59.0
-offset_bottom = 50.0
+offset_left = 31.0
+offset_top = 15.0
+offset_right = 84.0
+offset_bottom = 55.0
 theme_override_styles/normal = ExtResource("11_04pr6")
 theme_override_styles/hover = SubResource("StyleBoxFlat_8jiy5")
 action_mode = 0
@@ -277,6 +329,7 @@ offset_bottom = -648.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_0su6q")
+script = ExtResource("14_a68sq")
 
 [node name="Panel" type="Panel" parent="BuildMenu"]
 layout_mode = 1
@@ -284,12 +337,12 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 140.0
-offset_top = 574.0
+offset_top = 600.0
 offset_right = 1001.0
 offset_bottom = 646.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("11_04pr6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_kt563")
 
 [node name="BuildingContainer" type="HBoxContainer" parent="BuildMenu"]
 layout_mode = 1
@@ -297,11 +350,12 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 148.0
-offset_top = 580.0
-offset_right = 995.0
+offset_top = 604.0
+offset_right = 825.0
 offset_bottom = 643.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 30
 
 [node name="House" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
@@ -318,83 +372,132 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Stock:
 A Stock is used so that villagers have a shorter route to store their resources."
-text = "Stock"
+icon = ExtResource("13_nbapn")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("8_3dk4q")
 
 [node name="Lab" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Lab"
+tooltip_text = "Laboratorium:
+A Laboratorium is used to upgrade Houses, Stocks or Watches to their bigger Versions and enhance their effects
+Leftclick opens the Menu"
+icon = ExtResource("14_dj75d")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("8_3dk4q")
 
 [node name="Terrarium" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Terrarium"
+tooltip_text = "Terrarium:
+The Terrarium allows to store more Snails in the City
+"
+icon = ExtResource("15_murfl")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("8_3dk4q")
 
 [node name="Farm" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Farm"
+tooltip_text = "Farm:
+The Farm produces Wheat"
+icon = ExtResource("17_vn0fb")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("8_3dk4q")
 
 [node name="Bakery" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Bakery"
+tooltip_text = "Bakery:
+A Bakery uses Wheat to produce Bread"
+icon = ExtResource("16_g72af")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("8_3dk4q")
 
 [node name="Incubator" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Incubator"
+tooltip_text = "Incubator:
+Allows to exchange Wood and Food for Snails.
+Leftclick onto it to open the Exchange Menu"
+icon = ExtResource("17_iu3l1")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("8_3dk4q")
 
 [node name="Watch" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Watch"
-script = ExtResource("8_3dk4q")
-
-[node name="Tempel" type="Button" parent="BuildMenu/BuildingContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Tempel"
+tooltip_text = "Watch:
+A Watch protects the city from Rioters
+LeftClick onto a watch will show the Radius of all Watches"
+icon = ExtResource("18_vgniu")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("8_3dk4q")
 
 [node name="Carpentry" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Carpentry"
+tooltip_text = "Carpentry:
+A Carpentry produces Planks from Wood to build better Buildings"
+icon = ExtResource("19_vxceq")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("8_3dk4q")
 
 [node name="Wonder" type="Button" parent="BuildMenu/BuildingContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Wonder"
+tooltip_text = "Wonder:
+The Wonder is a winning Condition.
+Thats why it is expensive to build."
+icon = ExtResource("20_abllo")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("8_3dk4q")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BuildMenu/BuildingContainer"]
+[node name="EditBuildingContainer" type="HBoxContainer" parent="BuildMenu"]
+layout_mode = 0
+offset_left = 908.0
+offset_top = 604.0
+offset_right = 987.0
+offset_bottom = 644.0
+
+[node name="NewLandBuyButton" type="Button" parent="BuildMenu/EditBuildingContainer"]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 size_flags_horizontal = 3
+icon = ExtResource("25_alitu")
+icon_alignment = 1
+expand_icon = true
 
-[node name="Move" type="Button" parent="BuildMenu/BuildingContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BuildMenu/EditBuildingContainer"]
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
+
+[node name="Move" type="Button" parent="BuildMenu/EditBuildingContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("2_0su6q")
-theme_override_styles/normal = SubResource("StyleBoxFlat_hnqov")
-theme_override_styles/hover = SubResource("StyleBoxFlat_vsssv")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_aw01u")
-text = "Move"
+icon = ExtResource("27_7h80n")
+icon_alignment = 1
+expand_icon = true
 
-[node name="Delete" type="Button" parent="BuildMenu/BuildingContainer/VBoxContainer"]
+[node name="Delete" type="Button" parent="BuildMenu/EditBuildingContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("StyleBoxFlat_xiq8r")
-theme_override_styles/hover = SubResource("StyleBoxFlat_1xo2m")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_oe57w")
-text = "Delete"
+icon = ExtResource("29_g65y5")
+icon_alignment = 1
+expand_icon = true
 
 [node name="MouseArea2D" type="Area2D" parent="BuildMenu"]
 script = ExtResource("9_432ng")
@@ -403,6 +506,7 @@ script = ExtResource("9_432ng")
 shape = SubResource("CircleShape2D_pwr7s")
 
 [node name="Area2D" type="Area2D" parent="BuildMenu"]
+visible = false
 position = Vector2(579, 85)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BuildMenu/Area2D"]
@@ -606,7 +710,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 33.0
 offset_top = -16.5
-offset_right = 81.0
+offset_right = 105.0
 offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -626,24 +730,25 @@ text = "="
 
 [node name="Snails" type="Label" parent="CraftMenu/Panel/Label"]
 layout_mode = 0
-offset_left = 3.0
-offset_top = 1.0
-offset_right = 71.0
-offset_bottom = 27.0
+offset_left = 13.0
+offset_top = -3.0
+offset_right = 81.0
+offset_bottom = 38.0
 theme_override_font_sizes/font_size = 51
 horizontal_alignment = 2
 clip_text = true
 
 [node name="TextureRect" type="TextureRect" parent="CraftMenu/Panel/Label"]
 layout_mode = 0
-offset_left = 65.0
-offset_top = 7.0
-offset_right = 89.0
-offset_bottom = 31.0
+offset_left = 80.0
+offset_top = 6.0
+offset_right = 104.0
+offset_bottom = 30.0
 texture = ExtResource("2_dketd")
 expand_mode = 1
 
 [node name="LabMenu" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_left = 382.0
 offset_top = 147.0
@@ -714,10 +819,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -1152.0
-offset_top = 59.0
-offset_right = -1059.0
-offset_bottom = 85.0
+offset_left = -1142.0
+offset_top = 74.0
+offset_right = -1049.0
+offset_bottom = 100.0
 grow_horizontal = 0
 text = "FPS:  "
 
@@ -735,18 +840,37 @@ offset_bottom = -182.0
 [connection signal="mouse_entered" from="TopUI/ResourcePanel/Food" to="TopUI/ResourcePanel/Food" method="_on_mouse_entered_food"]
 [connection signal="mouse_entered" from="TopUI/ResourcePanel/WoodRaw" to="TopUI/ResourcePanel/WoodRaw" method="_on_mouse_entered_wood"]
 [connection signal="mouse_entered" from="TopUI/ResourcePanel/WoodPlanks" to="TopUI/ResourcePanel/WoodPlanks" method="_on_mouse_entered_planks"]
+[connection signal="mouse_entered" from="TopUI/ResourcePanel/Wheat" to="TopUI/ResourcePanel/Wheat" method="_on_mouse_entered_wheat"]
 [connection signal="pressed" from="TopUI/SettingsMenu" to="." method="_on_settings_menu_pressed"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/House" to="." method="_on_house_button_down"]
 [connection signal="mouse_entered" from="BuildMenu/BuildingContainer/House" to="BuildMenu/BuildingContainer/House" method="_on_mouse_entered_house"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Stock" to="." method="_on_stock_button_down"]
+[connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Stock" to="BuildMenu/BuildingContainer/Stock" method="_on_mouse_entered_stock"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Lab" to="." method="_on_lab_button_down"]
+[connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Lab" to="BuildMenu/BuildingContainer/Lab" method="_on_mouse_entered_lab"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Terrarium" to="." method="_on_terrarium_button_down"]
+[connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Terrarium" to="BuildMenu/BuildingContainer/Terrarium" method="_on_mouse_entered_terrarium"]
+[connection signal="button_down" from="BuildMenu/BuildingContainer/Farm" to="." method="_on_farm_button_down"]
+[connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Farm" to="BuildMenu/BuildingContainer/Farm" method="_on_mouse_entered_farm"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Bakery" to="." method="_on_bakery_button_down"]
+[connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Bakery" to="BuildMenu/BuildingContainer/Bakery" method="_on_mouse_entered_bakery"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Incubator" to="." method="_on_incubator_button_down"]
+[connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Incubator" to="BuildMenu/BuildingContainer/Incubator" method="_on_mouse_entered_incub"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Watch" to="." method="_on_watch_button_down"]
+[connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Watch" to="BuildMenu/BuildingContainer/Watch" method="_on_mouse_entered_watch"]
 [connection signal="button_down" from="BuildMenu/BuildingContainer/Carpentry" to="." method="_on_carpentry_button_down"]
-[connection signal="button_down" from="BuildMenu/BuildingContainer/VBoxContainer/Move" to="." method="_on_move_button_down"]
-[connection signal="button_down" from="BuildMenu/BuildingContainer/VBoxContainer/Delete" to="." method="_on_delete_button_down"]
+[connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Carpentry" to="BuildMenu/BuildingContainer/Carpentry" method="_on_mouse_entered_carp"]
+[connection signal="button_down" from="BuildMenu/BuildingContainer/Wonder" to="." method="_on_wonder_button_down"]
+[connection signal="mouse_entered" from="BuildMenu/BuildingContainer/Wonder" to="BuildMenu/BuildingContainer/Wonder" method="_on_mouse_entered_wonder"]
+[connection signal="button_down" from="BuildMenu/EditBuildingContainer/NewLandBuyButton" to="." method="_on_new_land_buy_button_button_down"]
+[connection signal="mouse_entered" from="BuildMenu/EditBuildingContainer/NewLandBuyButton" to="BuildMenu" method="_on_new_land_buy_button_mouse_entered"]
+[connection signal="mouse_exited" from="BuildMenu/EditBuildingContainer/NewLandBuyButton" to="BuildMenu" method="_on_new_land_buy_button_mouse_exited"]
+[connection signal="button_down" from="BuildMenu/EditBuildingContainer/VBoxContainer/Move" to="." method="_on_move_button_down"]
+[connection signal="mouse_entered" from="BuildMenu/EditBuildingContainer/VBoxContainer/Move" to="BuildMenu" method="_on_move_mouse_entered"]
+[connection signal="mouse_exited" from="BuildMenu/EditBuildingContainer/VBoxContainer/Move" to="BuildMenu" method="_on_move_mouse_exited"]
+[connection signal="button_down" from="BuildMenu/EditBuildingContainer/VBoxContainer/Delete" to="." method="_on_delete_button_down"]
+[connection signal="mouse_entered" from="BuildMenu/EditBuildingContainer/VBoxContainer/Delete" to="BuildMenu" method="_on_delete_mouse_entered"]
+[connection signal="mouse_exited" from="BuildMenu/EditBuildingContainer/VBoxContainer/Delete" to="BuildMenu" method="_on_delete_mouse_exited"]
 [connection signal="area_entered" from="BuildMenu/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="BuildMenu/Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="button_down" from="CraftMenu/Panel/Button" to="CraftMenu" method="_on_close_button_button_down"]

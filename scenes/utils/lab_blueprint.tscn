@@ -1,33 +1,44 @@
-[gd_scene load_steps=4 format=3 uid="uid://bk6ueva8krbay"]
+[gd_scene load_steps=6 format=3 uid="uid://bk6ueva8krbay"]
 
 [ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="1_2wr7u"]
 [ext_resource type="Script" path="res://scripts/UI/lab_blueprint.gd" id="2_udfof"]
 [ext_resource type="Texture2D" uid="uid://b3dakog34o6lf" path="res://assets/textures/HUD/Inspiration.PNG" id="3_jnshg"]
+[ext_resource type="Texture2D" uid="uid://d3s2kpit3ctey" path="res://assets/textures/HUD/Wood_planks.PNG" id="4_s54hj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xf6ac"]
+bg_color = Color(0.929412, 0.792157, 0.572549, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.792157, 0.392157, 0.235294, 1)
+border_blend = true
 
 [node name="LabBlueprint" type="Control"]
-custom_minimum_size = Vector2(310, 40)
+custom_minimum_size = Vector2(310, 70)
 layout_mode = 3
-anchor_right = 0.269
-anchor_bottom = 0.059
-offset_right = 3.11197
-offset_bottom = 1.768
+anchor_right = 0.272
+anchor_bottom = 0.108
+offset_right = -0.344025
+offset_bottom = 0.0159988
 theme = ExtResource("1_2wr7u")
 script = ExtResource("2_udfof")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.997
-anchor_bottom = 0.974
-offset_right = -0.0610046
-offset_bottom = 0.0399971
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xf6ac")
 
 [node name="BuildingName" type="Label" parent="."]
 layout_mode = 0
 offset_left = 6.0
-offset_top = 9.0
+offset_top = 23.0
 offset_right = 361.0
-offset_bottom = 93.0
+offset_bottom = 107.0
 scale = Vector2(0.3, 0.3)
 theme_override_font_sizes/font_size = 100
 text = "BuildingName"
@@ -35,18 +46,19 @@ vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 122.0
-offset_right = 162.0
-offset_bottom = 40.0
+offset_left = 113.0
+offset_top = -1.0
+offset_right = 153.0
+offset_bottom = 39.0
 texture = ExtResource("3_jnshg")
 expand_mode = 1
 
 [node name="price_label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 153.0
-offset_top = 11.0
-offset_right = 390.0
-offset_bottom = 95.0
+offset_left = 157.0
+offset_top = 9.0
+offset_right = 394.0
+offset_bottom = 93.0
 scale = Vector2(0.3, 0.3)
 theme_override_font_sizes/font_size = 100
 text = "x 10000"
@@ -55,12 +67,31 @@ clip_text = true
 
 [node name="UpgradeButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 243.0
-offset_top = 5.0
-offset_right = 504.0
-offset_bottom = 152.0
+offset_left = 254.0
+offset_top = 18.0
+offset_right = 515.0
+offset_bottom = 165.0
 scale = Vector2(0.2, 0.2)
 theme_override_font_sizes/font_size = 100
 text = "Upgrade"
+
+[node name="other_price" type="Label" parent="."]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 41.0
+offset_right = 387.0
+offset_bottom = 125.0
+scale = Vector2(0.3, 0.3)
+theme_override_font_sizes/font_size = 100
+text = "x 1000"
+
+[node name="other_price_rect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 115.0
+offset_top = 31.0
+offset_right = 155.0
+offset_bottom = 71.0
+texture = ExtResource("4_s54hj")
+expand_mode = 1
 
 [connection signal="button_down" from="UpgradeButton" to="." method="_on_upgrade_button_button_down"]

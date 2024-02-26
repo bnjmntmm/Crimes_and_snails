@@ -13,7 +13,7 @@ extends Node3D
 
 var spawn_ready:=false
 var spawn_timer:=0.0
-var spawn_interval:=3.0
+var spawn_interval:=20
 var current_citizen
 var current_pop:=0
 var max_pop:= 10
@@ -28,7 +28,8 @@ var happy_citizen = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	for i in range(20):
+		run_spawn()
 
 func run_spawn():
 	current_citizen=citizen.instantiate()
@@ -51,7 +52,7 @@ func _process(delta):
 		
 func _enter_tree():
 	spawn_ready=true
-
+	
 
 func _on_check_for_tree_and_bush_body_entered(body):
 	if body.is_in_group("food"):
@@ -87,7 +88,7 @@ func _on_tornado_sabotage_stopped():
 func _on_inspiration_resource_timer_timeout():
 	if (GameManager.food-(GameManager.population*citizen_food_consumption))>0:
 		GameManager.inspiration+=calculate_happy_citizens()
-		GameManager.food-=GameManager.population*citizen_food_consumption
+		#GameManager.food-=GameManager.population*citizen_food_consumption
 
 
 func _on_happiness_check_timer_timeout():

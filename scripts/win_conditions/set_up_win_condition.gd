@@ -36,8 +36,8 @@ func checkLabelForCorrectName(state):
 		return "Have " + str(wincon_instantiate.get_snail_target_count()) + " Snails"
 	elif state == "LAND":
 		return "Bought more than " + str(wincon_instantiate.get_land_bought_target()) + " Lands"
-	elif state == "TEMPLE":
-		return "Build the final and expensive Temple"
+	elif state == "WONDER":
+		return "Build the final and expensive Wonder"
 	elif state == "SAVED_SABOTAGES":
 		return "Stop more than " + str(wincon_instantiate.get_saved_sabotages_count()) + " Sabotages"
 	

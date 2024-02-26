@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://biqufrv3lsepk"]
+[gd_scene load_steps=14 format=3 uid="uid://biqufrv3lsepk"]
 
 [ext_resource type="PackedScene" uid="uid://cb0hijopqc2kv" path="res://assets/buildings/incubator.glb" id="1_8menp"]
 [ext_resource type="Script" path="res://scripts/BuildingObject.gd" id="1_ga4l1"]
@@ -15,6 +15,14 @@ shader_parameter/albedo = Color(1, 1, 1, 0)
 shader_parameter/roughness = 0.15
 shader_parameter/normal_strength = 1.0
 shader_parameter/edge_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n2a8b"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hk1u1"]
+material = SubResource("StandardMaterial3D_n2a8b")
+size = Vector3(4.59, 0.59, 4.905)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_708um"]
 size = Vector3(4.61316, 3.66439, 4.30174)
@@ -50,8 +58,9 @@ func _on_mouse_exited():
 size = Vector3(5, 6, 5)
 
 [node name="Incubator" type="StaticBody3D" groups=["building"]]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 0, 0, 0)
 script = ExtResource("1_ga4l1")
+plank_cost = 30
 
 [node name="incubator" parent="." instance=ExtResource("1_8menp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.239005, 0, -0.159337)
@@ -236,6 +245,10 @@ surface_material_override/0 = ExtResource("2_g6lfe")
 transform = Transform3D(0.0352229, 0, 0, 0, 0.0352229, 0, 0, 0, 0.0352229, -0.136554, 1.07885, 0.46863)
 surface_material_override/0 = ExtResource("2_g6lfe")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="incubator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49012e-08, 0.292558, 0.448843)
+mesh = SubResource("BoxMesh_hk1u1")
+
 [node name="CollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.105904, 1.83555, 0.352283)
 shape = SubResource("BoxShape3D_708um")
@@ -269,7 +282,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.44646, 0.272266, 1.9785e-0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14241, 0.272266, -2.33652e-07)
 
 [node name="SabotagePoint" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.389, 0, -0.240618)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.62859, 0, -0.240618)
 
 [node name="FireLocation" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.932383, 1.9711, -0.148437)

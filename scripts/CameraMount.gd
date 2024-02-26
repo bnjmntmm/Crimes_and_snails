@@ -37,6 +37,9 @@ signal newGridAdded(area_position)
 var multi_mesh
 var buy_label : Label3D
 
+var buyingNewLand = false
+
+
 # Neighbour Areas
 @onready var rightArea = $"../Grid/SelectionCube/NeighbourCheck/Right"
 @onready var topArea = $"../Grid/SelectionCube/NeighbourCheck/Top"
@@ -56,7 +59,7 @@ var plane_prefab = preload("res://scenes/plane_adding/plane.tscn")
 func _ready():
 	#grid_map = get_parent().get_node("Grid/BaseGrid")
 	buy_label = Label3D.new()
-	buy_label.font_size = 2000
+	buy_label.font_size = 4000
 	buy_label.outline_size = 800
 	buy_label.modulate = Color(255, 255, 255,1)
 	buy_label.billboard = 1
@@ -106,26 +109,7 @@ func _process(delta):
 	scale=lerp(scale,Vector3.ONE*zoom,zoom_speed)
 #		if $Camera.global_position.distance_to(global_position) < 50:
 #			$Camera.global_position += $Camera.global_position * 0.1 * sense
-	
-	if Input.is_action_just_pressed("buy_land") and GameManager.current_state != GameManager.State.BUY_LAND:
-		old_pos_mount = $Camera.position
-		locked_cam = true
-		hud.visible = false
-		$Camera.rotation = Vector3(deg_to_rad(-90),0,0)
-		$Camera.position = Vector3(0,250,0)
-		$Camera.set_fov(60)
-		
-		GameManager.current_state = GameManager.State.BUY_LAND
-	elif Input.is_action_just_pressed("buy_land") and GameManager.current_state == GameManager.State.BUY_LAND:
-		GameManager.current_state = GameManager.State.PLAY
-		buy_label.visible = false
-		locked_cam  = false
-		hud.visible = true
-		selection_cube.visible = false
-		$Camera.rotation = Vector3(deg_to_rad(-45), 0,0)
-		$Camera.position = old_pos_mount
-		$Camera.set_fov(75)
-	
+
 	if GameManager.current_state == GameManager.State.BUY_LAND:
 		selection_cube.visible = true
 		var ray_length = 1000
@@ -189,6 +173,7 @@ func can_place_plane():
 	var bottomAreaOverlaps = []
 	var selectionOverlaps = []
 	
+	
 	if rightArea.has_overlapping_bodies():
 		rightAreaOverlaps = rightArea.get_overlapping_bodies()
 	if leftArea.has_overlapping_bodies():
@@ -199,7 +184,6 @@ func can_place_plane():
 		bottomAreaOverlaps = bottomArea.get_overlapping_bodies()
 	if main_area.has_overlapping_bodies():
 		selectionOverlaps = main_area.get_overlapping_bodies()
-		
 	if selectionOverlaps == []:
 		if rightAreaOverlaps != [] or leftAreaOverlaps != [] or topAreaOverlaps != [] or bottomAreaOverlaps != []:
 			return true
@@ -271,3 +255,32 @@ func _on_grid_grid_generated(body: StaticBody3D):
 	GameManager.first_area_generated = true
 	#ready_to_bake.emit()
 	body.bake_nav()
+
+func switchMonitoringForBuyLand(buyingNewLand : bool):
+	rightArea.monitorable = buyingNewLand
+	leftArea.monitorable = buyingNewLand
+	topArea.monitorable = buyingNewLand
+	bottomArea.monitorable = buyingNewLand
+
+
+func _on_hud_switch_to_buy_land_camera():
+	buyingNewLand = !buyingNewLand
+	if buyingNewLand:
+		old_pos_mount = $Camera.position
+		locked_cam = true
+		hud.visible = false
+		$Camera.rotation = Vector3(deg_to_rad(-90),0,0)
+		$Camera.position = Vector3(0,250,0)
+		$Camera.set_fov(60)
+		switchMonitoringForBuyLand(buyingNewLand)
+	else:
+		GameManager.current_state = GameManager.State.PLAY
+		buy_label.visible = false
+		locked_cam  = false
+		hud.visible = true
+		selection_cube.visible = false
+		$Camera.rotation = Vector3(deg_to_rad(-45), 0,0)
+		$Camera.position = Vector3(0, 20, 0)
+		$Camera.set_fov(75)
+		switchMonitoringForBuyLand(buyingNewLand)
+	

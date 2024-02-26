@@ -13,6 +13,7 @@ var madSmile = preload("res://assets/textures/HUD/MadFace.PNG")
 var recalcJustOnce : bool = true
 
 
+signal switchToBuyLandCamera
 
 
 
@@ -27,11 +28,15 @@ func _ready():
 func _process(delta):
 	
 	$TopUI/ResourcePanel/SnailLabel.text=str(GameManager.snails)
+	$TopUI/ResourcePanel/MaxSnailLabel.text = "/ " + str(GameManager.maxSnails)
 #	$BuildMenu/ResourceContainer/RessourceValues/HappinessValue.text=str(GameManager.inspiration)
 	$TopUI/ResourcePanel/FoodLabel.text=str(GameManager.food)
 	$TopUI/ResourcePanel/WoodRawLabel.text=str(GameManager.wood)
 	$TopUI/ResourcePanel/WoodPlanksLabel.text=str(GameManager.planks)
-	$TopUI/HappinessPopuPanel/Population/PopulationValue.text=str(GameManager.population)
+	$TopUI/ResourcePanel/WheatLabel.text = str(GameManager.wheat)
+	$TopUI/HappinessPopuPanel/PeopleImage/PopulationValue.text=str(GameManager.population)
+
+	$TopUI/HappinessPopuPanel/InspirationsLabel.text = str(GameManager.inspiration)
 	$FPS.text = str("FPS %d" % Engine.get_frames_per_second())
 	$TopUI/TimerPanel/Time.text = "%02d : %02d" % [GameManager.minutes, GameManager.seconds]
 	check_happiness()
@@ -95,6 +100,9 @@ func _on_carpentry_button_down():
 
 func _on_watch_button_down():
 	BuildManager.spawn_watch()
+func _on_wonder_button_down():
+	BuildManager.spawn_wonder()
+
 
 
 func _on_delete_button_down():
@@ -103,7 +111,7 @@ func _on_delete_button_down():
 
 func _on_move_button_down():
 	GameManager.current_state = GameManager.State.MOVE_HOUSE
- 
+
 
 
 func check_happiness():
@@ -129,4 +137,11 @@ func _on_settings_menu_pressed():
 	$BuildMenu.visible = false
 
 
+func _on_farm_button_down():
+	BuildManager.spawn_farm()
 
+
+
+func _on_new_land_buy_button_button_down():
+	GameManager.current_state = GameManager.State.BUY_LAND
+	switchToBuyLandCamera.emit()
