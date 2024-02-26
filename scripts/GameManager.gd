@@ -15,11 +15,11 @@ var food:=0
 var wood:=0
 var planks:=0
 var snails:=0
-var wheat:=100
+var wheat:=0
 var happiness:=0
 var inspiration:=0
 var population:=0
-var houses_built:=0
+var houses_built:=1
 var sabotages_stopped:=0
 
 var snailsPerTerrarium : int = 50

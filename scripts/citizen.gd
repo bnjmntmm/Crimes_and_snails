@@ -44,6 +44,7 @@ enum JOB{
 
 # 05. @export variables
 @export var walk_speed = 5.0
+@export var food_consumption = 10.0
 
 # 06. Public variables
 var current_task = TASK.SEARCHING
@@ -259,9 +260,10 @@ func _physics_process(delta):
 			else:
 				var nearest_stock = GameManager.stock_array[0]
 				for stock in GameManager.stock_array:
-					if stock.spawned:
-						if stock.global_position.distance_squared_to(global_position)<nearest_stock.global_position.distance_squared_to(global_position):
-							nearest_stock=stock
+					if is_instance_valid(nearest_stock) and is_instance_valid(stock):
+						if stock.spawned:
+							if stock.global_position.distance_squared_to(global_position)<nearest_stock.global_position.distance_squared_to(global_position):
+								nearest_stock=stock
 				navigation_agent.target_position=nearest_stock.get_node("SpawnPoint").global_position
 				current_task=TASK.WALKING
 		TASK.POV_MODE:
@@ -395,3 +397,7 @@ func reset_npc():
 	change_to_normal()
 	navigation_agent.target_position = global_position
 	current_task = TASK.SEARCHING
+
+
+func _on_eat_timer_timeout():
+	GameManager.food -= food_consumption

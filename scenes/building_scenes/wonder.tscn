@@ -11,6 +11,7 @@ size = Vector3(12.629, 18.0641, 10.1796)
 size = Vector3(12, 20, 12.1261)
 
 [node name="Wonder" type="StaticBody3D" groups=["building", "wonder"]]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 script = ExtResource("1_vlxl4")
 snail_cost = 500
 

@@ -1,7 +1,7 @@
 extends Node
 class_name WinCondition
 
-var npcCountTarget : int = 100
+var npcCountTarget : int = 80
 var foodCountTarget : int = 5000
 var snailCountTarget : int = 10000
 var landBoughtTarget : int = 20

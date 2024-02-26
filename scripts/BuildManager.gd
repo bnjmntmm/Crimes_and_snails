@@ -261,8 +261,6 @@ func can_afford(obj)->bool:
 		return false
 	if GameManager.planks-obj.plank_cost<0:
 		return false
-	if GameManager.food-obj.food_cost<0:
-		return false
 	if GameManager.snails-obj.snail_cost<0:
 		return false
 	return true

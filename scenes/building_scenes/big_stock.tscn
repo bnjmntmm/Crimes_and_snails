@@ -20,7 +20,7 @@ size = Vector3(4.64, 0.4, 5.575)
 size = Vector3(5, 3.2, 5.6126)
 
 [node name="big_Stock" type="StaticBody3D" groups=["big_stock", "stock"]]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 script = ExtResource("1_tuhnu")
 wood_cost = 50
 

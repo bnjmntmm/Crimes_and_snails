@@ -10,6 +10,7 @@ signal sabotage_stopped
 @onready var random_events = $".."
 
 var burningTimer : Timer
+var plane_to_bake
 
 var houseFireDict = {}
 
@@ -57,11 +58,12 @@ func fire_stopped(house):
 	houseFireDict[house].fire_scene = null
 	house.audio_stream_player.stop()
 	random_events.start_sabotage_timer()
-	currentHouse = null
 	burningTimer.stop()
+	#currentHouse = null
 
 func destroyHouse():
-	var plane_to_bake = currentHouse.old_plane
+	#get_tree().root.get_node("main").get_node("Grid").get_node("PlayArea").get_node(currentHouse.old_plane.name)
+	plane_to_bake = currentHouse.old_plane
 	currentHouse.fire_scene.queue_free()
 	
 	if currentHouse.name.contains("stock"):
