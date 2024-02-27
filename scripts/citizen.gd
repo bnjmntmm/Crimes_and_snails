@@ -59,7 +59,9 @@ var resource_hold_current := 0
 var nearest_resource_object:Node3D
 
 var waterParticles : Node3D
+var waterProgressNode : Control
 var waterProgress : ProgressBar
+var waterLabel : Label
 #this is for the water
 var currentHouse = null
 
@@ -118,12 +120,14 @@ func _ready():
 	add_child(pov_camera)
 	pov_camera.current = false
 	waterParticles = waterParticlesPrefab.instantiate()
-	waterProgress = water_progressPrefab.instantiate()
+	waterProgressNode = water_progressPrefab.instantiate()
+	waterProgress = waterProgressNode.get_child(0)
+	waterLabel = waterProgressNode.get_child(1)
 	pov_camera.add_child(waterParticles)
 	waterParticles.position = pov_camera.position + Vector3(0.5,-1.25,0)
 	
 	waterProgress.visible = false
-	pov_camera.add_child(waterProgress)
+	pov_camera.add_child(waterProgressNode)
 	
 
 
@@ -165,7 +169,6 @@ func move_towards_sabotage_house():
 			current_task = TASK.SEARCHING
 	
 	if not navigation_agent.is_target_reachable():
-		
 		print("stuck?")
 	var next_path_position : Vector3 = navigation_agent.get_next_path_position()
 	var lookAtPos := next_path_position
@@ -205,9 +208,10 @@ func _physics_process(delta):
 	if Input.is_action_pressed("left_mouse_down") and current_task == TASK.POV_MODE and allowWater:
 		waterParticles.set_emitting(true)
 		waterProgress.value = calcPercentage()
-		if extinguish_timer.is_stopped():
+		if extinguish_timer.is_stopped() and is_instance_valid(currentHouse):
 			waterProgress.value = 0
 			waterProgress.visible = false
+			waterLabel.visible = false
 			currentHouse.sabotageType.fire_stopped(currentHouse) 
 			allowWater = false
 			waterParticles.set_emitting(false)
@@ -272,7 +276,9 @@ func _physics_process(delta):
 				current_task=TASK.WALKING
 		TASK.POV_MODE:
 			animation_tree.active = false
+			waterLabel.visible = true
 			if Input.is_action_just_pressed("esc"):
+				waterLabel.visible = false
 				audio_stream_player.play()
 				animation_tree.active = true
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -289,6 +295,7 @@ func _physics_process(delta):
 				velocity.x = walk_direction.x * walk_speed
 				velocity.z = walk_direction.z * walk_speed
 				move_and_slide()
+
 		TASK.RIOT:
 			if is_instance_valid(sabotageHouse):
 				if navigation_agent.target_position != sabotageHouse.sabotage_point.global_position:
@@ -316,7 +323,7 @@ func execute_raycast(event_position, camera : Camera3D):
 	ray_query.collide_with_bodies = true
 	var raycast_result = space.intersect_ray(ray_query)
 	if !raycast_result.is_empty():
-		if raycast_result.collider.is_in_group("building"):
+		if raycast_result.collider.is_in_group("building") or raycast_result.collider.is_in_group("stock"):
 			return raycast_result
 
 

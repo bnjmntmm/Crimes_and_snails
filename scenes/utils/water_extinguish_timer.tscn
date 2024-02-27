@@ -5,7 +5,12 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77stl"]
 bg_color = Color(0.372549, 0.654902, 0.670588, 1)
 
-[node name="water_extinguish_timer" type="ProgressBar"]
+[node name="WaterExtinguishNode" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("1_drwli")
+
+[node name="water_extinguish_timer" type="ProgressBar" parent="."]
 offset_left = 411.0
 offset_top = 548.0
 offset_right = 746.0
@@ -14,3 +19,16 @@ theme = ExtResource("1_drwli")
 theme_override_styles/fill = SubResource("StyleBoxFlat_77stl")
 value = 100.0
 show_percentage = false
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 898.0
+offset_top = 12.0
+offset_right = 1136.0
+offset_bottom = 84.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 25
+text = "Press LeftMouse when looking at a burning Building to start extinguish"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
