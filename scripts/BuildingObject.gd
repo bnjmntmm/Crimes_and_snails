@@ -120,7 +120,7 @@ func craft_resource():
 				
 		"bread":
 			if GameManager.wheat>=crafted_resource_ammount*raw_to_refined_ratio:
-				GameManager.food+=crafted_resource_ammount*10
+				GameManager.food+=crafted_resource_ammount
 				GameManager.wheat-=crafted_resource_ammount*raw_to_refined_ratio
 				
 		"wheat":

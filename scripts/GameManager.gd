@@ -11,7 +11,7 @@ enum State{
 }
 var current_state=State.PLAY
 
-var food:=0
+var food:=10
 var wood:=0
 var planks:=0
 var snails:=0
@@ -29,9 +29,9 @@ var terrariumsPlaced : int = 0
 
 
 ####INSPIRATION CHECK
-var happyInspiration = 50
-var mediumInspiration = 30
-var madInspiration = 10
+var happyInspiration = 0.7
+var mediumInspiration = 0.5
+var madInspiration = 0.1
 
 
 var citizen: PackedScene
@@ -69,6 +69,7 @@ var firstState = true
 
 var winScreenOpened : bool = false
 var infiniteBuilding: bool = false
+var currentHappinesRatio : float = 0.0
 
 
 #Watches

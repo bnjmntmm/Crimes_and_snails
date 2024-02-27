@@ -44,6 +44,7 @@ offset_bottom = 579.0
 text = "Continue Building"
 
 [node name="BackToMenu" type="Button" parent="."]
+layout_mode = 0
 offset_left = 288.0
 offset_top = 530.0
 offset_right = 463.0

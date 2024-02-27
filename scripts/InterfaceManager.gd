@@ -121,9 +121,9 @@ func _on_move_button_down():
 
 func check_happiness():
 
-	if GameManager.inspiration > GameManager.happyInspiration:
+	if GameManager.currentHappinesRatio >= GameManager.happyInspiration:
 		happiness_texture.texture = happySmile
-	elif GameManager.inspiration < GameManager.happyInspiration-1 and GameManager.inspiration > GameManager.mediumInspiration:
+	elif GameManager.currentHappinesRatio < GameManager.happyInspiration and GameManager.currentHappinesRatio > GameManager.mediumInspiration:
 		happiness_texture.texture = neutralSmile
 	else:
 		happiness_texture.texture = madSmile

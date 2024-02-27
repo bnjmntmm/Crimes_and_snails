@@ -145,7 +145,7 @@ func move_along_path():
 	var next_path_position : Vector3 = navigation_agent.get_next_path_position()
 	#var angleToNextPoint =  citizen_root.global_position.angle_to(next_path_position)
 	var lookAtPos := next_path_position
-	citizen_root.look_at(Vector3(lookAtPos.x, 1.53,lookAtPos.z), Vector3(0,1,0), true)
+	citizen_root.look_at(Vector3(lookAtPos.x, 1.5,lookAtPos.z), Vector3(0,1,0), true)
 	#citizen_root.look_at(next_path_position, Vector3(0,1,0), true)
 	var new_velocity: Vector3 = global_position.direction_to(next_path_position) * walk_speed
 	if navigation_agent.avoidance_enabled:
