@@ -159,17 +159,16 @@ func _on_continue_building_button_down():
 
 
 func _on_back_to_menu_button_down():
-	get_tree().change_scene_to_packed(main_menu)
+	get_tree().quit()
 
 
 func _on_back_to_menu_tab_clicked(tab):
-	print(tab)
 	if tab == 2:
 		var all_npcs = get_tree().get_nodes_in_group("npc")
 		for i in range(len(all_npcs)):
 			all_npcs[i].queue_free()
 		get_tree().paused=false
-		get_tree().change_scene_to_packed(main_menu)
+		get_tree().quit()
 		
 		#get_tree().reload_current_scene()
 		
