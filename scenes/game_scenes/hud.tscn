@@ -147,19 +147,19 @@ text_overrun_behavior = 1
 
 [node name="PeopleImage" type="TextureRect" parent="TopUI/HappinessPopuPanel"]
 layout_mode = 0
-offset_left = 167.0
+offset_left = 162.0
 offset_top = 5.0
-offset_right = 207.0
+offset_right = 202.0
 offset_bottom = 45.0
 texture = ExtResource("7_nea2v")
 expand_mode = 2
 
-[node name="PopulationValue" type="Label" parent="TopUI/HappinessPopuPanel/PeopleImage"]
+[node name="PopulationValue" type="Label" parent="TopUI/HappinessPopuPanel"]
 layout_mode = 0
-offset_left = 31.0
-offset_top = 7.0
-offset_right = 90.0
-offset_bottom = 31.0
+offset_left = 197.0
+offset_top = 13.0
+offset_right = 256.0
+offset_bottom = 37.0
 theme_override_font_sizes/font_size = 25
 text = "00000"
 

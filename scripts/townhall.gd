@@ -67,7 +67,6 @@ func _on_check_for_tree_and_bush_body_entered(body):
 
 func calculate_happy_citizens():
 	var citizens_with_enough_food = min(float(GameManager.food)/float(citizen_food_consumption), GameManager.population)
-	print("food", GameManager.food, "citizenfoodconsump", citizen_food_consumption)
 	var citizen_with_house = min(GameManager.houses_built*citizen_housing_needs, GameManager.population)
 	happy_citizen = min(citizens_with_enough_food, citizen_with_house)
 	return happy_citizen
