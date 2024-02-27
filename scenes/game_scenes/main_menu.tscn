@@ -196,6 +196,14 @@ offset_top = 195.0
 offset_right = -87.0
 offset_bottom = -140.0
 
+[node name="HBoxContainer5" parent="Panel/Settings/TabContainer/Graphic/VBoxContainer2" index="5"]
+visible = false
+
+[node name="HBoxContainer6" parent="Panel/Settings/TabContainer/Graphic/VBoxContainer2" index="6"]
+visible = false
+
 [connection signal="pressed" from="Panel/VBoxContainer2/Panel2/Panel/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer2/Panel2/Panel/HBoxContainer3/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer2/Panel2/Panel/HBoxContainer2/QuitButton" to="." method="_on_quit_button_pressed"]
+
+[editable path="Panel/Settings"]

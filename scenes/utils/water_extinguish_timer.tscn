@@ -11,6 +11,7 @@ anchors_preset = 0
 theme = ExtResource("1_drwli")
 
 [node name="water_extinguish_timer" type="ProgressBar" parent="."]
+layout_mode = 0
 offset_left = 411.0
 offset_top = 548.0
 offset_right = 746.0
@@ -21,6 +22,7 @@ value = 100.0
 show_percentage = false
 
 [node name="Label" type="Label" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 898.0
 offset_top = 12.0

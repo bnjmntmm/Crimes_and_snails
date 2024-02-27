@@ -2,6 +2,8 @@ extends Control
 
 signal lab_menu_signal
 
+@export var main_menu : PackedScene
+
 
 @onready var happiness_texture : TextureRect = $TopUI/HappinessPopuPanel/Happiness
 
@@ -63,6 +65,9 @@ func _process(delta):
 	else:
 		recalcJustOnce = true
 		$LabMenu.visible = false
+		
+	if GameManager.winScreenOpened:
+		$WinScreen.visible = true
 	
 func _on_area_2d_area_entered(area):
 	BuildManager.able_to_build=false
@@ -145,3 +150,26 @@ func _on_farm_button_down():
 func _on_new_land_buy_button_button_down():
 	GameManager.current_state = GameManager.State.BUY_LAND
 	switchToBuyLandCamera.emit()
+
+
+func _on_continue_building_button_down():
+	GameManager.infiniteBuilding = true
+	get_tree().paused = false
+	$WinScreen.visible = false
+
+
+func _on_back_to_menu_button_down():
+	get_tree().change_scene_to_packed(main_menu)
+
+
+func _on_back_to_menu_tab_clicked(tab):
+	print(tab)
+	if tab == 2:
+		var all_npcs = get_tree().get_nodes_in_group("npc")
+		for i in range(len(all_npcs)):
+			all_npcs[i].queue_free()
+		get_tree().paused=false
+		get_tree().change_scene_to_packed(main_menu)
+		
+		#get_tree().reload_current_scene()
+		

@@ -67,6 +67,9 @@ var inGame = false
 var riotAllowed = false
 var firstState = true
 
+var winScreenOpened : bool = false
+var infiniteBuilding: bool = false
+
 
 #Watches
 var watch_particles_array : Array = []
@@ -89,12 +92,13 @@ func _ready():
 
 func _process(delta):
 	if inGame:
-		if firstState:
+		if firstState and not infiniteBuilding:
 			winConditionTimer.start()
 			firstState = false
 		if(!get_tree().paused):
 			game_time += delta
 		else:
+			firstState = true
 			winConditionTimer.stop()
 		
 			
@@ -109,7 +113,8 @@ func checkIfWinConditionReached():
 	if condition != null:
 		if condition == selected_win_condition:
 			print("Win by: " + str(condition))
-			
+			winScreenOpened= true
+			get_tree().paused = true
 	winConditionTimer.start()
 	
 

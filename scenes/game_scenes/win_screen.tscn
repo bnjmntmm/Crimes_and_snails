@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://cf72dfephvlgr"]
+
+[ext_resource type="Theme" uid="uid://b08cibmbq6mmg" path="res://assets/textures/HUD/UI/UI.tres" id="1_gvqip"]
+[ext_resource type="Texture2D" uid="uid://ccykjflrtiyel" path="res://assets/textures/HUD/Win_screen.png" id="1_vtliu"]
+[ext_resource type="Shader" path="res://assets/textures/shader/win_screen.gdshader" id="2_w5h8q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ha8fn"]
+shader = ExtResource("2_w5h8q")
+shader_parameter/amount = 2.992
+
+[node name="WinScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gvqip")
+
+[node name="Panel" type="Panel" parent="."]
+material = SubResource("ShaderMaterial_ha8fn")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 81.0
+offset_right = 794.0
+offset_bottom = 470.0
+texture = ExtResource("1_vtliu")
+expand_mode = 1
+
+[node name="ContinueBuilding" type="Button" parent="."]
+layout_mode = 0
+offset_left = 684.0
+offset_top = 530.0
+offset_right = 859.0
+offset_bottom = 579.0
+text = "Continue Building"
+
+[node name="BackToMenu" type="Button" parent="."]
+offset_left = 288.0
+offset_top = 530.0
+offset_right = 463.0
+offset_bottom = 579.0
+text = "Back To Menu"
