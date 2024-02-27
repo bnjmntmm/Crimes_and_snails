@@ -154,8 +154,10 @@ func _on_new_land_buy_button_button_down():
 
 func _on_continue_building_button_down():
 	GameManager.infiniteBuilding = true
-	get_tree().paused = false
+	GameManager.winScreenOpened = false
 	$WinScreen.visible = false
+	get_tree().paused = false
+	
 
 
 func _on_back_to_menu_button_down():

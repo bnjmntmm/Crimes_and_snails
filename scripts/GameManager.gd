@@ -115,7 +115,8 @@ func checkIfWinConditionReached():
 			print("Win by: " + str(condition))
 			winScreenOpened= true
 			get_tree().paused = true
-	winConditionTimer.start()
+			winConditionTimer.stop()
+	#winConditionTimer.start()
 	
 
 func emitting_watch_particles():
