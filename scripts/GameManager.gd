@@ -11,8 +11,13 @@ enum State{
 }
 var current_state=State.PLAY
 
+<<<<<<< Updated upstream
 var food:=10
 var wood:=0
+=======
+var food:=0
+var wood:=1000
+>>>>>>> Stashed changes
 var planks:=0
 var snails:=0
 var wheat:=0
@@ -42,10 +47,12 @@ var numberOfBoughtLands := 0
 var winChecker = WinCondition.new()
 var opened_npc_menu = false
 
+
 var opened_house_menu = false
+var opened_carpentry_menu=false
 var first_area_generated = false
 var opened_lab_menu = false
-
+var carpentry_running:= true
 
 #### Navigation 
 var tree_array : Array = []

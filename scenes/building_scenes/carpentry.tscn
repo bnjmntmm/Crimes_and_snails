@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://db85bqfopx7wq"]
+[gd_scene load_steps=10 format=3 uid="uid://db85bqfopx7wq"]
 
 [ext_resource type="Script" path="res://scripts/BuildingObject.gd" id="1_nvw8e"]
+[ext_resource type="Script" path="res://scenes/building_scenes/Area.gd" id="2_1wdcc"]
 [ext_resource type="PackedScene" uid="uid://c2s1br8uq2yv3" path="res://assets/buildings/CarpentryFixed.glb" id="2_ofshv"]
 [ext_resource type="Script" path="res://scripts/ProgressBar3D.gd" id="3_mvwci"]
 
@@ -8,7 +9,7 @@
 size = Vector3(23.8427, 19.3726, 27.1968)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7paeu"]
-size = Vector3(23.553, 18.7271, 26.735)
+size = Vector3(25.8887, 21.9069, 34.5303)
 
 [sub_resource type="GDScript" id="GDScript_bt57a"]
 script/source = "extends Node3D
@@ -63,6 +64,7 @@ shape = SubResource("BoxShape3D_5j8hq")
 
 [node name="Area" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 18.5, -0.3)
+script = ExtResource("2_1wdcc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, -8.8, 5.96046e-08)
@@ -109,4 +111,6 @@ mesh = SubResource("BoxMesh_turth")
 [node name="SabotagePoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.134, 0, -4.47035e-07)
 
+[connection signal="mouse_entered" from="Area" to="Area" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Area" to="Area" method="_on_mouse_exited"]
 [connection signal="timeout" from="CraftingTimer" to="." method="_on_crafting_timer_timeout"]

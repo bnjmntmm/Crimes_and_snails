@@ -128,8 +128,15 @@ func craft_resource():
 
 
 func _on_crafting_timer_timeout():
-	self.current_time-=0.1
-	update_progress_bar()
+	if self.name.contains("carpentry"):
+		if GameManager.carpentry_running:
+			self.current_time-=0.1
+			update_progress_bar()
+		
+	else:
+		self.current_time-=0.1
+		update_progress_bar()
+	
 func update_progress_bar():
 	var progress=(crafting_time-current_time)/crafting_time
 	if progress>=1:

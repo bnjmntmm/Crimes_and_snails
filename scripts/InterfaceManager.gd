@@ -55,7 +55,12 @@ func _process(delta):
 		$CraftMenu.visible = true
 	else:
 		$CraftMenu.visible = false
-	
+		
+	if GameManager.opened_carpentry_menu:
+		$CarpentryMenu.visible=true
+	else:
+		$CarpentryMenu.visible=false
+		
 	if GameManager.opened_lab_menu:
 		if recalcJustOnce:
 			recalcJustOnce = false
