@@ -11,13 +11,8 @@ enum State{
 }
 var current_state=State.PLAY
 
-<<<<<<< Updated upstream
-var food:=10
-var wood:=0
-=======
 var food:=0
-var wood:=1000
->>>>>>> Stashed changes
+var wood:=0
 var planks:=0
 var snails:=0
 var wheat:=0
@@ -27,7 +22,7 @@ var population:=0
 var houses_built:=1
 var sabotages_stopped:=0
 
-var snailsPerTerrarium : int = 50
+var snailsPerTerrarium : int = 200
 var baseSnailamount : int = 200
 var maxSnails : int = 0
 var terrariumsPlaced : int = 0
@@ -89,6 +84,8 @@ var main_node : Node3D
 var isWonderBuild = false
 
 var selected_win_condition = null
+
+var showFPSInScreen = false
 
 
 func _ready():

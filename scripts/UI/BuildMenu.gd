@@ -39,3 +39,4 @@ func _on_delete_mouse_entered():
 
 func _on_delete_mouse_exited():
 	delete.icon = delete_icon_normal
+

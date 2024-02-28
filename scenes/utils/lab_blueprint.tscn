@@ -40,7 +40,7 @@ offset_top = 23.0
 offset_right = 361.0
 offset_bottom = 107.0
 scale = Vector2(0.3, 0.3)
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 50
 text = "BuildingName"
 vertical_alignment = 1
 
@@ -55,34 +55,34 @@ expand_mode = 1
 
 [node name="price_label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 157.0
-offset_top = 9.0
-offset_right = 394.0
-offset_bottom = 93.0
+offset_left = 154.0
+offset_top = -2.0
+offset_right = 487.0
+offset_bottom = 134.0
 scale = Vector2(0.3, 0.3)
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 65
 text = "x 10000"
 vertical_alignment = 1
 clip_text = true
 
 [node name="UpgradeButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 254.0
-offset_top = 18.0
-offset_right = 515.0
-offset_bottom = 165.0
+offset_left = 252.0
+offset_top = 21.0
+offset_right = 532.0
+offset_bottom = 168.0
 scale = Vector2(0.2, 0.2)
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 60
 text = "Upgrade"
 
 [node name="other_price" type="Label" parent="."]
 layout_mode = 0
-offset_left = 157.0
-offset_top = 41.0
-offset_right = 387.0
-offset_bottom = 125.0
+offset_left = 155.0
+offset_top = 39.0
+offset_right = 418.0
+offset_bottom = 129.0
 scale = Vector2(0.3, 0.3)
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 65
 text = "x 1000"
 
 [node name="other_price_rect" type="TextureRect" parent="."]

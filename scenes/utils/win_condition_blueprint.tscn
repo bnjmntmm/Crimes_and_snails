@@ -52,13 +52,13 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 15.0
-offset_top = 37.0
-offset_right = -244.0
-offset_bottom = -26.0
+offset_top = 30.0
+offset_right = 138.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.5, 0.5)
 theme_override_font_sizes/font_size = 40
-text = "SAVED_SABOTAGES"
+text_overrun_behavior = 1
 
 [node name="select_button" type="Button" parent="."]
 layout_mode = 1

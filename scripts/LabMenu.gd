@@ -93,6 +93,6 @@ func _on_hud_lab_menu_signal():
 	tab_container.visible = true
 
 
-func _on_button_button_down():
+func _on_button_button_down():	
 	GameManager.opened_lab_menu = false
 	visible = false

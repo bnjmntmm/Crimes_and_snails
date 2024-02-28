@@ -19,21 +19,24 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 9.0
-offset_top = 127.0
-offset_right = -7.0
-offset_bottom = -2.0
+offset_left = 11.0
+offset_top = 177.0
+offset_right = 281.0
+offset_bottom = 203.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 40
+scale = Vector2(0.5, 0.5)
+theme_override_font_sizes/font_size = 30
+text = "dasdasdasdasasd"
 horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="current_building" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 37.0
-offset_right = 537.0
-offset_bottom = 500.0
+offset_left = 25.0
+offset_top = 28.0
+offset_right = 525.0
+offset_bottom = 528.0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_jmhgg")
 
@@ -42,10 +45,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -139.0
-offset_top = 14.0
-offset_right = 17.0
-offset_bottom = 226.0
+offset_left = -127.0
+offset_top = 11.0
+offset_right = 88.0
+offset_bottom = 307.0
 grow_horizontal = 0
 scale = Vector2(0.53446, 0.53446)
 

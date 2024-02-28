@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://db85bqfopx7wq"]
+[gd_scene load_steps=12 format=3 uid="uid://db85bqfopx7wq"]
 
 [ext_resource type="Script" path="res://scripts/BuildingObject.gd" id="1_nvw8e"]
 [ext_resource type="Script" path="res://scenes/building_scenes/Area.gd" id="2_1wdcc"]
@@ -38,6 +38,14 @@ func get_up_cast():
 func get_down_cast():
 	return down_cast.get_collider()
 "
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_40a82"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5u2r3"]
+material = SubResource("StandardMaterial3D_40a82")
+size = Vector3(22.125, 1, 24.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coy7v"]
 transparency = 1
@@ -91,6 +99,10 @@ debug_shape_thickness = 5
 
 [node name="CarpentryFixed" parent="." instance=ExtResource("2_ofshv")]
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CarpentryFixed"]
+transform = Transform3D(1, 0, 2.84217e-14, 0, 1, 0, -2.84217e-14, 0, 1, -1.94976, 0.517533, -2.98023e-08)
+mesh = SubResource("BoxMesh_5u2r3")
+
 [node name="CraftingTimer" type="Timer" parent="."]
 wait_time = 0.1
 
@@ -109,8 +121,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.8, 8.9407e-08)
 mesh = SubResource("BoxMesh_turth")
 
 [node name="SabotagePoint" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.134, 0, -4.47035e-07)
+transform = Transform3D(1, 0, 3.55271e-15, 0, 1, 0, -3.55271e-15, 0, 1, 11.0488, 0, -4.76837e-07)
 
 [connection signal="mouse_entered" from="Area" to="Area" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Area" to="Area" method="_on_mouse_exited"]
 [connection signal="timeout" from="CraftingTimer" to="." method="_on_crafting_timer_timeout"]
+
+[editable path="CarpentryFixed"]

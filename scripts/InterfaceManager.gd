@@ -36,28 +36,44 @@ func _process(delta):
 	$TopUI/ResourcePanel/WoodRawLabel.text=str(GameManager.wood)
 	$TopUI/ResourcePanel/WoodPlanksLabel.text=str(GameManager.planks)
 	$TopUI/ResourcePanel/WheatLabel.text = str(GameManager.wheat)
-	$TopUI/HappinessPopuPanel/PeopleImage/PopulationValue.text=str(GameManager.population)
+	$TopUI/HappinessPopuPanel/PopulationValue.text=str(GameManager.population)
 
 	$TopUI/HappinessPopuPanel/InspirationsLabel.text = str(GameManager.inspiration)
-	$FPS.text = str("FPS %d" % Engine.get_frames_per_second())
+	if GameManager.showFPSInScreen:
+		$FPS.visible = true
+	else:
+		$FPS.visible = false
 	$TopUI/TimerPanel/Time.text = "%02d : %02d" % [GameManager.minutes, GameManager.seconds]
+	$FPS.text = str("FPS %d" % Engine.get_frames_per_second())
 	check_happiness()
-	
-	
-	
+
 	if GameManager.current_state == GameManager.State.POV_MODE:
 		visible= false
 	else:
 		visible = true
 	
+	if GameManager.current_state == GameManager.State.PLAY:
+		$BuildMenu/DeletionPanel.visible = false
+		$BuildMenu/MovingPanel.visible = false
+	
+	if GameManager.current_state == GameManager.State.DESTROY:
+		$BuildMenu/DeletionPanel.visible = true
+		$BuildMenu/MovingPanel.visible = false
+	if GameManager.current_state == GameManager.State.MOVE_HOUSE:
+		$BuildMenu/MovingPanel.visible = true
+		$BuildMenu/DeletionPanel.visible = false
+		
 	if GameManager.opened_house_menu:
 		$LabMenu.visible = false
+		$CarpentryMenu.visible = false
 		$CraftMenu.visible = true
 	else:
 		$CraftMenu.visible = false
 		
 	if GameManager.opened_carpentry_menu:
 		$CarpentryMenu.visible=true
+		$LabMenu.visible = false
+		$CraftMenu.visible = false
 	else:
 		$CarpentryMenu.visible=false
 		
@@ -65,6 +81,7 @@ func _process(delta):
 		if recalcJustOnce:
 			recalcJustOnce = false
 			$CraftMenu.visible = false
+			$CarpentryMenu.visible = false
 			$LabMenu.visible = true
 			lab_menu_signal.emit()
 	else:
@@ -116,12 +133,13 @@ func _on_wonder_button_down():
 
 
 func _on_delete_button_down():
+	$BuildMenu/DeletionPanel.visible = true
 	GameManager.current_state = GameManager.State.DESTROY
 
 
 func _on_move_button_down():
+	$BuildMenu/MovingPanel.visible = true
 	GameManager.current_state = GameManager.State.MOVE_HOUSE
-
 
 
 func check_happiness():
@@ -178,4 +196,4 @@ func _on_back_to_menu_tab_clicked(tab):
 		get_tree().quit()
 		
 		#get_tree().reload_current_scene()
-		
+

@@ -115,20 +115,30 @@ func _physics_process(delta):
 							obj.spawned=true
 							obj.set_disabled(false)							
 							obj.global_position=current_spawnable.global_position
-							if obj.name.contains("Stock"):
+							if obj.name.contains("stock"):
 								obj.old_plane = navRegion[0]
 								GameManager.stock_array.append(obj)
-
-							if obj.name.contains("House"):
+							if obj.name.contains("house"):
 								GameManager.houses_built+=1
 								obj.old_plane = navRegion[0]
 							if obj.is_in_group("watch"):
 								GameManager.watch_particles_array.append(obj.get_watch_particles())
 							if obj.name.contains("Wonder"):
 								obj.wonder_timer.start()
-							if obj.name.contains("Terrarium"):
+							if obj.name.contains("terrarium"):
 								GameManager.terrariumsPlaced += 1
 								GameManager.calculateNewMaxSnailAmount()
+								obj.old_plane = navRegion[0]
+							if obj.name.contains("carpentry"):
+								obj.old_plane = navRegion[0]
+							if obj.name.contains("laboratorium"):
+								obj.old_plane = navRegion[0]
+							if obj.name.contains("incubator"):
+								obj.old_plane = navRegion[0]
+							if obj.name.contains("farm"):
+								obj.old_plane = navRegion[0]
+							if obj.name.contains("bakery"):
+								obj.old_plane = navRegion[0]
 							current_spawnable.remove_foliage()
 							bake_nav_planes(navRegion)
 							if not obj.name.contains("wonder"):

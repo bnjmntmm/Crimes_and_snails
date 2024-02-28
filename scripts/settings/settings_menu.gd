@@ -25,7 +25,6 @@ func _ready():
 	$TabContainer/Graphic/VBoxContainer2/HBoxContainer6/ShadowQuality.add_item("Fast",0)
 	$TabContainer/Graphic/VBoxContainer2/HBoxContainer6/ShadowQuality.add_item("Good",1)
 	$TabContainer/Graphic/VBoxContainer2/HBoxContainer6/ShadowQuality.add_item("Best",2)
-	
 	main_percent_label.text = str($TabContainer/Sound/VBoxContainer2/HBoxContainer4/MainSlider.value * 100) + "%"
 	music_percent_label.text = str($TabContainer/Sound/VBoxContainer2/HBoxContainer/MusicSlider.value * 100) + "%"
 	alarm_percent_label.text = str($TabContainer/Sound/VBoxContainer2/HBoxContainer2/AlarmSlider.value * 100) + "%"
@@ -76,6 +75,8 @@ func _on_main_slider_value_changed(value):
 	AudioServer.set_bus_mute(MAIN_BUS_ID, value <0.05)
 
 
+func _on_check_button_toggled(button_pressed):
+	GameManager.showFPSInScreen = button_pressed
 
 
 func _on_button_pressed():
@@ -100,3 +101,4 @@ func _on_display_option_button_item_selected(index):
 
 func set_window_mode(type):
 	DisplayServer.window_set_mode(type)
+
