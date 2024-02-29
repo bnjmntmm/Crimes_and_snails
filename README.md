@@ -1,6 +1,6 @@
 ![Crimes and Snails Logo](https://media.discordapp.net/attachments/1090609985312002190/1209620466701049866/Unbenanntes_Projekt.png?ex=65f0d058&is=65de5b58&hm=da29e9db08a607bb3f1a88cbf21849c5060a198c4bdebfb06de2c5c23e9da416&=&format=webp&quality=lossless&width=801&height=395)
 
-A Project made by 7 Students at the HAW Hamburg for their Module "Projekt C"
+A Project made by 7 Students at the HAW Hamburg for their Module "Projekt C" (Still in development)
 
 # <img src="https://media.discordapp.net/attachments/1090609985312002190/1212035684651503648/Unbenanntes_Projekt.png?ex=65f05f31&is=65ddea31&hm=07737525d25b4f7124350046334a829f4be40a904b1f2c9a66ded78c12632762&=&format=webp&quality=lossless" height="20" width="20"> Game Idea: 
 
