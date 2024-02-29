@@ -18,6 +18,9 @@ To move around you move the mouse to the edges, zoom is with mousewheel
 Interaction with Buildings, NPC's and UI are done with Leftclick.
 
 
+<img src="https://media.discordapp.net/attachments/994553328728023050/1212742189076193281/image.png?ex=65f2f12d&is=65e07c2d&hm=2f229dec0ae5499813e8142ff786b02c092d3143eb4a67a55ea2d5d122d37453&=&format=webp&quality=lossless">
+
+
 # Known Bugs
 - Sometimes the first NPC is not able to reach a resource, only fix is to restart the game
 - Sometimes the camera switch is not working properly -> You get stuck in the POV View of a NPC but cant control etc.
