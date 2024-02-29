@@ -11,6 +11,13 @@ The Player then needs to morph into a npc's pov, go up to the house and extingui
 Goal of the Game is to fulfill one of the predefined win conditions 
 
 
-# Implementation
+# How to play
+Start the Game and press "Start", after that select one of the Win Conditions.
 
-This Game was made in Godot 4.1.2 and all Assets are made in Blender or Procreate
+To move around you move the mouse to the edges, zoom is with mousewheel
+Interaction with Buildings, NPC's and UI are done with Leftclick.
+
+
+# Known Bugs
+- Sometimes the first NPC is not able to reach a resource, only fix is to restart the game
+- Sometimes the camera switch is not working properly -> You get stuck in the POV View of a NPC but cant control etc.
