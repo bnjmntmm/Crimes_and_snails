@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqwe3adgvkhq6"]
+
+[sub_resource type="GDScript" id="GDScript_nauby"]
+script/source = "extends Node2D
+
+var val = 0
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	for i in range(0,21):
+		val += (20 * pow(1.1,i))
+	print(val)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_nauby")

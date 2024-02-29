@@ -9,7 +9,6 @@ var Bakery: PackedScene=ResourceLoader.load("res://scenes/building_scenes/bakery
 var Carpentry: PackedScene=ResourceLoader.load("res://scenes/building_scenes/carpentry.tscn")
 var Watch : PackedScene = ResourceLoader.load("res://scenes/building_scenes/watch.tscn")
 var Wonder : PackedScene = ResourceLoader.load("res://scenes/building_scenes/wonder.tscn")
-
 var Farm : PackedScene= ResourceLoader.load("res://scenes/building_scenes/farm.tscn")
 
 
@@ -58,6 +57,7 @@ func _physics_process(delta):
 					#result.collider.run_despawn()
 					if result.collider.name.contains("House"):
 						GameManager.houses_built-=1
+						
 					if result.collider.is_in_group("stock"):
 						GameManager.stock_array.erase(result.collider)
 					if result.collider.is_in_group("watch"):
@@ -66,6 +66,7 @@ func _physics_process(delta):
 					if result.collider.name.contains("Terrarium"):
 						GameManager.terrariumsPlaced -= 1
 						GameManager.calculateNewMaxSnailAmount()
+					restoreResourcesOnDestroy(result.collider)
 					houseSceneRemoved.emit(result.collider)
 					
 					## QUEUE Free funktioniert hier nicht, da es im nächsten physics frame 
@@ -75,7 +76,7 @@ func _physics_process(delta):
 					bake_nav_planes(navRegion)
 				
 
-	if Input.is_action_just_pressed("esc") and not GameManager.current_state == GameManager.State.POV_MODE:
+	if Input.is_action_just_pressed("esc") and not GameManager.current_state == GameManager.State.POV_MODE and not GameManager.current_state == GameManager.State.BUY_LAND:
 		GameManager.opened_house_menu = false
 		GameManager.opened_lab_menu = false
 		GameManager.current_state=GameManager.State.PLAY
@@ -112,26 +113,36 @@ func _physics_process(delta):
 							obj.active_buildable_object=false
 							#obj.run_spawn()
 							obj.spawned=true
-							obj.set_disabled(false)
-							if not obj.name.contains("wonder"):
-								houseSceneAdded.emit(obj)
-							
+							obj.set_disabled(false)							
 							obj.global_position=current_spawnable.global_position
-							if obj.name == "Stock":
-								GameManager.stock_array.append(obj)
+							if obj.name.contains("stock"):
 								obj.old_plane = navRegion[0]
-							if obj.name.contains("House"):
+								GameManager.stock_array.append(obj)
+							if obj.name.contains("house"):
 								GameManager.houses_built+=1
 								obj.old_plane = navRegion[0]
 							if obj.is_in_group("watch"):
 								GameManager.watch_particles_array.append(obj.get_watch_particles())
 							if obj.name.contains("Wonder"):
 								obj.wonder_timer.start()
-							if obj.name.contains("Terrarium"):
+							if obj.name.contains("terrarium"):
 								GameManager.terrariumsPlaced += 1
 								GameManager.calculateNewMaxSnailAmount()
+								obj.old_plane = navRegion[0]
+							if obj.name.contains("carpentry"):
+								obj.old_plane = navRegion[0]
+							if obj.name.contains("laboratorium"):
+								obj.old_plane = navRegion[0]
+							if obj.name.contains("incubator"):
+								obj.old_plane = navRegion[0]
+							if obj.name.contains("farm"):
+								obj.old_plane = navRegion[0]
+							if obj.name.contains("bakery"):
+								obj.old_plane = navRegion[0]
 							current_spawnable.remove_foliage()
 							bake_nav_planes(navRegion)
+							if not obj.name.contains("wonder"):
+								houseSceneAdded.emit(obj)
 							
 					#get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()
 					
@@ -260,8 +271,12 @@ func can_afford(obj)->bool:
 		return false
 	if GameManager.planks-obj.plank_cost<0:
 		return false
-	if GameManager.food-obj.food_cost<0:
-		return false
 	if GameManager.snails-obj.snail_cost<0:
 		return false
 	return true
+
+func restoreResourcesOnDestroy(obj):
+	GameManager.wood += obj.wood_cost
+	GameManager.planks += obj.plank_cost
+	GameManager.snails += obj.snail_cost
+	GameManager.food += obj.food_cost

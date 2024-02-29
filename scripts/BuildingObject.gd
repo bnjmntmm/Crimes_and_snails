@@ -65,6 +65,7 @@ func _ready():
 	$Area.body_exited.connect(_on_body_exited)
 	if is_crafting_building:
 		crafting_timer.start()
+
 func _on_body_entered(body):
 	var bodyName = body.name.rstrip("0123456789")
 	if bodyName == "Bush" or bodyName == "Tree":
@@ -120,7 +121,7 @@ func craft_resource():
 				
 		"bread":
 			if GameManager.wheat>=crafted_resource_ammount*raw_to_refined_ratio:
-				GameManager.food+=crafted_resource_ammount*10
+				GameManager.food+=crafted_resource_ammount
 				GameManager.wheat-=crafted_resource_ammount*raw_to_refined_ratio
 				
 		"wheat":
@@ -128,8 +129,16 @@ func craft_resource():
 
 
 func _on_crafting_timer_timeout():
-	self.current_time-=0.1
-	update_progress_bar()
+	if spawned:
+		if self.name.contains("carpentry"):
+			if GameManager.carpentry_running:
+				self.current_time-=0.1
+				update_progress_bar()
+			
+		else:
+			self.current_time-=0.1
+			update_progress_bar()
+	
 func update_progress_bar():
 	var progress=(crafting_time-current_time)/crafting_time
 	if progress>=1:

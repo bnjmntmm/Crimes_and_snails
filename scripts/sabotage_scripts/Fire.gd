@@ -10,6 +10,7 @@ signal sabotage_stopped
 @onready var random_events = $".."
 
 var burningTimer : Timer
+var plane_to_bake
 
 var houseFireDict = {}
 
@@ -17,6 +18,7 @@ func _ready():
 	burningTimer = Timer.new()
 	burningTimer.wait_time = 15.0
 	burningTimer.timeout.connect(destroyHouse)
+	burningTimer.one_shot = true
 	add_child(burningTimer)
 
 
@@ -57,11 +59,12 @@ func fire_stopped(house):
 	houseFireDict[house].fire_scene = null
 	house.audio_stream_player.stop()
 	random_events.start_sabotage_timer()
-	currentHouse = null
 	burningTimer.stop()
+	#currentHouse = null
 
 func destroyHouse():
-	var plane_to_bake = currentHouse.old_plane
+	#get_tree().root.get_node("main").get_node("Grid").get_node("PlayArea").get_node(currentHouse.old_plane.name)
+	plane_to_bake = currentHouse.old_plane
 	currentHouse.fire_scene.queue_free()
 	
 	if currentHouse.name.contains("stock"):
@@ -71,6 +74,7 @@ func destroyHouse():
 		GameManager.calculateNewMaxSnailAmount()
 	if currentHouse.name.contains("House"):
 		GameManager.houses_built-=1
+	print(currentHouse)
 	currentHouse.queue_free()
 	plane_to_bake.bake_nav()
 	sabotage_stopped.emit()

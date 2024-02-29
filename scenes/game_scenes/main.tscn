@@ -43,6 +43,7 @@ size = Vector3(63, 0.3, 63)
 size = Vector3(63, 0.3, 63)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_vlt3o"]
+agent_height = 1.0
 
 [node name="main" type="Node3D"]
 
@@ -114,11 +115,11 @@ collision_layer = 0
 [node name="PlayArea" type="Node3D" parent="Grid"]
 
 [node name="CameraMount" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00121784, 0.0692291)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 script = ExtResource("2_0oeih")
 
 [node name="Camera" type="Camera3D" parent="CameraMount"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 20, 5)
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 20, 0)
 current = true
 near = 2.0
 far = 1000.0
@@ -152,6 +153,7 @@ autoplay = true
 
 [connection signal="grid_generated" from="Grid" to="CameraMount" method="_on_grid_grid_generated"]
 [connection signal="newGridAdded" from="CameraMount" to="CameraMount" method="_on_new_grid_added"]
+[connection signal="switchToBuyLandCamera" from="HUD" to="CameraMount" method="_on_hud_switch_to_buy_land_camera"]
 [connection signal="sabotage_started" from="random_events" to="Grid/NavigationRegion3D/Townhall" method="_on_random_events_sabotage_started"]
 [connection signal="sabotage_stopped" from="random_events/Fire" to="Grid/NavigationRegion3D/Townhall" method="_on_fire_sabotage_stopped"]
 [connection signal="sabotage_stopped" from="random_events/Tornado" to="Grid/NavigationRegion3D/Townhall" method="_on_tornado_sabotage_stopped"]

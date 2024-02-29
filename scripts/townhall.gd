@@ -13,7 +13,7 @@ extends Node3D
 
 var spawn_ready:=false
 var spawn_timer:=0.0
-var spawn_interval:=4.0
+var spawn_interval:=20
 var current_citizen
 var current_pop:=0
 var max_pop:= 10
@@ -28,7 +28,7 @@ var happy_citizen = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	run_spawn()
 
 func run_spawn():
 	current_citizen=citizen.instantiate()
@@ -44,14 +44,14 @@ func _process(delta):
 		spawn_timer += delta
 		if spawn_timer >= spawn_interval:
 			spawn_timer = 0  
-			run_spawn()
-	
+			if GameManager.currentHappinesRatio > GameManager.mediumInspiration:
+				run_spawn()
 
 		
 		
 func _enter_tree():
 	spawn_ready=true
-
+	
 
 func _on_check_for_tree_and_bush_body_entered(body):
 	if body.is_in_group("food"):
@@ -66,7 +66,7 @@ func _on_check_for_tree_and_bush_body_entered(body):
 		
 
 func calculate_happy_citizens():
-	var citizens_with_enough_food = min(GameManager.food/citizen_food_consumption, GameManager.population)
+	var citizens_with_enough_food = min(float(GameManager.food)/float(citizen_food_consumption), GameManager.population)
 	var citizen_with_house = min(GameManager.houses_built*citizen_housing_needs, GameManager.population)
 	happy_citizen = min(citizens_with_enough_food, citizen_with_house)
 	return happy_citizen
@@ -87,7 +87,7 @@ func _on_tornado_sabotage_stopped():
 func _on_inspiration_resource_timer_timeout():
 	if (GameManager.food-(GameManager.population*citizen_food_consumption))>0:
 		GameManager.inspiration+=calculate_happy_citizens()
-		GameManager.food-=GameManager.population*citizen_food_consumption
+		#GameManager.food-=GameManager.population*citizen_food_consumption
 
 
 func _on_happiness_check_timer_timeout():
@@ -96,16 +96,19 @@ func _on_happiness_check_timer_timeout():
 		var percentage = happy_citiz / float(GameManager.population)
 		GameManager.happiness = percentage * 10
 	
+	
+	#this does the check if a riot is allowed
 	if GameManager.happiness < riot_threshold:
 		if not duration_sad_timer.time_left > 0:
 			duration_sad_timer.start()
 	else:
 		duration_sad_timer.stop()
 		GameManager.riotAllowed = false
-		
-		
+	GameManager.currentHappinesRatio = calc_happy_citiz_percent()
 
-
+## Citizens has to be 3s Mad to start a riot
 func _on_duration_sad_timer_timeout():
 	GameManager.riotAllowed = true
 	
+func calc_happy_citiz_percent():
+	return float(calculate_happy_citizens())  / float(GameManager.population)

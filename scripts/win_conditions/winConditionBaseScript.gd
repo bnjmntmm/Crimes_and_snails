@@ -1,11 +1,11 @@
 extends Node
 class_name WinCondition
 
-var npcCountTarget : int = 100
+var npcCountTarget : int = 80
 var foodCountTarget : int = 5000
-var snailCountTarget : int = 10000
+var snailCountTarget : int = 1000
 var landBoughtTarget : int = 20
-var savedSabotages : int = 100
+var savedSabotages : int = 50
 
 
 enum WIN_CONDITION{

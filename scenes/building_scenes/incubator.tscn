@@ -58,8 +58,9 @@ func _on_mouse_exited():
 size = Vector3(5, 6, 5)
 
 [node name="Incubator" type="StaticBody3D" groups=["building"]]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 0, 0, 0)
 script = ExtResource("1_ga4l1")
+plank_cost = 30
 
 [node name="incubator" parent="." instance=ExtResource("1_8menp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.239005, 0, -0.159337)

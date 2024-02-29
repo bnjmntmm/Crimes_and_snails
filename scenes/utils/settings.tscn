@@ -12,7 +12,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -599.0
-offset_bottom = -335.0
+offset_bottom = -310.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_1gn6u")
@@ -40,8 +40,8 @@ layout_mode = 2
 layout_mode = 0
 offset_left = 14.0
 offset_top = 19.0
-offset_right = 121.0
-offset_bottom = 176.0
+offset_right = 420.0
+offset_bottom = 250.0
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="TabContainer/Graphic/VBoxContainer2"]
 layout_mode = 2
@@ -67,6 +67,14 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VSYNC"
+
+[node name="Control" type="Control" parent="TabContainer/Graphic/VBoxContainer2/HBoxContainer7"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="FPS_Button_check" type="CheckButton" parent="TabContainer/Graphic/VBoxContainer2/HBoxContainer7"]
+layout_mode = 2
+text = "SHOW FPS"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Graphic/VBoxContainer2"]
 layout_mode = 2
@@ -251,6 +259,7 @@ text = "Save"
 
 [connection signal="item_selected" from="TabContainer/Graphic/VBoxContainer2/HBoxContainer4/DisplayOptionButton" to="." method="_on_display_option_button_item_selected"]
 [connection signal="toggled" from="TabContainer/Graphic/VBoxContainer2/HBoxContainer7/VSync_Button" to="." method="_on_v_sync_button_toggled"]
+[connection signal="toggled" from="TabContainer/Graphic/VBoxContainer2/HBoxContainer7/FPS_Button_check" to="." method="_on_check_button_toggled"]
 [connection signal="toggled" from="TabContainer/Graphic/VBoxContainer2/HBoxContainer/sdfgi_button" to="." method="_on_sdfgi_button_toggled"]
 [connection signal="toggled" from="TabContainer/Graphic/VBoxContainer2/HBoxContainer2/ssao_button" to="." method="_on_ssao_button_toggled"]
 [connection signal="toggled" from="TabContainer/Graphic/VBoxContainer2/HBoxContainer3/glow_button" to="." method="_on_glow_button_toggled"]

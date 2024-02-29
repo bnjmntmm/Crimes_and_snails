@@ -1,20 +1,31 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://b08cibmbq6mmg"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://b08cibmbq6mmg"]
 
+[ext_resource type="FontFile" uid="uid://c25xfsn6nkt4d" path="res://assets/textures/HUD/UI/KGRedHands.ttf" id="1_4tusb"]
 [ext_resource type="FontFile" uid="uid://dt86lte3ia3eb" path="res://assets/textures/HUD/UI/Life is goofy.ttf" id="1_ci087"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqu31"]
-bg_color = Color(0.854902, 0.686275, 0.403922, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68ubt"]
+bg_color = Color(0.929412, 0.792157, 0.572549, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yka7j"]
-bg_color = Color(0.737255, 0.576471, 0.298039, 1)
+bg_color = Color(0.929412, 0.792157, 0.572549, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iy71q"]
+bg_color = Color(0.929412, 0.792157, 0.572549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnue4"]
+bg_color = Color(0.929412, 0.792157, 0.572549, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pnekb"]
 content_margin_left = 0.0
@@ -33,6 +44,12 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7dgh4"]
+bg_color = Color(0.854902, 0.686275, 0.407843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sf8v0"]
+bg_color = Color(0.768627, 0.603922, 0.321569, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plv15"]
 bg_color = Color(0.929412, 0.792157, 0.572549, 1)
@@ -56,38 +73,54 @@ bg_color = Color(0.768627, 0.603922, 0.321569, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_65u3u"]
+bg_color = Color(0.929412, 0.792157, 0.572549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rx5fr"]
+bg_color = Color(0.929412, 0.792157, 0.572549, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
 [resource]
-Button/colors/font_color = Color(0.439216, 0.517647, 0.372549, 1)
-Button/colors/font_disabled_color = Color(0.439216, 0.517647, 0.372549, 0.427451)
-Button/colors/font_focus_color = Color(0.439216, 0.517647, 0.372549, 1)
-Button/colors/font_hover_color = Color(0.439216, 0.517647, 0.372549, 1)
-Button/colors/font_hover_pressed_color = Color(0.439216, 0.517647, 0.372549, 1)
-Button/colors/font_pressed_color = Color(0.439216, 0.517647, 0.372549, 1)
+Button/colors/font_color = Color(0.792157, 0.392157, 0.235294, 1)
+Button/colors/font_disabled_color = Color(0.792157, 0.392157, 0.235294, 0.619608)
+Button/colors/font_focus_color = Color(0.792157, 0.392157, 0.235294, 1)
+Button/colors/font_hover_color = Color(0.858824, 0.52549, 0.301961, 1)
+Button/colors/font_pressed_color = Color(0.858824, 0.52549, 0.301961, 1)
 Button/font_sizes/font_size = 30
-Button/fonts/font = ExtResource("1_ci087")
-Button/styles/hover = SubResource("StyleBoxFlat_wqu31")
+Button/fonts/font = ExtResource("1_4tusb")
+Button/styles/hover = SubResource("StyleBoxFlat_68ubt")
 Button/styles/normal = SubResource("StyleBoxFlat_yka7j")
-Label/colors/font_color = Color(0.439216, 0.517647, 0.372549, 1)
+Button/styles/pressed = SubResource("StyleBoxFlat_iy71q")
+Label/colors/font_color = Color(0.792157, 0.392157, 0.235294, 1)
 Label/font_sizes/font_size = 80
-Label/fonts/font = ExtResource("1_ci087")
+Label/fonts/font = ExtResource("1_4tusb")
 LineEdit/colors/font_color = Color(0.439216, 0.517647, 0.372549, 1)
 LineEdit/font_sizes/font_size = 30
-LineEdit/fonts/font = ExtResource("1_ci087")
-OptionButton/fonts/font = ExtResource("1_ci087")
+LineEdit/fonts/font = ExtResource("1_4tusb")
+OptionButton/colors/font_color = Color(0.792157, 0.392157, 0.235294, 1)
+OptionButton/fonts/font = ExtResource("1_4tusb")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_fnue4")
 Panel/styles/panel = SubResource("StyleBoxFlat_pnekb")
+PopupMenu/styles/hover = SubResource("StyleBoxFlat_7dgh4")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_sf8v0")
 ProgressBar/fonts/font = ExtResource("1_ci087")
-TabBar/colors/drop_mark_color = Color(0.439216, 0.517647, 0.372549, 1)
-TabBar/colors/font_selected_color = Color(0.439216, 0.517647, 0.372549, 1)
-TabBar/fonts/font = ExtResource("1_ci087")
-TabContainer/colors/font_hovered_color = Color(0.298039, 0.360784, 0.247059, 1)
-TabContainer/colors/font_selected_color = Color(0.439216, 0.517647, 0.372549, 1)
-TabContainer/colors/font_unselected_color = Color(0.392157, 0.466667, 0.333333, 0.588235)
+TabBar/colors/drop_mark_color = Color(0.792157, 0.392157, 0.235294, 1)
+TabBar/colors/font_selected_color = Color(0.792157, 0.392157, 0.235294, 1)
+TabBar/fonts/font = ExtResource("1_4tusb")
+TabContainer/colors/font_hovered_color = Color(0.792157, 0.392157, 0.235294, 1)
+TabContainer/colors/font_selected_color = Color(0.792157, 0.392157, 0.235294, 1)
+TabContainer/colors/font_unselected_color = Color(0.92549, 0.776471, 0.560784, 1)
 TabContainer/styles/panel = SubResource("StyleBoxFlat_plv15")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_mo46n")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_fb0hu")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_h45eu")
 TextEdit/font_sizes/font_size = 30
-TextEdit/fonts/font = ExtResource("1_ci087")
+TextEdit/fonts/font = ExtResource("1_4tusb")
+TooltipPanel/styles/panel = SubResource("StyleBoxFlat_65u3u")
 Tree/font_sizes/font_size = 25
-Tree/fonts/font = ExtResource("1_ci087")
+Tree/fonts/font = ExtResource("1_4tusb")
 Tree/fonts/title_button_font = ExtResource("1_ci087")
+Tree/styles/panel = SubResource("StyleBoxFlat_rx5fr")

@@ -15,23 +15,23 @@ var food:=0
 var wood:=0
 var planks:=0
 var snails:=0
-var wheat:=100
+var wheat:=0
 var happiness:=0
 var inspiration:=0
 var population:=0
-var houses_built:=0
+var houses_built:=1
 var sabotages_stopped:=0
 
-var snailsPerTerrarium : int = 50
+var snailsPerTerrarium : int = 200
 var baseSnailamount : int = 200
 var maxSnails : int = 0
 var terrariumsPlaced : int = 0
 
 
 ####INSPIRATION CHECK
-var happyInspiration = 50
-var mediumInspiration = 30
-var madInspiration = 10
+var happyInspiration = 0.7
+var mediumInspiration = 0.5
+var madInspiration = 0.1
 
 
 var citizen: PackedScene
@@ -42,10 +42,12 @@ var numberOfBoughtLands := 0
 var winChecker = WinCondition.new()
 var opened_npc_menu = false
 
+
 var opened_house_menu = false
+var opened_carpentry_menu=false
 var first_area_generated = false
 var opened_lab_menu = false
-
+var carpentry_running:= true
 
 #### Navigation 
 var tree_array : Array = []
@@ -67,6 +69,10 @@ var inGame = false
 var riotAllowed = false
 var firstState = true
 
+var winScreenOpened : bool = false
+var infiniteBuilding: bool = false
+var currentHappinesRatio : float = 0.0
+
 
 #Watches
 var watch_particles_array : Array = []
@@ -79,6 +85,8 @@ var isWonderBuild = false
 
 var selected_win_condition = null
 
+var showFPSInScreen = false
+
 
 func _ready():
 	winConditionTimer = Timer.new()
@@ -89,12 +97,13 @@ func _ready():
 
 func _process(delta):
 	if inGame:
-		if firstState:
+		if firstState and not infiniteBuilding:
 			winConditionTimer.start()
 			firstState = false
 		if(!get_tree().paused):
 			game_time += delta
 		else:
+			firstState = true
 			winConditionTimer.stop()
 		
 			
@@ -109,8 +118,10 @@ func checkIfWinConditionReached():
 	if condition != null:
 		if condition == selected_win_condition:
 			print("Win by: " + str(condition))
-			
-	winConditionTimer.start()
+			winScreenOpened= true
+			get_tree().paused = true
+			winConditionTimer.stop()
+	#winConditionTimer.start()
 	
 
 func emitting_watch_particles():
