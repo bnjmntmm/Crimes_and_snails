@@ -115,33 +115,36 @@ func _physics_process(delta):
 							obj.spawned=true
 							obj.set_disabled(false)							
 							obj.global_position=current_spawnable.global_position
-							if obj.name.contains("stock"):
+							
+							var name_to_lower_case : String = obj.name.to_lower()
+						
+							if name_to_lower_case.contains("stock"):
 								obj.old_plane = navRegion[0]
 								GameManager.stock_array.append(obj)
-							if obj.name.contains("house"):
+							if name_to_lower_case.contains("house"):
 								GameManager.houses_built+=1
 								obj.old_plane = navRegion[0]
-							if obj.is_in_group("watch"):
+							if obj.is_in_group("Watch"):
 								GameManager.watch_particles_array.append(obj.get_watch_particles())
-							if obj.name.contains("Wonder"):
+							if name_to_lower_case.contains("Wonder"):
 								obj.wonder_timer.start()
-							if obj.name.contains("terrarium"):
+							if name_to_lower_case.contains("terrarium"):
 								GameManager.terrariumsPlaced += 1
 								GameManager.calculateNewMaxSnailAmount()
 								obj.old_plane = navRegion[0]
-							if obj.name.contains("carpentry"):
+							if name_to_lower_case.contains("carpentry"):
 								obj.old_plane = navRegion[0]
-							if obj.name.contains("laboratorium"):
+							if name_to_lower_case.contains("laboratorium"):
 								obj.old_plane = navRegion[0]
-							if obj.name.contains("incubator"):
+							if name_to_lower_case.contains("incubator"):
 								obj.old_plane = navRegion[0]
-							if obj.name.contains("farm"):
+							if name_to_lower_case.contains("farm"):
 								obj.old_plane = navRegion[0]
-							if obj.name.contains("bakery"):
+							if name_to_lower_case.contains("bakery"):
 								obj.old_plane = navRegion[0]
 							current_spawnable.remove_foliage()
 							bake_nav_planes(navRegion)
-							if not obj.name.contains("wonder"):
+							if not name_to_lower_case.contains("wonder"):
 								houseSceneAdded.emit(obj)
 							
 					#get_tree().root.get_node("main").get_node("Grid").get_node("NavigationRegion3D").bake_navigation_mesh()

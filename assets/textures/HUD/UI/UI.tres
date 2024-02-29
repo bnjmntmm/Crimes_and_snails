@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://b08cibmbq6mmg"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://b08cibmbq6mmg"]
 
 [ext_resource type="FontFile" uid="uid://c25xfsn6nkt4d" path="res://assets/textures/HUD/UI/KGRedHands.ttf" id="1_4tusb"]
 [ext_resource type="FontFile" uid="uid://dt86lte3ia3eb" path="res://assets/textures/HUD/UI/Life is goofy.ttf" id="1_ci087"]
@@ -19,6 +19,8 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iy71q"]
 bg_color = Color(0.929412, 0.792157, 0.572549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r71m4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnue4"]
 bg_color = Color(0.929412, 0.792157, 0.572549, 1)
@@ -94,6 +96,7 @@ Button/fonts/font = ExtResource("1_4tusb")
 Button/styles/hover = SubResource("StyleBoxFlat_68ubt")
 Button/styles/normal = SubResource("StyleBoxFlat_yka7j")
 Button/styles/pressed = SubResource("StyleBoxFlat_iy71q")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_r71m4")
 Label/colors/font_color = Color(0.792157, 0.392157, 0.235294, 1)
 Label/font_sizes/font_size = 80
 Label/fonts/font = ExtResource("1_4tusb")

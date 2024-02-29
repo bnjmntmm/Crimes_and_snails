@@ -116,7 +116,7 @@ func _ready():
 				randomBush = GameManager.bush_array.pick_random()
 			navigation_agent.target_position = randomBush.global_position
 			set_process(true)
-	pov_camera.position = Vector3(0,0.9,0)
+	pov_camera.position = Vector3(0,0.6,0)
 	add_child(pov_camera)
 	pov_camera.current = false
 	waterParticles = waterParticlesPrefab.instantiate()
@@ -124,7 +124,7 @@ func _ready():
 	waterProgress = waterProgressNode.get_child(0)
 	waterLabel = waterProgressNode.get_child(1)
 	pov_camera.add_child(waterParticles)
-	waterParticles.position = pov_camera.position + Vector3(0.5,-1.25,0)
+	waterParticles.position = pov_camera.position + Vector3(0.5,-0.6,0)
 	
 	waterProgress.visible = false
 	pov_camera.add_child(waterProgressNode)
@@ -180,7 +180,10 @@ func move_towards_sabotage_house():
 		_on_velocity_computed(new_velocity)
 			
 func _process(delta):
-	pass
+	if pov_camera.current == true:
+		$citizen_root.visible = false
+	else:
+		$citizen_root.visible = true
 
 	
 
@@ -278,11 +281,12 @@ func _physics_process(delta):
 			animation_tree.active = false
 			waterLabel.visible = true
 			if Input.is_action_just_pressed("esc"):
+				pov_camera.current = false
 				waterLabel.visible = false
 				audio_stream_player.play()
 				animation_tree.active = true
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-				pov_camera.current = false
+
 				main_camera.current = true
 				GameManager.current_state = GameManager.State.PLAY
 				if  resource_hold_current==0:

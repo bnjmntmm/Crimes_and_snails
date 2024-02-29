@@ -86,7 +86,9 @@ func _on_tornado_sabotage_stopped():
 
 func _on_inspiration_resource_timer_timeout():
 	if (GameManager.food-(GameManager.population*citizen_food_consumption))>0:
-		GameManager.inspiration+=calculate_happy_citizens()
+		var calcNotNull = calculate_happy_citizens()
+		if calcNotNull > 0:
+			GameManager.inspiration+calcNotNull
 		#GameManager.food-=GameManager.population*citizen_food_consumption
 
 

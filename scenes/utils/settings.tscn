@@ -21,14 +21,13 @@ script = ExtResource("2_16htg")
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.25
-anchor_top = 0.25
-anchor_right = 0.719
-anchor_bottom = 0.698
-offset_left = -139.25
-offset_top = -76.25
-offset_right = 138.393
-offset_bottom = 81.526
+anchor_top = 0.024
+anchor_right = 0.969
+anchor_bottom = 0.939
+offset_left = -1.0
+offset_top = 0.138
+offset_right = 0.143005
+offset_bottom = 0.0679932
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_1gn6u")
@@ -40,7 +39,7 @@ layout_mode = 2
 layout_mode = 0
 offset_left = 14.0
 offset_top = 19.0
-offset_right = 420.0
+offset_right = 525.0
 offset_bottom = 250.0
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="TabContainer/Graphic/VBoxContainer2"]
@@ -132,9 +131,10 @@ layout_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="TabContainer/Sound"]
 layout_mode = 0
-offset_left = 14.0
-offset_right = 531.0
-offset_bottom = 212.0
+offset_left = 2.0
+offset_top = 8.75
+offset_right = 538.0
+offset_bottom = 220.75
 alignment = 1
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="TabContainer/Sound/VBoxContainer2"]
@@ -142,13 +142,12 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="Master" type="Label" parent="TabContainer/Sound/VBoxContainer2/HBoxContainer4"]
-custom_minimum_size = Vector2(70, 0)
+custom_minimum_size = Vector2(98, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 31
-text = "Master"
+theme_override_font_sizes/font_size = 20
+text = "Master:"
 
 [node name="MainSlider" type="HSlider" parent="TabContainer/Sound/VBoxContainer2/HBoxContainer4"]
-custom_minimum_size = Vector2(380, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -157,10 +156,10 @@ step = 0.05
 value = 1.0
 
 [node name="Main_percent_Label" type="Label" parent="TabContainer/Sound/VBoxContainer2/HBoxContainer4"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(55, 0)
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 20
 text = "100%"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -170,9 +169,9 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="Music" type="Label" parent="TabContainer/Sound/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(70, 0)
+custom_minimum_size = Vector2(98, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 31
+theme_override_font_sizes/font_size = 20
 text = "Music: "
 
 [node name="MusicSlider" type="HSlider" parent="TabContainer/Sound/VBoxContainer2/HBoxContainer"]
@@ -185,10 +184,10 @@ step = 0.05
 value = 1.0
 
 [node name="Music_percent_Label" type="Label" parent="TabContainer/Sound/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(55, 0)
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 20
 text = "100%"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -198,9 +197,9 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="AlarmSounds" type="Label" parent="TabContainer/Sound/VBoxContainer2/HBoxContainer2"]
-custom_minimum_size = Vector2(70, 0)
+custom_minimum_size = Vector2(98, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 31
+theme_override_font_sizes/font_size = 20
 text = "Alarm: "
 
 [node name="AlarmSlider" type="HSlider" parent="TabContainer/Sound/VBoxContainer2/HBoxContainer2"]
@@ -213,10 +212,10 @@ step = 0.05
 value = 1.0
 
 [node name="Alarm_percent_Label" type="Label" parent="TabContainer/Sound/VBoxContainer2/HBoxContainer2"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(55, 0)
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 20
 text = "100%"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -226,9 +225,9 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="AmbientSounds" type="Label" parent="TabContainer/Sound/VBoxContainer2/HBoxContainer3"]
-custom_minimum_size = Vector2(70, 0)
+custom_minimum_size = Vector2(98, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 31
+theme_override_font_sizes/font_size = 20
 text = "Ambient:"
 
 [node name="AmbientSlider" type="HSlider" parent="TabContainer/Sound/VBoxContainer2/HBoxContainer3"]
@@ -241,20 +240,20 @@ step = 0.05
 value = 1.0
 
 [node name="Ambient_percent_Label" type="Label" parent="TabContainer/Sound/VBoxContainer2/HBoxContainer3"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(55, 0)
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 20
 text = "100%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button" type="Button" parent="TabContainer/Sound"]
 layout_mode = 0
-offset_left = 445.0
-offset_top = 212.0
-offset_right = 529.0
-offset_bottom = 252.0
+offset_left = 444.0
+offset_top = 225.75
+offset_right = 528.0
+offset_bottom = 265.75
 text = "Save"
 
 [connection signal="item_selected" from="TabContainer/Graphic/VBoxContainer2/HBoxContainer4/DisplayOptionButton" to="." method="_on_display_option_button_item_selected"]
