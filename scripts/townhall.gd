@@ -28,7 +28,8 @@ var happy_citizen = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	run_spawn()
+	#run_spawn()
+	pass
 
 func run_spawn():
 	current_citizen=citizen.instantiate()
@@ -44,7 +45,7 @@ func _process(delta):
 		spawn_timer += delta
 		if spawn_timer >= spawn_interval:
 			spawn_timer = 0  
-			if GameManager.currentHappinesRatio > GameManager.mediumInspiration:
+			if GameManager.currentHappinesRatio > GameManager.mediumInspiration or GameManager.population==0:
 				run_spawn()
 
 		

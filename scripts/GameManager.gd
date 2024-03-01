@@ -11,7 +11,7 @@ enum State{
 }
 var current_state=State.PLAY
 
-var food:=0
+var food:=10
 var wood:=0
 var planks:=0
 var snails:=0
