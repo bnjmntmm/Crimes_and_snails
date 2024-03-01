@@ -90,9 +90,11 @@ func _process(delta):
 			global_position += transform.basis.z * sense
 
 	if Input.is_action_just_pressed("add_snails_command"):
-	#	GameManager.snails = GameManager.snails +100
-		GameManager.wood = GameManager.wood + 100
-	#	GameManager.food = GameManager.food + 100
+		GameManager.snails = GameManager.snails + 50
+		GameManager.wood = GameManager.wood + 50
+		GameManager.food = GameManager.food + 50
+		GameManager.planks = GameManager.planks + 50
+		GameManager.wheat = GameManager.wheat + 50
 
 	if Input.is_action_just_released("mouse_wheel_up"):
 		if !GameManager.opened_lab_menu or !GameManager.opened_npc_menu or !GameManager.opened_house_menu:
