@@ -16,7 +16,7 @@ var is_farmable:=true
 
 
 func _on_farmed():
-	#audio_stream_player.play()
+	audio_stream_player.play()
 	current_times_farmed+=1
 	#print("farmed" +  str(self))
 func _on_max_farmed_reached():
