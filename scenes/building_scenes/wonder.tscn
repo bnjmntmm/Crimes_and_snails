@@ -47,6 +47,12 @@ shape = SubResource("BoxShape3D_311n1")
 [node name="WonderTimer" type="Timer" parent="."]
 wait_time = 3.0
 
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+height = 10.47
+vertices = PackedVector3Array(0.219964, 0, -5.51999, -4.86948, 0, -4.97156, -5.26435, 0, 0.863754, -5.04498, 0, 5.55833, -1.29371, 0, 6.41388, 4.10286, 0, 6.08482, 5.26553, 0, 4.61503, 5.22166, 0, 0.139825, 5.19972, 0, -3.72113, 1.93107, 0, -5.43224)
+avoidance_layers = 2
+use_3d_avoidance = true
+
 [connection signal="timeout" from="WonderTimer" to="." method="_on_wonder_timer_timeout"]
 
 [editable path="NavPlaneCheck"]

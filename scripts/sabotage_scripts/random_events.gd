@@ -60,7 +60,7 @@ func check_if_sabotage_valid():
 		if randomSabotageInt == 0:
 			citizen_walk_towards_house(randomHouse)
 			await selectedCitizen.reachedSabotageHouse
-		
+			print("citizen reached the house")
 		
 			if previousSabotagedHouse != randomHouse:
 				start_sabotage(randomHouse, randomEvent)
@@ -90,8 +90,7 @@ func start_sabotage(obj, sabotage_type):
 #		sabotageTimerCheck.wait_time = sabotageCheckInterval
 #		sabotageTimerCheck.start()
 
-
-
+ 
 	if sabotage_type.name == "Tornado":
 		sabotage_type.travel_to_house(obj)
 		previousSabotagedHouse = obj
@@ -110,7 +109,7 @@ func start_sabotage_timer():
 func citizen_walk_towards_house(house):
 	selectedCitizen = get_tree().get_nodes_in_group("npc").pick_random()
 	selectedCitizen.reachedSabotageHouse.connect(reachedHouse)
-	print(" Citizen selected " + str(selectedCitizen))
+	print(" Citizen selected: " + str(selectedCitizen))
 	if not selectedCitizen.current_task == selectedCitizen.TASK.WALKING:
 		citizen_walk_towards_house(house)
 	else:

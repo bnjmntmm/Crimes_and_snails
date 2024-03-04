@@ -214,6 +214,11 @@ func _on_new_grid_added(body : StaticBody3D):
 		
 		var tree_instance : StaticBody3D = tree_mesh.instantiate()
 		tree_instance.add_to_group("wood")
+		
+		var tree_variants = tree_instance.find_child("tree_variants")
+		var tree_variant = tree_variants.get_children().pick_random()
+		tree_variant.visible = true
+		
 		get_parent().get_node("Grid/PlayArea").get_node(str(body)).get_child(0).get_child(1).call_thread_safe("add_child", tree_instance,true)
 		var random_vec_tree =  Vector3(randi_range(-generate_bushes_and_trees_range,generate_bushes_and_trees_range),0,randi_range(-generate_bushes_and_trees_range,generate_bushes_and_trees_range))
 		tree_instance.global_position =  body.global_position + random_vec_tree

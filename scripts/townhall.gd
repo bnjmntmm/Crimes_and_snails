@@ -13,7 +13,7 @@ extends Node3D
 
 var spawn_ready:=false
 var spawn_timer:=0.0
-var spawn_interval:=20
+var spawn_interval:=1
 var current_citizen
 var current_pop:=0
 var max_pop:= 10
@@ -89,7 +89,7 @@ func _on_inspiration_resource_timer_timeout():
 	if (GameManager.food-(GameManager.population*citizen_food_consumption))>0:
 		var calcNotNull = calculate_happy_citizens()
 		if calcNotNull > 0:
-			GameManager.inspiration+calcNotNull
+			GameManager.inspiration+=calcNotNull
 		#GameManager.food-=GameManager.population*citizen_food_consumption
 
 
@@ -99,11 +99,11 @@ func _on_happiness_check_timer_timeout():
 		var percentage = happy_citiz / float(GameManager.population)
 		GameManager.happiness = percentage * 10
 	
-	
 	#this does the check if a riot is allowed
-	if GameManager.happiness < riot_threshold:
+	if GameManager.happiness <= riot_threshold:
 		if not duration_sad_timer.time_left > 0:
 			duration_sad_timer.start()
+			print("timer start")
 	else:
 		duration_sad_timer.stop()
 		GameManager.riotAllowed = false

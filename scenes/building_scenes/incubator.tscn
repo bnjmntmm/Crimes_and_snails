@@ -62,6 +62,12 @@ transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 0, 0, 
 script = ExtResource("1_ga4l1")
 plank_cost = 30
 
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+height = 3.06
+vertices = PackedVector3Array(-2.5683, 0, 2.29904, 1.49716, 0, 2.34459, 1.47438, 0, -1.85752, -2.48859, 0, -1.83475)
+avoidance_layers = 2
+use_3d_avoidance = true
+
 [node name="incubator" parent="." instance=ExtResource("1_8menp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.239005, 0, -0.159337)
 

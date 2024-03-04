@@ -173,6 +173,8 @@ func _on_farm_button_down():
 func _on_new_land_buy_button_button_down():
 	GameManager.current_state = GameManager.State.BUY_LAND
 	switchToBuyLandCamera.emit()
+	$BuildMenu/MovingPanel.visible = false
+	$BuildMenu/DeletionPanel.visible = false
 
 
 func _on_continue_building_button_down():

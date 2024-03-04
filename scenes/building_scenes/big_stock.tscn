@@ -24,6 +24,12 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 script = ExtResource("1_tuhnu")
 wood_cost = 50
 
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+height = 2.0
+vertices = PackedVector3Array(2.71719, 0, 2.2218, 2.73525, 0, -3.05942, -1.92306, 0, -3.0865, -1.87792, 0, 2.17666)
+avoidance_layers = 2
+use_3d_avoidance = true
+
 [node name="CollisionShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.400094, 1.50913, -0.6949)
 shape = SubResource("BoxShape3D_tsupo")
