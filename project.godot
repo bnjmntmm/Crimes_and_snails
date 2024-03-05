@@ -10,9 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Project C"
+config/name="CrimesAndSnails"
 run/main_scene="res://scenes/game_scenes/main_menu.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
+config/icon="res://assets/icon/human.png"
 
 [autoload]
 
