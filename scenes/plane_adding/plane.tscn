@@ -107,6 +107,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_r2w1a")
 
 [node name="GrashMeshInstance" type="MultiMeshInstance3D" parent="."]
+visible = false
 visibility_range_end = 200.0
 visibility_range_end_margin = 75.0
 visibility_range_fade_mode = 1
